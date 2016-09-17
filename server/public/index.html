@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en" ng-app>
+  <head>
+    <title>Chat Example</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/dist/bootstrap.min.css">
+    <link rel="stylesheet" href="/dist/bootstrap-responsive.min.css">
+        <link rel="stylesheet" href="/dist/styles.css">
+  </head>
+  <body>
+    <div class="container">
+	  <form action="/register/player" method="post" >
+		  <div class="form-group">
+			  <label for="lastname">Last:</label>
+			  <input type="text" class="form-control" name="lastname">
+		  </div>
+			<div class="form-group">
+			  <label for="firstname">First:</label>
+			  <input type="text" class="form-control" name="firstname">
+		  </div>
+			<div class="form-group">
+			  <label for="email">Email:</label>
+			  <input type="email" class="form-control" name="email">
+		  </div>
+		  <input type="submit">
+	  </form>
+    </div>
+
+    <script src="/dist/jquery.min.js"></script>
+    <script src="/dist/bootstrap.min.js"></script>
+  </body>
+</html>
