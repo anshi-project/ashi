@@ -5,5 +5,78 @@ form{
     color:#f7f7f7;
     padding:10px;
     border-radius:10px;
-
 }
+
+input{
+    color:black;
+}
+
+h2 {
+    margin-left: 13em;
+    font-size: 1.5em;
+    
+}
+
+select {
+    margin: 2em 0em 1em 1em;
+}
+
+p {
+    margin: 2em 0em -1em 1em;
+    font-weight: bold;
+}
+
+.hometeam,
+.awayteam,
+.home,
+.away {
+    margin-left: 1em;
+    margin-bottom: 3em;
+}
+
+.remove-player {
+    padding-left: 0.3em;
+    padding-right: 0.3em;
+    background-color: red;
+    color: white;
+}
+
+.player-number {
+    padding-left: 0.3em;
+}
+
+.minus,
+.plus {
+  background-color: #ccd9ff;
+  padding-left: 0.3em;
+  padding-right: 0.3em;
+  margin-left: 0.1em;
+  margin-right: 0.1em;
+}
+
+
+
+
+table {
+  /*border: solid black 1px;*/
+  border-collapse: collapse;
+}
+
+th, td {
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    text-align: center;
+}
+
+th.name {
+    text-align: left;
+}
+
+.name {
+  width: 10em;
+  padding-left: 2em;
+}
+
+tr:nth-child(even) {background-color: #e6ecff}

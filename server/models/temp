@@ -1,0 +1,118 @@
+To connect using the mongo shell:
+mongo ds033076.mlab.com:33076/ashi -u fcc_user -p 1234
+
+
+db.teams.insert{name: "NYRangers",  players: ["57e02707886760a8b1edffac", "57e027ab886760a8b1edffad"]};
+
+"57e027d0886760a8b1edffae", "57e027fb886760a8b1edffaf"
+
+
+var teamSchema=new Schema({
+    name:String,
+    address:{
+        city:String,
+        state:String,
+        street:String
+    },
+    website:String,
+    players:[{type:Schema.Types.ObjectId,ref:"personalInfo"}],
+    goalie:{type:Schema.Types.ObjectId,ref:"personalInfo"},
+    stats:{
+        GP:Number,
+        W:Number,
+        L:Number,
+        T:Number,
+        OT:Number,
+        OSO:Number,
+        P:Number,
+        GF:Number,
+        GA:Number,
+        PP_percent:Number,
+        PK_percent:Number
+    }
+})
+
+db.registration.insert({firstname: "John", lastname: "Doe", hockey_registration_info: {team: "NYRangers"}})
+
+
+
+var registrationSchema=new Schema({
+    lastname:String,
+    firstname:String,
+    date_of_birth:{type:Date},
+    gender:String,
+    weight:Number,
+    height:Number,
+    hometown:String,
+    passport:Boolean,
+    passport_expiration:{type:Date},
+    
+    contact_info:{
+      phone_primary:Number,
+      phone_secondary:Number,
+      phone_parent:Number,
+      email:{type:String,unique:true,lowercase:true},
+      social_media:{
+        facebook:String,
+        twitter:String,
+        instagram:String,
+        linkedin:String
+      },
+      address:String,
+      city:String,
+      state:String,
+      zipcode:Number
+    },
+    bio:{
+      education:String,
+      hockey_history:String,
+      other_sports:String,
+      career_highlights:String,
+      lifestyle:{
+        movie:String,
+        tvshow:String,
+        athlete:String,
+        sports_team:String,
+        other_sport:String,
+        food:String
+      }
+    },
+    hockey_registration_info:{
+      team:String,
+      position:String,
+      shooting_hand:String,
+      tournament_team:String,
+      leaugue_team:String,
+      website:String
+    },
+    apparel:{
+      number:Number,
+      sizes:{
+        jersey:String,
+        shorts:String,
+        socks:String,
+        shirt:String,
+        polo:String,
+        hat:String,
+        jacket:String
+      }
+    }
+});
+
+
+var playerStatsSchema=new Schema({
+    season:Number,
+    game:Number,
+    team:String,
+    player:{type:Schema.Types.ObjectId,ref:"personalInfo"},
+    scores:{
+        G:Number,
+        A:Number,
+        P:Number,
+        PIM:Number,
+        SOG:Number,
+        GWG:Number,
+        PP:Number,
+        SH:Number
+    }
+})
