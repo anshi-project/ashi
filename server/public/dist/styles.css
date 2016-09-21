@@ -11,8 +11,12 @@ input{
     color:black;
 }
 
+h1 {
+    text-align: center;
+}
+
 h2 {
-    margin-left: 13em;
+    margin-left: 7em;
     font-size: 1.5em;
     
 }
@@ -27,9 +31,9 @@ p {
 }
 
 .hometeam,
-.awayteam,
+.roadteam,
 .home,
-.away {
+.road {
     margin-left: 1em;
     margin-bottom: 3em;
 }
@@ -54,8 +58,25 @@ p {
   margin-right: 0.1em;
 }
 
+.date-input {
+    text-align: center;
+}
 
+button.submit-scorecard {
+    margin-left: 1em;
+}
 
+.lock-unlock-scorecard {
+    float: right;
+    background-color: red;
+    color: white;
+    margin-right: 5em;
+}
+
+.show-all-players {
+    float: right;
+    margin-right: 1em;
+}
 
 table {
   /*border: solid black 1px;*/
@@ -70,6 +91,10 @@ th {
     text-align: center;
 }
 
+th.remove-player {
+    background-color: white;
+}
+
 th.name {
     text-align: left;
 }
@@ -80,3 +105,5 @@ th.name {
 }
 
 tr:nth-child(even) {background-color: #e6ecff}
+
+

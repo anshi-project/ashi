@@ -25,14 +25,6 @@ module.exports=function(app){
         res.send(req.session.teamData);
     });
     
-    app.get("/seed",function(req,res){
-       var player=new Player({lastname:"Millar",firstname:"Kevin","hockey_registration_info": {team: "Boston Bruins"}})
-       player.save(function(e,d){
-           if(e)throw e;
-           res.send(player)
-       });
-       
-    });
     
     app.get("/stats",function(req,res){
         Player.find({},function(e,d){
@@ -40,16 +32,15 @@ module.exports=function(app){
         })
     })
     
-    app.get("/team",function(req,res){
-        Team.create({name:"Boston Bruins", players:["57e1a8d313d9bddcd6082e17","57e1a89ee113cbd85fee9418","57e1a875f6a567d3e6396bc9"]})
-        res.send("done")
-    })
+
     
     app.get("/scorecard",function(req,res){
         var teams=req.session.teamData.map(function(v){
             return v.name;
         })
-        res.render("scorecard",{teams:teams}); 
+        var d=new Date();
+        var date=d.getMonth()+1+"/"+d.getDate()+"/"+d.getFullYear()
+        res.render("scorecard",{teams:teams,currentDate:date}); 
     })
     
     app.post("/register/player",function(req,res){

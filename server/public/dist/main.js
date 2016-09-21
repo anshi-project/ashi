@@ -3,7 +3,7 @@
     
     var templ = `<table>
                       <tr>
-                        <th></th>
+                        <th class='remove-player'></th>
                         <th class='player-number'><bold>#</bold></th>
                         <th class='name'><bold>Name</bold></th>
                         <th><bold>G</bold></th>
@@ -33,7 +33,8 @@
                           </tr>
                       <% }) %>
                 </table>`
-
+                
+   
     
     function displayTeam(location, team, playersArr){
         var teamHtml = _.template(templ)({'players': playersArr})
@@ -54,18 +55,43 @@
         });
         
         $('.remove-player').on('click', function (){
-            $(this).closest('tr').remove();
+            $(this).closest('tr').hide();
         })
     }
     
-    $(".away-dropdown, .home-dropdown").on("change", function(){
+    $(".road-dropdown, .home-dropdown").on("change", function(){
         var value = this.value;
-        var team = teamData[value].name;
-        var location=$(this).attr("class").replace("-dropdown","");//home or away
-        if (value !== ""){
-            playersArr = teamData[value].players;
-            displayTeam(location, team, playersArr);
+        if (value === "") return;
+        if ($('.road-dropdown').val() === $('.home-dropdown').val()) {
+            alert('Select the opposing team');
+            return;
         }
+        var team = teamData[value].name;
+        var location = $(this).attr("class").replace("-dropdown","");//home or road
+        $('.' + location + '-team-name').html(location + ' team: ' + team );
+        playersArr = teamData[value].players;
+        displayTeam(location, team, playersArr);
+        
+    });
+    
+    $(".lock-unlock-scorecard").on('click', function(){
+        if ($(this).text() === "Lock controls"){
+            $('.remove-player').hide();
+            $(this).text('Unlock controls');
+            $('.dropdown-boxes').hide();
+            $(this).css('background-color', 'green');
+            $('.show-all-players').hide();
+        } else {
+            $('.remove-player').show();
+            $(this).text('Lock controls');
+            $('.dropdown-boxes').show();
+            $(this).css('background-color', 'red');
+            $('.show-all-players').show();
+        }
+    })
+    
+    $(".show-all-players").on('click', function(){
+        $('tr').show();
     });
     
     function teamFun (data){
@@ -77,7 +103,7 @@
 
 }());
 
-//populate home or away team 
+//populate home or road team 
         // var html="<hr><div class='container'><h2>"+location +" : "+team +"</h2><ul class='list-group'>";
         
         // playersArr.forEach(function(player){
