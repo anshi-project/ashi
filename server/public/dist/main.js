@@ -59,15 +59,15 @@
         })
     }
     
-    $(".road-dropdown, .home-dropdown").on("change", function(){
+    $("#road-dropdown, #home-dropdown").on("change", function(){
         var value = this.value;
         if (value === "") return;
-        if ($('.road-dropdown').val() === $('.home-dropdown').val()) {
+        if ($('#road-dropdown').val() === $('#home-dropdown').val()) {
             alert('Select the opposing team');
             return;
         }
         var team = teamData[value].name;
-        var location = $(this).attr("class").replace("-dropdown","");//home or road
+        var location = $(this).attr("id").replace("-dropdown","");//home or road
         $('.' + location + '-team-name').html(location + ' team: ' + team );
         playersArr = teamData[value].players;
         displayTeam(location, team, playersArr);

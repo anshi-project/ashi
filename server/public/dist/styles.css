@@ -30,6 +30,11 @@ p {
     font-weight: bold;
 }
 
+.date {
+    margin-bottom: 2em;
+    text-align: center;
+}
+
 .hometeam,
 .roadteam,
 .home,

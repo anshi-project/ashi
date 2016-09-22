@@ -1,26 +1,41 @@
 <h1>ASHI Scorecard</h1>
 
-<div class="dropdown-boxes">
-	<p class='date-input'>{{currentDate}}</p>
-	<p class="">Select home team</p>
-	<select class="home-dropdown">
-		<option value="">Select Home team</option>
-		{{>_teamDropdown}}
-	</select>
+<p class='date'>{{currentDate}}</p>
+
+
+<div class='container'>
+	<div class='dropdown-boxes'>
+		<div class="row">
+    		<div class="col-sm-6">
+        		<div class="form-group">
+					<p class="">Select home team</p>
+						<select class="form-control" id="home-dropdown">
+							<option value="">Select Home team</option>
+							{{>_teamDropdown}}
+						</select>
+				</div>
+			</div>
+			<div class="col-sm-6">
+        		<div class="form-group">	
+					<p class="">Select road team</p>
+					<select class="form-control" id='road-dropdown'>
+						<option value="">Select Road team</option>
+						{{>_teamDropdown}}
+					</select>
+				</div>
+			</div>
+		</div>
+	</div>
 	
-	<p class="">Select road team</p>
-	<select class="road-dropdown">
-		<option value="">Select road team</option>
-		{{>_teamDropdown}}
-	</select>
+	<div class='teams'>
+		<h2 class='home-team-name'></h2>
+		<div class="home"></div>
+		<h2 class='road-team-name'></h2>
+		<div class="road"></div>
+		<button type='submit' class='submit-scorecard btn btn-primary'>Submit</button>
+		<button type='submit' class='lock-unlock-scorecard btn btn-danger'>Lock controls</button>
+		<button type='submit' class='show-all-players btn btn-primary'>Show all players</button>
+	</div>
 </div>
 
-<h2 class='home-team-name'></h2>
-<div class="home"></div>
-<h2 class='road-team-name'></h2>
-<div class="road"></div>
-
-<button type='submit' class='submit-scorecard'>Submit</button>
-<button type='submit' class='lock-unlock-scorecard'>Lock controls</button>
-<button type='submit' class='show-all-players'>Show all players</button>
 
