@@ -1,7 +1,7 @@
 (function(){
     var teamData;
-    
-    var templ = `<table>
+   
+      var templ = `<table>
                       <tr>
                         <th class='remove-player'></th>
                         <th class='player-number'><bold>#</bold></th>
@@ -56,6 +56,7 @@
         
         $('.remove-player').on('click', function (){
             $(this).closest('tr').hide();
+            $('.show-all-players').show();
         })
     }
     
@@ -92,11 +93,14 @@
     
     $(".show-all-players").on('click', function(){
         $('tr').show();
+        $(this).hide();
     });
     
     function teamFun (data){
         teamData = data;
     }
+    
+    $('.show-all-players').hide();
     
     $.get('/players', teamFun)
 

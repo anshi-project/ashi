@@ -23,6 +23,7 @@ h2 {
 
 select {
     margin: 2em 0em 1em 1em;
+    cursor: pointer;
 }
 
 p {
@@ -48,7 +49,10 @@ p {
     padding-right: 0.3em;
     background-color: red;
     color: white;
+    cursor: pointer;
 }
+
+
 
 .player-number {
     padding-left: 0.3em;
@@ -61,6 +65,7 @@ p {
   padding-right: 0.3em;
   margin-left: 0.1em;
   margin-right: 0.1em;
+  cursor: pointer;
 }
 
 .date-input {
