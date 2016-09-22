@@ -18,7 +18,7 @@
                       </tr>
                       <% _.each(players, function(player) { %>
                           <tr>
-                            <td class='remove-player'>X</td>
+                            <td class='remove-player' data-toggle="tooltip" data-container="body" data-placement="bottom" title="Remove player">X</td>
                             <td class='player-number'>0</td>
                             <td class='name'><%=player.firstname + ' ' + player.lastname%></td>
                             <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
@@ -58,6 +58,8 @@
             $(this).closest('tr').hide();
             $('.show-all-players').show();
         })
+        
+         $('[data-toggle="tooltip"]').tooltip();
     }
     
     $("#road-dropdown, #home-dropdown").on("change", function(){
@@ -101,6 +103,8 @@
     }
     
     $('.show-all-players').hide();
+    
+    
     
     $.get('/players', teamFun)
 

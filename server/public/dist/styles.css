@@ -1,10 +1,16 @@
-form{
-    width:40%;
-    margin:50px auto;
-    background:#366;
-    color:#f7f7f7;
-    padding:10px;
-    border-radius:10px;
+/*form{*/
+/*    width:40%;*/
+/*    margin:50px auto;*/
+/*    background:#366;*/
+/*    color:#f7f7f7;*/
+/*    padding:10px;*/
+/*    border-radius:10px;*/
+/*}*/
+
+img {
+    margin: 1em 0em 0em 1em;
+    width: 10em;
+    height: 6em;
 }
 
 input{
@@ -86,6 +92,10 @@ button.submit-scorecard {
 .show-all-players {
     float: right;
     margin-right: 1em;
+}
+
+.select-box-label {
+    margin-left: 2em;
 }
 
 table {
