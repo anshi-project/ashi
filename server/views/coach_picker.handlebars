@@ -1,0 +1,30 @@
+<div class="container">
+    <ul class="list-group">
+        {{#each coaches}}
+        <li class="list-group-item">
+            <a href="#{{this._id}}" role="button" data-toggle="collapse">
+                {{this.contact.lastname}}, {{this.contact.firstname}}
+            </a>
+            <div class="collapse" id="{{this._id}}">
+                <form disabled>
+                    <select name="team">
+                        <option disabled selected selected>Select A Team</option>
+                        {{> scorecard/_teamDropdown2}}
+                    </select>
+                    <select name="role">
+                        <option disabled selected>Select A Position</option>
+                        <option value="Head Coach">Head Coach</option>
+                        <option value="Assistant Head Coach">Assistant Head Coach</option>
+                        <option value="Assistant Coach for Defense">Assistant Coach for Defense</option>
+                        <option value="Assistant Coach for Forwards">Assistant Coach for Forwards</option>
+                        {{#if this.alternative_position}}
+                        <option value="{{this.alternative_position}}">**{{this.alternative_position}}**</option>
+                        {{/if}}
+                    </select>
+                    <input type="submit" class="addToTeam addCoach"  value="Add to team">
+                </form>    
+            </div>
+        </li>
+        {{/each}}
+    </ul>
+</div>

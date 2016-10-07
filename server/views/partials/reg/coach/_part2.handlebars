@@ -1,0 +1,29 @@
+<div class="form-part2">
+  <div class="form-group">
+    <label for="phone">Phone Number:</label><br>
+    <input type="text" name="phone">      
+  </div>  
+   <div class="form-group">
+    <label for="street">Street Address:</label><br>
+    <input type="text" name="street"> 
+  </div>
+  <div class="form-group">
+    <label>City & State:</label><br>
+    <input type="text" name="city">
+    <input list="state" name="state">
+    <datalist id="state">
+      {{#each states}}
+      <option value="{{this}}">{{this}}</option>
+      {{/each}}
+    </select>
+  </div> 
+  <div class="form-group">
+    <label for="zipcode">Zipcode:</label><br>
+    <input type="text" name="zipcode"> 
+  </div>
+  <hr>
+    <progress value="2" max="6"></progress><br>
+  <button type="button" class="btn  back">Back</button>  
+  <button type="button" class="btn next">Next</button>
+</div>
+

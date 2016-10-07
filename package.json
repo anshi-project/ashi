@@ -2,10 +2,11 @@
   "name": "A.S.H.I.",
   "version": "0.0.0",
   "description": "",
-  "main": "server.js",
+  "main": "app.js",
   "repository": "",
   "author": "",
   "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
     "bcryptjs": "^2.3.0",
     "bluebird": "^3.4.6",
     "body-parser": "^1.15.2",
@@ -35,6 +36,7 @@
     "eslint-loader": "^1.5.0",
     "eslint-plugin-import": "^1.14.0",
     "mocha": "^3.0.2",
+    "nodemon": "^1.10.2",
     "sinon": "^1.17.5",
     "webpack": "^1.13.2",
     "webpack-dev-server": "^1.15.2"

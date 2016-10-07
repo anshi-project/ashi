@@ -1,12 +1,191 @@
-/*form{*/
-/*    width:40%;*/
-/*    margin:50px auto;*/
-/*    background:#366;*/
-/*    color:#f7f7f7;*/
-/*    padding:10px;*/
-/*    border-radius:10px;*/
+body{
+    background:#f0ffff;
+}
+img {
+    margin: 1em 0em 0em 1em;
+    width: 10em;
+    height: 6em;
+}
+
+#registration-form{
+    width:60%;
+    margin:7em auto 10px;
+    border-radius:10px;
+    background:#ff4b4b;
+    color:#171a88;
+    padding:10px;
+}
+
+textarea{
+    height:100px;
+    width:90%;
+}
+
+@media (max-width:700px){
+    #registration-form{
+        width:95%;
+    }
+    label{
+        font-size:.7em;
+    }
+}
+
+.error{
+    text-indent: 5px;
+    font-style: italic;
+    letter-spacing: 1px;
+    color:yellow;
+    background:black;
+}
+
+.list-group{
+    margin-top: 7em;
+}
+
+.table{
+   width:90%;
+   margin:20px auto;
+}
+.container {
+    margin-top: -5em;
+}
+.form-part2,.form-part3,.form-part4,.form-part5,.form-part6,.form-part7{
+    display: none;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 2em;
+}
+
+h2 {
+    margin-left: 12em;
+    font-size: 1.5em;
+    
+}
+
+select {
+    margin: 2em 0em 1em 1em;
+    cursor: pointer;
+}
+
+p {
+    margin: 2em 0em -1em 1em;
+    font-weight: bold;
+}
+
+/*.date {*/
+/*    margin-bottom: 2em;*/
+/*    text-align: center;*/
 /*}*/
 
+.hometeam,
+.roadteam,
+.home,
+.road {
+    margin-left: 1em;
+    margin-bottom: 3em;
+}
+
+.remove-player {
+    padding-left: 0.3em;
+    padding-right: 0.3em;
+    background-color: red;
+    color: white;
+    cursor: pointer;
+}
+
+
+
+.player-number,
+.goalie-number{
+    padding-left: 0.3em;
+}
+
+.minus,
+.plus {
+  background-color: #ccd9ff;
+  padding-left: 0.3em;
+  padding-right: 0.3em;
+  margin-left: 0.1em;
+  margin-right: 0.1em;
+  cursor: pointer;
+}
+
+.date-input {
+    text-align: center;
+}
+
+button.submit-scorecard {
+    margin-left: 1em;
+}
+
+.lock-unlock-scorecard {
+    float: right;
+    background-color: red;
+    color: white;
+    margin-right: 5em;
+}
+
+/*.show-all-players {*/
+/*    float: right;*/
+/*    margin-right: 1em;*/
+/*}*/
+
+.select-box-label {
+    margin-left: 2em;
+}
+
+table {
+  /*border: solid black 1px;*/
+  border-collapse: collapse;
+}
+
+th, td {
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    text-align: center;
+}
+
+/*th.remove-player {*/
+/*    background-color: white;*/
+/*}*/
+
+th.name {
+    text-align: left;
+}
+
+.name {
+  width: 15em;
+  padding-left: 2em;
+}
+
+tr:nth-child(even) {background-color: #e6ecff}
+
+.container-fluid {
+  margin-top: -5em;
+  margin-right: 1em;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+}
+
+.goalies {
+    margin-top: 2em;
+}
+
+.end-stats {
+  width: 15.7em;
+  text-align: left;
+  padding-left: 3em;
+}
+
+.team-stats {
+  margin-top: 2em;
+}
+
+/*=================================================*/
 img {
     margin: 1em 0em 0em 1em;
     width: 10em;
@@ -19,12 +198,13 @@ input{
 
 h1 {
     text-align: center;
+    margin-bottom: 2em;
 }
 
 h2 {
-    margin-left: 7em;
+    margin-left: 12em;
     font-size: 1.5em;
-    
+
 }
 
 select {
@@ -50,17 +230,8 @@ p {
     margin-bottom: 3em;
 }
 
-.remove-player {
-    padding-left: 0.3em;
-    padding-right: 0.3em;
-    background-color: red;
-    color: white;
-    cursor: pointer;
-}
-
-
-
-.player-number {
+.player-number,
+.goalie-number {
     padding-left: 0.3em;
 }
 
@@ -94,17 +265,16 @@ button.submit-scorecard {
     margin-right: 1em;
 }
 
-.select-box-label {
-    margin-left: 2em;
-}
-
 table {
-  /*border: solid black 1px;*/
   border-collapse: collapse;
 }
-
 th, td {
     border-bottom: 1px solid #ddd;
+}
+
+.percent-cell {
+  text-align: center;
+  width: 7em;
 }
 
 th {
@@ -120,10 +290,58 @@ th.name {
 }
 
 .name {
-  width: 10em;
+  width: 15em;
   padding-left: 2em;
 }
 
 tr:nth-child(even) {background-color: #e6ecff}
 
+.container-fluid {
+  margin-top: -5em;
+  margin-right: 1em;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+}
+
+.team-stats-header {
+  width: 16.8em;
+  text-align: left;
+  padding-left: 3.7em;
+}
+
+.home-team-stats,
+.road-team-stats {
+  margin-top: 1em;
+}
+
+
+.home-name-input,
+.road-name-input {
+  display: inline;
+  margin-left: 4em;
+}
+
+input[type="text"] {
+  margin-left: 0.5em;
+  margin-right: 0.5em;
+}
+
+.home-goaliesTable,
+.road-goaliesTable {
+  margin-top: 0.5em;
+}
+
+.team-stats-header-blank {
+  width: 20.4em;
+}
+
+.blank-table {
+  margin-top: 1.5em;
+}
+
+body {
+  padding-bottom: 20em;
+}
+
+/*==============================================*/
 
