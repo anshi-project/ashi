@@ -1,5 +1,5 @@
 
-var Team=require("../models/team")
+var Team=require("../models/team/team")
 
 
 module.exports=function(app){

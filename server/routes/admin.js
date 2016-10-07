@@ -2,11 +2,9 @@ var Registration=require("../models/registration/main")
 var Player=require("../models/players/_default");
 var Goalie=require("../models/players/_goalie");
 var Coach=require("../models/staff/coach");
-var Team=require("../models/team")
+var Team=require("../models/team/team")
 
 module.exports=function(app){
-    
-
     
     app.get("/admin/registration/players",function(req,res){
         Registration.findByType("PlayerRegistration",function(err,docs){

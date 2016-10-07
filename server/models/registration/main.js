@@ -1,8 +1,6 @@
 var mongoose=require("mongoose");
 var Schema=mongoose.Schema;
 
-const bcrypt=require('bcrypt-nodejs');
-
 var Team=require("../team/team");
 
 
@@ -46,23 +44,7 @@ registrationSchema.statics.findByType=function(type,callback){
     })
 }
 
-//encrypt password on relavent submissions
-registrationSchema.pre('save', function(next) {
-  var user = this;
-  
-  if(!user.password) return next();
- 
-  bcrypt.genSalt(10, function(err, salt) {
-    if (err) { return next(err); }
 
-    bcrypt.hash(user.password, salt, null, function(err, hash) {
-      if (err) { return next(err); }
-
-      user.password = hash;
-      next();
-    });
-  });
-});
 
 
 module.exports=mongoose.model("registration",registrationSchema);

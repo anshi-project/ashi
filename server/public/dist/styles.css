@@ -1,6 +1,7 @@
 body{
     background:#f0ffff;
 }
+
 img {
     margin: 1em 0em 0em 1em;
     width: 10em;
@@ -324,6 +325,7 @@ tr:nth-child(even) {background-color: #e6ecff}
 input[type="text"] {
   margin-left: 0.5em;
   margin-right: 0.5em;
+  line-height: 0.8em;
 }
 
 .home-goaliesTable,

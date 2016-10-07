@@ -2,6 +2,7 @@
 <div class='container-fluid'>
 	<h1>ASHI Scorecard</h1>
 		<div class="row controls">
+			<div class="col-sm-4"></div>
 			<div class="col-sm-4">
 				<div class="input-group date" data-provide="datepicker">
 				    <input type="text" class="form-control" value="Select game date">
@@ -9,8 +10,15 @@
 				        <span class="glyphicon glyphicon-th"></span>
 				    </div>
 				</div>
+				<div class="input-group clockpicker controls">
+    			<input type="text" class="form-control">
+    			<span class="input-group-addon">
+    				<span class="glyphicon glyphicon-time"></span>
+    			</span>
+				</div>
 			</div>
-			<div class="col-sm-4"></div>
+			<div class="col-sm-4">
+			</div>
 		</div>
 		<div class="row">
 	    	<div class="col-sm-6">
@@ -43,6 +51,53 @@
 		<button type='submit' class='lock-unlock-scorecard btn btn-danger'>Lock controls</button>
 		<button type='submit' class='show-all-players btn btn-primary'>Show all players</button>
 </div>
+
+
+{{!--<img src='../public/images/ashi-logo.png' alt='ashi logo'>--}}
+{{!--<div class='container-fluid'>--}}
+{{!--	<h1>ASHI Scorecard</h1>--}}
+{{!--		<div class="row controls">--}}
+{{!--			<div class="col-sm-4">--}}
+{{!--				<div class="input-group date" data-provide="datepicker">--}}
+{{!--				    <input type="text" class="form-control" value="Select game date">--}}
+{{!--				    <div class="input-group-addon">--}}
+{{!--				        <span class="glyphicon glyphicon-th"></span>--}}
+{{!--				    </div>--}}
+{{!--				</div>--}}
+{{!--			</div>--}}
+{{!--			<div class="col-sm-4"></div>--}}
+{{!--		</div>--}}
+{{!--		<div class="row">--}}
+{{!--	    	<div class="col-sm-6">--}}
+{{!--	       		<div class="form-group controls">--}}
+{{!--					<select class="form-control" id="home-dropdown">--}}
+{{!--						<option value="">Select Home team</option>--}}
+{{!--						{{>scorecard/_teamDropdown}}--}}
+{{!--						<option value="blank score card">blank scorecard</option>--}}
+{{!--					</select>--}}
+{{!--				</div>--}}
+{{!--				<h2 class='home-team-name'></h2>--}}
+{{!--				<div class="home-name-input"></div>--}}
+{{!--				<div class="home"></div>--}}
+{{!--			</div>--}}
+{{!--			<div class="col-sm-6">--}}
+{{!--	        	<div class="form-group controls">--}}
+{{!--					<select class="form-control" id='road-dropdown'>--}}
+{{!--						<option value="">Select Road team</option>--}}
+{{!--						{{>scorecard/_teamDropdown}}--}}
+{{!--						<option value="blank score card">blank scorecard</option>--}}
+{{!--					</select>--}}
+{{!--				</div>--}}
+{{!--				<h2 class='road-team-name'></h2>--}}
+{{!--				<div class="road-name-input"></div>--}}
+{{!--				<div class="road"></div>--}}
+{{!--			</div>--}}
+{{!--		</div>--}}
+
+{{!--		<button type='submit' class='submit-scorecard btn btn-primary'>Submit</button>--}}
+{{!--		<button type='submit' class='lock-unlock-scorecard btn btn-danger'>Lock controls</button>--}}
+{{!--		<button type='submit' class='show-all-players btn btn-primary'>Show all players</button>--}}
+{{!--</div>--}}
 
 
 

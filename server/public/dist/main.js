@@ -1,8 +1,10 @@
-/*global $*/
-/*global _*/
 (function(){
     var teamData;
     var formData;
+    var homeDropDownVal = "";
+    var roadDropDownVal = "";
+    var prevHomeDropDownVal;
+    var prevRoadDropDownVal;
     var playersTemplate = `<table class='<%=location%>-playersTable'>
                       <thead>
                       <tr>
@@ -25,7 +27,7 @@
                           <tr>
                             <td class="select-player"><input type="checkbox"></td>
                             <td class='player-number'>0</td>
-                            <td class='name'><%=player.firstname + ' ' + player.lastname%></td>
+                            <td class='name'><%=player.registration.public_data.firstname + ' ' + player.registration.public_data.lastname%></td>
                             <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
                             <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
                             <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
@@ -61,7 +63,7 @@
                                   <tr>
                                     <td class="select-player"><input type="checkbox"></td>
                                     <td class='goalie-number'>0</td>
-                                    <td class='name'><%=goalie.firstname + ' ' + goalie.lastname%></td>
+                                    <td class='name'><%=goalie.registration.public_data.firstname + ' ' + goalie.registration.public_data.lastname%></td>
                                     <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
                                     <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
                                     <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
@@ -160,7 +162,7 @@
                                                     </tr>
                                                   </thead>
                                                   <tbody>
-                                                  <% _.each([0,0,0,0], function(goalie) { %>
+                                                  <% _.each([0,0,0], function(goalie) { %>
                                                       <tr>
                                                         <td class="select-player"><input type="checkbox"></td>
                                                         <td class='player-number-blank'><input type='text' maxlength="2" size="2"></td>
@@ -245,10 +247,21 @@
     }
 
     $("#road-dropdown, #home-dropdown").on("change", function() {
-        var value = this.value;
-        if (value === "") return;
+        var dropDownVal = this.value;
+        if (dropDownVal === "") return;
+        if ($('#road-dropdown').val() === $('#home-dropdown').val()) {
+            alert('Select the opposing team');
+            return;
+        }
         var location = $(this).attr("id").replace("-dropdown","");
-        if (value === 'blank score card') {
+        if (location === 'home') {
+          prevHomeDropDownVal = homeDropDownVal;
+          homeDropDownVal = dropDownVal;
+        } else {
+          prevRoadDropDownVal = roadDropDownVal;
+          roadDropDownVal = dropDownVal;
+        }
+        if (dropDownVal === 'blank score card') {
           $('.' + location + '-team-name').text(location + ' team:')
           $('.' + location + '-name-input').html('<input type="text" maxlength="30" class="team-name-input">');
           $('.' + location + '-team-name').css({'display':'inline-block', 'margin-left' : '4em'});
@@ -256,17 +269,15 @@
           $('#' + location + '-dropdown').css('margin-bottom', '-1.15em');
           return;
         }
-        if ($('#road-dropdown').val() === $('#home-dropdown').val()) {
-            alert('Select the opposing team');
-            return;
+        if ( (location === 'home' && prevHomeDropDownVal === 'blank score card') ||
+             (location === 'road' && prevRoadDropDownVal === 'blank score card') )  {
+              $('.' + location).css('margin-top', '1.6em');
         }
-
         $('.' + location + '-name-input').children().hide();
-        var team = teamData[value].name;
-        var location = $(this).attr("id").replace("-dropdown","");//home or road
+        var team = teamData[dropDownVal].name;
         $('.' + location + '-team-name').html(location + ' team: ' + team );
-        var playersArr = teamData[value].players;
-        var goaliesArr = teamData[value].goalies;
+        var playersArr = teamData[dropDownVal].players;
+        var goaliesArr = teamData[dropDownVal].goalies;
         displayTeam(false, location, team, playersArr, goaliesArr);
     });
 
@@ -315,14 +326,20 @@
 
     function teamFun (data){
         teamData = data;
-        console.log(teamData)
+        console.log('teamData', teamData);
     }
 
     $('.show-all-players').hide();
-
-
     $('.datepicker').datepicker();
+    $('.clockpicker').clockpicker(({donetext: 'Done'})).children().first().val('Select game start time');
+
     $.get('/players', teamFun)
+    
+    $(body).css('font-size', '1.2em');
 
 
 }());
+
+
+
+
