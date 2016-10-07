@@ -335,7 +335,7 @@
 
     $.get('/players', teamFun)
     
-    $(body).css('font-size', '1.2em');
+    $('body').css('font-size', '1.4em');
 
 
 }());

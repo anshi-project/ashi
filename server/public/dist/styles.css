@@ -128,17 +128,11 @@ button.submit-scorecard {
     margin-right: 5em;
 }
 
-/*.show-all-players {*/
-/*    float: right;*/
-/*    margin-right: 1em;*/
-/*}*/
-
 .select-box-label {
     margin-left: 2em;
 }
 
 table {
-  /*border: solid black 1px;*/
   border-collapse: collapse;
 }
 
@@ -149,10 +143,6 @@ th, td {
 th {
     text-align: center;
 }
-
-/*th.remove-player {*/
-/*    background-color: white;*/
-/*}*/
 
 th.name {
     text-align: left;
@@ -333,8 +323,13 @@ input[type="text"] {
   margin-top: 0.5em;
 }
 
-.team-stats-header-blank {
-  width: 20.4em;
+.team-stats-header-blank
+ {
+  width: 18.7em;
+}
+
+.goalie-name-blank {
+  width: 12.5em;
 }
 
 .blank-table {
