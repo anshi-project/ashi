@@ -5,6 +5,12 @@ var Team=require("../models/team/team")
 module.exports=function(app){
     
     app.use("/",function(req,res,next){
+        res.setHeader('Access-Control-Allow-Origin', 'https://ashi-ahstein3521.c9users.io');
+
+        res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
+
+        res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+
         if(req.session.teamData){
             return next();
         }else{
@@ -31,6 +37,37 @@ module.exports=function(app){
         })
         res.render("scorecard",{teams:teams}); 
     })
+    
+    app.post("/scorecard", function (req, res){
+        var stats = req.body.data.stats;
+        var teamName = req.body.data.teamName;
+        console.log(teamName);
+        stats.home_game = Boolean(stats.home_game);
+        
+        
+        for (var property in stats.ashi_team_stats){
+            if (stats.ashi_team_stats.hasOwnProperty(property)) {
+              stats.ashi_team_stats[property] = Number(stats.ashi_team_stats[property]);
+            }
+        }
+        
+        for (var property in stats.opponent_stats){
+            if (stats.opponent_stats.hasOwnProperty(property)) {
+              stats.opponent_stats[property] = Number(stats.opponent_stats[property]);
+            }
+        }
+        
+        Team.findOneAndUpdate({name: teamName}, 
+                  {$push: {"games_stats": stats}},
+                  {safe: true, upsert: true}, function(err, model){
+                      console.log(err);
+                  }
+                 );
+        // console.log(stats);
+        res.status(200).send();
+   
+        
+    });
     
 }
 

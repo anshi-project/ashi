@@ -19,7 +19,7 @@ var registrationSchema=new Schema({
 
 
 registrationSchema.statics.submit=function(id,team,type,PERSON){
-    var fields="-contact -jersey_number_choices  -registration_status -hockey_info  -__v";
+    var fields="-contact -jersey_number_choices -hockey_info  -__v";
     
     if(type=="coach") fields="-short_answers -coaching_info -registration_status -__v";
     

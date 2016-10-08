@@ -44,3 +44,21 @@ module.exports=function(app){
         })
     })
 }
+
+
+    // app.get("/admin/test",function(req,res){
+    //     res.render("returning_player_registration")
+    // })
+    
+    // app.post("/admin/test",function(req,res){
+    //      var Player=require("../models/players/main");
+    //      var query={"registration.public_data.lastname":req.body.lastname,
+    //                 "registration.public_data.firstname":req.body.firstname,
+    //                 "registration.public_data.email":req.body.email}
+        
+    //      Player.findOne(query,function(err,doc){
+    //          if(err) throw err;
+    //          doc.registerForNewSeason();
+    //          res.send(doc);
+    //      })
+    // })

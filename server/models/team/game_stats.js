@@ -1,8 +1,8 @@
 var mongoose = require('mongoose');
-var Schema= mongoose.Schema;
+var Schema = mongoose.Schema;
 
 var GameStatsSchema = new Schema({
-    home: {type: Boolean, default: true},
+    home_game: {type: Boolean, default: true},
     opponent: {type: String},
     date: {type: String},
     time: {type: String},
@@ -10,5 +10,5 @@ var GameStatsSchema = new Schema({
     opponent_stats: {type:Schema.Types.ObjectId, ref: "TeamGameStats"}
 });
 
-module.exports('GameStats', GameStatsSchema);
+module.exports = mongoose.model('GameStats', GameStatsSchema);
 

@@ -1,5 +1,6 @@
 <div class="container">
     <ul class="list-group">
+        {{#if player}}
         {{#each player}}
         <li class="list-group-item">
             <a href="#{{this._id}}" role="button" data-toggle="collapse">
@@ -32,4 +33,9 @@
         </li>
         {{/each}}
     </ul>
+    {{else}}
+    <div class="jumbotron">
+        <h3>Nothing to see here</h3>
+    </div>
+    {{/if}}
 </div>
