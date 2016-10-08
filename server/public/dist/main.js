@@ -353,12 +353,12 @@ $('#ashi-team').attr('class');
         a = roadTeamStats[2];
         o = homeTeamStats[2];
       }
-      var ashi_team_stats = {Q1_goals: a[1], Q2_goals: a[2], Q3_goals: a[3], OT: a[4], FS: a[5], PA: a[6], SO: a[7]};
-      var opponent_stats = {Q1_goals: o[1], Q2_goals: o[2], Q3_goals: o[3], OT: o[4], FS: o[5], PA: o[6], SO: o[7]};
-      var gameStats = {home_game: home_game, opponent: opponent, date: date, time: time,
+      var ashi_team_stats = [{Q1_goals: a[1], Q2_goals: a[2], Q3_goals: a[3], OT: a[4], FS: a[5], PA: a[6], SO: a[7]}];
+      var opponent_stats = [{Q1_goals: o[1], Q2_goals: o[2], Q3_goals: o[3], OT: o[4], FS: o[5], PA: o[6], SO: o[7]}];
+      var gameStats = {team_name: ashiTeamName, home_game: home_game, opponent: opponent, date: date, time: time,
                        ashi_team_stats: ashi_team_stats, opponent_stats: opponent_stats};
       console.log({teamName: ashiTeamName, stats: gameStats});
-      $.post('https://ashi-ahstein3521.c9users.io:8081/scorecard', {data: {teamName: ashiTeamName, stats: gameStats}});
+      $.post('https://ashi-ahstein3521.c9users.io:8081/scorecard', {data: {stats: gameStats}});
     //  } close else
   });
 
