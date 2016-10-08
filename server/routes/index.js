@@ -39,40 +39,40 @@ module.exports=function(app){
         res.render("scorecard",{teams:teams}); 
     })
     
+    app.get("/effe",function(req,res){
+        Team.find({'name': 'U20'}).populate('games_stats').exec(function(err, data){
+            res.send(data)
+        });
+    });
+    
     app.post("/scorecard", function (req, res){
         var stats = req.body.data.stats;
+        var ashiStats = stats.ashi_team_stats[0];
+        var opponentStats = stats.opponent_stats[0];
         var ashiTeamName = stats.team_name;
-        
-        stats.home_game = Boolean(stats.home_game);
-        
-        for (var property in stats.ashi_team_stats[0]){
-            if (stats.ashi_team_stats[0].hasOwnProperty(property)) {
-              stats.ashi_team_stats[0][property] = Number(stats.ashi_team_stats[0][property]);
+        stats.home_game = stats.home_game === "true"? true: false;
+        for (var property in ashiStats){
+            if (ashiStats.hasOwnProperty(property)) {
+              ashiStats[property] = Number(ashiStats[property]);
             }
         }
-        
-        for (var property in stats.opponent_stats[0]){
-            if (stats.opponent_stats[0].hasOwnProperty(property)) {
-              stats.opponent_stats[0][property] = Number(stats.opponent_stats[0][property]);
+        for (var property in opponentStats){
+            if (opponentStats.hasOwnProperty(property)) {
+              opponentStats[property] = Number(opponentStats[property]);
             }
         }
-        
-        console.log (stats)
         var gamesStats = new GameStats(stats);
         gamesStats.save(function(err, model) {
             var _id = model._id
-            Team.findOneAndUpdate({name: ashiTeamName},
-                                  {$push: {"games_stats": _id}},
-                                  function (err){console.log(err)}
-                                 );
+            Team.findOneAndUpdate(
+                {name: ashiTeamName},
+                {$push: {"games_stats": _id}},
+                function (err){console.log(err)}
+            );
         });
         
-        
         res.status(200).send();
-   
-        
     });
-    
 }
 
  

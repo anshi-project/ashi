@@ -288,6 +288,7 @@ $('#ashi-team').attr('class');
           $('#' + location + '-dropdown').css('margin-bottom', '-1.15em');
           return;
         }
+        $('.' + location + '-name-input').empty();
         home_game = location === 'home'? true: false;
         if ( (location === 'home' && prevHomeDropDownVal === 'blank score card') ||
              (location === 'road' && prevRoadDropDownVal === 'blank score card') )  {
@@ -339,29 +340,28 @@ $('#ashi-team').attr('class');
       var opponent = $('.team-name-input').val();
       var date = $('.date').children().first().val();
       var time = $('.time').children().first().val();
-      // if (date === 'Select game date' || time === 'Select game start time'){
-      //   alert('select game date and time before submitting scorecard');
-      //   return;
-      // }
-      // else {
-      var homeTeamStats = ['.home-playersTable', '.home-goaliesTable', '.home-team-stats'].map(getStats);
-      var roadTeamStats = ['.road-playersTable', '.road-goaliesTable', '.road-team-stats'].map(getStats);
-      if (home_game) {
-        a = homeTeamStats[2];
-        o = roadTeamStats[2];
-      } else {
-        a = roadTeamStats[2];
-        o = homeTeamStats[2];
+      if (date === 'Select game date' || time === 'Select game start time'){
+        alert('select game date and time before submitting scorecard');
+        return;
       }
-      var ashi_team_stats = [{Q1_goals: a[1], Q2_goals: a[2], Q3_goals: a[3], OT: a[4], FS: a[5], PA: a[6], SO: a[7]}];
-      var opponent_stats = [{Q1_goals: o[1], Q2_goals: o[2], Q3_goals: o[3], OT: o[4], FS: o[5], PA: o[6], SO: o[7]}];
-      var gameStats = {team_name: ashiTeamName, home_game: home_game, opponent: opponent, date: date, time: time,
-                       ashi_team_stats: ashi_team_stats, opponent_stats: opponent_stats};
-      console.log({teamName: ashiTeamName, stats: gameStats});
-      $.post('https://ashi-ahstein3521.c9users.io:8081/scorecard', {data: {stats: gameStats}});
-    //  } close else
+      else {
+        var homeTeamStats = ['.home-playersTable', '.home-goaliesTable', '.home-team-stats'].map(getStats);
+        var roadTeamStats = ['.road-playersTable', '.road-goaliesTable', '.road-team-stats'].map(getStats);
+        if (home_game) {
+          a = homeTeamStats[2];
+          o = roadTeamStats[2];
+        } else {
+          a = roadTeamStats[2];
+          o = homeTeamStats[2];
+        }
+        var ashi_team_stats = [{Q1_goals: a[1], Q2_goals: a[2], Q3_goals: a[3], OT: a[4], FS: a[5], PA: a[6], SO: a[7]}];
+        var opponent_stats = [{Q1_goals: o[1], Q2_goals: o[2], Q3_goals: o[3], OT: o[4], FS: o[5], PA: o[6], SO: o[7]}];
+        var gameStats = {team_name: ashiTeamName, home_game: home_game, opponent: opponent, date: date, time: time,
+                         ashi_team_stats: ashi_team_stats, opponent_stats: opponent_stats};
+        console.log({teamName: ashiTeamName, stats: gameStats});
+        $.post('https://ashi-ahstein3521.c9users.io:8081/scorecard', {data: {stats: gameStats}});
+      } 
   });
-
 
     function teamFun (data){
         teamData = data;
@@ -372,6 +372,8 @@ $('#ashi-team').attr('class');
     $('.clockpicker').clockpicker(({donetext: 'Done'})).children().first().val('Select game start time');
 
     $.get('/players', teamFun)
+    
+    $.get('/effe', function(data){ console.log(data)});
 
 
 }());
