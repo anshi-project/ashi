@@ -1,0 +1,37 @@
+<div class="container">
+    <ul class="list-group">
+        {{#if player}}
+        {{#each player}}
+        <li class="list-group-item">
+            <a href="#{{this._id}}" role="button" data-toggle="collapse">
+                {{this.public_data.lastname}}, {{this.public_data.firstname}}
+            </a>
+            <div class="collapse" id="{{this._id}}">
+                <form disabled>
+                    <select name="team">
+                        <option disabled selected selected>Select A Team</option>
+                        {{> scorecard/_teamDropdown2}}
+                    </select>
+                    <select name="position">
+                        <option disabled selected selected>Select A Position</option>
+                        <option value="Right Wing">Right Wing</option>
+                        <option value="Left Wing">Left Wing</option>
+                        <option value="Center">Center</option>
+                        <option value="Right Defense">Right Defense</option>
+                        <option value="Left Defense">Left Defense</option>
+                        <option value="Goalie">Goalie</option>
+                    </select>
+                    <label for="jersey_number">Select a jersey number</label>
+                    <input type="text" name="jersey_number" value="{{this.team.jersey_number}}">
+                    <input type="submit" class="addReturningPlayer"  value="Add to team">
+                </form>    
+            </div>
+        </li>
+        {{/each}}
+    </ul>
+    {{else}}
+    <div class="jumbotron">
+        <h3>Nothing to see here</h3>
+    </div>
+    {{/if}}
+</div>

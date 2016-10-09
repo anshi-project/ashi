@@ -1,6 +1,6 @@
-<div class="form-part1">
-  {{> reg/common/name}}
- 
+<form id="registration-form" action="/register/form?nxt=part2&type=player" method="post">
+	<div class="container-fluid">
+      {{> reg/common/name}}
   <div class="row">
     <div class="col-md-2 col-md-offset-1">
       <label for="gender">Gender:</label>
@@ -36,15 +36,5 @@
        {{> reg/common/passport}}
   <hr>
   <progress value="1" max="6"></progress><br>
-  <button type="button" class="btn next">Next</button>
+  <input type="submit" value="Next">
 </div>
-
-
-  
-  {{!--  <div class="row">--}}
-  
-  
-  {{!--<div class="form-group">--}}
-  {{!--  <label for="guardian_name">Name of parent/guardian:</label><br>--}}
-  {{!--  <input type="text" name="guardian_name" required>--}}
-  {{!--</div>--}}

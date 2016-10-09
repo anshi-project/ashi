@@ -24,14 +24,14 @@ $(".addToTeam").on("click",function(evt){
     var formArr=$(this).parent().serializeArray();
     var data=formatTeamObj(formArr)
     
-    var applicant=data.role? "coach/":"player/"
+    var applicant=data.role? "coach/":"new/"
     var type="";
     
-    if(applicant=="player/"){
+    if(applicant=="new/"){
         if(data.position=="Goalie"){
-            type="goalie";
+            type="goalies";
         }else{
-            type="default"
+            type="players"
         }
     }
 

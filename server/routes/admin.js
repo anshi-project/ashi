@@ -25,18 +25,17 @@ module.exports=function(app){
         })
     }) 
 
-    app.post("/admin/submit/player/default",function(req,res){
+    app.post("/admin/submit/new/:type",function(req,res){
         var id=req.query.id;
+        var type=req.params.type;
+        var modelInstance=Player;
         
-        Registration.submit(id,req.body,"players",Player)
+        if(type=="goalies") modelInstance=Goalie;
+        
+        Registration.submit(id,req.body,type,modelInstance)
         res.send("Player submitted");
     })
-    app.post("/admin/submit/player/goalie",function(req,res){
-        var id=req.query.id;
-        Registration.submit(id,req.body,"goalies",Goalie)
-        res.send("Goalie submitted");
-    })
-    
+
     app.post("/admin/submit/coach",function(req,res){
         var id=req.query.id;
         Registration.submit(id,req.body,"coach",Coach);

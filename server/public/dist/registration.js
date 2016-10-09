@@ -25,7 +25,7 @@ function _calculateAge(birthday) { // birthday is a date
 
 function toggleFormField(element,condition){
     if(condition){
-        element.attr("required",false).attr("disabled",true).parent().css("opacity",".1");
+        element.attr("required",false).attr("disabled",true).parent().css("opacity",".8");
     }else{
         element.attr("required",true).attr("disabled",false).parent().css("opacity","1");
     }

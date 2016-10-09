@@ -2,20 +2,21 @@ body{
     background:#f0ffff;
 }
 
-img {
-    margin: 1em 0em 0em 1em;
-    width: 10em;
-    height: 6em;
-}
+/*img {*/
+/*    margin: 0.5em 0em 0em 0.5em;*/
+/*    width: 13em;*/
+/*    height: 7.7em;*/
+/*}*/
 
 #registration-form{
     width:60%;
-    margin:7em auto 10px;
+    margin:30px auto 10px;
     border-radius:10px;
     background:#ff4b4b;
     color:#171a88;
-    padding:10px;
+   
 }
+
 
 textarea{
     height:100px;
@@ -26,6 +27,7 @@ textarea{
     #registration-form{
         width:95%;
     }
+    
     label{
         font-size:.7em;
     }
@@ -47,9 +49,9 @@ textarea{
    width:90%;
    margin:20px auto;
 }
-.container {
-    margin-top: -5em;
-}
+/*.container {*/
+/*    margin-top: -5em;*/
+/*}*/
 .form-part2,.form-part3,.form-part4,.form-part5,.form-part6,.form-part7{
     display: none;
 }
@@ -65,10 +67,7 @@ h2 {
     
 }
 
-select {
-    margin: 2em 0em 1em 1em;
-    cursor: pointer;
-}
+
 
 p {
     margin: 2em 0em -1em 1em;
@@ -82,16 +81,6 @@ p {
     margin-left: 1em;
     margin-bottom: 3em;
 }
-
-.remove-player {
-    padding-left: 0.3em;
-    padding-right: 0.3em;
-    background-color: red;
-    color: white;
-    cursor: pointer;
-}
-
-
 
 .player-number,
 .goalie-number{
@@ -150,13 +139,6 @@ th.name {
 
 tr:nth-child(even) {background-color: #e6ecff}
 
-.container-fluid {
-  margin-top: -5em;
-  margin-right: 1em;
-  padding-left: 0.5em;
-  padding-right: 0.5em;
-}
-
 .goalies {
     margin-top: 2em;
 }
@@ -171,31 +153,8 @@ tr:nth-child(even) {background-color: #e6ecff}
   margin-top: 2em;
 }
 
-/*=================================================*/
-img {
-    margin: 1em 0em 0em 1em;
-    width: 10em;
-    height: 6em;
-}
-
-input{
+input {
     color:black;
-}
-
-h1 {
-    text-align: center;
-    margin-bottom: 2em;
-}
-
-h2 {
-    margin-left: 13em;
-    font-size: 1.5em;
-
-}
-
-select {
-    margin: 2em 0em 1em 1em;
-    cursor: pointer;
 }
 
 p {
@@ -282,13 +241,6 @@ th.name {
 
 tr:nth-child(even) {background-color: #e6ecff}
 
-.container-fluid {
-  margin-top: -5em;
-  margin-right: 1em;
-  padding-left: 0.5em;
-  padding-right: 0.5em;
-}
-
 .team-stats-header {
   width: 16.8em;
   text-align: left;
@@ -307,7 +259,7 @@ tr:nth-child(even) {background-color: #e6ecff}
   margin-left: 4em;
 }
 
-input[type="text"] {
+.blank-scorecard {
   margin-left: 0.5em;
   margin-right: 0.5em;
   line-height: 0.8em;
@@ -331,9 +283,14 @@ input[type="text"] {
   margin-top: 1.5em;
 }
 
-body {
-  padding-bottom: 20em;
+.clockpicker {
+    margin-bottom: 2em;
 }
 
-/*==============================================*/
+.submit-scorecard {
+    margin-bottom: 5em;
+}
 
+.scorecard-title {
+    margin-top: -2em;
+}

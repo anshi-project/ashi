@@ -10,8 +10,7 @@
   <div class="form-group">
     <label>City & State:</label><br>
     <input type="text" name="city">
-    <input list="state" name="state">
-    <datalist id="state">
+    <select name="state">
       {{#each states}}
       <option value="{{this}}">{{this}}</option>
       {{/each}}

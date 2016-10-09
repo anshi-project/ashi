@@ -44,7 +44,14 @@ registrationSchema.statics.findByType=function(type,callback){
     })
 }
 
-
+registrationSchema.statics.handleFormSubmission=function(fields,type,callback){
+    var REGISTRATION=require("./_"+type+"Reg");
+    REGISTRATION.create(fields,function(err,data){
+        if(err) return callback(err);
+        return callback(null,data);
+    })
+    
+}
 
 
 module.exports=mongoose.model("registration",registrationSchema);
