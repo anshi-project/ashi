@@ -1,14 +1,5 @@
 /*global $*/
 
-function sectionIsValid(currentFormPart){
-    var inputs=currentFormPart.children(".form-group").children("input");
-    var flag=true;
-    
-    inputs.each(function(){
-        if (!$(this).valid()) flag=false;
-    })
-    return flag;
-}
 var adjustForLeapYear=function(_date){
     var date=_date.split("-");
     if(date[1]=='02'&&date[2]=="29"){
@@ -68,20 +59,6 @@ $("input[name='preferred_coaching_positions']").on("change",function(){
     }
 })
 
-$(".next").on("click",function(){
-    
-    var currentFormPart=$(this).parent();
 
-    if(sectionIsValid(currentFormPart)){
-       currentFormPart.hide();
-       currentFormPart.next().fadeIn("fast"); 
-    }
-})
-
-$(".back").on("click",function(evt){
-    var currentFormPart=$(this).parent();
-    currentFormPart.hide();
-    currentFormPart.prev().fadeIn("slow");
-})
 
 

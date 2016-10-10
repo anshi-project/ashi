@@ -14,14 +14,11 @@ body{
     border-radius:10px;
     background:#ff4b4b;
     color:#171a88;
-   
+    text-transform: capitalize;
 }
 
 
-textarea{
-    height:100px;
-    width:90%;
-}
+
 
 @media (max-width:700px){
     #registration-form{

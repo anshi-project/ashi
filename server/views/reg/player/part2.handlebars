@@ -1,6 +1,22 @@
 <form id="registration-form" action="/register/form?type=player&nxt=part3" method="post">
 	<div class="container-fluid">
-
-		{{> reg/player/_part2}}
+	 {{>reg/common/header}} 
+  {{>reg/common/email}}    
+  {{>reg/common/phone}} 
+  {{> reg/common/address}}
+   <div class="row">
+      <div class="form-group col-md-5 col-md-offset-1" >
+        <label for="guardian_name" class="control-form">Parent's/Guardian's Name:</label>
+        <input class="form-control" type="text" name="guardian_name"  required> 
+      </div>   
+       <div class="form-group col-md-5" >
+        <label for="guardian_phone">Parent's/Guardian's Phone Number:</label>
+        <input class="form-control" type="text" name="guardian_phone" required> 
+      </div>
+     </div>
+    <hr>
+    <progress value="2" max="6"></progress><br>
+    <a href="/register/form?type=player&nxt=part1">Back</a>
+    <input type="submit" class="btn next" value="Submit">
 	</div>
 </form>

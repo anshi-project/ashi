@@ -1,5 +1,6 @@
 <form id="registration-form" action="/register/form?nxt=part2&type=player" method="post">
 	<div class="container-fluid">
+	    {{>reg/common/header}}
       {{> reg/common/name}}
   <div class="row">
     <div class="col-md-2 col-md-offset-1">
@@ -9,7 +10,7 @@
               <input type="radio" name="gender" id="male" value="male" checked>Male
             </label>
             <label for="female">
-              <input type="radio" name="gender" id="female" value="female" checked>Female
+              <input type="radio" name="gender" id="female" value="female">Female
             </label>        
           </div>
         </div>

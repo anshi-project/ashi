@@ -7,6 +7,8 @@
     var roadDropDownVal = "";
     var prevHomeDropDownVal;
     var prevRoadDropDownVal;
+    var date;
+    var season = 2016;
 
 $('#ashi-team').attr('class');
 
@@ -31,7 +33,7 @@ $('#ashi-team').attr('class');
                       <% _.each(players, function(player) { %>
                           <tr>
                             <td class="select-player"><input type="checkbox"></td>
-                            <td class='player-number'>0</td>
+                            <td class='player-number'><%=player.team.jersey_number%></td>
                             <td class='name'><%=player.registration.public_data.firstname + ' ' + player.registration.public_data.lastname%></td>
                             <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
                             <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
@@ -67,7 +69,7 @@ $('#ashi-team').attr('class');
                               <% _.each(goalies, function(goalie) { %>
                                   <tr>
                                     <td class="select-player"><input type="checkbox"></td>
-                                    <td class='goalie-number'>0</td>
+                                    <td class='goalie-number'><%=goalie.team.jersey_number%></td>
                                     <td class='name'><%=goalie.registration.public_data.firstname + ' ' + goalie.registration.public_data.lastname%></td>
                                     <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
                                     <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
@@ -339,6 +341,32 @@ $('#ashi-team').attr('class');
       });
       return arr;
     }
+    
+    function getPlayerStats(p, opponent, home_game){
+    	var playersStatsArr = [];
+    	while (p.length > 0){
+    		var player = {jersey_number: String(p[1]), full_name: p[2], G: p[3], A: p[4],
+    		              P: p[5], PM: p[6], PIM: p[7], SOG: p[8], GWG: p[9],
+    		              PP: p[10], SH: p[11], win: true, opponent: opponent,
+    		              date: date, season: season, home_game: home_game};
+    		playersStatsArr.push(player);
+    		p = p.slice(12);
+    	}
+    	return playersStatsArr;
+    }
+    
+    function getGoalieStats(g, opponent, home_game){
+    	var goaliesStatsArr = [];
+    	while (g.length > 0){
+    		var goalie = {jersey_number: String(g[1]), full_name: g[2], MIN: g[3], SA: g[4],
+    		              SV: g[5], GA: g[6], SO: g[7], G: g[8], A: g[9], PIM: g[10],
+    		              win: true, opponent: opponent, date: date, season: season,
+    		              home_game: home_game}; 
+    		goaliesStatsArr.push(goalie);
+    		g = g.slice(11);
+    	}
+    	return goaliesStatsArr;
+    }
 
     $(".submit-scorecard").on('click', function () {
       formData = {};
@@ -346,7 +374,7 @@ $('#ashi-team').attr('class');
       var a;
       var o;
       var opponent = $('.team-name-input').val();
-      var date = $('.date').children().first().val();
+      date = $('.date').children().first().val();
       var time = $('.time').children().first().val();
       // if (date === 'Select game date' || time === 'Select game start time'){
       //   alert('select game date and time before submitting scorecard');
@@ -371,24 +399,29 @@ $('#ashi-team').attr('class');
           at = roadTeamStats[2];
         }
         
-        var ashi_player_stats = {player_num: ap[1], full_name: ap[2], G: ap[3], A: ap[4], P: ap[5], pm: ap[6], PIM: ap[7], 
-                                SOG: ap[8], GWG: ap[9], PP: ap[10], SH: ap[11]};
-        var ashi_goalie_stats = {goalie_num: ag[1], full_name: ag[2], MIN: ag[3], SA: ag[4], SV: ag[5], GA: ag[6], SO: ag[7],
-                                  G: ag[8], A: ag[9], PIM: ag[10]};
-        var ashi_team_stats = {Q1_goals: at[1], Q2_goals: at[2], Q3_goals: at[3], OT: at[4], FS: at[5], PA: at[6], SO: at[7]};
-        var opponent_player_stats = {player_num: op[1], full_name: op[2], G: op[3], A: op[4], P: op[5], pm: op[6], PIM: op[7], 
-                                SOG: op[8], GWG: op[9], PP: op[10], SH: op[11]};
-        var opponent_goalie_stats = {goalie_num: og[1], full_name: og[2], MIN: og[3], SA: og[4], SV: og[5], GA: og[6], SO: og[7],
-                                  G: og[8], A: og[9], PIM: og[10]};
-        var opponent_team_stats = {Q1_goals: ot[1], Q2_goals: ot[2], Q3_goals: ot[3], OT: ot[4], FS: ot[5], PA: ot[6], SO: ot[7]};
+        var ashi_player_stats = getPlayerStats(ap, opponent, home_game);
+        var ashi_goalie_stats = getGoalieStats(ag, opponent, home_game);
+        var ashi_team_stats = {Q1_goals: at[1], Q2_goals: at[2], Q3_goals: at[3],
+                               OT: at[4], FS: at[5], PA: at[6], SO: at[7], 
+                               win: true, date: date, home_game: home_game, 
+                               opponent: opponent, season: season};
+        var opponent_player_stats = getPlayerStats(op, ashiTeamName, !home_game);
+        var opponent_goalie_stats = getGoalieStats(og, ashiTeamName, !home_game);
+        var opponent_team_stats = {Q1_goals: ot[1], Q2_goals: ot[2], Q3_goals: ot[3],
+                                   OT: ot[4], FS: ot[5], PA: ot[6], SO: ot[7], 
+                                   win: true, date: date, home_game: !home_game,
+                                   opponent: ashiTeamName, season: season};
         var ashiStats = [ashi_player_stats, ashi_goalie_stats, ashi_team_stats];
         var opponentStats = [opponent_player_stats, opponent_goalie_stats, opponent_team_stats];
         
         
         var gameStats = {team_name: ashiTeamName, home_game: home_game, opponent: opponent, date: date, time: time,
-                        ashi_stats: ashiStats, opponent_stats: opponentStats};
-         console.log(gameStats);
-         $.post('https://ashi-ahstein3521.c9users.io:8081/scorecard', {stats: gameStats});
+                        ashi_players: ashi_player_stats, ashi_goalies: ashi_goalie_stats, ashi_team: ashi_team_stats,
+                        opponent_players: opponent_player_stats, opponent_goalies: opponent_goalie_stats,
+                        opponent_team: opponent_team_stats, season: season}
+        
+        console.log(gameStats);
+        $.post('https://ashi-ahstein3521.c9users.io:8081/scorecard', {stats: gameStats});
       // } 
   });
 
@@ -404,7 +437,6 @@ $('#ashi-team').attr('class');
     $.get('/players', teamFun)
     
     $.get('/effe', function(data){ console.log(data)});
-
 
 }());
 
