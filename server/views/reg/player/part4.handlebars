@@ -1,5 +1,6 @@
-<form id="registration-form" action="/register/form?type=player&nxt=part5" method="post">
+<form id="registration-form" action="/register/player?part=5" method="post">
 	<div class="container-fluid">
+	     {{>reg/common/header}}
         {{> reg/common/apparel}}        
         <div class="row">
             <div class="form-group col-md-3 col-xs-6 col-md-offset-1">
@@ -27,7 +28,7 @@
             </div>
         </div>    
       <progress value="4" max="6"></progress><br>
-      <button type="button" class="btn  back">Back</button>  
-      <input type="submit" class="btn next" value="Next">
+      <a href="/register/player?part=3" class="btn">Back</a>  
+      <input type="submit" class="btn btn-success pull-right" value="Next">
     </div>
 </form>

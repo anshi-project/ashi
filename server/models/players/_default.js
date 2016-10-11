@@ -12,7 +12,9 @@ var PlayerCareerStatsSchema = new Schema({
             SOG:{type:Number,default:0},
             GWG:{type:Number,default:0},
             PP:{type:Number,default:0},
-            SH:{type:Number,default:0}
+            SH:{type:Number,default:0},
+            win:{type:Number},
+            loss:{type:Number}
 });
 
 var PlayerSeasonStatsSchema = new Schema({
@@ -27,8 +29,8 @@ var PlayerSeasonStatsSchema = new Schema({
             GWG:{type:Number,default:0},
             PP:{type:Number,default:0},
             SH:{type:Number,default:0},
-            win:{type:Boolean},
-            loss:{type:Boolean}
+            win:{type:Number},
+            loss:{type:Number}
 });
 
 var PlayerGameStatsSchema = new Schema({
@@ -36,6 +38,7 @@ var PlayerGameStatsSchema = new Schema({
             team_name:{type:String},
             date:{type:String},
             home_game:{type:Boolean},
+            opponent:{type:String},
             win:{type:Boolean},
             G:{type:Number,default:0},
             A:{type:Number,default:0},
@@ -49,12 +52,20 @@ var PlayerGameStatsSchema = new Schema({
 });
 
 var PlayerStatsSchema = new Schema({
-    career_stats : [PlayerCareerStatsSchema],
     season_stats : [PlayerSeasonStatsSchema],
-    game_stats : [PlayerGameStatsSchema]
+    game_stats : [PlayerGameStatsSchema],
+    career_stats : {G:{type:Number,default:0},
+                    A:{type:Number,default:0},
+                    P:{type:Number,default:0},
+                    PM:{type:Number,default:0},
+                    PIM:{type:Number,default:0},
+                    SOG:{type:Number,default:0},
+                    GWG:{type:Number,default:0},
+                    PP:{type:Number,default:0},
+                    SH:{type:Number,default:0},
+                    win:{type:Number,default:0},
+                    loss:{type:Number,default:0}}
 });
-
-
 
 var player=Player.discriminator("Default", PlayerStatsSchema);
        

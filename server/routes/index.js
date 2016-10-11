@@ -2,29 +2,7 @@
 var Team = require("../models/team/team");
 var GameStats = require("../models/team/game_stats");
 var Player = require("../models/players/_default");
-var team_name;
-
-function storePlayerGameStats(s){
-    console.log('storestat called ', s, ' ', team_name);
-    Player.update({'team.name': team_name, 'team.jersey_number': s.jersey_number},
-                    {$push: {game_stats: {season: +s.season, team_name: team_name,
-                     date: s.date, home_game: Boolean(s.home_game), win: Boolean(s.win), G: +s.G,
-                     A: +s.A, P: +s.P, PM: +s.PM, PIM: +s.PIM, SOG: +s.SOG, GWG: +s.GWG,
-                     PP: +s.PP, SH: +s.SH}}},
-                     function (err, model) {if (err) console.log('error', err)}
-                    );
-}
-
-function storeGoalieGameStats(s){
-    console.log('storestat called ', s, ' ', team_name);
-    Player.update({'team.name': team_name, 'team.jersey_number': s.jersey_number},
-                    {$push: {game_stats: {season: +s.season, team_name: team_name,
-                     date: s.date, home_game: Boolean(s.home_game), win: Boolean(s.win), G: +s.G,
-                     A: +s.A, P: +s.P, PM: +s.PM, PIM: +s.PIM, SOG: +s.SOG, GWG: +s.GWG,
-                     PP: +s.PP, SH: +s.SH}}},
-                     function (err, model) {if (err) console.log('error', err)}
-                    );
-}
+var statsMethods = require("./helpers/stats");
 
 module.exports=function(app){
     
@@ -63,17 +41,9 @@ module.exports=function(app){
     app.post("/scorecard", function (req, res){
         var stats = req.body.stats;
         team_name = stats.team_name; 
-        // console.log(team_name, " ", stats);
-        new GameStats(stats).save(function(err, model){
-            Team.update(
-                {name: stats.team_name},
-                {$push: {"games_stats": model._id}},
-                function (err){console.log(err)}
-            );
-        });
-        
-        stats.ashi_players.map(storePlayerGameStats);
-        
+        // statsMethods.storeGameStats(stats)
+        // stats.ashi_players.map(statsMethods.storePlayerGameStats);
+        stats.ashi_players.map(statsMethods.updatePlayerSeasonStats);
         res.status(200).send();
     });
 }

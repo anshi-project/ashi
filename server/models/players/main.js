@@ -16,13 +16,12 @@ var playerSchema=new Schema({
 })
 
 playerSchema.statics.findByName=function(name,callback){
-     var fullname=name.split();
-     var first=fullname[0].toLowerCase(),last=fullname[1].toLowerCase();
-     var query={"registration.public_data.firstname":first,"registration.public_data.lastname":last};
+
+     var query={"registration.public_data.firstname":name.firstname,"registration.public_data.lastname":name.lastname};
      
      this.find({query},function(err,docs){
-          if(err) throw err;
-          callback(docs);
+          if(err) return callback(err)
+          callback(null,docs);
      });
 };
 

@@ -1,0 +1,13 @@
+<form id="registration-form" action="/register/coach?part=2" method="post">
+	<div class="container-fluid">
+	   {{>reg/common/header}}
+      {{> reg/common/name}}
+      {{> reg/common/email}}
+      {{> reg/common/phone}}
+      {{> reg/common/passport}}
+      {{>reg/common/hometown}}
+  <hr>
+  <progress value="1" max="6"></progress><br>
+  <input type="submit" class="btn btn-success pull-right" value="Next">
+</div>
+</form>

@@ -16,10 +16,44 @@ var registrationSchema=new Schema({
   registration_status:{type:String,default:"pending"}
 })
 
+function getModel(_type){
+    var type;
+    switch(_type){
+        case "players":
+            type="PlayerRegistration"
+            break;
+        case "coaches":
+            type="CoachRegistration"
+            break;
+        case "managers":
+            type="managerRegistration";
+            break;
+        case "player":
+            type="../players/_default"
+            break;
+        case "goalie":
+            type="../players/_goalie"
+            break;
+        case "coach":
+            type="../staff/coach"
+            break;
+        case "manager":
+            type="../staff/manager"
+            break;
+        default:
+            type=null;
+    }
+    return type;
+}
 
 
-registrationSchema.statics.submit=function(id,team,type,PERSON){
-    var fields="-contact -jersey_number_choices -hockey_info  -__v";
+registrationSchema.statics.submit=function(id,team,type){
+    var model=getModel(type);
+    var PERSON=require(model);
+    
+    var fields=" -__v";
+    
+    if(type=="player") fields="-contact -jersey_number_choices -hockey_info  -__v";
     
     if(type=="coach") fields="-short_answers -coaching_info -registration_status -__v";
     
@@ -37,8 +71,12 @@ registrationSchema.statics.submit=function(id,team,type,PERSON){
 
 
 
-registrationSchema.statics.findByType=function(type,callback){
-    this.find({__t:type,registration_status:"pending"},function(err,docs){
+registrationSchema.statics.findByType=function(_type,_query,callback){
+    var type=getModel(_type);
+    var query={__t:type};
+    if(_query) query.registration_status=_query;
+    
+    this.find(query,function(err,docs){
         if(err) return callback(err);
         return callback(null,docs);
     })

@@ -59,6 +59,28 @@ $("input[name='preferred_coaching_positions']").on("change",function(){
     }
 })
 
+$("#registration-form").on("submit",function(e){
+    var dataArr=$("#registration-form").serializeArray();
+    var data={};
+    
+    dataArr.forEach(v=> data[v.name]=v.value);
+    
+    localStorage.setItem(window.location.search, JSON.stringify(data));
+})
+
+
+(function(){
+    var formURL=window.location.search;
+    var formData=JSON.parse(localStorage.getItem(formURL));
+    var props=Object.keys(formData)
+    
+    props.forEach(function(prop){
+        $(`input[name=${prop}]`).attr("value",formData[prop]);
+    })
+}())//restore form fields
+    
+
+
 
 
 

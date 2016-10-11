@@ -348,7 +348,7 @@ $('#ashi-team').attr('class');
     		var player = {jersey_number: String(p[1]), full_name: p[2], G: p[3], A: p[4],
     		              P: p[5], PM: p[6], PIM: p[7], SOG: p[8], GWG: p[9],
     		              PP: p[10], SH: p[11], win: true, opponent: opponent,
-    		              date: date, season: season, home_game: home_game};
+    		              date: date, season: season, home_game: home_game, team_name: ashiTeamName};
     		playersStatsArr.push(player);
     		p = p.slice(12);
     	}

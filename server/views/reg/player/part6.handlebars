@@ -1,4 +1,4 @@
-<form id="registration-form" action="/register/form/player" method="post">
+<form id="registration-form" action="/register/submit/player" method="post">
 	<div class="container-fluid">
 	    {{>reg/common/header}}
         <div class="form-group">
@@ -19,9 +19,10 @@
         </div>
      <hr>    
       <progress value="5" max="6"></progress><br>
-      <button type="button" class="btn  back">Back</button>  
-      <input type="submit" class="btn next" value="Submit">
+      <a href="/register/player?part=5" class="btn btn-default">Back</a> 
+      <input type="submit" class="btn btn-primary" value="Submit">
     </div>
 </form>
+
 
 

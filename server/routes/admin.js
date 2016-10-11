@@ -6,14 +6,14 @@ var Team=require("../models/team/team")
 
 module.exports=function(app){
     
-    app.get("/admin/registration/players",function(req,res){
+    app.get("/admin/assign/players",function(req,res){
         Registration.findByType("PlayerRegistration",function(err,docs){
             if(err)throw err;
             res.render("team_picker",{player:docs})
         })
     })
     
-    app.get("/admin/registration/coaches",function(req,res){
+    app.get("/admin/assign/coaches",function(req,res){
         Registration.findByType("CoachRegistration",function(err,data){
             if(err)throw err;
             data.forEach(function(v){
@@ -48,6 +48,13 @@ module.exports=function(app){
             if(err) throw err;
             var players=doc.goalies.concat(doc.players);
             res.render("team_spreadsheet",{players:players,coach:doc.coach,team:doc})
+        })
+    })
+    
+    app.get("/admin/applications/:type",function(req,res){
+        Registration.findByType(req.params.type, req.query.fields,function(err,docs){
+            if(err)throw err;
+            res.send(docs)
         })
     })
 }

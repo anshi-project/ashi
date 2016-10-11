@@ -1,0 +1,46 @@
+<form id="registration-form" action="/register/coach?part=3" method="post">
+	<div class="container-fluid">
+	  {{> reg/common/header}}  
+    <div class="row">
+        <div class="form-group col-md-4">
+            <label for="team_applying_for">What team are you applying for?</label><br>
+            <input type="radio" name="team_applying_for" value="U16">Juniors U16<br>
+            <input type="radio" name="team_applying_for" value="U18">Juniors U18<br>
+            <input type="radio" name="team_applying_for" value="U20">Juniors U20<br>
+            <input type="radio" name="team_applying_for" value="Mens">Men's Division<br>
+            <input type="radio" name="team_applying_for" value="Womens">Women's Division<br>
+            <input type="radio" name="team_applying_for" value="Mens_Masters">Men's Masters<br>
+            <input type="radio" name="team_applying_for" value="Womens_Masters">Women's Masters<br>
+        </div>
+        <div class="form-group col-md-4">
+            <label for="former_coaching_positions">In the past, I have coached:</label><br>
+                <input type="checkbox" name="former_coaching_positions" value="Ice_Hockey">Ice Hockey<br>
+                <input type="checkbox" name="former_coaching_positions" value="Ball_Hockey">Ball Hockey<br>
+                <input type="checkbox" name="former_coaching_positions" value="Field_Hockey">Field Hockey<br>
+                <input type="text" name="former_coaching_positions" placeholder="List any other positions here...">
+        </div>
+    <div class="form-group col-md-4">
+        <label for="highest_level_coached">The highest level of hockey I have coached is:</label><br>
+        <input type="radio" name="highest_level_coached" value="youth_hockey">Youth Hockey<br>
+        <input type="radio" name="highest_level_coached" value="juniors">Juniors<br>
+        <input type="radio" name="highest_level_coached" value="college">College<br>
+        <input type="radio" name="highest_level_coached" value="semi_professional">Semi-Professional<br>
+        <input type="radio" name="highest_level_coached" value="professional">Professional<br>
+        <input type="radio" name="highest_level_coached" value="travel_ball_hockey">Travel Ball Hockey<br>
+    </div>        
+    </div>    
+    <div class="form-group">
+        <label for="preferred_coaching_positions">Preferred Coaching Position:</label><br>
+        <input type="radio" name="preferred_coaching_positions" value="Head">Head<br>
+        <input type="radio" name="preferred_coaching_positions" value="Assistant_Head">Assistant Head Coach<br>
+        <input type="radio" name="preferred_coaching_positions" value="Assistant_Coach_For_Forwards">Assistant Coach for Forwards<br>
+        <input type="radio" name="preferred_coaching_positions" value="Assistant_Coach_For_Defense">Assistant Coach for Defense<br>
+        <input type="radio" name="preferred_coaching_positions" value="Other"><span class="other-opt">Other</span>
+    </div>
+  
+  <hr>
+  <progress value="2" max="6"></progress><br>
+  <a href="/register/coach?part=1" class="btn btn-default">Back</a>
+  <input type="submit" class="btn btn-success pull-right" value="Next">
+</div>
+</form>
