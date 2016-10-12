@@ -365,7 +365,7 @@ $('#ashi-team').attr('class');
     		var goalie = {jersey_number: String(g[1]), full_name: g[2], MIN: g[3], SA: g[4],
     		              SV: g[5], GA: g[6], SO: g[7], G: g[8], A: g[9], PIM: g[10],
     		              win: true, opponent: opponent, date: date, season: season,
-    		              home_game: home_game}; 
+    		              home_game: home_game, team_name: ashiTeamName}; 
     		goaliesStatsArr.push(goalie);
     		g = g.slice(11);
     	}
