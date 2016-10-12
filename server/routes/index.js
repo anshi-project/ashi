@@ -41,10 +41,12 @@ module.exports=function(app){
     app.post("/scorecard", function (req, res){
         var stats = req.body.stats;
         team_name = stats.team_name; 
-        statsMethods.storeGameStats(stats)
-        stats.ashi_players.map(statsMethods.storePlayerGameStats);
-        stats.ashi_players.map(statsMethods.updatePlayerSeasonStats);
-        stats.ashi_players.map(statsMethods.updatePlayerCareerStats);
+        // statsMethods.storeGameStats(stats)
+        // stats.ashi_players.map(statsMethods.storePlayerGameStats);
+        // stats.ashi_players.map(statsMethods.updatePlayerSeasonStats);
+        // stats.ashi_players.map(statsMethods.updatePlayerCareerStats);
+        console.log(stats.ashi_team);
+        statsMethods.storeTeamGameStats(stats.ashi_team);
         res.status(200).send();
     });
 }

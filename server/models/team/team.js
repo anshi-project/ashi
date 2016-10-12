@@ -1,6 +1,43 @@
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
+var TeamAllTimeStatsSchema = new Schema({
+            FS:{type:Number,default:0},
+            GA: {type:Number,default:0},
+            OT:{type:Number,default:0},
+            PA:{type:Number,default:0},
+            SO:{type:Number,default:0},
+            win:{type:Number},
+            loss:{type:Number}
+});
+
+var TeamSeasonStatsSchema = new Schema({
+            season:{type:Number},
+            FS:{type:Number,default:0},
+            GA: {type:Number,default:0},
+            OT:{type:Number,default:0},
+            PA:{type:Number,default:0},
+            SO:{type:Number,default:0},
+            win:{type:Number},
+            loss:{type:Number}
+});
+
+var TeamGameStatsSchema = new Schema({
+            season:{type:Number},
+            date:{type:String},
+            home_game:{type:Boolean},
+            opponent:{type:String},
+            win:{type:Boolean},
+            FS:{type:Number,default:0},
+            GA: {type:Number,default:0},
+            Q1:{type:Number,default:0},
+            Q2:{type:Number,default:0},
+            Q3:{type:Number,default:0},
+            OT:{type:Number,default:0},
+            PA:{type:Number,default:0},
+            SO:{type:Number,default:0}
+});
+
 
 var teamSchema = new Schema({
     name: String,
@@ -15,10 +52,10 @@ var teamSchema = new Schema({
     coach: [{type: Schema.Types.ObjectId, ref: "Coach"}],
     players: [{type: Schema.Types.ObjectId, ref: "Player"}],
     goalies: [{type: Schema.Types.ObjectId, ref: "Player"}],
-    previous_seasons_stats: [{type: Schema.Types.ObjectId, ref: "TeamSeasonStats"}],
-    current_season_stats: {type: Schema.Types.ObjectId, ref: "TeamSeasonStats"},
-    games_stats: [{type: Schema.Types.ObjectId, ref: "GameStats"}]
-})
+    game_stats: [TeamGameStatsSchema],
+    seasons_stats: [TeamSeasonStatsSchema],
+    alltime_stats: [TeamAllTimeStatsSchema]
+});
 
 
 teamSchema.statics.addToRoster = function(teamName,division,id,type){

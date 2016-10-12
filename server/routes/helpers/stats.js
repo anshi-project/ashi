@@ -59,11 +59,21 @@ function updatePlayerCareerStats(s){
                   'career_stats.PM': s.PM, 'career_stats.PIM': s.PIM, 'career_stats.SOG': s.SOG, 
                   'career_stats.GWG': s.GWG, 'career_stats.PP': s.PP, 'career_stats.SH': s.SH, win: win, loss: loss}};
     Player.update(query, update, callback);
-}   
+}  
+
+function storeTeamGameStats(s){
+    var query = {name: s.team_name};
+    var update = {$push: {game_stats: {season: s.season, opponent: s.opponent, 
+                  date: s.date, home_game: Boolean(s.home_game), win: Boolean(s.win),
+                  FS: s.FS, GA: s.GA, Q1: s.Q1, Q2: s.Q2, Q3: s.Q3, OT: s.OT, PA: s.PA,
+                  SO: s.SO}}};
+    Team.update(query, update, callback);
+}
 
 module.exports = {
     storeGameStats: storeGameStats,
     storePlayerGameStats: storePlayerGameStats,
     updatePlayerSeasonStats: updatePlayerSeasonStats,
-    updatePlayerCareerStats: updatePlayerCareerStats
+    updatePlayerCareerStats: updatePlayerCareerStats,
+    storeTeamGameStats: storeTeamGameStats
 }

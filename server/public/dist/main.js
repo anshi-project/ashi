@@ -95,6 +95,7 @@ $('#ashi-team').attr('class');
                                       <th><bold>Q3</bold></th>
                           						<th><bold>OT</bold></th>
                                       <th><bold>FS</bold></th>
+                                      <th><bold>GA</bold></th>
                                       <th><bold>PA</bold></th>
                           						<th><bold>SO</bold></th>
                           					</tr>
@@ -106,6 +107,7 @@ $('#ashi-team').attr('class');
                           						<td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
                           						<td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
                           						<td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
+                                      <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
                                       <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
                                       <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
                                       <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
@@ -197,6 +199,7 @@ $('#ashi-team').attr('class');
                                                             <th><bold>Q3</bold></th>
                                                 						<th><bold>OT</bold></th>
                                                             <th><bold>FS</bold></th>
+                                                            <th><bold>GA</bold></th>
                                                             <th><bold>PA</bold></th>
                                                 						<th><bold>SO</bold></th>
                                                 					</tr>
@@ -208,6 +211,7 @@ $('#ashi-team').attr('class');
                                                 						<td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
                                                 						<td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
                                                 						<td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
+                                                            <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
                                                             <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
                                                             <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
                                                             <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
@@ -402,13 +406,13 @@ $('#ashi-team').attr('class');
         var ashi_player_stats = getPlayerStats(ap, opponent, home_game);
         var ashi_goalie_stats = getGoalieStats(ag, opponent, home_game);
         var ashi_team_stats = {Q1_goals: at[1], Q2_goals: at[2], Q3_goals: at[3],
-                               OT: at[4], FS: at[5], PA: at[6], SO: at[7], 
+                               OT: at[4], FS: at[5], GA: at[6], PA: at[7], SO: at[8], 
                                win: true, date: date, home_game: home_game, 
-                               opponent: opponent, season: season};
+                               opponent: opponent, season: season, team_name: ashiTeamName};
         var opponent_player_stats = getPlayerStats(op, ashiTeamName, !home_game);
         var opponent_goalie_stats = getGoalieStats(og, ashiTeamName, !home_game);
         var opponent_team_stats = {Q1_goals: ot[1], Q2_goals: ot[2], Q3_goals: ot[3],
-                                   OT: ot[4], FS: ot[5], PA: ot[6], SO: ot[7], 
+                                   OT: ot[4], FS: ot[5], GA: ot[6], PA: ot[7], SO: ot[8], 
                                    win: true, date: date, home_game: !home_game,
                                    opponent: ashiTeamName, season: season};
         var ashiStats = [ashi_player_stats, ashi_goalie_stats, ashi_team_stats];
@@ -434,10 +438,7 @@ $('#ashi-team').attr('class');
     $('.datepicker').datepicker();
     $('.clockpicker').clockpicker(({donetext: 'Done'})).children().first().val('Select game start time');
 
-    $.get('/players', teamFun)
-    
-    $.get('/effe', function(data){ console.log(data)});
-
+    $.get('/players', teamFun);
 }());
 
 

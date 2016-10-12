@@ -239,9 +239,9 @@ th.name {
 tr:nth-child(even) {background-color: #e6ecff}
 
 .team-stats-header {
-  width: 16.8em;
+  width: 17.4em;
   text-align: left;
-  padding-left: 3.7em;
+  padding-left: 4.2em;
 }
 
 .home-team-stats,
