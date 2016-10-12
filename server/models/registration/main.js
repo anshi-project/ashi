@@ -6,7 +6,7 @@ var Team=require("../team/team");
 
 var registrationSchema=new Schema({
     apparel:{},
-    contact:{passport_expiration:{type:String,default:"N/A"}},
+    contact:{},
     public_data:{},
     social_media:{
         facebook:{type:String,default:"N/A"},

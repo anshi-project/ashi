@@ -1,8 +1,7 @@
-
 var Team = require("../models/team/team");
 var GameStats = require("../models/team/game_stats");
 var Player = require("../models/players/_default");
-var statsMethods = require("./helpers/stats");
+var storeScoreCardStats = require("./helpers/stats");
 
 module.exports=function(app){
     
@@ -20,11 +19,11 @@ module.exports=function(app){
                         next();
             })            
         }
-    })//Adds all team data on the disk    
+    });//Adds all team data on the disk    
     
     app.get("/",function(req,res){
         res.render("index")
-    })
+    });
     
     app.get("/players",function(req,res){
         res.send(req.session.teamData);
@@ -35,23 +34,11 @@ module.exports=function(app){
             return v.division+": "+v.name;
         })
         res.render("scorecard",{teams:teams}); 
-    })
-    
+    });
    
     app.post("/scorecard", function (req, res){
         var stats = req.body.stats;
-        team_name = stats.team_name; 
-        // statsMethods.storeGameStats(stats)
-        // stats.ashi_players.map(statsMethods.storePlayerGameStats);
-        // stats.ashi_players.map(statsMethods.updatePlayerSeasonStats);
-        // stats.ashi_players.map(statsMethods.updatePlayerCareerStats);
-        console.log(stats.ashi_goalies);
-        stats.ashi_goalies.map(statsMethods.storeGoalieGameStats);
-        stats.ashi_goalies.map(statsMethods.updateGoalieSeasonStats);
-        stats.ashi_goalies.map(statsMethods.updateGoalieCareerStats);
-        // statsMethods.storeTeamGameStats(stats.ashi_team);
-        // statsMethods.updateTeamSeasonStats(stats.ashi_team);
-        // statsMethods.updateTeamAllTimeStats(stats.ashi_team);
+        storeScoreCardStats(stats);
         res.status(200).send();
     });
 }

@@ -227,7 +227,7 @@ $('#ashi-team').attr('class');
           var blankHtml = _.template(blankTemplate)({'location': location});
           $("." + location).html(blankHtml);
 
-          $('.minus, .plus, .remove-player').off();
+          $('.minus, .plus').off();
 
           $('.plus').on('click', function(){
               var num = Number( $(this).prev().text() ) + 1;
@@ -242,7 +242,7 @@ $('#ashi-team').attr('class');
           });
           
           $(':checkbox').change(function(){
-          $(this).closest('tr').toggleClass('playing');
+            $(this).closest('tr').toggleClass('playing');
           });
           return;
         }
@@ -256,7 +256,7 @@ $('#ashi-team').attr('class');
         var teamHtml = _.template(teamTemplate)({'location': location});
         $("." + location).append(teamHtml);
 
-        $('.minus, .plus, .remove-player').off();
+        $('.minus, .plus').off();
 
         $('.plus').on('click', function(){
             var num = Number( $(this).prev().text() ) + 1;
@@ -271,7 +271,7 @@ $('#ashi-team').attr('class');
         });
 
         $(':checkbox').change(function(){
-          $(this).closest('tr').toggleClass('playing');
+          $(this).parents('tr').toggleClass('playing');
         });
     }
 

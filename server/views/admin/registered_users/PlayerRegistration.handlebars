@@ -1,7 +1,7 @@
 <div class="container">
-    
+    <p>
         <strong>Name:</strong>
-    <p>    {{public_data.firstname}} {{public_data.lastname}}
+        {{public_data.firstname}} {{public_data.lastname}}
     </p>
       <p>
        <strong>Gender:</strong> 
@@ -13,7 +13,7 @@
     </p> 
     <p>
        <strong>Height:</strong> 
-       {{public_data.height}}lbs
+       {{public_data.height}}
     </p>
     <p>
        <strong>Birthday:</strong> 
@@ -23,6 +23,26 @@
        <strong>Email:</strong> 
        {{public_data.email}}
     </p>
-    
+    <p>
+       <strong>Primary Phone Number:</strong> 
+       {{contact.phone1}}
+    </p>
+    <p>
+       <strong>Secondary Phone Number:</strong> 
+       {{contact.phone2}}
+    </p>  
+    <p>
+       <strong>Address:</strong> <br>
+       <small>{{contact.street}}<br> {{contact.city}}, {{contact.state}}<br> {{contact.zipcode}}</small>
+    </p>
+    <p>
+        <strong>Parent/Guardian:</strong>
+        {{contact.guardian_name}} || {{contact.guardian_number}}
+    </p>
+    <p>
+        <strong>Passport:</strong>
+        {{contact.passport}} exp({{contact.passport_expiration}})
+    </p>
+ 
     
 </div>

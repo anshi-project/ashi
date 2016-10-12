@@ -14,7 +14,17 @@ var PlayerReg=Registration.discriminator("PlayerRegistration",
         weight:Number,
         height:String, 
       },
- 
+      contact:{
+        phone1:String,
+        phone2:{type:String,default:"N/A"},
+        passport:String,
+        passport_expiration:{type:String,default:"N/A"},
+        guardian_name:{type:String,default:"N/A"},
+        guardian_number:{type:String,default:"N/A"},
+        street:String,
+        city:String,
+        zipcode:String
+      },
       bio:{
         education:String,
         hometown:String,

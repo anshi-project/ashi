@@ -51,15 +51,17 @@ module.exports=function(app){
         })
     })
     
-    app.get("/admin/applications/pending/player",function(req,res){
+    app.get("/admin/applications/pending/players",function(req,res){
         Registration.find({__t:"PlayerRegistration",registration_status:"pending"},function(err,docs){
             if(err) throw err;
+            
             res.render("admin/registered_users/applicant_list",{applicants:docs})
         })
     })
     app.get("/admin/applications",function(req,res){
         Registration.findById(req.query.id,function(err,doc){
             if(err)throw err;
+            
             res.render("admin/registered_users/PlayerRegistration",doc)
         })
     })

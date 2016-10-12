@@ -174,15 +174,18 @@ function updateTeamAllTimeStats(s){
     Team.update(query, update, callback);
 }  
 
-module.exports = {
-    storeGameStats: storeGameStats,
-    storePlayerGameStats: storePlayerGameStats,
-    updatePlayerSeasonStats: updatePlayerSeasonStats,
-    updatePlayerCareerStats: updatePlayerCareerStats,
-    storeGoalieGameStats: storeGoalieGameStats,
-    updateGoalieSeasonStats: updateGoalieSeasonStats,
-    updateGoalieCareerStats: updateGoalieCareerStats,
-    storeTeamGameStats: storeTeamGameStats,
-    updateTeamSeasonStats: updateTeamSeasonStats,
-    updateTeamAllTimeStats: updateTeamAllTimeStats
+function storeScoreCardStats(stats){
+    storeGameStats(stats)
+    stats.ashi_players.map(storePlayerGameStats);
+    stats.ashi_players.map(updatePlayerSeasonStats);
+    stats.ashi_players.map(updatePlayerCareerStats);
+    stats.ashi_goalies.map(storeGoalieGameStats);
+    stats.ashi_goalies.map(updateGoalieSeasonStats);
+    stats.ashi_goalies.map(updateGoalieCareerStats);
+    storeTeamGameStats(stats.ashi_team);
+    updateTeamSeasonStats(stats.ashi_team);
+    updateTeamAllTimeStats(stats.ashi_team);
 }
+
+module.exports = storeScoreCardStats;
+
