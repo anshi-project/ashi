@@ -46,7 +46,9 @@ module.exports=function(app){
         // stats.ashi_players.map(statsMethods.updatePlayerSeasonStats);
         // stats.ashi_players.map(statsMethods.updatePlayerCareerStats);
         console.log(stats.ashi_team);
-        statsMethods.storeTeamGameStats(stats.ashi_team);
+        // statsMethods.storeTeamGameStats(stats.ashi_team);
+        // statsMethods.updateTeamSeasonStats(stats.ashi_team);
+        statsMethods.updateTeamAllTimeStats(stats.ashi_team);
         res.status(200).send();
     });
 }

@@ -1,16 +1,6 @@
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
-var TeamAllTimeStatsSchema = new Schema({
-            FS:{type:Number,default:0},
-            GA: {type:Number,default:0},
-            OT:{type:Number,default:0},
-            PA:{type:Number,default:0},
-            SO:{type:Number,default:0},
-            win:{type:Number},
-            loss:{type:Number}
-});
-
 var TeamSeasonStatsSchema = new Schema({
             season:{type:Number},
             FS:{type:Number,default:0},
@@ -18,8 +8,8 @@ var TeamSeasonStatsSchema = new Schema({
             OT:{type:Number,default:0},
             PA:{type:Number,default:0},
             SO:{type:Number,default:0},
-            win:{type:Number},
-            loss:{type:Number}
+            win:{type:Number,default:0},
+            loss:{type:Number,default:0}
 });
 
 var TeamGameStatsSchema = new Schema({
@@ -53,8 +43,15 @@ var teamSchema = new Schema({
     players: [{type: Schema.Types.ObjectId, ref: "Player"}],
     goalies: [{type: Schema.Types.ObjectId, ref: "Player"}],
     game_stats: [TeamGameStatsSchema],
-    seasons_stats: [TeamSeasonStatsSchema],
-    alltime_stats: [TeamAllTimeStatsSchema]
+    season_stats: [TeamSeasonStatsSchema],
+    alltime_stats: {FS:{type:Number},
+                    GA: {type:Number},
+                    OT:{type:Number},
+                    PA:{type:Number},
+                    SO:{type:Number},
+                    win:{type:Number},
+                    loss:{type:Number}
+                    }               
 });
 
 
