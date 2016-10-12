@@ -1,4 +1,4 @@
-var Registration=require("../models/registration/main")
+var Registration=require("../models/registration/main");
 var Player=require("../models/players/_default");
 var Goalie=require("../models/players/_goalie");
 var Coach=require("../models/staff/coach");
@@ -51,10 +51,17 @@ module.exports=function(app){
         })
     })
     
-    app.get("/admin/applications/:type",function(req,res){
-        Registration.findByType(req.params.type, req.query.fields,function(err,docs){
-            if(err)throw err;
-            res.send(docs)
+    app.get("/admin/applications/pending/player",function(req,res){
+        Registration.find({__t:"PlayerRegistration",registration_status:"pending"},function(err,docs){
+            if(err) throw err;
+            res.render("admin/registered_users/applicant_list",{applicants:docs})
         })
     })
+    app.get("/admin/applications",function(req,res){
+        Registration.findById(req.query.id,function(err,doc){
+            if(err)throw err;
+            res.render("admin/registered_users/PlayerRegistration",doc)
+        })
+    })
+    
 }

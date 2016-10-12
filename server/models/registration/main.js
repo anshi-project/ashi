@@ -6,7 +6,8 @@ var Team=require("../team/team");
 
 var registrationSchema=new Schema({
     apparel:{},
-    contact:{},
+    contact:{passport_expiration:{type:String,default:"N/A"}},
+    public_data:{},
     social_media:{
         facebook:{type:String,default:"N/A"},
         twitter:{type:String,default:"N/A"},
@@ -74,13 +75,18 @@ registrationSchema.statics.submit=function(id,team,type){
 registrationSchema.statics.findByType=function(_type,_query,callback){
     var type=getModel(_type);
     var query={__t:type};
+    var fields=_type=="players"? "public_data":"contact";
     if(_query) query.registration_status=_query;
     
-    this.find(query,function(err,docs){
+    this.find(query).select(fields).exec(function(err,docs){
         if(err) return callback(err);
-        return callback(null,docs);
-    })
+
+            return callback(null,docs);
+        })
+
 }
+
+
 
 registrationSchema.statics.handleFormSubmission=function(fields,type,callback){
     var REGISTRATION=require("./_"+type+"Reg");

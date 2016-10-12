@@ -12,7 +12,7 @@ var playerSchema=new Schema({
        jersey_number:String
      },
      registration:{},//any neccessary details from the players registration
-     status:{type:String,default:"registered"}
+     status:{type:String,default:"active"} //retired, renewing membership, active
 })
 
 playerSchema.statics.findByName=function(name,callback){
@@ -26,24 +26,18 @@ playerSchema.statics.findByName=function(name,callback){
 };
 
 playerSchema.methods.registerForNewSeason=function(_status){
-     var status=_status||"pending"
+     var status=_status||"renewing membership"
      
      this.status=status;
      this.save();
 }
 
-playerSchema.statics.findReturningPlayers=function(callback){
-     this.find({status:"pending"},function(err,docs){
-          if(err) return callback(err);
-          return callback(null,docs);
-     })
-}
 playerSchema.statics.reassign=function(id,team,type){
      this.findById(id,function(err,doc){
           if(err) throw err;
           
           doc.team=team;
-          doc.registerForNewSeason("registered");
+          doc.registerForNewSeason("active");
           Team.addToRoster(team.name,team.division,id,type);
      })
 }

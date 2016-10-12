@@ -41,9 +41,10 @@ module.exports=function(app){
     app.post("/scorecard", function (req, res){
         var stats = req.body.stats;
         team_name = stats.team_name; 
-        // statsMethods.storeGameStats(stats)
-        // stats.ashi_players.map(statsMethods.storePlayerGameStats);
+        statsMethods.storeGameStats(stats)
+        stats.ashi_players.map(statsMethods.storePlayerGameStats);
         stats.ashi_players.map(statsMethods.updatePlayerSeasonStats);
+        stats.ashi_players.map(statsMethods.updatePlayerCareerStats);
         res.status(200).send();
     });
 }
