@@ -41,6 +41,47 @@ module.exports=function(app){
         storeScoreCardStats(stats);
         res.status(200).send();
     });
+    
+    app.get("/api/playerstats", function(req, res){
+        var query = {};
+        if (req.param('teamname')) query['team.name'] = req.param('teamname');
+        if (req.param('jerseynumber')) query['team.jersey_number'] = req.param('jerseynumber');
+        Player.find(query, function(err, result){
+            if (err){
+                console.log(err);
+            } else {
+                res.json(result);
+            }
+        })
+    });
+    
+    app.get("/api/teamstats", function(req, res){
+        var query = {};
+        if (req.param('teamname')) query['name'] = req.param('teamname');
+        Team.find(query, function(err, result){
+            if (err){
+                console.log(err);
+            } else {
+                res.json(result);
+            }
+        })
+    });
+    
+    app.get("/api/fullgamestats", function(req, res){
+        var query = {};
+        if (req.param('teamname')) query['team_name'] = req.param('teamname');
+        if (req.param('homegame')) query['home_game'] = req.param('homegame');
+        if (req.param('opponent')) query['opponent'] = req.param('opponent');
+        if (req.param('season')) query['season'] = req.param('season');
+        console.log(query);
+        GameStats.find(query, function(err, result){
+            if (err){
+                console.log(err);
+            } else {
+                res.json(result);
+            }
+        })
+    });
 }
 
  

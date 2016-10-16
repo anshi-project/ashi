@@ -8,7 +8,7 @@
     var prevHomeDropDownVal;
     var prevRoadDropDownVal;
     var date;
-    var season = 2016;
+    var season;
 
 $('#ashi-team').attr('class');
 
@@ -379,12 +379,13 @@ $('#ashi-team').attr('class');
       var o;
       var opponent = $('.team-name-input').val();
       date = $('.date').children().first().val();
+      season = date.substr(-4);
       var time = $('.time').children().first().val();
-      // if (date === 'Select game date' || time === 'Select game start time'){
-      //   alert('select game date and time before submitting scorecard');
-      //   return;
-      // }
-      // else {
+      if (date === 'Select game date' || time === 'Select game start time'){
+        alert('select game date and time before submitting scorecard');
+        return;
+      }
+      else {
         var homeTeamStats = ['.home-playersTable', '.home-goaliesTable', '.home-team-stats'].map(getStats);
         var roadTeamStats = ['.road-playersTable', '.road-goaliesTable', '.road-team-stats'].map(getStats);
         if (home_game) {
@@ -426,7 +427,7 @@ $('#ashi-team').attr('class');
         
         console.log(gameStats);
         $.post('https://ashi-ahstein3521.c9users.io:8081/scorecard', {stats: gameStats});
-      // } 
+      } 
   });
 
     function teamFun (data){
