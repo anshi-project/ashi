@@ -227,7 +227,7 @@ $('#ashi-team').attr('class');
           var blankHtml = _.template(blankTemplate)({'location': location});
           $("." + location).html(blankHtml);
 
-          $('.minus, .plus').off();
+          $('.minus, .plus, :checkbox').off();
 
           $('.plus').on('click', function(){
               var num = Number( $(this).prev().text() ) + 1;
@@ -242,7 +242,7 @@ $('#ashi-team').attr('class');
           });
           
           $(':checkbox').change(function(){
-            $(this).closest('tr').toggleClass('playing');
+            $(this).parents('tr').toggleClass('playing');
           });
           return;
         }
@@ -256,7 +256,7 @@ $('#ashi-team').attr('class');
         var teamHtml = _.template(teamTemplate)({'location': location});
         $("." + location).append(teamHtml);
 
-        $('.minus, .plus').off();
+        $('.minus, .plus, :checkbox').off();
 
         $('.plus').on('click', function(){
             var num = Number( $(this).prev().text() ) + 1;
@@ -432,8 +432,16 @@ $('#ashi-team').attr('class');
                         opponent_team: opponent_team_stats, season: season}
         
         console.log(gameStats);
-        $.post('https://ashi-ahstein3521.c9users.io:8081/scorecard', {stats: gameStats});
-      } 
+        if (ashi_player_stats.length === 0 || ashi_goalie_stats.length === 0 ||
+            opponent_player_stats === 0 || opponent_goalie_stats === 0){
+              alert('select all players and goalies who played');
+        } 
+        else {
+          $.post('https://ashi-ahstein3521.c9users.io:8081/scorecard', {stats: gameStats}, function(result){
+            alert(result);
+          });
+        }
+      }
   });
 
     function teamFun (data){
@@ -447,5 +455,4 @@ $('#ashi-team').attr('class');
 
     $.get('/players', teamFun);
 }());
-
 

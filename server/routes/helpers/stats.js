@@ -4,7 +4,9 @@ var Player = require("../../models/players/_default");
 var Goalie = require("../../models/players/_goalie");
 var callback = function (err) {if (err) {console.log('error: ', err)}};
 
-function storeGameStats(stats){
+
+function storeGameStats(stats, response){
+    
     var query = {'team_name': stats.team_name, 'opponent': stats.opponent,
                  'date': stats.date, 'time': stats.time, 'season': stats.season};
     GameStats.find(query, function(err, result){
@@ -14,19 +16,27 @@ function storeGameStats(stats){
         }
         if (result.length === 0){
             new GameStats(stats).save(function(err, model){
-                query = {name: stats.team_name};
-                var update = {$push: {"games_stats": model._id}};
-                Team.update(query, update, callback);
+                if (err) {
+                    console.log('error: ', err);
+                    response.send('Error: game not stored');
+                    return;
+                } else {
+                    response.send('Game stored');
+                    query = {name: stats.team_name};
+                    var update = {$push: {"games_stats": model._id}};
+                    Team.update(query, update, callback);
+                    stats.ashi_players.map(storePlayerGameStats);
+                    stats.ashi_players.map(updatePlayerSeasonStats);
+                    stats.ashi_players.map(updatePlayerCareerStats);
+                    stats.ashi_goalies.map(storeGoalieGameStats);
+                    stats.ashi_goalies.map(updateGoalieSeasonStats);
+                    stats.ashi_goalies.map(updateGoalieCareerStats);
+                    storeTeamGameStats(stats.ashi_team);
+                    updateTeamSeasonStats(stats.ashi_team);
+                    updateTeamAllTimeStats(stats.ashi_team);
+                };
             });
-            stats.ashi_players.map(storePlayerGameStats);
-            stats.ashi_players.map(updatePlayerSeasonStats);
-            stats.ashi_players.map(updatePlayerCareerStats);
-            stats.ashi_goalies.map(storeGoalieGameStats);
-            stats.ashi_goalies.map(updateGoalieSeasonStats);
-            stats.ashi_goalies.map(updateGoalieCareerStats);
-            storeTeamGameStats(stats.ashi_team);
-            updateTeamSeasonStats(stats.ashi_team);
-            updateTeamAllTimeStats(stats.ashi_team);
+            
         }
     });
 }
@@ -192,8 +202,8 @@ function updateTeamAllTimeStats(s){
     Team.update(query, update, callback);
 }  
 
-function storeScoreCardStats(stats){
-    storeGameStats(stats);
+function storeScoreCardStats(stats, response){
+    storeGameStats(stats, response);
 }
 
 module.exports = storeScoreCardStats;

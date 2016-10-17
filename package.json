@@ -2,9 +2,7 @@
   "name": "A.S.H.I.",
   "version": "0.0.0",
   "description": "",
-  "scripts": {
-    "start": "node ./server/app.js"
-  },
+  "main": "app.js",
   "repository": "",
   "author": "",
   "dependencies": {

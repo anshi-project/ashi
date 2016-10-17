@@ -37,9 +37,9 @@ module.exports=function(app){
     });
    
     app.post("/scorecard", function (req, res){
+        var response = res;
         var stats = req.body.stats;
-        storeScoreCardStats(stats);
-        res.status(200).send();
+        storeScoreCardStats(stats, response);
     });
     
     app.get("/api/playerstats", function(req, res){
