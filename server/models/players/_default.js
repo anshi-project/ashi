@@ -40,7 +40,8 @@ var PlayerGameStatsSchema = new Schema({
 var PlayerStatsSchema = new Schema({
     season_stats : [PlayerSeasonStatsSchema],
     game_stats : [PlayerGameStatsSchema],
-    career_stats : {G:{type:Number,default:0},
+    career_stats : {games_played:{type:Number,default:0},
+                    G:{type:Number,default:0},
                     A:{type:Number,default:0},
                     P:{type:Number,default:0},
                     PM:{type:Number,default:0},

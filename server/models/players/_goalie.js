@@ -37,7 +37,8 @@ var GoalieGameStatsSchema = new Schema({
 var GoalieStatsSchema = new Schema({
     season_stats : [GoalieSeasonStatsSchema],
     game_stats : [GoalieGameStatsSchema],
-    career_stats : {MIN:{type:Number,default:0},
+    career_stats : {games_played:{type:Number,default:0},
+                    MIN:{type:Number,default:0},
                     SA:{type:Number,default:0},
                     SV:{type:Number,default:0},
                     GA:{type:Number,default:0},

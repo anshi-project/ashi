@@ -4,7 +4,6 @@ var Schema=mongoose.Schema;
 var Team=require("../team/team")
 
 var playerSchema=new Schema({
-     games_played:{type:Number,default:0},
      team:{
        name:String,
        division:String,

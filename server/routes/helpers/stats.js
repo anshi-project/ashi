@@ -5,10 +5,29 @@ var Goalie = require("../../models/players/_goalie");
 var callback = function (err) {if (err) {console.log('error: ', err)}};
 
 function storeGameStats(stats){
-    new GameStats(stats).save(function(err, model){
-        var query = {name: stats.team_name};
-        var update = {$push: {"games_stats": model._id}};
-        Team.update(query, update, callback);
+    var query = {'team_name': stats.team_name, 'opponent': stats.opponent,
+                 'date': stats.date, 'time': stats.time, 'season': stats.season};
+    GameStats.find(query, function(err, result){
+        if (err){
+            console.log(err);
+            return;
+        }
+        if (result.length === 0){
+            new GameStats(stats).save(function(err, model){
+                query = {name: stats.team_name};
+                var update = {$push: {"games_stats": model._id}};
+                Team.update(query, update, callback);
+            });
+            stats.ashi_players.map(storePlayerGameStats);
+            stats.ashi_players.map(updatePlayerSeasonStats);
+            stats.ashi_players.map(updatePlayerCareerStats);
+            stats.ashi_goalies.map(storeGoalieGameStats);
+            stats.ashi_goalies.map(updateGoalieSeasonStats);
+            stats.ashi_goalies.map(updateGoalieCareerStats);
+            storeTeamGameStats(stats.ashi_team);
+            updateTeamSeasonStats(stats.ashi_team);
+            updateTeamAllTimeStats(stats.ashi_team);
+        }
     });
 }
 
@@ -58,13 +77,13 @@ function updatePlayerSeasonStats(s){
 function updatePlayerCareerStats(s){
     var win = Boolean(s.win)? 1: 0;
     var loss = Boolean(s.win)? 0: 1;
-    // console.log('updateCareerStats ', s, ' ', s.team_name);
     var query = {'team.name': s.team_name, 'team.jersey_number': s.jersey_number};
     var update = {$inc: {'career_stats.G': s.G, 'career_stats.A': s.A, 
                          'career_stats.P': s.P, 'career_stats.PM': s.PM, 
                          'career_stats.PIM': s.PIM, 'career_stats.SOG': s.SOG, 
                          'career_stats.GWG': s.GWG, 'career_stats.PP': s.PP,
-                         'career_stats.SH': s.SH, win: win, loss: loss}};
+                         'career_stats.games_played': 1, 'career_stats.SH': s.SH,
+                         win: win, loss: loss}};
     Player.update(query, update, callback);
 }  
 
@@ -119,6 +138,7 @@ function updateGoalieCareerStats(s){
                          'career_stats.SV': s.SV, 'career_stats.GA': s.GA, 
                          'career_stats.SO': s.SO, 'career_stats.G': s.G,
                          'career_stats.A': s.A, 'career_stats.PIM': s.PIM,
+                         'career_stats.games_played': 1,
                           win: win, loss: loss}};
     Goalie.update(query, update, callback);
 }  
@@ -136,7 +156,6 @@ function updateTeamSeasonStats(s){
     var update;
     var win = Boolean(s.win)? 1: 0;
     var loss = Boolean(s.win)? 0: 1;
-    // console.log('updateTeamSeasonStats ', s, ' ', s.team_name);
     var query = {'season_stats.season': s.season, name: s.team_name};
     
     Team.find(query, function(err, result){
@@ -165,7 +184,6 @@ function updateTeamSeasonStats(s){
 function updateTeamAllTimeStats(s){
     var win = Boolean(s.win)? 1: 0;
     var loss = Boolean(s.win)? 0: 1;
-    // console.log('updateTeamAllTimeStats ', s, ' ', s.team_name);
     var query = {name: s.team_name};
     var update = {$inc: {'alltime_stats.FS': s.FS, 'alltime_stats.GA': s.GA, 
                   'alltime_stats.OT': s.OT, 'alltime_stats.PA': s.PA, 
@@ -175,16 +193,7 @@ function updateTeamAllTimeStats(s){
 }  
 
 function storeScoreCardStats(stats){
-    storeGameStats(stats)
-    stats.ashi_players.map(storePlayerGameStats);
-    stats.ashi_players.map(updatePlayerSeasonStats);
-    stats.ashi_players.map(updatePlayerCareerStats);
-    stats.ashi_goalies.map(storeGoalieGameStats);
-    stats.ashi_goalies.map(updateGoalieSeasonStats);
-    stats.ashi_goalies.map(updateGoalieCareerStats);
-    storeTeamGameStats(stats.ashi_team);
-    updateTeamSeasonStats(stats.ashi_team);
-    updateTeamAllTimeStats(stats.ashi_team);
+    storeGameStats(stats);
 }
 
 module.exports = storeScoreCardStats;
