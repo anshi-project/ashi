@@ -22,7 +22,7 @@ app.use(session({secret:process.env.cookie_secret,saveUninitialized:true,resave:
 app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
 
-app.use('/public', express.static('public'));
+app.use('/server/public', express.static('/server/public'));
 
 
 require("./routes/index")(app);
