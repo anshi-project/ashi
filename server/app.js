@@ -1,6 +1,7 @@
 var path=require("path");
 var express=require("express");
 var app=express();
+var port = process.env.PORT || 8080;
 var exphbs=require('express-handlebars');
 
 var mongoose=require("mongoose");
@@ -28,7 +29,11 @@ require("./routes/index")(app);
 require("./routes/registration")(app);
 require("./routes/admin")(app);
 // app.listen(8080, () => console.log('port 8080 => Adam'));
-app.listen(8081, () => console.log('port 8081 => Manolo')); 
+// app.listen(8081, () => console.log('port 8081 => Manolo')); 
+
+app.listen(port, function(){
+    console.log('ASHI app running on port: ' + port);
+})
 
 
 
