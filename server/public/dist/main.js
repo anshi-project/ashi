@@ -1,228 +1,19 @@
 (function(){
   var ashiTeamName;
-    var teamData;
-    var formData;
-    var home_game;
-    var homeDropDownVal = "";
-    var roadDropDownVal = "";
-    var prevHomeDropDownVal;
-    var prevRoadDropDownVal;
-    var date;
-    var season;
+  var teamData;
+  var formData;
+  var home_game;
+  var homeDropDownVal = "";
+  var roadDropDownVal = "";
+  var prevHomeDropDownVal;
+  var prevRoadDropDownVal;
+  var date;
+  var season;
 
-$('#ashi-team').attr('class');
-
-    var playersTemplate = `<table class='<%=location%>-playersTable' id='ashi-team'>
-                      <thead>
-                      <tr>
-                        <th class='select-player'></th>
-                        <th class='player-number'><bold>#</bold></th>
-                        <th class='name'><bold>Player</bold></th>
-                        <th><bold>G</bold></th>
-                        <th><bold>A</bold></th>
-                        <th><bold>P</bold></th>
-                        <th><bold>+-</bold></th>
-                        <th><bold>PIM</bold></th>
-                        <th><bold>SOG</bold></th>
-                        <th><bold>GWG</bold></th>
-                        <th><bold>PP</bold></th>
-                        <th><bold>SH</bold></th>
-                      </tr>
-                      </thead>
-                      <tbody>
-                      <% _.each(players, function(player) { %>
-                          <tr>
-                            <td class="select-player"><input type="checkbox"></td>
-                            <td class='player-number'><%=player.team.jersey_number%></td>
-                            <td class='name'><%=player.registration.public_data.firstname + ' ' + player.registration.public_data.lastname%></td>
-                            <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
-                            <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
-                            <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
-                            <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
-                            <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
-                            <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
-                            <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
-                            <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
-                            <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
-                          </tr>
-                      <% }) %>
-                      </tbody>
-                </table>`
-
-      var goaliesTemplate = `<table class='<%=location%>-goaliesTable'>
-                              <thead>
-                                <tr>
-                                  <th class='select-player'></th>
-                                  <th class='goalie-number'><bold>#</bold></th>
-                                  <th class='name'><bold>Goal tender</bold></th>
-                                  <th><bold>MIN</bold></th>
-                                  <th><bold>SA</bold></th>
-                                  <th><bold>SV</bold></th>
-                                  <th><bold>GA</bold></th>
-                                  <th><bold>SO</bold></th>
-                                  <th><bold>G</bold></th>
-                                  <th><bold>A</bold></th>
-                                  <th><bold>PIM</bold></th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                              <% _.each(goalies, function(goalie) { %>
-                                  <tr>
-                                    <td class="select-player"><input type="checkbox"></td>
-                                    <td class='goalie-number'><%=goalie.team.jersey_number%></td>
-                                    <td class='name'><%=goalie.registration.public_data.firstname + ' ' + goalie.registration.public_data.lastname%></td>
-                                    <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
-                                    <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
-                                    <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
-                                    <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
-                                    <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
-                                    <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
-                                    <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
-                                    <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
-                                  </tr>
-                              <% }) %>
-                              </tbody>
-                            </table>`
-
-  var teamTemplate = `      <div class="row">
-                        			<div class="col-sm-6">
-                        				<table class="<%=location%>-team-stats">
-                                  <thead>
-                          					<tr>
-                          						<th ><div class='team-stats-header'><bold>Team Stats</bold></div></th>
-                                      <th><bold>Q1</bold></th>
-                                      <th><bold>Q2</bold></th>
-                                      <th><bold>Q3</bold></th>
-                          						<th><bold>OT</bold></th>
-                                      <th><bold>FS</bold></th>
-                                      <th><bold>GA</bold></th>
-                                      <th><bold>PA</bold></th>
-                          						<th><bold>SO</bold></th>
-                          					</tr>
-                                  </thead>
-                                  <tbody>
-                          					<tr class='playing'>
-                                      <td ><div class='team-stats-header'></div></td>
-                                      <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
-                          						<td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
-                          						<td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
-                          						<td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
-                                      <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
-                                      <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
-                                      <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
-                                      <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
-                          					</tr>
-                                  </tbody>
-                        				</table>
-                        			</div>
-                        			<div class="col-sm-6"></div>
-                        		</div>`
-
-  var blankTemplate = `<table class='<%=location%>-playersTable blank-table'>
-                              <thead>
-                              <tr>
-                                <th class='select-player'></th>
-                                <th class='player-number-blank'><bold>#</bold></th>
-                                <th class='name'><bold>Player</bold></th>
-                                <th><bold>G</bold></th>
-                                <th><bold>A</bold></th>
-                                <th><bold>P</bold></th>
-                                <th><bold>+-</bold></th>
-                                <th><bold>PIM</bold></th>
-                                <th><bold>SOG</bold></th>
-                                <th><bold>GWG</bold></th>
-                                <th><bold>PP</bold></th>
-                                <th><bold>SH</bold></th>
-                              </tr>
-                              </thead>
-                              <tbody>
-                              <% _.each([0,0,0,0,0,0,0,0,0,0,0], function(player) { %>
-                                  <tr>
-                                    <td class="select-player"><input type="checkbox" class='blank-scorecard'></td>
-                                    <td class='player-number-blank'><input type='text' class='blank-scorecard' maxlength="2" size="2"></td>
-                                    <td class='player-name-blank'><input type='text' class='blank-scorecard' maxlength='30'></td>
-                                    <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
-                                    <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
-                                    <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
-                                    <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
-                                    <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
-                                    <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
-                                    <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
-                                    <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
-                                    <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
-                                  </tr>
-                              <% }) %>
-                              </tbody>
-                          </table>
-                          <table class='<%=location%>-goaliesTable blank-table'>
-                                                  <thead>
-                                                    <tr>
-                                                      <th class='select-player'></th>
-                                                      <th class='goalie-number'><bold>#</bold></th>
-                                                      <th class='name goalie-name-blank'><bold>Goal tender</bold></th>
-                                                      <th><bold>MIN</bold></th>
-                                                      <th><bold>SA</bold></th>
-                                                      <th><bold>SV</bold></th>
-                                                      <th><bold>GA</bold></th>
-                                                      <th><bold>SO</bold></th>
-                                                      <th><bold>G</bold></th>
-                                                      <th><bold>A</bold></th>
-                                                      <th><bold>PIM</bold></th>
-                                                    </tr>
-                                                  </thead>
-                                                  <tbody>
-                                                  <% _.each([0,0,0], function(goalie) { %>
-                                                      <tr>
-                                                        <td class ="select-player"><input type="checkbox" class='blank-scorecard'></td>
-                                                        <td class ='player-number-blank'><input type='text' class='blank-scorecard' maxlength="2" size = "2"></td>
-                                                        <td><input class='goalie-name-blank blank-scorecard type='text' maxlength='30'></td>
-                                                        <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
-                                                        <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
-                                                        <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
-                                                        <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
-                                                        <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
-                                                        <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
-                                                        <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
-                                                        <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
-                                                      </tr>
-                                                  <% }) %>
-                                                  </tbody>
-                                                </table>
-                                                <div class="row">
-                                              			<div class="col-sm-6">
-                                              				<table class="<%=location%>-team-stats">
-                                                        <thead>
-                                                					<tr>
-                                                						<th ><div class='team-stats-header-blank'><bold>Team Stats</bold></div></th>
-                                                            <th><bold>Q1</bold></th>
-                                                            <th><bold>Q2</bold></th>
-                                                            <th><bold>Q3</bold></th>
-                                                						<th><bold>OT</bold></th>
-                                                            <th><bold>FS</bold></th>
-                                                            <th><bold>GA</bold></th>
-                                                            <th><bold>PA</bold></th>
-                                                						<th><bold>SO</bold></th>
-                                                					</tr>
-                                                        </thead>
-                                                        <tbody>
-                                                					<tr class='playing'>
-                                                            <td ><div class='team-stats-header-blank'></div></td>
-                                                            <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
-                                                						<td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
-                                                						<td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
-                                                						<td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
-                                                            <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
-                                                            <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
-                                                            <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
-                                                            <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
-                                                					</tr>
-                                                        </tbody>
-                                              				</table>
-                                              			</div>
-                                              			<div class="col-sm-6"></div>
-                                              		</div>`
-
-    function displayTeam(blankCard, location, team, playersArr, goaliesArr){
+  require(['playerstemplate', 'goaliestemplate', 'teamtemplate', 'blanktemplate'], 
+    function(playersTemplate, goaliesTemplate, teamTemplate, blankTemplate){
+    
+      function displayTeam(blankCard, location, team, playersArr, goaliesArr){
         if (blankCard) {
           var blankHtml = _.template(blankTemplate)({'location': location});
           $("." + location).html(blankHtml);
@@ -273,9 +64,9 @@ $('#ashi-team').attr('class');
         $(':checkbox').change(function(){
           $(this).parents('tr').toggleClass('playing');
         });
-    }
+      }
 
-    $("#road-dropdown, #home-dropdown").on("change", function() {
+     $("#road-dropdown, #home-dropdown").on("change", function() {
         var dropDownVal = this.value;
         if (dropDownVal === "") return;
         if ($('#road-dropdown').val() === $('#home-dropdown').val()) {
@@ -310,9 +101,9 @@ $('#ashi-team').attr('class');
         var playersArr = teamData[dropDownVal].players;
         var goaliesArr = teamData[dropDownVal].goalies;
         displayTeam(false, location, team, playersArr, goaliesArr);
-    });
+     });
 
-    $(".lock-unlock-scorecard").on('click', function(){
+     $(".lock-unlock-scorecard").on('click', function(){
         if ($(this).text() === "Lock controls"){
             $('.controls').hide();
             $(this).text('Unlock controls');
@@ -322,9 +113,9 @@ $('#ashi-team').attr('class');
             $(this).text('Lock controls');
             $(this).css('background-color', 'red');
         }
-    });
+      });
 
-    function getStats(tableClass) {
+     function getStats(tableClass) {
       var arr = [];
       $(tableClass).find('> tbody tr.playing').each(function(){
         var stat;
@@ -344,9 +135,9 @@ $('#ashi-team').attr('class');
         });
       });
       return arr;
-    }
+     }
     
-    function getPlayerStats(p, opponent, home_game, win){
+     function getPlayerStats(p, opponent, home_game, win){
     	var playersStatsArr = [];
     	while (p.length > 0){
     		var player = {jersey_number: String(p[1]), full_name: p[2], G: p[3], A: p[4],
@@ -357,9 +148,9 @@ $('#ashi-team').attr('class');
     		p = p.slice(12);
     	}
     	return playersStatsArr;
-    }
+     }
     
-    function getGoalieStats(g, opponent, home_game, win){
+     function getGoalieStats(g, opponent, home_game, win){
     	var goaliesStatsArr = [];
     	while (g.length > 0){
     		var goalie = {jersey_number: String(g[1]), full_name: g[2], MIN: g[3], SA: g[4],
@@ -385,63 +176,63 @@ $('#ashi-team').attr('class');
         alert('select game date and time before submitting scorecard');
         return;
       }
-      else {
-        var homeTeamStats = ['.home-playersTable', '.home-goaliesTable', '.home-team-stats'].map(getStats);
-        var roadTeamStats = ['.road-playersTable', '.road-goaliesTable', '.road-team-stats'].map(getStats);
-        if (home_game) {
-          ap = homeTeamStats[0];
-          ag = homeTeamStats[1];
-          at = homeTeamStats[2];
-          op = roadTeamStats[0];
-          og = roadTeamStats[1];
-          ot = roadTeamStats[2];
-        } else {
-          op = homeTeamStats[0];
-          og = homeTeamStats[1];
-          ot = homeTeamStats[2];
-          ap = roadTeamStats[0];
-          ag = roadTeamStats[1];
-          at = roadTeamStats[2];
-        }
-        
-        if (at[5] === ot[5]) {
-          alert('Error: both teams have the same final score, please check the scores');
-          return;
-        }
-        at[5] > ot[5]? win = true: win = false;
-        
-        var ashi_player_stats = getPlayerStats(ap, opponent, home_game, win);
-        var ashi_goalie_stats = getGoalieStats(ag, opponent, home_game, win);
-        var ashi_team_stats = {Q1_goals: at[1], Q2_goals: at[2], Q3_goals: at[3],
-                               OT: at[4], FS: at[5], GA: at[6], PA: at[7], SO: at[8], 
-                               win: win, date: date, home_game: home_game, 
-                               opponent: opponent, season: season, team_name: ashiTeamName};
-        var opponent_player_stats = getPlayerStats(op, ashiTeamName, !home_game, !win);
-        var opponent_goalie_stats = getGoalieStats(og, ashiTeamName, !home_game, !win);
-        var opponent_team_stats = {Q1_goals: ot[1], Q2_goals: ot[2], Q3_goals: ot[3],
-                                   OT: ot[4], FS: ot[5], GA: ot[6], PA: ot[7], SO: ot[8], 
-                                   win: !win, date: date, home_game: !home_game,
-                                   opponent: ashiTeamName, season: season};
-        var ashiStats = [ashi_player_stats, ashi_goalie_stats, ashi_team_stats];
-        var opponentStats = [opponent_player_stats, opponent_goalie_stats, opponent_team_stats];
-        
-        
-        var gameStats = {team_name: ashiTeamName, home_game: home_game, opponent: opponent, date: date, time: time,
-                        ashi_players: ashi_player_stats, ashi_goalies: ashi_goalie_stats, ashi_team: ashi_team_stats,
-                        opponent_players: opponent_player_stats, opponent_goalies: opponent_goalie_stats,
-                        opponent_team: opponent_team_stats, season: season}
-        
-        console.log(gameStats);
-        if (ashi_player_stats.length === 0 || ashi_goalie_stats.length === 0 ||
-            opponent_player_stats === 0 || opponent_goalie_stats === 0){
-              alert('select all players and goalies who played');
-        } 
-        else {
-          $.post('https://ashi-ahstein3521.c9users.io:8081/scorecard', {stats: gameStats}, function(result){
-            alert(result);
-          });
-        }
+     
+      var homeTeamStats = ['.home-playersTable', '.home-goaliesTable', '.home-team-stats'].map(getStats);
+      var roadTeamStats = ['.road-playersTable', '.road-goaliesTable', '.road-team-stats'].map(getStats);
+      if (home_game) {
+        ap = homeTeamStats[0];
+        ag = homeTeamStats[1];
+        at = homeTeamStats[2];
+        op = roadTeamStats[0];
+        og = roadTeamStats[1];
+        ot = roadTeamStats[2];
+      } else {
+        op = homeTeamStats[0];
+        og = homeTeamStats[1];
+        ot = homeTeamStats[2];
+        ap = roadTeamStats[0];
+        ag = roadTeamStats[1];
+        at = roadTeamStats[2];
       }
+      
+      if (at[5] === ot[5]) {
+        alert('Error: both teams have the same final score, please check the scores');
+        return;
+      }
+      
+      at[5] > ot[5]? win = true: win = false;
+      
+      var ashi_player_stats = getPlayerStats(ap, opponent, home_game, win);
+      var ashi_goalie_stats = getGoalieStats(ag, opponent, home_game, win);
+      var ashi_team_stats = {Q1_goals: at[1], Q2_goals: at[2], Q3_goals: at[3],
+                             OT: at[4], FS: at[5], GA: at[6], PA: at[7], SO: at[8], 
+                             win: win, date: date, home_game: home_game, 
+                             opponent: opponent, season: season, team_name: ashiTeamName};
+      var opponent_player_stats = getPlayerStats(op, ashiTeamName, !home_game, !win);
+      var opponent_goalie_stats = getGoalieStats(og, ashiTeamName, !home_game, !win);
+      var opponent_team_stats = {Q1_goals: ot[1], Q2_goals: ot[2], Q3_goals: ot[3],
+                                 OT: ot[4], FS: ot[5], GA: ot[6], PA: ot[7], SO: ot[8], 
+                                 win: !win, date: date, home_game: !home_game,
+                                 opponent: ashiTeamName, season: season};
+      var ashiStats = [ashi_player_stats, ashi_goalie_stats, ashi_team_stats];
+      var opponentStats = [opponent_player_stats, opponent_goalie_stats, opponent_team_stats];
+      
+      var gameStats = {team_name: ashiTeamName, home_game: home_game, opponent: opponent, date: date, time: time,
+                      ashi_players: ashi_player_stats, ashi_goalies: ashi_goalie_stats, ashi_team: ashi_team_stats,
+                      opponent_players: opponent_player_stats, opponent_goalies: opponent_goalie_stats,
+                      opponent_team: opponent_team_stats, season: season}
+                      
+       if (ashi_player_stats.length === 0 || ashi_goalie_stats.length === 0 ||
+          opponent_player_stats.length === 0 || opponent_goalie_stats.length === 0){
+          alert('select all players and goalies who played');
+          return;
+      } 
+      
+      console.log(gameStats);
+
+      $.post('https://ashi-ahstein3521.c9users.io:8081/scorecard', {stats: gameStats}, function(result){
+        alert(result);
+      });
   });
 
     function teamFun (data){
@@ -454,5 +245,7 @@ $('#ashi-team').attr('class');
     $('.clockpicker').clockpicker(({donetext: 'Done'})).children().first().val('Select game start time');
 
     $.get('/players', teamFun);
+    
+  });
 }());
 
