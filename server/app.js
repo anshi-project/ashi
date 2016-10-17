@@ -33,7 +33,7 @@ app.listen(8081, () => console.log('port 8081 => Manolo'));
 
 app.listen(port, function(){
     console.log('ASHI app running on port: ' + port);
-})
+});
 
 
 
