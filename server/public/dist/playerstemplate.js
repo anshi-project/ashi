@@ -17,7 +17,7 @@ var playersTemplate = `<table class='<%=location%>-playersTable' id='ashi-team'>
                       </thead>
                       <tbody>
                       <% _.each(players, function(player) { %>
-                          <tr>
+                          <tr class="not-playing">
                             <td class="select-player"><input type="checkbox"></td>
                             <td class='player-number'><%=player.team.jersey_number%></td>
                             <td class='name'><%=player.registration.public_data.firstname + ' ' + player.registration.public_data.lastname%></td>

@@ -1,12 +1,14 @@
 <div class="container">
-    <ul class="list-group">
-        {{#each coaches}}
+    
+    {{#if applicants}}
+       <ul class="list-group">
+        {{#each applicants}}
         <li class="list-group-item">
             <a href="#{{this._id}}" role="button" data-toggle="collapse">
-                {{this.contact.lastname}}, {{this.contact.firstname}}
+                {{this.lastname}}, {{this.firstname}}
             </a>
             <div class="collapse" id="{{this._id}}">
-                <form disabled>
+                <form action="/admin/assign/coach?id={{this._id}}">
                     <select name="team">
                         <option disabled selected>Select A Team</option>
                         {{> scorecard/_teamDropdown2}}
@@ -17,14 +19,15 @@
                         <option value="Assistant Head Coach">Assistant Head Coach</option>
                         <option value="Assistant Coach for Defense">Assistant Coach for Defense</option>
                         <option value="Assistant Coach for Forwards">Assistant Coach for Forwards</option>
-                        {{#if this.alternative_position}}
-                        <option value="{{this.alternative_position}}">**{{this.alternative_position}}**</option>
-                        {{/if}}
+                        <option value="Other">Other</option>
                     </select>
-                    <input type="submit" class="addToTeam addCoach"  value="Add to team">
+                    <input type="submit" class="addToTeam"  value="Add to team">
                 </form>    
             </div>
         </li>
         {{/each}}
     </ul>
+    {{else}}
+    <h3>Nothing here</h3>
+    {{/if}}
 </div>

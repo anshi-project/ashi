@@ -26,7 +26,7 @@ function toggleFormField(element,condition){
 $("input[name='passport']").on("change",function(){
     var passport=$("input[name='passport']:checked").val();
     var expDate=$("input[name='passport_expiration']")
-    var condition=passport=="no";
+    var condition=(passport=="no");
     toggleFormField(expDate,condition);
 })
 
@@ -62,25 +62,25 @@ $("input[name='preferred_coaching_positions']").on("change",function(){
 $("#registration-form").on("submit",function(e){
     var dataArr=$("#registration-form").serializeArray();
     var data={};
+    var loc=window.location;
+
+    dataArr.forEach(v=> data[v.name]=v.value||"N/A");
     
-    dataArr.forEach(v=> data[v.name]=v.value);
-    
-    localStorage.setItem(window.location.search, JSON.stringify(data));
+    localStorage.setItem(formURL, JSON.stringify(data));
 })
 
 
-(function(){
-    var formURL=window.location.search;
-    var formData=JSON.parse(localStorage.getItem(formURL));
+    var formURL=window.location.pathname+window.location.search.replace("?part=1","");
+    var formData=JSON.parse(localStorage.getItem(formURL))||{};
     var props=Object.keys(formData)
     
     props.forEach(function(prop){
-        $(`input[name=${prop}]`).attr("value",formData[prop]);
+        let val=formData[prop]
+        $(`input:not(:radio)[name=${prop}]`).attr("value",val);
+        $(`select[name=${prop}]`).val(val);
+        
+        // if(prop!="height") $(`input:radio[name=${prop}][value=${val}]`).prop("checked",true)
+        
     })
-}())//restore form fields
-    
-
-
-
 
 

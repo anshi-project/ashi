@@ -1,46 +1,64 @@
 var mongoose=require("mongoose");
 var Schema=mongoose.Schema;
 
-var Team=require("../team/team")
+var methods=require("./methods");
+
 
 var playerSchema=new Schema({
-     team:{
+    firstname:String,
+    lastname:String,
+    games_played:{type:Number,default:0},
+    team:{
        name:String,
        division:String,
        position:String,
-       jersey_number:String
+       jersey_number:String,
+       shooting_hand:String
      },
-     registration:{},//any neccessary details from the players registration
+     public_data:{
+        date_of_birth:String,
+        email:String,
+        height:String,
+        weight:Number,
+        phone1:String,
+    },
+     registration:{
+        apparel:{},
+        bio:{
+          hometown:String
+        },
+        social_media:{},
+        lifestyle:{},
+        contact:{},
+        hockey_info:{
+          tournament_team:String,
+          league_team:String,
+          website:String
+        }
+     },
      status:{type:String,default:"active"} //retired, renewing membership, active
 })
 
-playerSchema.statics.findByName=function(name,callback){
+playerSchema.virtual("public_data.age").get(function(){
+    var now=Date.now();
+    var dob=new Date(this.public_data.date_of_birth).getTime();
+    var ageDate=new Date(now-dob);
+    return Math.abs(ageDate.getUTCFullYear()-1970)
 
-     var query={"registration.public_data.firstname":name.firstname,"registration.public_data.lastname":name.lastname};
-     
-     this.find({query},function(err,docs){
-          if(err) return callback(err)
-          callback(null,docs);
-     });
-};
+})
 
-playerSchema.methods.registerForNewSeason=function(_status){
-     var status=_status||"renewing membership"
-     
-     this.status=status;
-     this.save();
-}
+playerSchema.virtual("team.pos_abrv").get(function(){
+  var pos=this.team.position.split(" ");
+  if(pos[1]=="Defense") pos.shift();
 
-playerSchema.statics.reassign=function(id,team,type){
-     this.findById(id,function(err,doc){
-          if(err) throw err;
-          
-          doc.team=team;
-          doc.registerForNewSeason("active");
-          Team.addToRoster(team.name,team.division,id,type);
-     })
-}
+  return pos.map(v=> v.charAt(0)).join("")
 
+})
+
+playerSchema.statics.assign=methods.assign;
+//Create a new player object from the registration object. Assign to a team.
+playerSchema.statics.reassign=methods.reassign
+//Assign a player that already exists within the database to a new team;
 
 
 

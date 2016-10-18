@@ -16,7 +16,7 @@ var goaliesTemplate = `<table class='<%=location%>-goaliesTable'>
                               </thead>
                               <tbody>
                               <% _.each(goalies, function(goalie) { %>
-                                  <tr>
+                                  <tr class="not-playing">
                                     <td class="select-player"><input type="checkbox"></td>
                                     <td class='goalie-number'><%=goalie.team.jersey_number%></td>
                                     <td class='name'><%=goalie.registration.public_data.firstname + ' ' + goalie.registration.public_data.lastname%></td>

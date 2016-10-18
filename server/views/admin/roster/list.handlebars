@@ -1,0 +1,12 @@
+<div class="container">
+	<div class="page-header">
+		<h1>Team Rosters</h1>
+	</div>
+	<ul>
+		{{#each team}}
+		<li>
+			<a href="/admin/roster/{{this.key}}">{{this.name}}</a>
+		</li>	
+		{{/each}}
+	</ul>	
+</div>

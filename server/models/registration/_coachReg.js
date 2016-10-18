@@ -3,7 +3,7 @@ var Schema=mongoose.Schema;
 
 var Registration=require("./main");
 
-var CoachReg=Registration.discriminator("CoachRegistration",
+var CoachReg=Registration.discriminator("coach-registration",
     new Schema({
         coaching_info:{
             former_coaching_positions:[{type:String}],

@@ -3,19 +3,17 @@ var Schema=mongoose.Schema;
 
 var Registration=require("./main");
 
-var PlayerReg=Registration.discriminator("PlayerRegistration",
+var PlayerReg=Registration.discriminator("player-registration",
     new Schema({
       public_data:{  
-        lastname:{type:String,lowercase:true},
-        firstname:{type:String,lowercase:true},
         date_of_birth:{type:String},
         email:{type:String,lowercase:true},
         gender:String,
         weight:Number,
-        height:String, 
+        height:String,
+        phone1:String 
       },
       contact:{
-        phone1:String,
         phone2:{type:String,default:"N/A"},
         passport:String,
         passport_expiration:{type:String,default:"N/A"},
@@ -39,14 +37,13 @@ var PlayerReg=Registration.discriminator("PlayerRegistration",
         sports_team:String,
         other_sport:String,
         food:String
-      },  
-      
+      },   
       hockey_info:{
         team:String,
         position:String,
         shooting_hand:String,
         tournament_team:{type:String,default:"N/A"},
-        leaugue_team:{type:String,default:"N/A"},
+        league_team:{type:String,default:"N/A"},
         website:{type:String,default:"N/A"}
       },
       

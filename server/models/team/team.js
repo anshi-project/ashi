@@ -38,8 +38,9 @@ var teamSchema = new Schema({
         street: String
     },
     website: String,
-    managers: [{type: Schema.Types.ObjectId, ref: "User"}],
-    coach: [{type: Schema.Types.ObjectId, ref: "Coach"}],
+    key:String,
+    managers: [{type: Schema.Types.ObjectId, ref: "Manager"}],
+    coach: [{type: Schema.Types.ObjectId, ref: "coach"}],
     players: [{type: Schema.Types.ObjectId, ref: "Player"}],
     goalies: [{type: Schema.Types.ObjectId, ref: "Player"}],
     game_stats: [TeamGameStatsSchema],
@@ -55,15 +56,15 @@ var teamSchema = new Schema({
 });
 
 
-teamSchema.statics.addToRoster = function(teamName,division,id,type){
-    var query = {name:teamName,division:division};
+teamSchema.statics.addToRoster = function(query,id,type){
     var update = {};
       update[type] = id;//ex.{players:id}
     
-   this.findOneAndUpdate(query,{"$push":update},{upsert:true,safe:true},
+   this.update(query,{"$push":update},{upsert:true,safe:true,multi:true},
          function(err,data){
              if(err) throw err;
         })
+    
 }
 
 module.exports = mongoose.model("team",teamSchema)

@@ -36,7 +36,6 @@ function storeGameStats(stats, response){
                     updateTeamAllTimeStats(stats.ashi_team);
                 };
             });
-            
         }
     });
 }

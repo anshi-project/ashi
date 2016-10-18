@@ -1,13 +1,13 @@
 <div class="container">
     <ul class="list-group">
-        {{#if player}}
-        {{#each player}}
+        {{#if applicants}}
+        {{#each applicants}}
         <li class="list-group-item">
             <a href="#{{this._id}}" role="button" data-toggle="collapse">
-                {{this.public_data.lastname}}, {{this.public_data.firstname}}
+                {{this.lastname}}, {{this.firstname}}
             </a>
             <div class="collapse" id="{{this._id}}">
-                <form disabled>
+                <form action="/admin/assign/player?id={{this._id}}" method="post">
                     <select name="team">
                         <option disabled selected selected>Select A Team</option>
                         {{> scorecard/_teamDropdown2}}
@@ -21,6 +21,7 @@
                         <option value="Left Defense">Left Defense</option>
                         <option value="Goalie">Goalie</option>
                     </select>
+                    {{#if this.jersey_number_choices}}
                     <select name="jersey_number">
                         <option disabled selected>Select A Jersey Number</option>
                         {{#each jersey_number_choices}}
@@ -28,6 +29,11 @@
                         {{/each}}
                     </select>
                     <input type="submit" class="addToTeam"  value="Add to team">
+                    {{else}}
+                    <label>Jersey Number:</label>
+                    <input type="number" min="0" max="100" name="jersey_number" value={{this.team.jersey_number}}>
+                    <input type="submit" class="addReturningPlayer"  value="Add to team">
+                    {{/if}}
                 </form>    
             </div>
         </li>
@@ -36,6 +42,7 @@
     {{else}}
     <div class="jumbotron">
         <h3>Nothing to see here</h3>
+        <a href="/">Back</a>
     </div>
     {{/if}}
 </div>

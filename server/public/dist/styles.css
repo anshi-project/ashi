@@ -292,3 +292,12 @@ tr:nth-child(even) {background-color: #e6ecff}
 .scorecard-title {
     margin-top: -2em;
 }
+
+.not-playing {
+    color: rgba(0,0,0,0.3)
+}
+
+.playing {
+    color: #000;
+}
+

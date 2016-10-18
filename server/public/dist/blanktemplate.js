@@ -17,7 +17,7 @@ var blankTemplate = `<table class='<%=location%>-playersTable blank-table'>
                               </thead>
                               <tbody>
                               <% _.each([0,0,0,0,0,0,0,0,0,0,0], function(player) { %>
-                                  <tr>
+                                  <tr class='not-playing'>
                                     <td class="select-player"><input type="checkbox" class='blank-scorecard'></td>
                                     <td class='player-number-blank'><input type='text' class='blank-scorecard' maxlength="2" size="2"></td>
                                     <td class='player-name-blank'><input type='text' class='blank-scorecard' maxlength='30'></td>
@@ -52,7 +52,7 @@ var blankTemplate = `<table class='<%=location%>-playersTable blank-table'>
                             </thead>
                             <tbody>
                             <% _.each([0,0,0], function(goalie) { %>
-                                <tr>
+                                <tr class='not-playing'>
                                   <td class ="select-player"><input type="checkbox" class='blank-scorecard'></td>
                                   <td class ='player-number-blank'><input type='text' class='blank-scorecard' maxlength="2" size = "2"></td>
                                   <td><input class='goalie-name-blank blank-scorecard type='text' maxlength='30'></td>
@@ -87,14 +87,14 @@ var blankTemplate = `<table class='<%=location%>-playersTable blank-table'>
                                   <tbody>
                           					<tr class='playing'>
                                       <td ><div class='team-stats-header-blank'></div></td>
-                                      <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
-                          						<td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
-                          						<td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
-                          						<td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
-                                      <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
-                                      <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
-                                      <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
-                                      <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
+                                      <td><span class='minus active'>-</span><span class='num'>0</span><span class='plus active'>+</span></td>
+                          						<td><span class='minus active'>-</span><span class='num'>0</span><span class='plus active'>+</span></td>
+                          						<td><span class='minus active'>-</span><span class='num'>0</span><span class='plus active'>+</span></td>
+                          						<td><span class='minus active'>-</span><span class='num'>0</span><span class='plus active'>+</span></td>
+                                      <td><span class='minus active'>-</span><span class='num'>0</span><span class='plus active'>+</span></td>
+                                      <td><span class='minus active'>-</span><span class='num'>0</span><span class='plus active'>+</span></td>
+                                      <td><span class='minus active'>-</span><span class='num'>0</span><span class='plus active'>+</span></td>
+                                      <td><span class='minus active'>-</span><span class='num'>0</span><span class='plus active'>+</span></td>
                           					</tr>
                                   </tbody>
                         				</table>
