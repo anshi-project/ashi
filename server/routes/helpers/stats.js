@@ -18,7 +18,7 @@ function storeGameStats(stats, response){
             new GameStats(stats).save(function(err, model){
                 if (err) {
                     console.log('error: ', err);
-                    response.send('Error: game not stored');
+                    response.send('Game not stored');
                     return;
                 } else {
                     response.send('Game stored');

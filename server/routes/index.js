@@ -73,7 +73,6 @@ module.exports=function(app){
         if (req.param('homegame')) query['home_game'] = req.param('homegame');
         if (req.param('opponent')) query['opponent'] = req.param('opponent');
         if (req.param('season')) query['season'] = req.param('season');
-        console.log(query);
         GameStats.find(query, function(err, result){
             if (err){
                 console.log(err);

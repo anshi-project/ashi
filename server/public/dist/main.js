@@ -9,6 +9,24 @@
   var prevRoadDropDownVal;
   var date;
   var season;
+  
+  toastr.options = {
+  "closeButton": true,
+  "debug": false,
+  "newestOnTop": false,
+  "progressBar": false,
+  "positionClass": "toast-top-center",
+  "preventDuplicates": false,
+  "onclick": null,
+  "showDuration": "300",
+  "hideDuration": "1000",
+  "timeOut": "9999999999",
+  "extendedTimeOut": "1000",
+  "showEasing": "swing",
+  "hideEasing": "linear",
+  "showMethod": "fadeIn",
+  "hideMethod": "fadeOut"
+}
 
   require(['playerstemplate', 'goaliestemplate', 'teamtemplate', 'blanktemplate'], 
     function(playersTemplate, goaliesTemplate, teamTemplate, blankTemplate){
@@ -70,7 +88,7 @@
         var dropDownVal = this.value;
         if (dropDownVal === "") return;
         if ($('#road-dropdown').val() === $('#home-dropdown').val()) {
-            alert('Select the opposing team');
+            toastr.error('Select the opposing team');
             return;
         }
         var location = $(this).attr("id").replace("-dropdown","");
@@ -173,7 +191,7 @@
       season = date.substr(-4);
       var time = $('.time').children().first().val();
       if (date === 'Select game date' || time === 'Select game start time'){
-        alert('select game date and time before submitting scorecard');
+        toastr.error('select game date and time before submitting scorecard');
         return;
       }
      
@@ -196,7 +214,7 @@
       }
       
       if (at[5] === ot[5]) {
-        alert('Error: both teams have the same final score, please check the scores');
+        toastr.error('Both teams have the same final score, check the scores');
         return;
       }
       
@@ -224,14 +242,15 @@
                       
        if (ashi_player_stats.length === 0 || ashi_goalie_stats.length === 0 ||
           opponent_player_stats.length === 0 || opponent_goalie_stats.length === 0){
-          alert('select all players and goalies who played');
+          toastr.error('select all players and goalies who played');
           return;
       } 
       
       console.log(gameStats);
 
       $.post('https://ashi-ahstein3521.c9users.io:8081/scorecard', {stats: gameStats}, function(result){
-        alert(result);
+        if (result === 'Game not stored') toastr.error('Game not stored in database, please try again');
+        if (result === 'Game stored') toastr.success('Game stored in database');
       });
   });
 

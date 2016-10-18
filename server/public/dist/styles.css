@@ -229,6 +229,7 @@ th.remove-player {
 
 th.name {
     text-align: left;
+    width: 13em;
 }
 
 .name {
@@ -269,11 +270,11 @@ tr:nth-child(even) {background-color: #e6ecff}
 
 .team-stats-header-blank
  {
-  width: 19.4em;
+  width: 18.7em;
 }
 
 .goalie-name-blank {
-  width: 13.2em;
+  width: 12.3em;
 }
 
 .blank-table {
