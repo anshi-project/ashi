@@ -61,22 +61,7 @@
             $(this).parent('td').siblings('td').children('.minus, .plus').toggleClass('active');
           });
 
-          // $('.plus').on('click', function(){
-          //     var num = Number( $(this).prev().text() ) + 1;
-          //     $(this).prev().text(num);
-          // });
           
-          // $('.minus').on('click', function(){
-          //   var num = Number( $(this).next().text() ) -1;
-          //   if (num >= 0){
-          //     $(this).next().text(num);
-          //   }
-          // });
-          
-          // $(':checkbox').change(function(){
-          //   $(this).parent('tr').toggleClass('playing').toggleClass('not-playing');
-            
-          // });
           return;
         }
 
