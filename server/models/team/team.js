@@ -3,13 +3,12 @@ var Schema = mongoose.Schema;
 
 var TeamSeasonStatsSchema = new Schema({
             season:{type:Number},
-            FS:{type:Number,default:0},
+            GF:{type:Number,default:0},
             GA: {type:Number,default:0},
             OT:{type:Number,default:0},
-            PA:{type:Number,default:0},
-            SO:{type:Number,default:0},
             win:{type:Number,default:0},
-            loss:{type:Number,default:0}
+            loss:{type:Number,default:0},
+            tie:{type:Number,default:0}
 });
 
 var TeamGameStatsSchema = new Schema({
@@ -17,15 +16,13 @@ var TeamGameStatsSchema = new Schema({
             date:{type:String},
             home_game:{type:Boolean},
             opponent:{type:String},
-            win:{type:Boolean},
-            FS:{type:Number,default:0},
+            result:{type:String},
+            GF:{type:Number,default:0},
             GA: {type:Number,default:0},
             Q1:{type:Number,default:0},
             Q2:{type:Number,default:0},
             Q3:{type:Number,default:0},
-            OT:{type:Number,default:0},
-            PA:{type:Number,default:0},
-            SO:{type:Number,default:0}
+            OT:{type:Number,default:0}
 });
 
 
@@ -45,14 +42,12 @@ var teamSchema = new Schema({
     goalies: [{type: Schema.Types.ObjectId, ref: "Player"}],
     game_stats: [TeamGameStatsSchema],
     season_stats: [TeamSeasonStatsSchema],
-    alltime_stats: {FS:{type:Number},
-                    GA: {type:Number},
-                    OT:{type:Number},
-                    PA:{type:Number},
-                    SO:{type:Number},
-                    win:{type:Number},
-                    loss:{type:Number}
-                    }               
+    alltime_stats: {GF:{type:Number,default:0},
+                    GA: {type:Number,default:0},
+                    OT:{type:Number,default:0},
+                    win:{type:Number,default:0},
+                    loss:{type:Number,default:0},
+                    tie:{type:Number,default:0}}               
 });
 
 

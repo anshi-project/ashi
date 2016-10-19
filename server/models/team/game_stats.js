@@ -10,15 +10,15 @@ var PlayerStatsSchema = new Schema({
     date: {type: String},
     season: {type: Number},
     win: {type: Boolean},
-    G: {type: Number},
-    A: {type: Number},
-    P: {type: Number},
-    PM: {type: Number},
-    PIM: {type: Number},
-    SOG: {type: Number},
-    GWG: {type: Number},
-    PP: {type: Number},
-    SH: {type: Number}
+    G: {type: Number, default: 0},
+    A: {type: Number, default: 0},
+    P: {type: Number, default: 0},
+    PM: {type: Number, default: 0},
+    PIM: {type: Number, default: 0},
+    OTG: {type: Number, default: 0},
+    GWG: {type: Number, default: 0},
+    PP: {type: Number, default: 0},
+    SH: {type: Number, default: 0}
 });
 
 var GoalieStatsSchema = new Schema({
@@ -28,16 +28,13 @@ var GoalieStatsSchema = new Schema({
     home_game: {type: Boolean},
     opponent: {type: String},
     date: {type: String},
-    season: {type: Number},
+    season: {type: Number, default: 0},
     win: {type: Boolean},
-    MIN: {type: Number},
-    SA: {type: Number},
-    SV: {type: Number},
-    GA: {type: Number},
-    SO: {type: Number},
-    G: {type: Number},
-    A: {type: Number},
-    PIM: {type: Number}
+    MIN: {type: Number, default: 0},
+    SA: {type: Number, default: 0},
+    SV: {type: Number, default: 0},
+    GA: {type: Number, default: 0},
+    SO: {type: Number, default: 0}
 });
 
 var TeamGameStatsSchema = new Schema({
@@ -51,9 +48,8 @@ var TeamGameStatsSchema = new Schema({
     Q2_goals: {type: Number, default: 0},
     Q3_goals: {type: Number, default: 0},
     OT: {type: Number, default: 0},
-    FS: {type: Number, default: 0},
-    PA: {type: Number, default: 0},
-    SO: {type: Number, default: 0}
+    GF: {type: Number, default: 0},
+    GA: {type: Number, default: 0}
 });
 
 var GameStatsSchema = new Schema({
