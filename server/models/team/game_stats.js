@@ -4,7 +4,7 @@ var Schema = mongoose.Schema;
 var PlayerStatsSchema = new Schema({
     _id: false,
     jersey_number: {type: Number},
-    full_name: {type: String},
+    name: {type: String},
     home_game: {type: Boolean},
     opponent: {type: String},
     date: {type: String},
@@ -24,7 +24,7 @@ var PlayerStatsSchema = new Schema({
 var GoalieStatsSchema = new Schema({
     _id: false,
     jersey_number: {type: Number},
-    full_name: {type: String},
+    name: {type: String},
     home_game: {type: Boolean},
     opponent: {type: String},
     date: {type: String},

@@ -13,8 +13,9 @@ var GoalieSeasonStatsSchema = new Schema({
             G:{type:Number,default:0},
             A:{type:Number,default:0},
             PIM:{type:Number,default:0},
-            win:{type:Number},
-            loss:{type:Number}
+            win:{type:Number,default:0},
+            loss:{type:Number,default:0},
+            tie:{type:Number,default:0}
 });
 
 var GoalieGameStatsSchema = new Schema({
@@ -23,7 +24,7 @@ var GoalieGameStatsSchema = new Schema({
             date:{type:String},
             home_game:{type:Boolean},
             opponent:{type:String},
-            win:{type:Boolean},
+            result:{type:String},
             MIN:{type:Number,default:0},
             SA:{type:Number,default:0},
             SV:{type:Number,default:0},
@@ -47,7 +48,8 @@ var GoalieStatsSchema = new Schema({
                     A:{type:Number,default:0},
                     PIM:{type:Number,default:0},
                     win:{type:Number},
-                    loss:{type:Number}}
+                    loss:{type:Number},
+                    tie:{type:Number}}
 });
 
 var goalie=Player.discriminator("Goalie", GoalieStatsSchema);
