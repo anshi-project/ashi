@@ -173,7 +173,7 @@
     	var playersStatsArr = [];
     	while (p.length > 0){
     		var player = {jersey_number: String(p[1]), name: p[2], G: p[3], A: p[4],
-    		              P: p[5], PM: p[6], PIM: p[7], PP: p[8], SH: p[9],
+    		              P: p[5], PM: p[6], PIM: p[7], PPG: p[8], SHG: p[9],
     		              GWG: p[10], OTG: p[11], result: result, opponent: opponent,
     		              date: date, season: season, home_game: home_game, team_name: ashiTeamName};
     		playersStatsArr.push(player);
@@ -237,16 +237,20 @@
         opponentResult = 'win'
       }
       
+      var pkPercAshi = (ot[8] - ot[7]) / ot[8];
+      var pkPercOpp = (at[8] - at[7]) / at[8];
       var ashi_player_stats = getPlayerStats(ap, opponent, home_game, ashiResult);
       var ashi_goalie_stats = getGoalieStats(ag, opponent, home_game, ashiResult);
       var ashi_team_stats = {Q1_goals: at[1], Q2_goals: at[2], Q3_goals: at[3],
-                             OT: at[4], GF: at[5], GA: at[6], 
-                             result: ashiResult, date: date, home_game: home_game, 
-                             opponent: opponent, season: season, team_name: ashiTeamName};
+                             OT: at[4], GF: at[5], GA: at[6], PPG: at[7], PPO: at[8], 
+                             PKP: pkPercAshi, result: ashiResult, date: date, 
+                             home_game: home_game, opponent: opponent, season: season,
+                             team_name: ashiTeamName};
       var opponent_player_stats = getPlayerStats(op, ashiTeamName, !home_game, opponentResult);
       var opponent_goalie_stats = getGoalieStats(og, ashiTeamName, !home_game, opponentResult);
       var opponent_team_stats = {Q1_goals: ot[1], Q2_goals: ot[2], Q3_goals: ot[3],
-                                 OT: ot[4], GF: ot[5], GA: at[6], result: opponentResult, date: date,
+                                 OT: ot[4], GF: ot[5], GA: ot[6], PPG: ot[7], PPO: ot[8],
+                                 PKP: pkPercOpp, result: opponentResult, date: date,
                                  home_game: !home_game, opponent: ashiTeamName, season: season};
       var ashiStats = [ashi_player_stats, ashi_goalie_stats, ashi_team_stats];
       var opponentStats = [opponent_player_stats, opponent_goalie_stats, opponent_team_stats];

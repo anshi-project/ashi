@@ -10,6 +10,8 @@ var teamTemplate = `<div class="row">
                   				<th><bold>OT</bold></th>
                                 <th><bold>GF</bold></th>
                                 <th><bold>GA</bold></th>
+                                <th><bold>PPG</bold></th>
+                                <th><bold>PPO</bold></th>
                   			</tr>
                           </thead>
                           <tbody>
@@ -19,6 +21,8 @@ var teamTemplate = `<div class="row">
                   			  <td><span class='minus active'>-</span><span class='num'>0</span><span class='plus active'>+</span></td>
                   			  <td><span class='minus active'>-</span><span class='num'>0</span><span class='plus active'>+</span></td>
                   			  <td><span class='minus active'>-</span><span class='num'>0</span><span class='plus active'>+</span></td>
+                              <td><span class='minus active'>-</span><span class='num'>0</span><span class='plus active'>+</span></td>
+                              <td><span class='minus active'>-</span><span class='num'>0</span><span class='plus active'>+</span></td>
                               <td><span class='minus active'>-</span><span class='num'>0</span><span class='plus active'>+</span></td>
                               <td><span class='minus active'>-</span><span class='num'>0</span><span class='plus active'>+</span></td>
                   			</tr>

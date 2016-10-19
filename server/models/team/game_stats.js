@@ -17,8 +17,8 @@ var PlayerStatsSchema = new Schema({
     PIM: {type: Number, default: 0},
     OTG: {type: Number, default: 0},
     GWG: {type: Number, default: 0},
-    PP: {type: Number, default: 0},
-    SH: {type: Number, default: 0}
+    PPG: {type: Number, default: 0},
+    SHG: {type: Number, default: 0}
 });
 
 var GoalieStatsSchema = new Schema({
@@ -49,7 +49,10 @@ var TeamGameStatsSchema = new Schema({
     Q3_goals: {type: Number, default: 0},
     OT: {type: Number, default: 0},
     GF: {type: Number, default: 0},
-    GA: {type: Number, default: 0}
+    GA: {type: Number, default: 0},
+    PPG: {type: Number, default: 0},
+    PPO: {type: Number, default: 0},
+    PKP: {type: Number, default: 0}
 });
 
 var GameStatsSchema = new Schema({

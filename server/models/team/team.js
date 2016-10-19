@@ -22,7 +22,10 @@ var TeamGameStatsSchema = new Schema({
             Q1:{type:Number,default:0},
             Q2:{type:Number,default:0},
             Q3:{type:Number,default:0},
-            OT:{type:Number,default:0}
+            OT:{type:Number,default:0},
+            PPG:{type:Number,default:0},
+            PPO:{type:Number,default:0},
+            PKP: {type: Number, default: 0}
 });
 
 

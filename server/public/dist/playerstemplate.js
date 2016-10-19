@@ -9,8 +9,8 @@ var playersTemplate = `<table class='<%=location%>-playersTable' id='ashi-team'>
                         <th><bold>P</bold></th>
                         <th><bold>+-</bold></th>
                         <th><bold>PIM</bold></th>
-                        <th><bold>PP</bold></th>
-                        <th><bold>SH</bold></th>
+                        <th><bold>PPG</bold></th>
+                        <th><bold>SHG</bold></th>
                         <th><bold>GWG</bold></th>
                         <th><bold>OTG</bold></th>
                       </tr>

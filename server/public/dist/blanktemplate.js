@@ -9,8 +9,8 @@ var blankTemplate = `<table class='<%=location%>-playersTable blank-table'>
                                 <th><bold>P</bold></th>
                                 <th><bold>+-</bold></th>
                                 <th><bold>PIM</bold></th>
-                                <th><bold>PP</bold></th>
-                                <th><bold>SH</bold></th>
+                                <th><bold>PPG</bold></th>
+                                <th><bold>SHG</bold></th>
                                 <th><bold>GWG</bold></th>
                                 <th><bold>OTG</bold></th>
                               </tr>
@@ -74,6 +74,8 @@ var blankTemplate = `<table class='<%=location%>-playersTable blank-table'>
                           						<th><bold>OT</bold></th>
                                       <th><bold>GF</bold></th>
                                       <th><bold>GA</bold></th>
+                                      <th><bold>PPG</bold></th>
+                                      <th><bold>PPO</bold></th>
                           					</tr>
                                   </thead>
                                   <tbody>
@@ -83,6 +85,8 @@ var blankTemplate = `<table class='<%=location%>-playersTable blank-table'>
                           						<td><span class='minus active'>-</span><span class='num'>0</span><span class='plus active'>+</span></td>
                           						<td><span class='minus active'>-</span><span class='num'>0</span><span class='plus active'>+</span></td>
                           						<td><span class='minus active'>-</span><span class='num'>0</span><span class='plus active'>+</span></td>
+                                      <td><span class='minus active'>-</span><span class='num'>0</span><span class='plus active'>+</span></td>
+                                      <td><span class='minus active'>-</span><span class='num'>0</span><span class='plus active'>+</span></td>
                                       <td><span class='minus active'>-</span><span class='num'>0</span><span class='plus active'>+</span></td>
                                       <td><span class='minus active'>-</span><span class='num'>0</span><span class='plus active'>+</span></td>
                           					</tr>

@@ -26,7 +26,9 @@ var GoalieGameStatsSchema = new Schema({
             SA:{type:Number,default:0},
             SV:{type:Number,default:0},
             GA:{type:Number,default:0},
-            SO:{type:Number,default:0}
+            SO:{type:Number,default:0},
+            GAA:{type:Number, default:0},
+            SVP:{type:Number, default:0}
 });
 
 var GoalieStatsSchema = new Schema({

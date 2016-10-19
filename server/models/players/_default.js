@@ -13,8 +13,8 @@ var PlayerSeasonStatsSchema = new Schema({
             PIM:{type:Number,default:0},
             OTG:{type:Number,default:0},
             GWG:{type:Number,default:0},
-            PP:{type:Number,default:0},
-            SH:{type:Number,default:0},
+            PPG:{type:Number,default:0},
+            SHG:{type:Number,default:0},
             win:{type:Number,default:0},
             loss:{type:Number,default:0},
             tie:{type:Number,default:0}
@@ -34,8 +34,8 @@ var PlayerGameStatsSchema = new Schema({
             PIM:{type:Number,default:0},
             OTG:{type:Number,default:0},
             GWG:{type:Number,default:0},
-            PP:{type:Number,default:0},
-            SH:{type:Number,default:0} 
+            PPG:{type:Number,default:0},
+            SHG:{type:Number,default:0} 
 });
 
 var PlayerStatsSchema = new Schema({
@@ -49,8 +49,8 @@ var PlayerStatsSchema = new Schema({
                     PIM:{type:Number,default:0},
                     OTG:{type:Number,default:0},
                     GWG:{type:Number,default:0},
-                    PP:{type:Number,default:0},
-                    SH:{type:Number,default:0},
+                    PPG:{type:Number,default:0},
+                    SHG:{type:Number,default:0},
                     win:{type:Number,default:0},
                     loss:{type:Number,default:0},
                     tie:{type:Number,default:0}}
