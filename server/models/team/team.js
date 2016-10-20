@@ -3,6 +3,7 @@ var Schema = mongoose.Schema;
 
 var TeamSeasonStatsSchema = new Schema({
             season:{type:Number},
+            games_played:{type:Number,default:0},
             GF:{type:Number,default:0},
             GA: {type:Number,default:0},
             OT:{type:Number,default:0},
@@ -25,7 +26,8 @@ var TeamGameStatsSchema = new Schema({
             OT:{type:Number,default:0},
             PPG:{type:Number,default:0},
             PPO:{type:Number,default:0},
-            PKP: {type: Number, default: 0}
+            PKP:{type:Number,default:0},
+            PPP:{type:Number,default:0}
 });
 
 
@@ -45,7 +47,8 @@ var teamSchema = new Schema({
     goalies: [{type: Schema.Types.ObjectId, ref: "Player"}],
     game_stats: [TeamGameStatsSchema],
     season_stats: [TeamSeasonStatsSchema],
-    alltime_stats: {GF:{type:Number,default:0},
+    alltime_stats: {games_played:{type:Number,default:0},
+                    GF:{type:Number,default:0},
                     GA: {type:Number,default:0},
                     OT:{type:Number,default:0},
                     win:{type:Number,default:0},

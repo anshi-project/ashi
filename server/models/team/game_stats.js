@@ -52,7 +52,8 @@ var TeamGameStatsSchema = new Schema({
     GA: {type: Number, default: 0},
     PPG: {type: Number, default: 0},
     PPO: {type: Number, default: 0},
-    PKP: {type: Number, default: 0}
+    PKP: {type: Number, default: 0},
+    PPP: {type: Number, default: 0}
 });
 
 var GameStatsSchema = new Schema({

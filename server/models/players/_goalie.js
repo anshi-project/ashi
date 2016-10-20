@@ -5,6 +5,7 @@ var Player=require("./main");
 var GoalieSeasonStatsSchema = new Schema({
             season:{type:Number},
             team_name:{type:String},
+            games_played:{type:Number,default:0},
             MIN:{type:Number,default:0},
             SA:{type:Number,default:0},
             SV:{type:Number,default:0},

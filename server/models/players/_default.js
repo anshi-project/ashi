@@ -4,8 +4,10 @@ var Schema=mongoose.Schema;
 var Player=require("./main");
 
 var PlayerSeasonStatsSchema = new Schema({
+            _id: false,
             season:{type:Number},
             team_name:{type:String},
+            games_played:{type:Number,default:0},
             G:{type:Number,default:0},
             A:{type:Number,default:0},
             P:{type:Number,default:0},
@@ -21,6 +23,7 @@ var PlayerSeasonStatsSchema = new Schema({
 });
 
 var PlayerGameStatsSchema = new Schema({
+            _id: false,
             season:{type:Number},
             team_name:{type:String},
             date:{type:String},
