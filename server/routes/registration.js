@@ -1,7 +1,8 @@
 var Registration=require("../models/registration/main");
 var Player=require("../models/players/main");
-var format=require("./helpers/formProcessor");
 var locals=require("./helpers/locals")
+var formProcessor=require("form-data-to-object");
+var objMerge=require("object-assign-deep");
 
 module.exports=function(app){
 
@@ -26,21 +27,22 @@ module.exports=function(app){
         var nextPart= Number(req.query.part);
         var completed={completed:Math.max(req.session.formData.completed,nextPart)};
         
-        req.session.formData=Object.assign(req.session.formData,req.body,completed)
-         
+        req.session.formData=objMerge(req.session.formData,formProcessor.toObj(req.body),completed)
+
         return res.render("reg/"+type+"/part"+nextPart,req.session.locals);
     })// as sections of the form are submitted, the body of the form are compiled into an object that is stored in req.session
 
  
     app.post("/register/submit/:applicationType",function(req,res){
         var type=req.params.applicationType;
-        var formData=Object.assign({},req.session.formData,req.body);
-        var fields=format(formData,type);
+         var fields=objMerge(req.session.formData,formProcessor.toObj(req.body))
          
          Registration.handleFormSubmission(fields,type,function(e,d){
             req.session.formData={};
-            res.render("reg/thankyou");
+            res.send(d);
+            // res.render("reg/thankyou");
         })
+        
     })  
     
     app.get("/register/player/renew",function(req,res){

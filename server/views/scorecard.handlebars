@@ -2,22 +2,8 @@
 <div class='container-fluid'>
 	<h1 class='scorecard-title'>ASHI Scorecard</h1>
 		<div class="row controls">
-			<div class="col-sm-4"></div>
-			<div class="col-sm-4">
-				<div class="input-group date" data-provide="datepicker">
-				    <input type="text" class="form-control" value="Select game date">
-				    <div class="input-group-addon">
-				        <span class="glyphicon glyphicon-th"></span>
-				    </div>
-				</div>
-				<div class="input-group clockpicker time controls">
-    			<input type="text" class="form-control">
-    			<span class="input-group-addon">
-    				<span class="glyphicon glyphicon-time"></span>
-    			</span>
-				</div>
-			</div>
-			<div class="col-sm-4">
+			<div class="col-sm-12">
+				<input type="text" id="flatpickr" data-input placeholder="Set game date and time">
 			</div>
 		</div>
 		<div class="row">
@@ -46,11 +32,25 @@
 				<div class="road"></div>
 			</div>
 		</div>
-
-		<button type='submit' class='submit-scorecard btn btn-primary'>Submit</button>
-		<button type='submit' class='lock-unlock-scorecard btn btn-danger'>Lock controls</button>
-		<button type='submit' class='show-all-players btn btn-primary'>Show all players</button>
+		<div class='row'>
+			<div class="col-sm-2">
+				<button type='submit' class='submit-scorecard btn btn-primary'>Send to ASHI server</button>
+			</div>
+			<div class="col-sm-2">
+				<button type='submit' class='save-to-local-disk btn btn-primary'>Save to local disk</button>
+			</div>
+			<div class="col-sm-6"></div>
+			<div class="col-sm-2">
+				<button type='submit' class='lock-unlock-scorecard btn btn-danger'>Lock controls</button>
+			</div>
+		</div>
+		<div class='row'>
+			<div class="col-sm-12 stored-games">
+			</div>
+		</div>
+		
 </div>
+
 
 
 

@@ -3,7 +3,7 @@ var Schema=mongoose.Schema;
 
 var adminSchema=new Schema({
     username:String,
-    password:String,
+    password:{type:String,select:false},
     lastname:String,
     firstname:String,
     status:{type:String,default:"pending"},
@@ -16,6 +16,6 @@ var adminSchema=new Schema({
 })
 
 adminSchema.plugin(require("../plugins/encrypt"));
-
+adminSchema.plugin(require("../plugins/comparePassword"));
 
 module.exports=mongoose.model("Admin",adminSchema);

@@ -12,7 +12,7 @@ var coachSchema=new Schema({
 		passport:String,
 		passport_expiration:String
 	},
-	registration:{},
+	background:{},
 	team:{
 		division:String,
 		name:String,
@@ -21,13 +21,11 @@ var coachSchema=new Schema({
 })
 
 coachSchema.statics.assign=function(registration,team,_,callback){
-	var fields=["firstname","lastname","contact"];
-	var fields2=["apparel","social_media","coaching_info","short_answers"];	
-	var coach={team:team,registration:{}}
+	var fields=["firstname","lastname","contact","apparel","background"];
+	var coach={team:team};
 
-	fields.forEach(v=> coach[v]=registration[v]);
-	fields2.forEach(x=> coach.registration[x]=registration[x]);
-	
+	fields.forEach(v=>coach[v]=registration[v]);
+
 	this.create(coach,function(err,doc){
 		if(err)throw err;
 		doc.query={division:team.division,name:team.name}

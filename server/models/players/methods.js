@@ -1,21 +1,19 @@
 var Team=require("../team/team")
 
 
-exports.assign=function(registration,team,type,callback){
-   var fields=["firstname","lastname","public_data"];
-   var fields2=["bio","apparel","social_media","contact","lifestyle","hockey_info"];
-  
-   var player={team:team, registration:{}};
+exports.assign=function(registration,team,type,callback){  
    var NewPlayer=require(type);
+   var fields=["firstname","lastname","contact","public_data","apparel","background","favorite","apparel"];
+   var player={team:team};
 
-   fields.forEach(v=> player[v]=registration[v]);
-   fields2.forEach(x=> player.registration[x]=registration[x]);
+   fields.forEach(v=>player[v]=registration[v]);
 
    player.team.shooting_hand=registration.hockey_info.shooting_hand;
-   
+  
    NewPlayer.create(player,function(err,doc){
       if(err)throw err;
       doc.query={name:team.name,division:team.division}
+      console.log("player created")
       callback(doc);
     });
 }//Create a new player object from the registration object. Assign to a team.

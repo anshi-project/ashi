@@ -26,7 +26,7 @@ module.exports=function(app){
 
   app.put("/admin/grant-access/:id",function(req,res){
     var id=req.params.id;
-    Admin.findByIdAndUpdate(id,{"status":"registered"},function(e,d){
+    Admin.findByIdAndUpdate(id,{"status":"admin"},function(e,d){
       res.send("Access Granted")
     })
   })

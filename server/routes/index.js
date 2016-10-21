@@ -1,6 +1,6 @@
 var Team = require("../models/team/team");
 var GameStats = require("../models/team/game_stats");
-var Player = require("../models/players/_default");
+var Player = require("../models/players/main");
 var storeScoreCardStats = require("./helpers/stats");
 
 module.exports=function(app){
@@ -25,6 +25,8 @@ module.exports=function(app){
         res.render("index")
     });
     
+    
+    
     app.get("/players",function(req,res){
         res.send(req.session.teamData);
     });
@@ -46,6 +48,7 @@ module.exports=function(app){
         var query = {};
         if (req.param('teamname')) query['team.name'] = req.param('teamname');
         if (req.param('jerseynumber')) query['team.jersey_number'] = req.param('jerseynumber');
+        console.log(query);
         Player.find(query, function(err, result){
             if (err){
                 console.log(err);

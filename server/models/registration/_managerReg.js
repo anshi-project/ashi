@@ -5,8 +5,6 @@ var Admin=require("../staff/admin")
 var Registration=require("./main");
 
 var manangerSchema=new Schema({
-	firstname:String,
-	lastname:String,
     division:String,
     password:String,
     username:{type:String,unique:true,lowercase:true}

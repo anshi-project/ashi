@@ -6,7 +6,6 @@ exports.assignRole=function(id,team,type){
     var Applicant=require(type.schema);
     var RegistrationModel=require(type.registration);    
     
-
     RegistrationModel.findById(id,function(err,doc){
         if(err)throw err;
         doc.registration_status="registered";
@@ -17,6 +16,8 @@ exports.assignRole=function(id,team,type){
         })
     })
 };
+
+
 
 exports.handleFormSubmission=function(fields,type,callback){
     if(type=="admin") type="manager";

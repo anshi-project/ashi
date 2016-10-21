@@ -195,18 +195,23 @@
     	}
     	return goaliesStatsArr;
     }
-
-    $(".submit-scorecard").on('click', function () {
+    
+    function collectGameStats (){
       formData = {};
       var arr;
       var a;
       var o;
       var opponent = $('.team-name-input').val();
-      date = $('.date').children().first().val();
-      season = date.substr(-4);
-      var time = $('.time').children().first().val();
-      if (date === 'Select game date' || time === 'Select game start time'){
-        toastr.error('select game date and time before submitting scorecard');
+      date = $('#flatpickr').val().split(' ')[0];
+      season = date.substr(0, 4);
+      var time = $('#flatpickr').val().split(' ')[1];
+      if (date === 'Set'){
+        toastr.error('Set game date and time before submitting scorecard');
+        return;
+      }
+      
+      if($('.team-name-input').val() === "") {
+        toastr.error('Fill out opponent team name before submitting scorecard');
         return;
       }
      
@@ -268,26 +273,66 @@
           opponent_player_stats.length === 0 || opponent_goalie_stats.length === 0){
           toastr.error('select all players and goalies who played');
           return;
-      } 
-      
+       }
+       return gameStats;
+    }
+
+    $(".submit-scorecard").on('click', function () {
+      var gameStats = collectGameStats();
       console.log(gameStats);
 
-      $.post('https://ashi-ahstein3521.c9users.io:8081/scorecard', {stats: gameStats}, function(result){
-        if (result === 'Game not stored') toastr.error('Game not stored in database, please try again');
-        if (result === 'Game stored') toastr.success('Game stored in database');
+      // $.post('https://ashi-ahstein3521.c9users.io:8081/scorecard', {stats: gameStats}, function(result){
+      //   if (result === 'Game not stored') toastr.error('Game not stored in database, please try again');
+      //   if (result === 'Game stored') toastr.success('Game stored in database');
+      // });
+    });
+  
+    $('.save-to-local-disk').on('click', function(){
+      var val;
+      var gameStats = collectGameStats();
+      console.log('gamestats: ', gameStats);
+      localforage.getItem('ashi-data-store', function(err, value) {
+        val = value;
+        if (value === null) {
+          localforage.setItem('ashi-data-store', [gameStats], function(err){console.log(err)});
+          return;
+        }
+        for (var i = 0; i < value.length; i++){
+          console.log('value' + i + ': ', value[i] );
+          if (_.isEqual(value[i], gameStats)) {
+            console.log ('equal found');
+            return;
+          }
+        }
+        val.push(gameStats);
+        localforage.removeItem('ashi-data-store', function(err){console.log(err)});
+        localforage.setItem('ashi-data-store', val, function(err){console.log(err)});         
       });
-  });
+    });
+    
+    function displayStoredGames (storedGames){
+      $('.stored-games').empty();
+      storedGames.map(function(g){
+        var html = "<p>" + g.team_name + " - " + g.opponent + "</p>";
+        $('.stored-games').append(html);
+      });
+    }
 
     function teamFun (data){
         teamData = data;
         console.log(teamData)
     }
 
-    $('.show-all-players').hide();
-    $('.datepicker').datepicker();
-    $('.clockpicker').clockpicker(({donetext: 'Done'})).children().first().val('Select game start time');
+    flatpickr('#flatpickr', {enableTime: true, allowInput: true});    
+    
 
     $.get('/players', teamFun);
+    
+    localforage.getItem('ashi-data-store', function(err, storedGames){
+      if (storedGames !== null){
+        displayStoredGames(storedGames);
+      }
+    });
     
   });
 }());

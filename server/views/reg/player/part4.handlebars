@@ -4,38 +4,38 @@
         {{> reg/common/apparel}}        
         <div class="row">
             <div class="form-group col-md-3 col-xs-6 col-md-offset-1">
-                <label for="shorts">Shorts Size:</label><br>
-                <input type="radio" name="shorts" value="S" required>Adult SM<br>
-                <input type="radio" name="shorts" value="M">Adult M<br>
-                <input type="radio" name="shorts" value="L">Adult L<br>
-                <input type="radio" name="shorts" value="XL">Adult XL<br> 
-                <input type="radio" name="shorts" value="XXL">Adult XXL<br> 
-                <input type="radio" name="shorts" value="XXXL">Adult XXXL<br>
+                <label for="apparel[shorts]">Shorts Size:</label><br>
+                <input type="radio" name="apparel[shorts]" value="S" required>Adult SM<br>
+                <input type="radio" name="apparel[shorts]" value="M">Adult M<br>
+                <input type="radio" name="apparel[shorts]" value="L">Adult L<br>
+                <input type="radio" name="apparel[shorts]" value="XL">Adult XL<br> 
+                <input type="radio" name="apparel[shorts]" value="XXL">Adult XXL<br> 
+                <input type="radio" name="apparel[shorts]" value="XXXL">Adult XXXL<br>
             </div>
             <div class="form-group col-md-3 col-xs-6 col-md-offset-1">
-                <label for="sock">Socks Size:</label><small><em>Shin Pads will vary in size</em></small><br>
-                <input type="radio" name="sock" value="M" required>Adult M<br>
-                <input type="radio" name="sock" value="L">Adult L<br>
-                <input type="radio" name="sock" value="XL">Adult XL<br> 
+                <label for="apparel[socks]">Socks Size:</label><small><em>Shin Pads will vary in size</em></small><br>
+                <input type="radio" name="apparel[socks]" value="M" required>Adult M<br>
+                <input type="radio" name="apparel[socks]" value="L">Adult L<br>
+                <input type="radio" name="apparel[socks]" value="XL">Adult XL<br> 
             </div>
             <div class="form-group col-md-3 col-xs-6 col-md-offset-1">
                 <label>Jersey Size:</label>
-                <input type="radio" name="jersey" value="S" required>Adult SM<br>
-                <input type="radio" name="jersey" value="M">Adult M<br>
-                <input type="radio" name="jersey" value="L">Adult L<br>
-                <input type="radio" name="jersey" value="XL">Adult XL<br> 
-                <input type="radio" name="jersey" value="XXL">Adult XXL<br> 
-                <input type="radio" name="jersey" value="XXXL">Adult XXXL<br>
-                <input type="radio" name="jersey" value="Goalie-XXL">Goalie-cut XXL<br> 
-                <input type="radio" name="jersey" value="Goalie-XXXL">Goalie-cut XXXL<br>                
+                <input type="radio" name="apparel[jersey]" value="S" required>Adult SM<br>
+                <input type="radio" name="apparel[jersey]" value="M">Adult M<br>
+                <input type="radio" name="apparel[jersey]" value="L">Adult L<br>
+                <input type="radio" name="apparel[jersey]" value="XL">Adult XL<br> 
+                <input type="radio" name="apparel[jersey]" value="XXL">Adult XXL<br> 
+                <input type="radio" name="apparel[jersey]" value="XXXL">Adult XXXL<br>
+                <input type="radio" name="apparel[jersey]" value="Goalie-XXL">Goalie-cut XXL<br> 
+                <input type="radio" name="apparel[jersey]" value="Goalie-XXXL">Goalie-cut XXXL<br>                
 
             </div>            
             <div class="col-md-3">
                 <div class="row">
                     <label >Select 3 jersey numbers in order of preference:</label><br>
-                    <input type="number" name="choice1" placeholder="First" min="0" max="100" size="3" required><br>
-                    <input type="number" name="choice2" placeholder="Second" min="0" max="100" size="3" required><br>
-                    <input type="number" name="choice3" placeholder="Third" min="0" max="100" size="3" required>
+                    <input type="number" name="hockey_info[jersey_number][choice1]" placeholder="First" min="0" max="100" size="3" required><br>
+                    <input type="number" name="hockey_info[jersey_number][choice2]" placeholder="Second" min="0" max="100" size="3" required><br>
+                    <input type="number" name="hockey_info[jersey_number][choice3]" placeholder="Third" min="0" max="100" size="3" required>
                 </div>
             </div>
         </div>    

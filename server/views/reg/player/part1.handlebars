@@ -4,26 +4,26 @@
       {{> reg/common/name}}
   <div class="row">
     <div class="col-md-2 col-md-offset-1">
-      <label for="gender">Gender:</label>
+      <label for="public_data[gender]">Gender:</label>
         <div class="radio">
             <label for="male">
-              <input type="radio" name="gender" id="male" value="male" checked>Male
+              <input type="radio" name="public_data[gender]" id="male" value="male" checked>Male
             </label>
             <label for="female">
-              <input type="radio" name="gender" id="female" value="female">Female
+              <input type="radio" name="public_data[gender]" id="female" value="female">Female
             </label>        
           </div>
         </div>
         <div class="form-group col-md-2">
-          <label for="weight" class="control-form">Weight:</label>
+          <label for="public_data[weight]" class="control-form">Weight:</label>
           <div class="input-group">
-            <input type="number" name="weight"  min="80" max="400" class="form-control" required>
+            <input type="number" name="public_data[weight]"min="80" max="500" class="form-control" required>
             <div class="input-group-addon">lbs</div>
           </div>
         </div>
         <div class="form-group col-md-2">
-          <label for="height" class="control-form">Height:</label>
-          <select name="height" class="form-control">
+          <label for="public_data[height]" class="control-form">Height:</label>
+          <select name="public_data[height]" class="form-control">
             <option disabled selected>Select Height</option>
             {{#each heights}}
             <option value="{{this}}">{{this}}</option>
@@ -31,19 +31,19 @@
           </select>
         </div>
         <div class="form-group col-md-4" class="control-form">
-          <label for="date_of_birth">Date of Birth:</label>
-          <input type="date" name="date_of_birth" class="form-control" required>
+          <label for="public_data[date_of_birth]">Date of Birth:</label>
+          <input type="date" name="public_data[date_of_birth]" class="form-control" required>
         </div>        
       </div>
        {{> reg/common/passport}}
    <div class="row">
       <div class="form-group col-md-4 col-md-offset-1" >
-        <label for="guardian_name" class="control-form">Parent's/Guardian's Name:</label>
-        <input class="form-control" type="text" name="guardian_name"> 
+        <label for="contact[private_data][guardian_name]" class="control-form">Parent's/Guardian's Name:</label>
+        <input class="form-control" type="text" name="contact[private_data][guardian_name]"> 
       </div>   
        <div class="form-group col-md-4 col-md-offset-2" >
-        <label for="guardian_phone">Parent's/Guardian's Phone Number:</label>
-        <input class="form-control" type="text" name="guardian_phone"> 
+        <label for="contact[private_data][guardian_phone]">Parent's/Guardian's Phone Number:</label>
+        <input class="form-control" type="text" name="contact[private_data][guardian_phone]"> 
       </div>
      </div>       
   <hr>

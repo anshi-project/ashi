@@ -8,7 +8,7 @@ var gmSchema=new Schema({
     contact:{},
     division:String,
     username:String,
-    password:String
+    password:{type:String,select:false}
 })
 
 gmSchema.statics.assign=function(registration,$,_,next){

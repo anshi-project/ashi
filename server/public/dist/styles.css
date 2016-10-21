@@ -2,12 +2,6 @@ body{
     background:#f0ffff;
 }
 
-/*img {*/
-/*    margin: 0.5em 0em 0em 0.5em;*/
-/*    width: 13em;*/
-/*    height: 7.7em;*/
-/*}*/
-
 #registration-form{
     width:60%;
     margin:30px auto 10px;
@@ -16,7 +10,17 @@ body{
     color:#171a88;
     text-transform: capitalize;
 }
-
+.login-form{
+  border-radius: 30px;
+  border:1px solid #f16f6f;
+  box-shadow:inset -2px -3px 4px 2px rgba(182,103,103,0.4),
+           2px 3px 4px 2px rgba(0,0,0,0.7);
+  text-align: center;
+  margin:100px auto;
+  padding:10px;
+  background:#ccbacc;
+  width:50%;
+}
 
 
 
@@ -191,16 +195,16 @@ button.submit-scorecard {
     margin-left: 1em;
 }
 
+button.save-to-local-disk {
+    display: inline;
+    margin-left: 3em;
+}
+
 .lock-unlock-scorecard {
     float: right;
     background-color: red;
     color: white;
     margin-right: 5em;
-}
-
-.show-all-players {
-    float: right;
-    margin-right: 1em;
 }
 
 .percent-cell {
@@ -242,20 +246,14 @@ button.submit-scorecard {
   width: 12.8em;
 }
 
-/*.goalie-name-blank {*/
-/*  width: 12.3em;*/
-/*}*/
 
 .blank-table {
   margin-top: 1.5em;
 }
 
-.clockpicker {
-    margin-bottom: 2em;
-}
 
 .submit-scorecard {
-    margin-bottom: 5em;
+    margin-bottom: 1em;
 }
 
 .scorecard-title {
@@ -278,3 +276,37 @@ button.submit-scorecard {
     width: 8em;
 }
 
+#flatpickr {
+    margin-bottom: 2em;
+    margin-bottom: 2em;
+    width: 17em;
+    line-height: 1.5em;
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 6px 12px;
+    color: #555;
+}
+
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: #555;
+}
+::-moz-placeholder { /* Firefox 19+ */
+  color: #555;
+}
+:-ms-input-placeholder { /* IE 10+ */
+  color: #555;
+}
+:-moz-placeholder { /* Firefox 18- */
+  color: #555;
+}
+
+td.player-number,
+td.goalie-number,
+td.name {
+    color: #000;
+}
+
+.stored-games {
+    margin-bottom: 2em;
+}
