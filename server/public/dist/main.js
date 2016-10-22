@@ -30,8 +30,8 @@
   "hideMethod": "fadeOut"
 }
 
-  require(['playerstemplate', 'goaliestemplate', 'teamtemplate', 'blanktemplate'], 
-    function(playersTemplate, goaliesTemplate, teamTemplate, blankTemplate){
+  require(['playerstemplate', 'goaliestemplate', 'teamtemplate', 'blanktemplate', 'savedgamestemplate'], 
+    function(playersTemplate, goaliesTemplate, teamTemplate, blankTemplate, savedGamesTemplate){
     
       function displayTeam(blankCard, location, team, playersArr, goaliesArr){
         if (blankCard) {
@@ -310,12 +310,10 @@
       });
     });
     
-    function displayStoredGames (storedGames){
-      $('.stored-games').empty();
-      storedGames.map(function(g){
-        var html = "<p>" + g.team_name + " - " + g.opponent + "</p>";
-        $('.stored-games').append(html);
-      });
+    function displaySavedGames (savedGames){
+      $('.saved-games').empty();
+       var savedGamesHtml = _.template(savedGamesTemplate)({'savedgames': savedGames})
+        $(".saved-games").html(savedGamesHtml);
     }
 
     function teamFun (data){
@@ -328,9 +326,9 @@
 
     $.get('/players', teamFun);
     
-    localforage.getItem('ashi-data-store', function(err, storedGames){
-      if (storedGames !== null){
-        displayStoredGames(storedGames);
+    localforage.getItem('ashi-data-store', function(err, savedGames){
+      if (savedGames !== null){
+        displaySavedGames(savedGames);
       }
     });
     

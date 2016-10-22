@@ -1,0 +1,22 @@
+var savedGamesTemplate = `
+    <h2 class='saved-games-header'>Games saved on local drive</h2>
+    <% _.each(savedgames, function(g) { %>
+        <div class='row saved-game'>
+            <div class='col-sm-2'>
+                <p class='game'><%=g.team_name%> - <%=g.opponent%>&nbsp; &nbsp; <%=g.date%>&nbsp; &nbsp; <%=g.time%></p>
+            </div>
+            <div class='col-sm-1'>
+                <button type='submit' class='send-to-server btn btn-sm btn-primary'>Send to server</button>
+            </div>
+            <div class='col-sm-1'>
+                <button type='submit' class='delete-game btn btn-sm btn-danger'>Delete game</button>
+            </div>
+            <div class='col-sm-8'>
+            </div>
+        </div>
+    <% }) %>`
+
+
+define('savedgamestemplate', function(){
+    return savedGamesTemplate;
+})
