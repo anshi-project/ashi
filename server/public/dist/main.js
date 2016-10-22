@@ -281,10 +281,10 @@
       var gameStats = collectGameStats();
       console.log(gameStats);
 
-      // $.post('https://ashi-ahstein3521.c9users.io:8081/scorecard', {stats: gameStats}, function(result){
-      //   if (result === 'Game not stored') toastr.error('Game not stored in database, please try again');
-      //   if (result === 'Game stored') toastr.success('Game stored in database');
-      // });
+      $.post('https://ashi-ahstein3521.c9users.io:8081/scorecard', {stats: gameStats}, function(result){
+        if (result === 'Game not stored') toastr.error('Game not stored in database, please try again');
+        if (result === 'Game stored') toastr.success('Game stored in database');
+      });
     });
   
     $('.save-to-local-disk').on('click', function(){
@@ -312,44 +312,63 @@
       });
     });
     
+    function deleteSavedGame(arr) {
+        localforage.getItem('ashi-data-store', function(err, v){
+          for (var i = 0; i < v.length; i++){
+            if (v[i].team_name === arr[0] && v[i].opponent === arr[1] 
+              && v[i].date === arr[2] && v[i].time === arr[3]){
+              v.splice(i, 1);
+              localforage.removeItem('ashi-data-store', function(err){
+                console.log(err);
+                  if (v.length !== 0){
+                    localforage.setItem('ashi-data-store', v, function(err){
+                      console.log(err);
+                      displaySavedGames(v);
+                    });
+                  } else {
+                    $('.saved-games').empty();
+                  }
+              });    
+            }
+          }
+        });
+    }
+    
+    function sendSavedGame(arr){
+      localforage.getItem('ashi-data-store', function(err, v){
+          for (var i = 0; i < v.length; i++){
+            if (v[i].team_name === arr[0] && v[i].opponent === arr[1] 
+              && v[i].date === arr[2] && v[i].time === arr[3]){
+              $.post('https://ashi-ahstein3521.c9users.io:8081/scorecard', {stats: v[i]}, function(result){
+                  if (result === 'Game not stored') toastr.error('Game not stored in database, please try again');
+                  if (result === 'Game stored') {
+                    toastr.success('Game stored in ASHI database');
+                    deleteSavedGame(arr);
+                  }
+              });
+            }
+          }
+        });
+    }
+    
     function displaySavedGames (savedGames){
       $('.send-to-server, .delete-game').off();
       $('.saved-games').empty();
        var savedGamesHtml = _.template(savedGamesTemplate)({'savedgames': savedGames})
       $(".saved-games").html(savedGamesHtml);
       
-      $('.delete-game').on('click', function(){
-          var arr = ($(this).next().text()).split(',');
-          localforage.getItem('ashi-data-store', function(err, v){
-            for (var i = 0; i < v.length; i++){
-              if (v[i].team_name === arr[0] && v[i].opponent === arr[1] 
-                && v[i].date === arr[2] && v[i].time === arr[3]){
-                v.splice(i, 1);
-                localforage.removeItem('ashi-data-store', function(err){
-                  console.log(err);
-                    if (v.length !== 0){
-                      localforage.setItem('ashi-data-store', v, function(err){
-                        console.log(err);
-                        displaySavedGames(v);
-                      });
-                    } else {
-                      $('.saved-games').empty();
-                    }
-                });    
-              }
-            }
-          });
-      });
-      // $('.send-to-server').on('click', function(){
+      $('.send-to-server').on('click', function(){
+          var savedGameArr = ($(this).next().text()).split(',');
+          sendSavedGame(savedGameArr);
+      })
       
-      //   });
+      $('.delete-game').on('click', function(){
+          // toastr["warning"]('Do you really want to delete this game? It has not yet been send to the ASHI server.<br /><br /><button type="button" class="btn del-game-button">Yes</button>')
+          // $('.del-game-button').on('click', function(){console.log('toastr yes button clicked')})
+          var savedGameArr = ($(this).next().text()).split(',');
+          deleteSavedGame(savedGameArr);
+        });
     }
-    
-    
-
-    // $('.delete-game').on('click', function(){
-    //   console.log($(this).next().html())
-    // });
 
     function teamFun (data){
         teamData = data;
