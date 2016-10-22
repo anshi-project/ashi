@@ -295,6 +295,7 @@
         val = value;
         if (value === null) {
           localforage.setItem('ashi-data-store', [gameStats], function(err){console.log(err)});
+          displaySavedGames([gameStats]);
           return;
         }
         for (var i = 0; i < value.length; i++){
@@ -306,15 +307,49 @@
         }
         val.push(gameStats);
         localforage.removeItem('ashi-data-store', function(err){console.log(err)});
-        localforage.setItem('ashi-data-store', val, function(err){console.log(err)});         
+        localforage.setItem('ashi-data-store', val, function(err){console.log(err)});
+        displaySavedGames(val);
       });
     });
     
     function displaySavedGames (savedGames){
+      $('.send-to-server, .delete-game').off();
       $('.saved-games').empty();
        var savedGamesHtml = _.template(savedGamesTemplate)({'savedgames': savedGames})
-        $(".saved-games").html(savedGamesHtml);
+      $(".saved-games").html(savedGamesHtml);
+      
+      $('.delete-game').on('click', function(){
+          var arr = ($(this).next().text()).split(',');
+          localforage.getItem('ashi-data-store', function(err, v){
+            for (var i = 0; i < v.length; i++){
+              if (v[i].team_name === arr[0] && v[i].opponent === arr[1] 
+                && v[i].date === arr[2] && v[i].time === arr[3]){
+                v.splice(i, 1);
+                localforage.removeItem('ashi-data-store', function(err){
+                  console.log(err);
+                    if (v.length !== 0){
+                      localforage.setItem('ashi-data-store', v, function(err){
+                        console.log(err);
+                        displaySavedGames(v);
+                      });
+                    } else {
+                      $('.saved-games').empty();
+                    }
+                });    
+              }
+            }
+          });
+      });
+      // $('.send-to-server').on('click', function(){
+      
+      //   });
     }
+    
+    
+
+    // $('.delete-game').on('click', function(){
+    //   console.log($(this).next().html())
+    // });
 
     function teamFun (data){
         teamData = data;

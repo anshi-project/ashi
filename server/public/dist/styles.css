@@ -315,9 +315,7 @@ td.name {
 .saved-game {
     background-color: white;
     border-top: 1px solid black;
-    border-collapse: collapse;
     padding-bottom: 2em;
-    font-weight: normal;
 }
 
 p.game {
@@ -331,5 +329,9 @@ p.game {
 
 h2.saved-games-header {
     margin-left: 0.5em;
+}
+
+.game-details {
+    display: none;
 }
 
