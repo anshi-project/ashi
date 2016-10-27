@@ -17,13 +17,21 @@ var acctInfo={
 }
 
 function getIndex(type){
-	if(type=="player"){
-		return 0;
-	}else if(type=="coach"){
-		return 1;
-	}else{
-		return 2
+	var i;
+	switch(type){
+		case "player":
+		i= 0;
+		break;
+		case "returning_player":
+		i= 1;
+		break;
+		case "coach":
+		i= 2;
+		break;
+		default:
+		i= 3;
 	}
+	return i;
 }
 
 module.exports=function(type,data,next){

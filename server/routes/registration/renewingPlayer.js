@@ -1,5 +1,5 @@
 var Player=require("../../models/players/main");
-var format=require("form-data-to-object");
+var sendToSpreadSheet=require("../../config/export/google_spreadsheet");
 
 module.exports=function(app){
     app.get("/register/player/renew",function(req,res){
@@ -7,17 +7,20 @@ module.exports=function(app){
     })
 
     app.post("/register/player/renew",function(req,res){
-        var query=format(req.body)
+        var _=req.body;
+        var query={firstname:_.firstname,lastname:_.lastname,"contact.email":_.email}
 
         Player.findOne(query,function(err,player){
-            res.send(player)
-            // if(err || !player){
-            //     return res.send("ERROR")
-            // }else{
-            //     player.status="renewing membership";
-            //     player.save();
-            //     res.render("reg/thankyou");
-            // } 
+            if(err || !player){
+                return res.send("There is no record of a player with that name and/or email")
+            }else{
+                player.status="renewing membership";
+                player.save();
+                sendToSpreadSheet("returning_player",player,function(){
+                    res.render("reg/success");    
+                })
+                
+            }
         })
     }) 
 }

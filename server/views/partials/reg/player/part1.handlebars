@@ -1,6 +1,7 @@
 
 	<div class="container-fluid form-section">
       {{> reg/common/name}}
+      <hr>
   <div class="row">
     <div class="col-md-2 col-md-offset-1">
       <label for="public_data[gender]">Gender:</label>
@@ -33,6 +34,7 @@
           <input type="date" name="public_data[date_of_birth]" class="form-control dob" required>
         </div>        
       </div>
+      <hr>
        {{> reg/common/passport}}
    <div class="row">
       <div class="form-group col-md-4 col-md-offset-1" >
@@ -44,8 +46,4 @@
         <input class="form-control guardian-field" type="text" name="contact[private_data][guardian_phone]"> 
       </div>
      </div> 
-      <div class="form-group col-md-4 col-md-offset-2" >
-        <label for="contact[private_data][guardian_phone]">Parent's/Guardian's Phone Number:</label>
-        <input class="form-control guardian-field" type="text" name="contact[private_data][guardian_phone]"> 
-      </div>
 </div>
