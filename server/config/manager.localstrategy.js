@@ -4,7 +4,7 @@ var User=require("../models/staff/manager")
 
 module.exports=new LocalStrategy(function(username, password, done) {
 	
-	User.findOne({ username: username}, function (err, user) {
+	User.findOne({ username: username},"+password", function (err, user) {
       	if (err) { 
       		return done(err); 
       	}

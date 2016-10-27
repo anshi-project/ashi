@@ -1,10 +1,11 @@
 var passport=require("passport");
 
 module.exports=function(app){
-	app.get("/admin-login",function(req,res){
+	app.get("/login/admin",function(req,res){
 		res.render("admin/login")
 	})
-	app.post('/admin-login', passport.authenticate('admin-local', {successRedirect:'/admin/index',failureRedirect: '/admin-login'}));
+	app.post('/login/admin', passport.authenticate('admin-local', 
+		{successRedirect:'/admin/index',failureRedirect: '/login/admin'}));
     
     app.get("/admin/index",function(req,res){
     	res.render("admin/menu",{admin:req.user});
@@ -14,7 +15,7 @@ module.exports=function(app){
   		res.redirect("/")
   	})
 	require("./teampicker")(app);
-
+	require("./applications")(app)
 	require("./roster")(app);
 	require("./create_admin")(app);
 }

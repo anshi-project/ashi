@@ -10,7 +10,7 @@ var registrationSchema=new Schema({
     contact:{},
     public_data:{},
     registration_status:{type:String,default:"pending"}
-})
+},{timestamps:true})
 
 registrationSchema.statics.assignRole=Method.assignRole;
     /*Processes registration- assigns player/coach to a team, 

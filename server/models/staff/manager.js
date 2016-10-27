@@ -23,4 +23,6 @@ gmSchema.statics.assign=function(registration,$,_,next){
 	})
 }
 
+gmSchema.plugin(require("../plugins/comparePassword"));
+
 module.exports=mongoose.model("manager",gmSchema);

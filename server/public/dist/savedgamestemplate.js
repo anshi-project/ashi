@@ -10,7 +10,7 @@ var savedGamesTemplate = `
                 <span class='game-details'><%=g.team_name%>,<%=g.opponent%>,<%=g.date%>,<%=g.time%></span>
             </div>
             <div class='col-sm-1'>
-                <button type='submit' class='delete-game btn btn-sm btn-danger'>Delete game</button>
+                <button type='submit' class='delete-game btn btn-sm btn-danger'>Delete from local drive</button>
                 <span class='game-details'><%=g.team_name%>,<%=g.opponent%>,<%=g.date%>,<%=g.time%></span>
             </div>
             <div class='col-sm-6'>

@@ -1,34 +1,10 @@
 <div class="row">
+    {{#each apparel}}
     <div class="form-group col-md-2 col-md-offset-1  col-xs-6">
-        <label for="apparel[shirt]">T-Shirt Size:</label><br>
-        <input type="radio" name="apparel[shirt]" value="SM">Adult SM<br>
-        <input type="radio" name="apparel[shirt]" value="M">Adult M<br>
-        <input type="radio" name="apparel[shirt]" value="L">Adult L<br>
-        <input type="radio" name="apparel[shirt]" value="XL">Adult XL<br> 
-        <input type="radio" name="apparel[shirt]" value="XXL">Adult XXL<br> 
-        <input type="radio" name="apparel[shirt]" value]="XXXL">Adult XXXL<br>
+        <label for="apparel[{{this.name}}]">{{this.name}} Size</label><br>
+        {{#each sizes}}
+        <input type="radio" name="apparel[{{../name}}]" value="{{size}}" >{{size}}<br>
+        {{/each}}
     </div>
-    <div class="form-group col-md-2 col-md-offset-1 col-xs-6">
-        <label for="apparel[polo]">Polo Size:</label><br>
-        <input type="radio" name="apparel[polo]" value="SM">Adult SM<br>
-        <input type="radio" name="apparel[polo]" value="M">Adult M<br>
-        <input type="radio" name="apparel[polo]" value="L">Adult L<br>
-        <input type="radio" name="apparel[polo]" value="XL">Adult XL<br> 
-        <input type="radio" name="apparel[polo]" value="XXL">Adult XXL<br> 
-        <input type="radio" name="apparel[polo]" value="XXXL">Adult XXXL<br>
-    </div>
-    <div class="form-group col-md-2 col-md-offset-1 col-xs-6">
-        <label for="apparel[jacket]">Jacket Size:</label><br>
-        <input type="radio" name="apparel[jacket]" value="SM">Adult SM<br>
-        <input type="radio" name="apparel[jacket]" value="M">Adult M<br>
-        <input type="radio" name="apparel[jacket]" value="L">Adult L<br>
-        <input type="radio" name="apparel[jacket]" value="XL">Adult XL<br> 
-        <input type="radio" name="apparel[jacket]" value="XXL">Adult XXL<br> 
-        <input type="radio" name="apparel[jacket]" value="XXXL">Adult XXXL<br>
-    </div>
-    <div class="form-group col-md-3 col-xs-6">
-        <label for="apparel[hat]">Hat Size:</label><br>
-        <input type="radio" name="apparel[hat]" value="SM/M">Small/Medium<br>
-        <input type="radio" name="apparel[hat]" value="L/XL">Large/X-Large<br>
-    </div>
+    {{/each}}
 </div>    

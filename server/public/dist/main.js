@@ -1,3 +1,6 @@
+/* global toastr _ $*/
+
+
 (function(){
   var ashiTeamName;
   var teamData;
@@ -128,23 +131,24 @@
               $('.' + location).css('margin-top', '1.6em');
         }
         $('.' + location + '-name-input').children().hide();
-        var team = ashiTeamName = teamData[dropDownVal].name;
-        $('.' + location + '-team-name').html(location + ' team: ' + team );
-        var playersArr = teamData[dropDownVal].players;
+        var team= teamData.filter(v=>{return v.key==$(this).val()})[0];
+        var ashiTeamName=team.name
+        $('.' + location + '-team-name').html(location + ' team: ' + team.name );
+        var playersArr = team.players
         console.log('playersarr: ',playersArr);
-        var goaliesArr = teamData[dropDownVal].goalies;
+        var goaliesArr = team.goalies;
         displayTeam(false, location, team, playersArr, goaliesArr);
      });
 
      $(".lock-unlock-scorecard").on('click', function(){
-        if ($(this).text() === "Lock controls"){
+        if ($(this).text() === "Safe mode"){
             $('.controls').hide();
-            $(this).text('Unlock controls');
-            $(this).css('background-color', 'green');
+            $(this).text('Leave safe mode');
+            $(this).css('background-color', 'red');
         } else {
             $('.controls').show();
-            $(this).text('Lock controls');
-            $(this).css('background-color', 'red');
+            $(this).text('Safe mode');
+            $(this).css('background-color', 'green');
         }
       });
 
@@ -202,17 +206,18 @@
       var a;
       var o;
       var opponent = $('.team-name-input').val();
-      date = $('#flatpickr').val().split(' ')[0];
-      season = date.substr(0, 4);
-      var time = $('#flatpickr').val().split(' ')[1];
-      if (date === 'Set'){
+      if ($('#flatpickr').val() === ''){
         toastr.error('Set game date and time before submitting scorecard');
-        return;
+        return 'error';
+      } else {
+        date = $('#flatpickr').val().split(' ')[0];
+        season = date.substr(0, 4);
+        var time = $('#flatpickr').val().split(' ')[1];
       }
       
       if($('.team-name-input').val() === "") {
         toastr.error('Fill out opponent team name before submitting scorecard');
-        return;
+        return 'error';
       }
      
       var homeTeamStats = ['.home-playersTable', '.home-goaliesTable', '.home-team-stats'].map(getStats);
@@ -242,21 +247,30 @@
         ashiResult = 'loss';
         opponentResult = 'win'
       }
+      if (at[5] !== ot[6] || at[6] !== ot[5]) {
+        toastr.error('Goals For and Goals Against stats are inconsistent');
+        return 'error';
+      }
       
-      var pkPercAshi = (ot[8] - ot[7]) / ot[8];
-      var pkPercOpp = (at[8] - at[7]) / at[8];
-      var ppPercAshi = (at[7] / at[8]);
-      var ppPercOpponent = (ot[7] / ot[8]);
+      if (ag[4] === 0 || og[4] === 0) {
+        toastr.error("Shots Against stat can't be 0");
+        return 'error';
+      }
+      
+      var pkPercAshi = ot[8] > 0 ? (ot[8] - ot[7]) / ot[8] : -999; // -999 means that there where no power play opportunities against.
+      var pkPercOpp = at[8] > 0 ? (at[8] - at[7]) / at[8] : -999; // when calculating the season average filter out all PKP === -999 
+      var ppPercAshi = at[8] > 0? (at[7] / at[8]) : -999;
+      var ppPercOpponent = ot[8] > 0 ? (ot[7] / ot[8]) : -999;
       var ashi_player_stats = getPlayerStats(ap, opponent, home_game, ashiResult);
       var ashi_goalie_stats = getGoalieStats(ag, opponent, home_game, ashiResult);
-      var ashi_team_stats = {Q1_goals: at[1], Q2_goals: at[2], Q3_goals: at[3],
+      var ashi_team_stats = {P1_goals: at[1], P2_goals: at[2], P3_goals: at[3],
                              OT: at[4], GF: at[5], GA: at[6], PPG: at[7], PPO: at[8], 
                              PKP: pkPercAshi, result: ashiResult, date: date, 
                              home_game: home_game, opponent: opponent, season: season,
                              team_name: ashiTeamName, PPP: ppPercAshi};
       var opponent_player_stats = getPlayerStats(op, ashiTeamName, !home_game, opponentResult);
       var opponent_goalie_stats = getGoalieStats(og, ashiTeamName, !home_game, opponentResult);
-      var opponent_team_stats = {Q1_goals: ot[1], Q2_goals: ot[2], Q3_goals: ot[3],
+      var opponent_team_stats = {P1_goals: ot[1], P2_goals: ot[2], P3_goals: ot[3],
                                  OT: ot[4], GF: ot[5], GA: ot[6], PPG: ot[7], PPO: ot[8],
                                  PKP: pkPercOpp, PPP: ppPercOpponent, result: opponentResult, 
                                  date: date, home_game: !home_game, opponent: ashiTeamName,
@@ -272,13 +286,14 @@
        if (ashi_player_stats.length === 0 || ashi_goalie_stats.length === 0 ||
           opponent_player_stats.length === 0 || opponent_goalie_stats.length === 0){
           toastr.error('select all players and goalies who played');
-          return;
+          return 'error';
        }
        return gameStats;
     }
 
     $(".submit-scorecard").on('click', function () {
       var gameStats = collectGameStats();
+      if (gameStats === 'error') return;
       console.log(gameStats);
 
       $.post('https://ashi-ahstein3521.c9users.io:8081/scorecard', {stats: gameStats}, function(result){
@@ -290,8 +305,10 @@
     $('.save-to-local-disk').on('click', function(){
       var val;
       var gameStats = collectGameStats();
+      if (gameStats === 'error') return;
       console.log('gamestats: ', gameStats);
       localforage.getItem('ashi-data-store', function(err, value) {
+        if(err){};
         val = value;
         if (value === null) {
           localforage.setItem('ashi-data-store', [gameStats], function(err){console.log(err)});
@@ -313,6 +330,7 @@
     });
     
     function deleteSavedGame(arr) {
+      console.log('deletesavedgame called')
         localforage.getItem('ashi-data-store', function(err, v){
           for (var i = 0; i < v.length; i++){
             if (v[i].team_name === arr[0] && v[i].opponent === arr[1] 
@@ -366,6 +384,7 @@
           // toastr["warning"]('Do you really want to delete this game? It has not yet been send to the ASHI server.<br /><br /><button type="button" class="btn del-game-button">Yes</button>')
           // $('.del-game-button').on('click', function(){console.log('toastr yes button clicked')})
           var savedGameArr = ($(this).next().text()).split(',');
+          console.log(savedGameArr)
           deleteSavedGame(savedGameArr);
         });
     }

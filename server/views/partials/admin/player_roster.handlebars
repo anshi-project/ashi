@@ -5,29 +5,26 @@
           </tr>
         </thead>
         <tbody>
-            {{#each players}}
+            {{#each roster}}
           <tr>  
             <td>{{this.firstname}}</td>
             <td>{{this.lastname}}</td>
             <td>{{this.team.jersey_number}}</td>
             <td>{{this.team.pos_abrv}}</td>
-            <td>{{this.public_data.email}}</td>
-            <td>{{this.public_data.phone1}}</td>
+            <td>{{this.contact.email}}</td>
+            <td>{{this.contact.phone1}}</td>
             <td>{{this.public_data.age}}</td>
             <td>{{this.public_data.height}}</td>
-            <td>{{this.registration.bio.hometown}}</td>
+            <td>{{this.public_data.hometown}}</td>
             <td>{{this.team.shooting_hand}}</td>
-            <td>{{this.registration.apparel.hat}}</td>
-            <td>{{this.registration.apparel.jersey}}</td>
-            <td>{{this.registration.apparel.jacket}}</td>
-            <td>{{this.registration.apparel.shorts}}</td>
-            <td>{{this.registration.apparel.polo}}</td>
+            <td>{{this.apparel.hat}}</td>
+            <td>{{this.apparel.jersey}}</td>
+            <td>{{this.apparel.jacket}}</td>
+            <td>{{this.apparel.shorts}}</td>
+            <td>{{this.apparel.polo}}</td>
             <td>N/A</td>
             <td>N/A</td>
-            <td>N/A</td>
-            <td>
-                <a href="/admin/db/players/main/{{this._id}}">View</a>
-            </td>
+            <td>No</td>
           </tr>
           {{/each}}
         </tbody>

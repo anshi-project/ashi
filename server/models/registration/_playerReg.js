@@ -9,19 +9,21 @@ var PlayerReg=Registration.discriminator("player-registration",
       date_of_birth:{type:String},
       gender:String,
       weight:Number,
-      height:String
+      height:String,
+      hometown:String
     },
     contact:{
       phone1:String,
-      phone2:{type:String,default:"N/A"},
+      phone2:{type:String,set:Default},
       email:{type:String,lowercase:true},
       alt_email:String,
       passport:String,
-      passport_expiration:{type:String,default:"N/A"},
+      passport_expiration:{type:String,set:Default},
       social_media:{},
       private_data:{
-        guardian_name:{type:String,default:"N/A"},
-        guardian_number:{type:String,default:"N/A"},
+      
+        guardian_name:{type:String,set:Default},
+        guardian_number:{type:String,set:Default},
         address:{
           street:String,
           state:String,
@@ -32,14 +34,13 @@ var PlayerReg=Registration.discriminator("player-registration",
     },
     background:{
       education:String,
-      hometown:String,
       hockey_history:String,
       other_sports:String,
       career_highlights:String,
     },
     favorite:{
       movie:String,
-      tvshow:String,
+      tv_show:String,
       athlete:String,
       sports_team:String,
       other_sport:String,
@@ -49,9 +50,9 @@ var PlayerReg=Registration.discriminator("player-registration",
       team:String,
       position:String,
       shooting_hand:String,
-      tournament_team:{type:String,default:"N/A"},
-      leaugue_team:{type:String,default:"N/A"},
-      website:{type:String,default:"N/A"},
+      tournament_team:{type:String,set:Default},
+      league_team:{type:String,set:Default},
+      website:{type:String,set:Default},
       jersey_number:{
         choice1:Number,
         choice2:Number,
@@ -61,4 +62,7 @@ var PlayerReg=Registration.discriminator("player-registration",
   })
 )
 
+function Default(val){
+  return val||"N|A"
+}
 module.exports=PlayerReg;

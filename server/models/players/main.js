@@ -7,35 +7,62 @@ var methods=require("./methods");
 var playerSchema=new Schema({
     firstname:String,
     lastname:String,
-    games_played:{type:Number,default:0},
     team:{
-       name:String,
-       division:String,
-       position:String,
-       jersey_number:String,
-       shooting_hand:String
-     },
-     public_data:{
-        date_of_birth:String,
-        email:String,
-        height:String,
-        weight:Number,
-        phone1:String,
+      name:String,
+      division:String,
+      position:String,
+      jersey_number:String,
+      shooting_hand:String
     },
-     registration:{
-        apparel:{},
-        bio:{
-          hometown:String
-        },
-        social_media:{},
-        lifestyle:{},
-        contact:{},
-        hockey_info:{
-          tournament_team:String,
-          league_team:String,
-          website:String
+    public_data:{
+      date_of_birth:String,
+      gender:String,
+      weight:String,
+      height:String,
+      hometown:String
+    },
+    background:{
+      education:String,
+      hockey_history:String,
+      other_sports:String,
+      career_highlights:String
+    },
+    favorite:{
+      movie:String,
+      tvshow:String,
+      athlete:String,
+      sports_team:String,
+      other_sport:String,
+      food_or_restaurant:String
+    },
+    contact:{
+      phone1:String,
+      phone2:{type:String,default:"N/A"},
+      email:{type:String,lowercase:true},
+      alt_email:String,
+      passport:String,
+      passport_expiration:{type:String,default:"N/A"},
+      social_media:{},
+      private_data:{
+        guardian_name:{type:String,default:"N/A"},
+        guardian_number:{type:String,default:"N/A"},
+        address:{
+          street:String,
+          state:String,
+          city:String,
+          zipcode:String
         }
-     },
+      }
+    },
+    apparel:{
+
+    },
+    
+    hockey_info:{
+      website:String,
+      leaugue_team: String,
+      tournament_team: String
+    },
      status:{type:String,default:"active"} //retired, renewing membership, active
 })
 
@@ -49,7 +76,7 @@ playerSchema.virtual("public_data.age").get(function(){
 
 playerSchema.virtual("team.pos_abrv").get(function(){
   var pos=this.team.position.split(" ");
-  if(pos[1]=="Defense") pos.shift();
+  if(pos[1]=="Defense") return "D";
 
   return pos.map(v=> v.charAt(0)).join("")
 

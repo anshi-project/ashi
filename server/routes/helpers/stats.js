@@ -168,11 +168,10 @@ function updateGoalieCareerStats(s){
 }  
 
 function storeTeamGameStats(s){
-    console.log('effe: ', s)
     var query = {name: s.team_name};
     var update = {$push: {game_stats: {season: s.season, opponent: s.opponent, 
                   date: s.date, home_game: Boolean(s.home_game), result: s.result,
-                  GF: s.GF, GA: s.GA, Q1: s.Q1, Q2: s.Q2, Q3: s.Q3, OT: s.OT,
+                  GF: s.GF, GA: s.GA, P1: s.P1, P2: s.P2, P3: s.P3, OT: s.OT,
                   PPG: s.PPG, PPO: s.PPO, PKP: s.PKP, PPP: s.PPP}}};
     Team.update(query, update, callback);
 }

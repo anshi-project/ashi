@@ -20,7 +20,7 @@ var playersTemplate = `<table class='<%=location%>-playersTable' id='ashi-team'>
                           <tr class="not-playing">
                             <td class="select-player"><input type="checkbox"></td>
                             <td class='player-number'><%=player.team.jersey_number%></td>
-                            <td class='name'><%=player.registration.public_data.lastname%></td>
+                            <td class='name'><%=player.lastname%></td>
                             <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
                             <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
                             <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>

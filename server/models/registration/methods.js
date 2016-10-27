@@ -6,10 +6,9 @@ exports.assignRole=function(id,team,type){
     var Applicant=require(type.schema);
     var RegistrationModel=require(type.registration);    
     
-    RegistrationModel.findById(id,function(err,doc){
+    RegistrationModel.findById(id,"-__t,__v",function(err,doc){
         if(err)throw err;
-        doc.registration_status="registered";
-        doc.save();    
+        
          Applicant.assign(doc,team,type.discriminator,function(_doc){             
             var query=_doc.query;
             Team.addToRoster(query,_doc._id,type.category)      

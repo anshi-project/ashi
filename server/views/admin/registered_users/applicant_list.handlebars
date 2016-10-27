@@ -1,12 +1,6 @@
 <div class="container">
-   <h2> {{title}}</h2>
-    <ul class="list-group">
-        {{#each applicants}}
-        <li class="list-group-item">
-            <a href="/admin/applications?id={{this._id}}">
-               <h3> {{this.public_data.firstname}} {{this.public_data.lastname}}</h3> 
-            </a>
-        </li>
-        {{/each}}
-    </ul>
+    <hr>
+    <hr>
+    <a href="applications/player" role="button" class="btn-lg btn-warning">Download Player Applications</a>
+        <a href="applications/coach" role="button" class="btn-lg btn-warning">Download Coach Applications</a>
 </div>

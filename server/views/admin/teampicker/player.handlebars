@@ -21,19 +21,10 @@
                         <option value="Left Defense">Left Defense</option>
                         <option value="Goalie">Goalie</option>
                     </select>
-                    {{#if this.jersey_number_choices}}
-                    <select name="jersey_number">
-                        <option disabled selected>Select A Jersey Number</option>
-                        {{#each jersey_number_choices}}
-                        <option value="{{this}}">{{this}}</option>
-                        {{/each}}
-                    </select>
-                    <input type="submit" class="addToTeam"  value="Add to team">
-                    {{else}}
+        
                     <label>Jersey Number:</label>
-                    <input type="number" min="0" max="100" name="jersey_number" value={{this.team.jersey_number}}>
-                    <input type="submit" class="addReturningPlayer"  value="Add to team">
-                    {{/if}}
+                    <input type="number" min="0" max="100" name="jersey_number">
+                    <input type="submit" class="addToTeam"  value="Add to team">
                 </form>    
             </div>
         </li>

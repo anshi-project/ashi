@@ -20,9 +20,9 @@ var TeamGameStatsSchema = new Schema({
             result:{type:String},
             GF:{type:Number,default:0},
             GA: {type:Number,default:0},
-            Q1:{type:Number,default:0},
-            Q2:{type:Number,default:0},
-            Q3:{type:Number,default:0},
+            P1:{type:Number,default:0},
+            P2:{type:Number,default:0},
+            P3:{type:Number,default:0},
             OT:{type:Number,default:0},
             PPG:{type:Number,default:0},
             PPO:{type:Number,default:0},
@@ -42,7 +42,7 @@ var teamSchema = new Schema({
     website: String,
     key:String,
     managers: [{type: Schema.Types.ObjectId, ref: "Manager"}],
-    coach: [{type: Schema.Types.ObjectId, ref: "coach"}],
+    coaches: [{type: Schema.Types.ObjectId, ref: "coach"}],
     players: [{type: Schema.Types.ObjectId, ref: "Player"}],
     goalies: [{type: Schema.Types.ObjectId, ref: "Player"}],
     game_stats: [TeamGameStatsSchema],
@@ -67,6 +67,17 @@ teamSchema.statics.addToRoster = function(query,id,type){
         })
     
 }
+
+teamSchema.virtual("roster").get(function(){
+    var team=this.players.concat(this.goalies);
+
+    return team.sort(function(a,b){
+      if(+a.team.jersey_number>+b.team.jersey_number) return 1;
+      if(+a.team.jersey_number<+b.team.jersey_number) return -1;
+        return 0;  
+    })
+
+})
 
 module.exports = mongoose.model("team",teamSchema)
 

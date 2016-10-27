@@ -4,7 +4,7 @@ var MongoStore=require("connect-mongo")(express);
 
 var exphbs=require('express-handlebars');
 
-var passport=require("passport");
+
 var mongoose=require("mongoose");
 var bodyParser=require('body-parser');
 var cookieParser=require("cookie-parser");
@@ -13,8 +13,11 @@ var session=require('express-session');
 require("dotenv").config();
 
 
+
 mongoose.Promise=require("bluebird");
 mongoose.connect(process.env.mongoURI);
+
+app.locals=require("./locals");
 
 app.use(bodyParser.urlencoded({ extended:true}));
 app.use(cookieParser());
@@ -33,21 +36,15 @@ app.set('view engine', 'handlebars');
 app.use('/public', express.static('public'));
 
 require("./config/passport")(app);
-
-app.use("/admin",function(req,res,next){
-    if(!req.user || req.user.status!="admin") {
-        return res.redirect("/admin-login");
-    }
-        return next();  
-})  
-
 require("./routes/index")(app);
 require("./routes/registration")(app);
 require("./routes/admin/index")(app);
+require("./routes/manager/index")(app);
+require("./routes/stats/index")(app);
 
 
-// app.listen(process.env.PORT|| 8080, () => console.log('port 8080 => Adam')); 
-app.listen(8081, () => console.log('port 8081 => Manolo')); 
+app.listen(process.env.PORT|| 8080, () => console.log('port 8080 => Adam')); 
+// app.listen(8081, () => console.log('port 80 81 => Manolo')); 
 
 
 

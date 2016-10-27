@@ -4,9 +4,9 @@ var teamTemplate = `<div class="row">
                           <thead>
                   			<tr>
                   			    <th ><div class='team-stats-header'><bold>Team Stats</bold></div></th>
-                                <th><bold>Q1</bold></th>
-                                <th><bold>Q2</bold></th>
-                                <th><bold>Q3</bold></th>
+                                <th><bold>1st</bold></th>
+                                <th><bold>2nd</bold></th>
+                                <th><bold>3rd</bold></th>
                   				<th><bold>OT</bold></th>
                                 <th><bold>GF</bold></th>
                                 <th><bold>GA</bold></th>

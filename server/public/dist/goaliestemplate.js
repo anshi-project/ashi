@@ -16,7 +16,7 @@ var goaliesTemplate = `<table class='<%=location%>-goaliesTable'>
                                   <tr class="not-playing">
                                     <td class="select-player"><input type="checkbox"></td>
                                     <td class='goalie-number'><%=goalie.team.jersey_number%></td>
-                                    <td class='name'><%=goalie.registration.public_data.lastname%></td>
+                                    <td class='name'><%=goalie.lastname%></td>
                                     <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
                                     <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
                                     <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>

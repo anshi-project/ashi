@@ -13,6 +13,7 @@ var coachSchema=new Schema({
 		passport_expiration:String
 	},
 	background:{},
+	apparel:{},
 	team:{
 		division:String,
 		name:String,

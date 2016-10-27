@@ -3,15 +3,48 @@ body{
     font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 
-#registration-form{
-    width:60%;
-    margin:30px auto 10px;
-    border-radius:10px;
-    background:#ff4b4b;
-    color:#171a88;
-    text-transform: capitalize;
+input.parsley-success,
+select.parsley-success,
+textarea.parsley-success {
+  color: #468847;
+  background-color: #DFF0D8;
+  border: 1px solid #D6E9C6;
 }
-.login-form{
+
+input.parsley-error,
+select.parsley-error,
+textarea.parsley-error {
+  color: #B94A48;
+  background-color: #F2DEDE;
+  border: 1px solid #EED3D7;
+}
+
+.parsley-errors-list {
+  margin: 2px 0 3px;
+  padding: 0;
+  list-style-type: none;
+  font-size: 0.9em;
+  line-height: 0.9em;
+  opacity: 0;
+
+  transition: all .3s ease-in;
+  -o-transition: all .3s ease-in;
+  -moz-transition: all .3s ease-in;
+  -webkit-transition: all .3s ease-in;
+}
+
+.parsley-errors-list.filled {
+  opacity: 1;
+}
+
+.form-section{
+  display: none;
+}
+.current{
+  display:block;
+}
+
+.login-form, #registration-form{
   border-radius: 30px;
   border:1px solid #f16f6f;
   box-shadow:inset -2px -3px 4px 2px rgba(182,103,103,0.4),
@@ -23,7 +56,31 @@ body{
   width:50%;
 }
 
+#registration-form{
+    color: #e4ff4e;
+    background: #3446c3;
+    width:60%;
+    margin:30px auto 10px;
+    padding:6px;
+    text-transform: capitalize;
+    text-align: left;
+}
 
+.form-navigation{
+  width:95%;
+  margin:0 auto;
+}
+.btn-nav,.btn-submit{
+  font-size:1.4em;
+}
+.btn-nav{
+  background:#0c0323;
+}
+
+.btn-nav:hover{
+    color: #ffff25;
+    background: #04050c;
+}
 
 @media (max-width:700px){
     #registration-form{
@@ -95,13 +152,6 @@ p {
 
 button.submit-scorecard {
     margin-left: 1em;
-}
-
-.lock-unlock-scorecard {
-    float: right;
-    background-color: red;
-    color: white;
-    margin-right: 5em;
 }
 
 .select-box-label {
@@ -203,7 +253,7 @@ button.save-to-local-disk {
 
 .lock-unlock-scorecard {
     float: right;
-    background-color: red;
+    background-color: green;
     color: white;
     margin-right: 5em;
 }
@@ -333,5 +383,9 @@ h2.saved-games-header {
 
 .game-details {
     display: none;
+}
+
+.flatpickr-calendar.open {
+    border: 1px solid #555;
 }
 

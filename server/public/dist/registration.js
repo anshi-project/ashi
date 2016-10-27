@@ -1,14 +1,15 @@
-/*global $*/
+function today(){
+  var d = new Date(),
+     dd = d.getDate(),
+     mm = d.getMonth()+1,
+   yyyy = d.getFullYear();
 
-var adjustForLeapYear=function(_date){
-    var date=_date.split("-");
-    if(date[1]=='02'&&date[2]=="29"){
-        date[2]="28";
-    }
-    return  date.join("-");
-}
+  [dd,mm].forEach(v=> {if(v<10) return "0"+v});
+    
+  return yyyy+'-'+mm+'-'+dd;
+};
 
-function _calculateAge(birthday) { // birthday is a date
+function calculateAge(birthday) { 
     var ageDifMs = Date.now() - birthday.getTime();
     var ageDate = new Date(ageDifMs); // miliseconds from epoch
     return Math.abs(ageDate.getUTCFullYear() - 1970);
@@ -22,23 +23,60 @@ function toggleFormField(element,condition){
     }
 }
 
+$(function () {
 
-$("input[name='passport']").on("change",function(){
-    var passport=$("input[name='passport']:checked").val();
-    var expDate=$("input[name='passport_expiration']")
+  var $sections = $('.form-section');
+
+  function navigateTo(index) {
+    // Mark the current section with the class 'current'
+    $sections
+      .removeClass('current')
+      .eq(index)
+        .addClass('current');
+    // Show only the navigation buttons that make sense for the current section:
+    $('.form-navigation .previous').toggle(index > 0);
+    var atTheEnd = index >= $sections.length - 1;
+    $('.form-navigation .next').toggle(!atTheEnd);
+    $('.form-navigation [type=submit]').toggle(atTheEnd);
+  }
+
+  function curIndex() {
+    // Return the current index by looking at which section has the class 'current'
+    return $sections.index($sections.filter('.current'));
+  }
+
+  $('.form-navigation .previous').click(function() {
+    navigateTo(curIndex() - 1);
+  });
+
+  $('.form-navigation .next').click(function() {
+    if ($('#registration-form').parsley().validate({group: 'block-' + curIndex()}))
+      navigateTo(curIndex() + 1);
+  });
+
+  // Prepare sections by setting the `data-parsley-group` attribute to 'block-0', 'block-1', etc.
+  $sections.each(function(index, section) {
+    $(section).find(':input').attr('data-parsley-group', 'block-' + index);
+  });
+  navigateTo(0); // Start at the beginning
+
+$(".passport").on("change",function(){
+    var passport=$(this).val();
+    var expDate=$(".passport_exp")
     var condition=(passport=="no");
     toggleFormField(expDate,condition);
 })
 
-$("input[name='date_of_birth']").on("change",function(){
-    var bday=adjustForLeapYear($(this).val());
-    var age=_calculateAge(new Date(bday));
-    var guardian=$("input[name='guardian_name']");
-    var guardianPhone=$("input[name='guardian_phone']");
+
+
+$(".dob").on("change",function(){
+    var bday=$(this).val().replace("02-29","02-28");
+    var age=calculateAge(new Date(bday));
+    var guardian=$(".guardian-field");
     var condition=(age>=18 && age<100);
-    
+
     toggleFormField(guardian,condition);
-    toggleFormField(guardianPhone,condition);
+    
 })
 
 $(".reg-submit-manager").on("click",function(evt){
@@ -59,28 +97,5 @@ $("input[name='preferred_coaching_positions']").on("change",function(){
     }
 })
 
-$("#registration-form").on("submit",function(e){
-    var dataArr=$("#registration-form").serializeArray();
-    var data={};
-    var loc=window.location;
-
-    dataArr.forEach(v=> data[v.name]=v.value||"N/A");
-    
-    localStorage.setItem(formURL, JSON.stringify(data));
 })
-
-
-    var formURL=window.location.pathname+window.location.search.replace("?part=1","");
-    var formData=JSON.parse(localStorage.getItem(formURL))||{};
-    var props=Object.keys(formData)
-    
-    props.forEach(function(prop){
-        let val=formData[prop]
-        $(`input:not(:radio)[name=${prop}]`).attr("value",val);
-        $(`select[name=${prop}]`).val(val);
-        
-        // if(prop!="height") $(`input:radio[name=${prop}][value=${val}]`).prop("checked",true)
-        
-    })
-
 
