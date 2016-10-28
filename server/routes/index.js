@@ -1,5 +1,3 @@
-
-
 module.exports=function(app){
     app.get("/",function(req,res){
         res.render("index")
@@ -21,8 +19,7 @@ module.exports=function(app){
     app.all("/admin/*",function(req,res,next){
         if(!req.user || req.user.status!="admin") {
             return res.redirect("/login/admin");
-        }
-            
+        }   
             return next();  
     })
     
@@ -32,7 +29,9 @@ module.exports=function(app){
     	}else{
     		next();
     	}
-    })    
+    }) 
+
+       
 }
 
  

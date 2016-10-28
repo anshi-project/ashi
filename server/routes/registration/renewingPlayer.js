@@ -6,6 +6,7 @@ module.exports=function(app){
         res.render("reg/returning",{layout:"main"})
     })
 
+
     app.post("/register/player/renew",function(req,res){
         var _=req.body;
         var query={firstname:_.firstname,lastname:_.lastname,"contact.email":_.email}

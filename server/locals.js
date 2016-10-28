@@ -1,3 +1,5 @@
+var _ = require("lodash");
+
 var players=[
     {lastname:"Cave",firstname:"Colby"},
     {lastname:"Bergeron",firstname:"Patrice"},
@@ -46,79 +48,81 @@ var apparel=[
     {name:"hat",sizes:[{size:"SM/MD"},{size:"L/XL"}]}
     ]                      
 
+var fields={
 
-function createDoc(first,last){
-return{
+    part1:[{label:"First Name",name:"firstname",type:"text"},
+           {label:"Last Name",name:"lastname",type:"text"},
+           {label:"Birthday",name:"public_data[date_of_birth]",type:"date"},
+           {label:"Gender",name:"public_data[gender]",type:"text"},
+           {label:"Weight",name:"public_data[weight]",type:"number"},
+           {label:"Height",name:"public_data[height]" ,type:"text"},
+           {label:"Team",name:"team[name]",type:"text" },
+           {label:"Position",name:"team[position]",type:"text"},
+           {label:"Jersey Number",name:"team[jersey_number]",type:"text"},
+           {label:"Shooting Hand",name:"team[shooting_hand]",type:"text"}],
+    part2:[
+        {label:"Email",name:"contact[email]"},
+        {label:"Alt Email",name:"contact[alt_email]"},
+        {label:"Phone",name:"contact[phone1]"},
+        {label:"Alt Phone",name:"contact[phone2]"},
+        {label:"Passport",name:"contact[passport]"},
+        {label:"Facebook",name:"contact[social_media][facebook]"},
+        {label:"Instagram",name:"contact[social_media][instagram]"},
+        {label:"Twitter",name:"contact]social_media][twitter]"},
+        {label:"Linkedin",name:"contact]social_media][linkedin]"},        
+        {label:"Passport Exp",name:"contact[passport_expiration]"},
+        {label:"street",name:"contact[private_data][address][street]"},
+        {label:"City",name:"contact[private_data][address][city]"},
+        {label:"State",name:"contact[private_data][address][state]"},
+        {label:"Zipcode",name:"contact[private_data][address][zipcode]"},
+        {label:"Parent/Guardian Name",name:"contact[private_data][guardian_name]"},
+        {label:"Parent/Guardian Name",name:"contact[private_data][guardian_number]"}
+        ],
+    part3:[
+        {label:"Tournament Team",name:"hockey_info[tournament_team]"},
+        {label:"League Team",name:"hockey_info[league_team]"},
+        {label:"Website",name:"hockey_info[website]"},
+        {label:"Shirt size",name:"apparel[shirt]"},
+        {label:"Sock size",name:"apparel[socks]"},
+        {label:"Jacket size",name:"apparel[jacket]"},
+        {label:"Hat size",name:"apparel[hat]"},
+        {label:"Polo size",name:"apparel[polo]"},
+        {label:"Shorts size",name:"apparel[shorts]"},
+        {label:"Jersey size",name:"apparel[jersey]"},
+        {label:"Education",name:"background[education]"},
+        {label:"Hometown",name:"background[hometown]"},
+        {label:"Favorite Movie",name:"favorite[movie]"},
+        {label:"Favorite TV show",name:"favorite[tv_show]"},
+        {label:"Favorite Athlete",name:"favorite[athlete]"},
+        {label:"Favorite sport (not hockey)",name:"favorite[other_sport]"},
+        {label:"Favorite food/restaurant",name:"favorite[food_or_restaurant]"}
+        ],
+    part4:[
+        {label:"Hockey History",name:"background[hockey_history]"},
+        {label:"Other sports played",name:"background[other_sports]"},
+        {label:"Career highlights",name:"background[career_highlights]"},
+        ]    
+}
 
-    "firstname": first,
-    "lastname": last,
-    "apparel": {
-        "jersey": "XL",
-        "socks": "L",
-        "shorts": "XL",
-        "hat": "L/XL",
-        "jacket": "M",
-        "polo": "XL",
-        "shirt": "L"
-    },
-    "registration_status": "pending",
-    "hockey_info": {
-        "team": "U18",
-        "position": "right_defense",
-        "shooting_hand": "left",
-        "jersey_number": {
-            "choice1": 3,
-            "choice2": 6,
-            "choice3": 9
-        },
-        "website": "",
-        "leaugue_team": "N/A",
-        "tournament_team": ""
-    },
-    "favorite": {
-        "movie": "Braveheart",
-        "athlete": "Tom Brady",
-        "sports_team": "New England Patriots",
-        "other_sport": "Football",
-        "food_or_restaurant": "Indian Food"
-    },
-    "background": {
-        "hometown": "Sharon, MA",
-        "education": "Berklee College Of Music",
-        "hockey_history": "Once set, the value of app.locals properties persist throughout the life of the application, in contrast with res.locals properties that are valid only for the lifetime of the request.\r\n\r\nYou can access local variables in templates rendered within the application. This is useful for providing helper functions to templates, as well as application-level data. Local variables are available in middleware via req.app.locals (see req.app)",
-        "other_sports": "Once set, the value of app.locals properties persist throughout the life of the application, in contrast with res.locals properties that are valid only for the lifetime of the request.\r\n\r\nYou can access local variables in templates rendered within the application. This is useful for providing helper functions to templates, as well as application-level data. Local variables are available in middleware via req.app.locals (see req.app)",
-        "career_highlights": "Once set, the value of app.locals properties persist throughout the life of the application, in contrast with res.locals properties that are valid only for the lifetime of the request.\r\n\r\nYou can access local variables in templates rendered within the application. This is useful for providing helper functions to templates, as well as application-level data. Local variables are available in middleware via req.app.locals (see req.app)"
-    },
-    "contact": {
-        "social_media": {
-            "linkedin": "",
-            "instagram": "",
-            "twitter": "",
-            "facebook": ""
-        },
-        "private_data": {
-            "address": {
-                "zipcode": "02134",
-                "state": "MA",
-                "city": "Allston",
-                "street": "26 Parkvale Ave"
-            }
-        },
-        "phone2": "",
-        "phone1": "7817842528",
-        "alt_email": "",
-        "email": "adamhs3521@gmail.com",
-        "passport_expiration": "2021-04-19",
-        "passport": "yes"
-    },
-    "public_data": {
-        "date_of_birth": "1986-11-02",
-        "height": "6'0\"",
-        "weight": "168",
-        "gender": "male"
-    }
-}}
+function mapFieldsFromData(data){
+   var res={};
+   
+   for (var i = 1; i <= 4; i++) {
+     var x=fields["part"+i].map(v=> {return Object.assign({},v,{value:_.result(data, v.name)||"N|A" })})
+      res["part"+i]=x;
+   }
+   return res;
+}
 
-var docs=players.map(v=> {return createDoc(v.firstname,v.lastname)})
 
-module.exports={states:states,heights:heights,players:players,docs:docs, teams:teams,heights:heights,apparel:apparel};
+
+
+module.exports={
+    states:states,
+    heights:heights,
+    players:players, 
+    fields:mapFieldsFromData, 
+    teams:teams,
+    heights:heights,
+    apparel:apparel
+};

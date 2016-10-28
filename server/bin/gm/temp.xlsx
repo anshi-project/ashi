@@ -1,0 +1,37 @@
+U16:
+
+	Players:
+"First Name","Last Name","#","Position","Email","Phone","Age","Height","Weight","Height","Shooting Hand","Shirt size","Sock size","Jacket size","Hat size","Polo size","Shorts size","Jersey size","Bag","Headshot"
+"David","Gilmour","7","Left Defense","adamhs3521@gmail.com","7817842528",,"6'0""","168","Orlando, FL","left","L","L","M","L/XL","XL","XL","XL",,
+"Richard","Wright","39","Right Defense","adamhs3521@gmail.com","7817842528",,"6'0""","168","Seattle, WA","left","L","L","M","L/XL","XL","XL","XL",,
+"Nick","Mason","43","Center","adamhs3521@gmail.com","7817842528",,"6'0""","168","Lowell, MA","left","L","L","M","L/XL","XL","XL","XL",,
+"Roger","Waters","21","Left Wing","adamhs3521@gmail.com","7817842528",,"6'0""","168","Providence, RI","left","L","L","M","L/XL","XL","XL","XL",,
+"Jack","Daniels","32","Right Wing","adamhs3521@gmail.com","7817842528",,"6'2""","153","Foxboro, MA","left","L","L","M","L/XL","XL","XL","XL",,
+	Coaches:
+"First Name","Last Name","Position","Email","Phone","Height","Shirt size","Sock size","Jacket size","Hat size","Polo size","Shorts size","Bag","Headshot"
+"Ronald","McDonald","Head Coach","aedf@ff.com","4353465356",,"XXL",,"XL","L/XL","L",,,U18:
+
+	Players:
+"First Name","Last Name","#","Position","Email","Phone","Age","Height","Weight","Height","Shooting Hand","Shirt size","Sock size","Jacket size","Hat size","Polo size","Shorts size","Jersey size","Bag","Headshot"
+"Leopold","Stotch","64","Left Defense","adamhs3521@gmail.com","7817842528",,"6'0""","168",,"left","L","L","M","L/XL","XL","XL","XL",,
+"John","Philips","11","Right Defense","j@j.com","2131242345",,"6'0""","178",,"left","L","L","L","SM/MD","XXL","L","XXXL",,
+"Regis","Philban","7","Center","adamhs3521@gmail.com","7817842528",,"5'5""","138",,"left","L","L","M","L/XL","XL","XL","XL",,
+"Tequan","Jackson","3","Right Wing","addsc21@gmail.com","7817842528",,"6'0""","168",,"left","L","L","M","L/XL","XL","XL","XL",,
+"Patrick","Johnson","21","Left Wing","adamhs3521@gmail.com","7817842528",,"5'4""","143",,"left","M","L","M","L/XL","XL","XL","XL",,
+	Coaches:
+"First Name","Last Name","Position","Email","Phone","Height","Shirt size","Sock size","Jacket size","Hat size","Polo size","Shorts size","Bag","Headshot"
+"Jonathan","Albertson","Head Coach","aedf@ff.com","4353465356",,"XXL",,"XL","L/XL","L",,,
+"Peter","Parker","Assistant Head Coach","cxzcxx@ff.com","555555555555",,"L",,"XL","L/XL","M",,,U20:
+
+	Players:
+"First Name","Last Name","#","Position","Email","Phone","Age","Height","Weight","Height","Shooting Hand","Shirt size","Sock size","Jacket size","Hat size","Polo size","Shorts size","Jersey size","Bag","Headshot"
+"Patrice","Bergeron","22","Right Wing","adamhs3521@gmail.com","7817842528",,"6'0""","168","Sharon, MA","left","L","L","M","L/XL","XL","XL","XL",,
+"Nick","Bonino","11","Left Wing","adamhs3521@gmail.com","7817842528",,"6'0""","168",,"left","L","L","M","L/XL","XL","XL","XL",,
+"Brian","Ferlin","13","Center","adamhs3521@gmail.com","7817842528",,"6'0""","168","Framingham, MA","left","L","L","M","L/XL","XL","XL","XL",,
+"Steve","Smith","54","Right Defense","adamhs3521@gmail.com","7817842528",,"6'0""","168","Brooklyn, NY","left","L","L","M","L/XL","XL","XL","XL",,
+"Evan","Williams","62","Left Defense","adamhs3521@gmail.com","7817842528",,"6'0""","168","Cleveland, OH","left","L","L","M","L/XL","XL","XL","XL",,
+	Coaches:
+"First Name","Last Name","Position","Email","Phone","Height","Shirt size","Sock size","Jacket size","Hat size","Polo size","Shorts size","Bag","Headshot"
+"Ned","McDonald","Head Coach","aedf@ff.com","4353465356",,"XXL",,"XL","L/XL","L",,,
+"Todd","Flanders","Assistant Head Coach","aedf@ff.com","4353465356",,"XXL",,"XL","L/XL","L",,,
+"Rod","Flanders","Assistant Coach for Forwards","das@dsd.com","555555555555",,"L",,"L","L/XL","XL",,,

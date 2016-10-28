@@ -3,7 +3,8 @@ var Team=require("../team/team")
 
 exports.assign=function(registration,team,type,callback){  
    var NewPlayer=require(type);
-   var fields=["firstname","lastname","contact","public_data","apparel","background","favorite","apparel"];
+   var fields=["firstname","lastname","contact","public_data","hockey_info",
+                "apparel","background","favorite","apparel"];
    var player={team:team};
 
    fields.forEach(v=>player[v]=registration[v]);

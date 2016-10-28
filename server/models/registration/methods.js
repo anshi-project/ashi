@@ -6,7 +6,7 @@ exports.assignRole=function(id,team,type){
     var Applicant=require(type.schema);
     var RegistrationModel=require(type.registration);    
     
-    RegistrationModel.findById(id,"-__t,__v",function(err,doc){
+    RegistrationModel.findById(id,"-__t,-__v",function(err,doc){
         if(err)throw err;
         
          Applicant.assign(doc,team,type.discriminator,function(_doc){             
