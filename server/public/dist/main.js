@@ -395,7 +395,7 @@
         console.log(teamData)
     }
 
-    flatpickr('#flatpickr', {enableTime: true, allowInput: true});   s
+    flatpickr('#flatpickr', {enableTime: true, allowInput: true});
 
     toastr.info('Only select players and goalies who are playing by ticking the boxbefore their jersey number.',
               'Use the score card in "Safe mode" after you have configured it.');
