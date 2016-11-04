@@ -23,6 +23,10 @@ function toggleFormField(element,condition){
     }
 }
 
+
+
+
+
 $(function () {
 
   var $sections = $('.form-section');
@@ -88,6 +92,8 @@ $(".reg-submit-manager").on("click",function(evt){
         alert("Passwords must match and be greater than 6 characters in length.")
     }
 })
+
+
 
 $("input[name='preferred_coaching_positions']").on("change",function(){
     if($(this).val()=="Other"){

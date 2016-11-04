@@ -1,0 +1,25 @@
+<h1>A.S.H.I. Coaches</h1>
+<table class="table table-bordered table-condensed">
+  	<thead>
+  		<tr>
+  			<td>Name</td>
+  			<td>Phone</td>
+  			<td>Email</td>
+        <td>Team</td>
+        <td>Position</td>
+        <td>Status</td>
+  			<td>Record</td>
+  		</tr>
+  	</thead>
+  	{{#each user}}
+  	<tr class="row-{{this.status}} table-row">
+  	<td>{{this.fullname}}</td>
+  	<td>{{this.contact.phone1}}</td>
+  	<td>{{this.contact.email}}</td>
+    <td>{{this.team.name}}</td>
+    <td>{{this.team.role}}</td>
+    <td>{{this.status}}</td>
+    <td><a href="/admin/records/coach?id={{this._id}}" target="_blank">View</a></td>
+  	</tr>
+  {{/each}}
+</table>

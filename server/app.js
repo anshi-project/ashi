@@ -9,6 +9,7 @@ var mongoose=require("mongoose");
 var bodyParser=require('body-parser');
 var cookieParser=require("cookie-parser");
 var session=require('express-session');
+var methodOverride=require("method-override");
 
 require("dotenv").config();
 
@@ -18,6 +19,8 @@ mongoose.Promise=require("bluebird");
 mongoose.connect(process.env.mongoURI);
 
 app.locals=require("./locals");
+app.use(methodOverride('_method'));
+
 
 app.use(bodyParser.urlencoded({ extended:true}));
 app.use(cookieParser());

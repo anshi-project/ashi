@@ -2,9 +2,12 @@ var writeCSV=require("../../config/export/writeFile");
 var path=require("path");
 
 module.exports=function(app){
+  
   app.get("/admin/applications",function(req,res){
       res.render("admin/registered_users/applicant_list")
   })
+
+
 
 	app.get("/admin/applications/:type",function(req,res){
     var type=req.params.type

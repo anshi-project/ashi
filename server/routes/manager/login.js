@@ -5,7 +5,7 @@ module.exports=function(app){
 		res.render("manager/login");
 	})
 
-	app.post('/login/gm', passport.authenticate('manager-local', 
+	app.post('/login/gm', passport.authenticate('local', 
 		{successRedirect:'/gm/index',
 		failureRedirect: '/login/gm'}));
 	

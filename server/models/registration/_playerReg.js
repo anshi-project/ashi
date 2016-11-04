@@ -10,7 +10,6 @@ var PlayerReg=Registration.discriminator("player-registration",
       gender:String,
       weight:Number,
       height:String,
-      hometown:String
     },
     contact:{
       phone1:String,
@@ -21,9 +20,8 @@ var PlayerReg=Registration.discriminator("player-registration",
       passport_expiration:{type:String,set:Default},
       social_media:{},
       private_data:{
-      
-        guardian_name:{type:String,set:Default},
-        guardian_number:{type:String,set:Default},
+        guardian_name:{type:String},
+        guardian_number:{type:String},
         address:{
           street:String,
           state:String,
@@ -33,6 +31,7 @@ var PlayerReg=Registration.discriminator("player-registration",
       }
     },
     background:{
+      hometown:String,
       education:String,
       hockey_history:String,
       other_sports:String,

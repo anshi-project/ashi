@@ -4,11 +4,11 @@ module.exports=function(app){
     });
     
     app.all("/login/*",function(req,res,next){
-        if(req.user){
-            var status=req.user.status;
-            if(status=="admin"){
+        var user=req.user;
+        if(user){
+            if(user.status=="Active"&& user.__t=="Admin"){
                 return res.redirect("/admin/index");
-            }else{
+            }else if(user.status=="Active"&& user.__t==""){
                 return res.redirect("/gm/index");
             }
         }else{
@@ -17,14 +17,14 @@ module.exports=function(app){
     })
  
     app.all("/admin/*",function(req,res,next){
-        if(!req.user || req.user.status!="admin") {
+        if(!req.user ||  req.user.status!="Active" || req.user.__t!="Admin") {
             return res.redirect("/login/admin");
         }   
             return next();  
     })
     
     app.all("/gm/*",function (req,res,next) {
-    	if(!req.user){
+    	if(!req.user || req.user.status!=="Active"){
     		return res.redirect("/login/gm");
     	}else{
     		next();

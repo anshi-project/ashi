@@ -10,7 +10,7 @@ module.exports=function(app){
 					   select:fields})
 			.exec(function(e,d){
 				 req.user.teams=d;
-				 res.render("manager/roster",{teams:d});
+				 res.render("manager/roster",{teams:d,layout:"spreadsheet"});
 			})			
 	})
 	app.get("/gm/roster/export",function(req,res){

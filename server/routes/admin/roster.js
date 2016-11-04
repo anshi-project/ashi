@@ -1,40 +1,24 @@
 var Team=require("../../models/team/team");
-
-
-function sortByJersey(a,b){
-  if(+a.team.jersey_number>+b.team.jersey_number) return 1;
-  if(+a.team.jersey_number<+b.team.jersey_number) return -1;
-  return 0;  
-}
+var Player=require("../../models/players/main");
 
 module.exports=function(app){
 	
   app.get("/admin/roster",function(req,res){
-      Team.find({},"name key",function(e,d){
-        res.render("admin/roster/list",{team:d})
-      })
-  })
-
-  app.get("/admin/roster/:teamKey",function(req,res){
-		Team.findOne({key:req.params.teamKey},"name players goalies coaches")
-      .populate({
-        path:"players goalies",
-        select:"lastname firstname public_data registration.bio.hometown registration.apparel team"
-      })
-      .populate("coaches")
-      .exec(function(err,docs){
-        if(err)throw err;  
-        var players=docs.players.concat(docs.goalies).sort(sortByJersey);
-         res.render("admin/roster/team",{coaches:docs.coaches,players:players,team:docs.name})
-		})
+  
+      Team.find({},"key name players goalies coaches")
+          .sort({"name":-1})
+          .populate({path:"coaches players goalies"})
+          .exec(function(e,d){
+             res.render("admin/roster/team",{teams:d,layout:"spreadsheet"});
+      })    
 	})
 
   app.get("/admin/db/:dbRoute/:type/:ID",function(req,res){
     var dbRoute=req.params.dbRoute;
     var type=req.params.type;
-    var Member=require("../../models/"+dbRoute+"/"+type);
+    var Member=require("../../models/players/_goalie");
 
-    Member.findById(req.params.ID,function(err,doc){
+    Member.find({},function(err,doc){
       if(err)throw err;
       res.send(doc);
     })

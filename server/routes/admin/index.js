@@ -4,7 +4,7 @@ module.exports=function(app){
 	app.get("/login/admin",function(req,res){
 		res.render("admin/login")
 	})
-	app.post('/login/admin', passport.authenticate('admin-local', 
+	app.post('/login/admin', passport.authenticate('local', 
 		{successRedirect:'/admin/index',failureRedirect: '/login/admin'}));
     
     app.get("/admin/index",function(req,res){
@@ -17,5 +17,6 @@ module.exports=function(app){
 	require("./teampicker")(app);
 	require("./applications")(app)
 	require("./roster")(app);
-	require("./create_admin")(app);
+	require("./permissions")(app);
+	require("./records")(app);
 }

@@ -5,6 +5,10 @@ module.exports=function(schema){
     schema.pre('save', function(next) {
       var user = this;
       
+      if(user.__t=="coach"){
+        return next();
+      }
+
       bcrypt.genSalt(10, function(err, salt) {
         if (err) { 
             return next(err); 

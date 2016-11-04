@@ -1,15 +1,16 @@
 <img class="img pull-left" src='../public/images/ashi-logo.png' alt='ashi logo'>
 <div class="container">
   <h1>American Street Hockey Institute</h1>
-  <h2 class="center-block">Hello <em>{{admin.username}}!</em></h2>
+  <h2 class="center-block">Hello <em>{{admin.fullname}}!</em></h2>
   <a href="/logout"class="btn-lg btn-danger log-out">Log Out</a>
   <hr>
   <ul>
     <li><a href="/admin/assign/player"><p>Assign Player to team</p></a></li>
     <li><a href="/admin/assign/coach"><p>Assign Coach to team</p></a></li>
-    <li><a href="/admin/assign/manager"><p>Assign manager to a division</p></a></li>
-    <li><a href="/admin/grant-access"><p>Grant Admin Status</p></a></li>
+    <li><a href="/admin/permissions/gm"><p>Assign manager to a division</p></a></li>
+    <li><a href="/admin/permissions"><p>Grant Admin Status</p></a></li>
     <li><a href="/admin/roster"><p>Team Rosters</p></a></li>
+    <li><a href="/admin/records"><p>Player Records</p></a></li>
   </ul>   
 </div>
 

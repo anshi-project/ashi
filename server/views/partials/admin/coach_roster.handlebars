@@ -1,23 +1,24 @@
     <table class="table table-bordered">
         <thead>
           <tr>
-        {{> gm_spreadsheet/coach_headers}}
+        {{> admin/coach_heading}}
           </tr>
         </thead>
         <tbody>
             {{#each coaches}}
           <tr>  
-            <td>{{this.firstname}}</td>
-            <td>{{this.lastname}}</td>
+            <td>{{this.fullname}}</td>
             <td>{{this.team.role}}</td>
             <td>{{this.contact.email}}</td>
+            <td>{{this.contact.alt_email}}</td>
             <td>{{this.contact.phone1}}</td>
-            <td>{{this.apparel.hat}}</td>
-            <td>{{this.apparel.shirt}}</td>
-            <td>{{this.apparel.jacket}}</td>
-            <td>{{this.apparel.polo}}</td>
+            <td>{{this.contact.phone2}}</td>
             <td>N/A</td>
-            <td>N/A</td>          
+            <td>
+              <a href="/admin/records/coach?id={{this._id}}">
+              Edit
+              </a>
+            </td>         
           </tr>
           {{/each}}
         </tbody>

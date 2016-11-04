@@ -1,0 +1,24 @@
+<table class="table table-bordered">
+  	<thead>
+  		<tr >
+  			<td>Name</td>
+  			<td>Phone</td>
+  			<td>Email</td>
+  			<td>Username</td>
+  			<td>Status</td>
+  			<td>Update</td>
+  		</tr>
+  	</thead>
+  	{{#each user}}
+  	<tr class="row-{{this.status}}">
+    	<td>{{this.fullname}}</td>
+    	<td>{{this.contact.phone1}}<br>
+    	   {{this.contact.phone2}}</td>
+    	<td>{{this.contact.email}}</br>
+    	   {{this.contact.alt_email}}</td>
+    	<td>{{this.username}}</td>
+    	<td>{{this.status}}</td>
+  	<td><button class="permission btn btn-sm" data-url="/admin/id=?{{this._id}}" >Grant Permissions</button></td>
+  	</tr>
+  {{/each}}
+</table>

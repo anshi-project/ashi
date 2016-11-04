@@ -1,24 +1,28 @@
 var mongoose=require("mongoose");
 var Schema=mongoose.Schema;
 
+var parse=require("saymyname")
 var Method=require("./methods");
 
 var registrationSchema=new Schema({
-    firstname:String,
-    lastname:String,
+    firstname:{type:String, lowercase:true},
+    lastname:{type:String,lowercase:true},
     apparel:{},
     contact:{},
     public_data:{},
-    registration_status:{type:String,default:"pending"}
+    status:{type:String,default:"pending"} //pending,registered, saved for review
 },{timestamps:true})
 
-registrationSchema.statics.assignRole=Method.assignRole;
-    /*Processes registration- assigns player/coach to a team, 
-    assigns manager to a division in turn linking all 
-    players/coaches to their respective manager*/
+
+registrationSchema.plugin(require("../plugins/setFullName"))
+
+registrationSchema.statics.assignCoach=Method.assignCoach;
+
+registrationSchema.statics.assignPlayer=Method.assignPlayer;
+
 registrationSchema.statics.handleFormSubmission=Method.handleFormSubmission;
     //creates new registration, sets correct fields by passing in a particular discriminator type
-registrationSchema.statics.findPending=Method.findPending;
+registrationSchema.statics.findRegisteredPlayers=Method.findRegisteredPlayers;
     //fetches a list by a particular type
 
 

@@ -1,6 +1,7 @@
 var Team = require("../../models/team/team");
 var GameStats = require("../../models/team/game_stats");
 var Player = require("../../models/players/main");
+var parse=require("saymyname");
 
 module.exports=function(app){    
     app.get("/api/playerstats", function(req, res){
@@ -16,7 +17,17 @@ module.exports=function(app){
             }
         })
     });
-    
+
+    app.get("/api/player",function(req,res){
+        // var q=req.query;
+        // var query={firstname:q.firstname,lastname:q.lastname};
+        // var options="";
+        // Player.findOne(query, options,function(e,d){
+        //     res.send(d);
+        // })
+
+    })
+
     app.get("/api/teamstats", function(req, res){
         var query = {};
         if (req.param('teamname')) query['name'] = req.param('teamname');

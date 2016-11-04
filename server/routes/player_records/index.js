@@ -1,4 +1,5 @@
 var Player=require("../../models/players/main")
+var mapPlayersValuesToFields=require("../../userRecordFields.locals");
 
 module.exports=function(app){
 
@@ -11,12 +12,16 @@ module.exports=function(app){
 
 
 	app.get("/admin/records/player",function(req,res){
-		var fn=app.locals.fields;
+		
 		var id=req.query.id;
 
-        Player.findById(id,function(e,d){
-        	var f=fn(d);
-            res.render("profile/admin",{fields:f,id:id})
+		if(!id){
+			return res.redirect("/admin/records")
+		}
+
+        Player.findById(id,function(e,doc){
+        	var fields=mapPlayersValuesToFields("player",doc);
+            res.render("profile/admin",{fields,id})
         })
 	})
 

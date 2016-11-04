@@ -41,7 +41,7 @@ var teamSchema = new Schema({
     },
     website: String,
     key:String,
-    managers: [{type: Schema.Types.ObjectId, ref: "Manager"}],
+    managers: [{type: Schema.Types.ObjectId, ref: "manager"}],
     coaches: [{type: Schema.Types.ObjectId, ref: "coach"}],
     players: [{type: Schema.Types.ObjectId, ref: "Player"}],
     goalies: [{type: Schema.Types.ObjectId, ref: "Player"}],
@@ -67,6 +67,24 @@ teamSchema.statics.addToRoster = function(query,id,type){
         })
     
 }
+
+teamSchema.statics.pullFromRoster = function(query,id,type){
+    var update = {};
+      update[type] = id;
+    
+   this.update(query,{"$pull":update},{upsert:true,safe:true,multi:true},
+         function(err,data){
+             if(err) throw err;
+        })
+}
+
+teamSchema.statics.swap = function(currTeam,newTeam,userID,type){
+  this.pullFromRoster(currTeam,userID,type);
+  this.addToRoster(newTeam,userID,type);
+}
+
+
+
 
 teamSchema.virtual("roster").get(function(){
     var team=this.players.concat(this.goalies);

@@ -1,33 +1,39 @@
+{{> modal/teampicker_coach}}
+
 <div class="container">
-    
-    {{#if applicants}}
-       <ul class="list-group">
-        {{#each applicants}}
-        <li class="list-group-item">
-            <a href="#{{this._id}}" role="button" data-toggle="collapse">
-                {{this.lastname}}, {{this.firstname}}
-            </a>
-            <div class="collapse" id="{{this._id}}">
-                <form action="/admin/assign/coach?id={{this._id}}">
-                    <select name="team">
-                        <option disabled selected>Select A Team</option>
-                        {{> scorecard/_teamDropdown2}}
-                    </select>
-                    <select name="role">
-                        <option disabled selected>Select A Position</option>
-                        <option value="Head Coach">Head Coach</option>
-                        <option value="Assistant Head Coach">Assistant Head Coach</option>
-                        <option value="Assistant Coach for Defense">Assistant Coach for Defense</option>
-                        <option value="Assistant Coach for Forwards">Assistant Coach for Forwards</option>
-                        <option value="Other">Other</option>
-                    </select>
-                    <input type="submit" class="addToTeam"  value="Add to team">
-                </form>    
+    <div class="page-header">
+        {{#if coach}}
+        <h4>The following coaches have not yet been assigned a role or team.</h4>
+        <h6>If you wish to review any of their applications, click here to export an excel spreadsheet.</h6>
+        {{else}}
+        <h4>There are not any pending coach registrations at this time.</h4>
+        {{/if}}
+    </div>
+    <div class="row">
+    {{#each coach}}
+    <div class="col-md-4 panel panel-default">
+        <div class="panel-heading">
+            <div class="panel-title">{{this.fullname}}</div>
+        </div>
+        <div class="panel-body">
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <strong>Position Applying For:</strong>{{this.background.preferred_coaching_position}}
+                </li>
+                <li class="list-group-item">
+                    <strong>Team Applying For: </strong>
+                    {{this.background.team_applying_for}}
+                </li>
+            </ul>
+            <div>
+                <button class="btn-sm btn-success btn" a data-toggle="modal" href="#coach-modal" data-url="{{this._id}}" data-person="{{this.fullname}}" data-show=".coach-team, .coach-role">Place on team</button>
+                <button class="btn-sm btn-warning btn">Save</button>
+                <button class="btn-sm btn-danger btn" data-url='{{this._id}}'>Delete</button>
             </div>
-        </li>
-        {{/each}}
-    </ul>
-    {{else}}
-    <h3>There are no coaches that haven't been placed on a team...</h3>
-    {{/if}}
+            <span class="clear-fix"></span>              
+  
+        </div>
+    </div>
+    {{/each}}
+    </div>
 </div>

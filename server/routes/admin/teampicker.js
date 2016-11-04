@@ -1,26 +1,23 @@
 var Registration=require("../../models/registration/main");
+var _=require("lodash");
+
+function getDivision(name,teams){return _.find(teams,v=>{return v.name==name}).division; }
 
 module.exports=function(app){
     
-    app.get("/admin/assign/:type",function(req,res){
-        var type=req.params.type
-        
-        
-        Registration.findPending(type,function(err,docs){
-            if(err)throw err;
-            res.render("admin/teampicker/"+type,{applicants:docs})
+    app.get("/admin/assign/player",function(req,res){
+        Registration.findRegisteredPlayers(function(player){ 
+            res.render("admin/teampicker/player",{player,layout:"spreadsheet"});
         })
     })
 
-    
-    app.get("/admin/demo/assign/:type",function(req,res){
-        var type=req.params.type;
-        var players=require("../helpers/seed").players;
-        
-        res.render("admin/teampicker/_"+type,{applicants:players})
-    })    
-
-
+    app.get("/admin/assign/coach",function(req,res){
+        var Coaches=require("../../models/registration/_coachReg");
+        Coaches.find({},function(err,coach){
+            if(err)throw err;
+            res.render("admin/teampicker/coach",{coach,layout:"spreadsheet"})
+        })
+    })
 
     app.post("/admin/assign/returning-player",function(req,res){
         var id=req.query.id;
@@ -31,15 +28,34 @@ module.exports=function(app){
         res.send(req.body);
     })
 
-    
-    app.post("/admin/assign/:type",function(req,res){
+    app.post("/admin/assign/coach",function(req,res){
         var id=req.query.id;
-        var format=require("../helpers/admin").getType;
-        var type=format(req.params.type);
+        var division=getDivision(req.body.name,app.locals.teams);
+        var team=Object.assign(req.body,{division});
         
-        Registration.assignRole(id,req.body,type)
-
-        res.send(req.body);
+        Registration.assignCoach(id,{team},function(err){
+            if(err) throw err;
+            res.send("Successfully added")
+        });
     }) 
+    
+    app.post("/admin/assign/player",function(req,res){
+        var id=req.query.id;
+        var division=getDivision(req.body.name,app.locals.teams);
+        var team=Object.assign(req.body,{division});        
+        var type=(team.position=="Goalie");
+
+        Registration.assignPlayer(id,team,type,function(data){
+            res.send(data);
+        })  
+    })
+    app.delete("/admin/assign",function(req,res){
+        var id=req.query.id;
+
+        Registration.findByIdAndRemove(id,function(err){
+            if(err) return res.status(500);
+            res.send("Successfully deleted application.");
+        })
+    })
 
 }

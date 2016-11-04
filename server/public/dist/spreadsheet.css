@@ -1,0 +1,56 @@
+html{
+	min-height: 100%;
+}
+body{
+background: black;
+color:white;
+}
+ .team-table{
+ 	display: none;
+ }
+ .team-table-active{
+ 	display: block;
+ }
+ .form-horizontal{
+ 	text-align: center;
+ }
+ .modal{
+ 	color:black;
+ }
+ select{
+ 	color:black;
+ }
+ h1{
+ 	margin-bottom: 5px;
+ }
+.table, .table-bordered, .panel{
+	background: #fff;
+	color:black;
+}
+
+ .table-bordered .row-Active{
+	background: #f1ffa3;
+	font-weight: bold;
+}
+.table-bordered .row-inactive{
+	background:#a5a5a5;
+    color: #4e5252;
+	opacity: 0.8;
+	font-style:italic;
+}
+
+.table-bordered .row-Pending{
+	background: #37c777;
+	color:#142a67;
+}
+
+
+.manager-pending{
+	font-style: italic;
+	color:red;
+}
+
+thead{
+	background: #4886c3;
+	color:white;
+}

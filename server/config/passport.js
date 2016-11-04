@@ -1,6 +1,6 @@
 var passport=require("passport");
-var adminStrategy=require('./admin.localstrategy');
-var gmStrategy=require("./manager.localstrategy");
+var localstrategy=require('./localstrategy');
+
 
 module.exports = function (app) {
 
@@ -15,6 +15,5 @@ module.exports = function (app) {
         done(null, user);
     });
    
-    passport.use("admin-local",adminStrategy)
-    passport.use("manager-local",gmStrategy)
+    passport.use("local",localstrategy)
 };

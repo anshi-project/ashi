@@ -132,7 +132,8 @@
         }
         $('.' + location + '-name-input').children().hide();
         var team= teamData.filter(v=>{return v.key==$(this).val()})[0];
-        var ashiTeamName=team.name
+        var ashiTeamName= team.name
+        console.log(ashiTeamName)
         $('.' + location + '-team-name').html(location + ' team: ' + team.name );
         var playersArr = team.players
         console.log('playersarr: ',playersArr);
