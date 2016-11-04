@@ -14,7 +14,7 @@
   var season;
   var ashiResult;
   var opponentResult;
-  
+
   toastr.options = {
   "closeButton": true,
   "debug": false,
@@ -33,16 +33,16 @@
   "hideMethod": "fadeOut"
 }
 
-  require(['playerstemplate', 'goaliestemplate', 'teamtemplate', 'blanktemplate', 'savedgamestemplate'], 
+  require(['playerstemplate', 'goaliestemplate', 'teamtemplate', 'blanktemplate', 'savedgamestemplate'],
     function(playersTemplate, goaliesTemplate, teamTemplate, blankTemplate, savedGamesTemplate){
-    
+
       function displayTeam(blankCard, location, team, playersArr, goaliesArr){
         if (blankCard) {
           var blankHtml = _.template(blankTemplate)({'location': location});
           $("." + location).html(blankHtml);
 
           $('.minus, .plus, :checkbox').off();
-          
+
           $('.plus').on('click', function(){
             if ($(this).attr('class') === 'plus active'){
               var num = Number( $(this).prev().text() ) + 1;
@@ -56,7 +56,7 @@
               if (num >= 0){
                 $(this).next().text(num);
               }
-            }  
+            }
           });
 
           $(':checkbox').change(function(){
@@ -64,7 +64,7 @@
             $(this).parent('td').siblings('td').children('.minus, .plus').toggleClass('active');
           });
 
-          
+
           return;
         }
 
@@ -92,7 +92,7 @@
             if (num >= 0){
               $(this).next().text(num);
             }
-          }  
+          }
         });
 
         $(':checkbox').change(function(){
@@ -174,7 +174,7 @@
       });
       return arr;
      }
-    
+
      function getPlayerStats(p, opponent, home_game, result){
     	var playersStatsArr = [];
     	while (p.length > 0){
@@ -187,20 +187,20 @@
     	}
     	return playersStatsArr;
      }
-    
+
      function getGoalieStats(g, opponent, home_game, result){
     	var goaliesStatsArr = [];
     	while (g.length > 0){
     		var goalie = {jersey_number: String(g[1]), name: g[2], MIN: g[3], SA: g[4],
     		              SV: g[5], GA: g[6], SO: g[7],
     		              result: result, opponent: opponent, date: date, season: season,
-    		              home_game: home_game, team_name: ashiTeamName}; 
+    		              home_game: home_game, team_name: ashiTeamName};
     		goaliesStatsArr.push(goalie);
     		g = g.slice(11);
     	}
     	return goaliesStatsArr;
     }
-    
+
     function collectGameStats (){
       formData = {};
       var arr;
@@ -215,12 +215,12 @@
         season = date.substr(0, 4);
         var time = $('#flatpickr').val().split(' ')[1];
       }
-      
+
       if($('.team-name-input').val() === "") {
         toastr.error('Fill out opponent team name before submitting scorecard');
         return 'error';
       }
-     
+
       var homeTeamStats = ['.home-playersTable', '.home-goaliesTable', '.home-team-stats'].map(getStats);
       var roadTeamStats = ['.road-playersTable', '.road-goaliesTable', '.road-team-stats'].map(getStats);
       if (home_game) {
@@ -238,7 +238,7 @@
         ag = roadTeamStats[1];
         at = roadTeamStats[2];
       }
-      
+
       if (at[5] > ot[5]) {
           ashiResult = 'win';
           opponentResult = 'loss'
@@ -252,38 +252,38 @@
         toastr.error('Goals For and Goals Against stats are inconsistent');
         return 'error';
       }
-      
+
       if (ag[4] === 0 || og[4] === 0) {
         toastr.error("Shots Against stat can't be 0");
         return 'error';
       }
-      
+
       var pkPercAshi = ot[8] > 0 ? (ot[8] - ot[7]) / ot[8] : -999; // -999 means that there where no power play opportunities against.
-      var pkPercOpp = at[8] > 0 ? (at[8] - at[7]) / at[8] : -999; // when calculating the season average filter out all PKP === -999 
+      var pkPercOpp = at[8] > 0 ? (at[8] - at[7]) / at[8] : -999; // when calculating the season average filter out all PKP === -999
       var ppPercAshi = at[8] > 0? (at[7] / at[8]) : -999;
       var ppPercOpponent = ot[8] > 0 ? (ot[7] / ot[8]) : -999;
       var ashi_player_stats = getPlayerStats(ap, opponent, home_game, ashiResult);
       var ashi_goalie_stats = getGoalieStats(ag, opponent, home_game, ashiResult);
       var ashi_team_stats = {P1_goals: at[1], P2_goals: at[2], P3_goals: at[3],
-                             OT: at[4], GF: at[5], GA: at[6], PPG: at[7], PPO: at[8], 
-                             PKP: pkPercAshi, result: ashiResult, date: date, 
+                             OT: at[4], GF: at[5], GA: at[6], PPG: at[7], PPO: at[8],
+                             PKP: pkPercAshi, result: ashiResult, date: date,
                              home_game: home_game, opponent: opponent, season: season,
                              team_name: ashiTeamName, PPP: ppPercAshi};
       var opponent_player_stats = getPlayerStats(op, ashiTeamName, !home_game, opponentResult);
       var opponent_goalie_stats = getGoalieStats(og, ashiTeamName, !home_game, opponentResult);
       var opponent_team_stats = {P1_goals: ot[1], P2_goals: ot[2], P3_goals: ot[3],
                                  OT: ot[4], GF: ot[5], GA: ot[6], PPG: ot[7], PPO: ot[8],
-                                 PKP: pkPercOpp, PPP: ppPercOpponent, result: opponentResult, 
+                                 PKP: pkPercOpp, PPP: ppPercOpponent, result: opponentResult,
                                  date: date, home_game: !home_game, opponent: ashiTeamName,
                                  season: season};
       var ashiStats = [ashi_player_stats, ashi_goalie_stats, ashi_team_stats];
       var opponentStats = [opponent_player_stats, opponent_goalie_stats, opponent_team_stats];
-      
+
       var gameStats = {team_name: ashiTeamName, home_game: home_game, opponent: opponent, date: date, time: time,
                       ashi_players: ashi_player_stats, ashi_goalies: ashi_goalie_stats, ashi_team: ashi_team_stats,
                       opponent_players: opponent_player_stats, opponent_goalies: opponent_goalie_stats,
                       opponent_team: opponent_team_stats, season: season}
-                      
+
        if (ashi_player_stats.length === 0 || ashi_goalie_stats.length === 0 ||
           opponent_player_stats.length === 0 || opponent_goalie_stats.length === 0){
           toastr.error('select all players and goalies who played');
@@ -302,7 +302,7 @@
         if (result === 'Game stored') toastr.success('Game stored in database');
       });
     });
-  
+
     $('.save-to-local-disk').on('click', function(){
       var val;
       var gameStats = collectGameStats();
@@ -329,12 +329,12 @@
         displaySavedGames(val);
       });
     });
-    
+
     function deleteSavedGame(arr) {
       console.log('deletesavedgame called')
         localforage.getItem('ashi-data-store', function(err, v){
           for (var i = 0; i < v.length; i++){
-            if (v[i].team_name === arr[0] && v[i].opponent === arr[1] 
+            if (v[i].team_name === arr[0] && v[i].opponent === arr[1]
               && v[i].date === arr[2] && v[i].time === arr[3]){
               v.splice(i, 1);
               localforage.removeItem('ashi-data-store', function(err){
@@ -347,16 +347,16 @@
                   } else {
                     $('.saved-games').empty();
                   }
-              });    
+              });
             }
           }
         });
     }
-    
+
     function sendSavedGame(arr){
       localforage.getItem('ashi-data-store', function(err, v){
           for (var i = 0; i < v.length; i++){
-            if (v[i].team_name === arr[0] && v[i].opponent === arr[1] 
+            if (v[i].team_name === arr[0] && v[i].opponent === arr[1]
               && v[i].date === arr[2] && v[i].time === arr[3]){
               $.post('https://ashi-ahstein3521.c9users.io:8081/scorecard', {stats: v[i]}, function(result){
                   if (result === 'Game not stored') toastr.error('Game not stored in database, please try again');
@@ -369,18 +369,18 @@
           }
         });
     }
-    
+
     function displaySavedGames (savedGames){
       $('.send-to-server, .delete-game').off();
       $('.saved-games').empty();
        var savedGamesHtml = _.template(savedGamesTemplate)({'savedgames': savedGames})
       $(".saved-games").html(savedGamesHtml);
-      
+
       $('.send-to-server').on('click', function(){
           var savedGameArr = ($(this).next().text()).split(',');
           sendSavedGame(savedGameArr);
       })
-      
+
       $('.delete-game').on('click', function(){
           // toastr["warning"]('Do you really want to delete this game? It has not yet been send to the ASHI server.<br /><br /><button type="button" class="btn del-game-button">Yes</button>')
           // $('.del-game-button').on('click', function(){console.log('toastr yes button clicked')})
@@ -395,17 +395,19 @@
         console.log(teamData)
     }
 
-    flatpickr('#flatpickr', {enableTime: true, allowInput: true});    
-    
+    flatpickr('#flatpickr', {enableTime: true, allowInput: true});   s
+
+    toastr.info('Only select players and goalies who are playing by ticking the boxbefore their jersey number.',
+              'Use the score card in "Safe mode" after you have configured it.');
+
 
     $.get('/players', teamFun);
-    
+
     localforage.getItem('ashi-data-store', function(err, savedGames){
       if (savedGames !== null){
         displaySavedGames(savedGames);
       }
     });
-    
+
   });
 }());
-
