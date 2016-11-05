@@ -18,7 +18,9 @@ var PlayerStatsSchema = new Schema({
     OTG: {type: Number, default: 0},
     GWG: {type: Number, default: 0},
     PPG: {type: Number, default: 0},
-    SHG: {type: Number, default: 0}
+    SHG: {type: Number, default: 0},
+    SOG: {type: Number, default: 0},
+    SOM: {type: Number, default: 0}
 });
 
 var GoalieStatsSchema = new Schema({
@@ -34,7 +36,13 @@ var GoalieStatsSchema = new Schema({
     SA: {type: Number, default: 0},
     SV: {type: Number, default: 0},
     GA: {type: Number, default: 0},
-    SO: {type: Number, default: 0}
+    SO: {type: Number, default: 0},
+    G:{type:Number,default:0},
+    A:{type:Number,default:0},
+    P:{type:Number,default:0},
+    PIM:{type:Number,default:0},
+    SOSh:{type:Number,default:0},
+    SOSa:{type:Number,default:0}
 });
 
 var TeamGameStatsSchema = new Schema({
@@ -44,10 +52,12 @@ var TeamGameStatsSchema = new Schema({
     date: {type: String},
     result: {type: String},
     season: {type: Number},
-    Q1_goals: {type: Number, default: 0},
-    Q2_goals: {type: Number, default: 0},
-    Q3_goals: {type: Number, default: 0},
+    P1_goals: {type: Number, default: 0},
+    P2_goals: {type: Number, default: 0},
+    P3_goals: {type: Number, default: 0},
     OT: {type: Number, default: 0},
+    OT2:{type:Number,default:0},
+    OT3:{type:Number,default:0},
     GF: {type: Number, default: 0},
     GA: {type: Number, default: 0},
     PPG: {type: Number, default: 0},
@@ -68,8 +78,8 @@ var GameStatsSchema = new Schema({
     ashi_team: [TeamGameStatsSchema],
     opponent_players: [PlayerStatsSchema],
     opponent_goalies: [GoalieStatsSchema],
-    opponent_team: [TeamGameStatsSchema]
+    opponent_team: [TeamGameStatsSchema],
+    gameNotes: {type: String}
 });
 
 module.exports = mongoose.model('GameStats', GameStatsSchema);
-

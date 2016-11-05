@@ -13,6 +13,8 @@ var blankTemplate = `<table class='<%=location%>-playersTable blank-table'>
                                 <th><bold>SHG</bold></th>
                                 <th><bold>GWG</bold></th>
                                 <th><bold>OTG</bold></th>
+                                <th><bold>SOG</bold></th>
+                                <th><bold>SOM</bold></th>
                               </tr>
                               </thead>
                               <tbody>
@@ -21,6 +23,8 @@ var blankTemplate = `<table class='<%=location%>-playersTable blank-table'>
                                     <td class="select-player"><input type="checkbox" class='blank-scorecard'></td>
                                     <td class='player-number-blank'><input type='text' class='blank-scorecard blank-number-input' maxlength="2" size="2"></td>
                                     <td class='player-name-blank'><input type='text' class='blank-scorecard blank-name-input' maxlength='30'></td>
+                                    <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
+                                    <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
                                     <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
                                     <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
                                     <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
@@ -45,6 +49,12 @@ var blankTemplate = `<table class='<%=location%>-playersTable blank-table'>
                                 <th><bold>SV</bold></th>
                                 <th><bold>GA</bold></th>
                                 <th><bold>SO</bold></th>
+                                <th><bold>G</bold></th>
+                                <th><bold>A</bold></th>
+                                <th><bold>P</bold></th>
+                                <th><bold>PIM</bold></th>
+                                <th><bold>SOSh</bold></th>
+                                <th><bold>SOSa</bold></th>
                               </tr>
                             </thead>
                             <tbody>
@@ -53,6 +63,12 @@ var blankTemplate = `<table class='<%=location%>-playersTable blank-table'>
                                   <td class ="select-player"><input type="checkbox" class='blank-scorecard'></td>
                                   <td class ='player-number-blank'><input type='text' class='blank-scorecard blank-number-input' maxlength="2" size = "2"></td>
                                   <td><input class='blank-scorecard blank-name-input' type='text' maxlength='30'></td>
+                                  <td><select class='goalie-opp-min-dropdown minutes'></select></td>
+                                  <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
+                                  <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
+                                  <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
+                                  <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
+                                  <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
                                   <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
                                   <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
                                   <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
@@ -72,8 +88,9 @@ var blankTemplate = `<table class='<%=location%>-playersTable blank-table'>
                                       <th><bold>2nd</bold></th>
                                       <th><bold>3rd</bold></th>
                           						<th><bold>OT</bold></th>
+                          						<th><bold>OT2</bold></th>
+                  				            <th><bold>OT3</bold></th>
                                       <th><bold>GF</bold></th>
-                                      <th><bold>GA</bold></th>
                                       <th><bold>PPG</bold></th>
                                       <th><bold>PPO</bold></th>
                           					</tr>
@@ -81,10 +98,11 @@ var blankTemplate = `<table class='<%=location%>-playersTable blank-table'>
                                   <tbody>
                           					<tr class='playing'>
                                       <td ><div class='team-stats-header-blank'></div></td>
+                          						<td><span class='minus active'>-</span><span class='num'>0</span><span class='plus active'>+</span></td>
+                          						<td><span class='minus active'>-</span><span class='num'>0</span><span class='plus active'>+</span></td>
+                          						<td><span class='minus active'>-</span><span class='num'>0</span><span class='plus active'>+</span></td>
                                       <td><span class='minus active'>-</span><span class='num'>0</span><span class='plus active'>+</span></td>
-                          						<td><span class='minus active'>-</span><span class='num'>0</span><span class='plus active'>+</span></td>
-                          						<td><span class='minus active'>-</span><span class='num'>0</span><span class='plus active'>+</span></td>
-                          						<td><span class='minus active'>-</span><span class='num'>0</span><span class='plus active'>+</span></td>
+                                      <td><span class='minus active'>-</span><span class='num'>0</span><span class='plus active'>+</span></td>
                                       <td><span class='minus active'>-</span><span class='num'>0</span><span class='plus active'>+</span></td>
                                       <td><span class='minus active'>-</span><span class='num'>0</span><span class='plus active'>+</span></td>
                                       <td><span class='minus active'>-</span><span class='num'>0</span><span class='plus active'>+</span></td>

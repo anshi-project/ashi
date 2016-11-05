@@ -7,6 +7,8 @@ var TeamSeasonStatsSchema = new Schema({
             GF:{type:Number,default:0},
             GA: {type:Number,default:0},
             OT:{type:Number,default:0},
+            OT2:{type:Number,default:0},
+            OT3:{type:Number,default:0},
             win:{type:Number,default:0},
             loss:{type:Number,default:0},
             tie:{type:Number,default:0}
@@ -24,6 +26,8 @@ var TeamGameStatsSchema = new Schema({
             P2:{type:Number,default:0},
             P3:{type:Number,default:0},
             OT:{type:Number,default:0},
+            OT2:{type:Number,default:0},
+            OT3:{type:Number,default:0},
             PPG:{type:Number,default:0},
             PPO:{type:Number,default:0},
             PKP:{type:Number,default:0},
@@ -41,7 +45,7 @@ var teamSchema = new Schema({
     },
     website: String,
     key:String,
-    managers: [{type: Schema.Types.ObjectId, ref: "manager"}],
+    managers: [{type: Schema.Types.ObjectId, ref: "Manager"}],
     coaches: [{type: Schema.Types.ObjectId, ref: "coach"}],
     players: [{type: Schema.Types.ObjectId, ref: "Player"}],
     goalies: [{type: Schema.Types.ObjectId, ref: "Player"}],
@@ -51,40 +55,24 @@ var teamSchema = new Schema({
                     GF:{type:Number,default:0},
                     GA: {type:Number,default:0},
                     OT:{type:Number,default:0},
+                    OT2:{type:Number,default:0},
+                    OT3:{type:Number,default:0},
                     win:{type:Number,default:0},
                     loss:{type:Number,default:0},
-                    tie:{type:Number,default:0}}               
+                    tie:{type:Number,default:0}}
 });
 
 
 teamSchema.statics.addToRoster = function(query,id,type){
     var update = {};
       update[type] = id;//ex.{players:id}
-    
+
    this.update(query,{"$push":update},{upsert:true,safe:true,multi:true},
          function(err,data){
              if(err) throw err;
         })
-    
+
 }
-
-teamSchema.statics.pullFromRoster = function(query,id,type){
-    var update = {};
-      update[type] = id;
-    
-   this.update(query,{"$pull":update},{upsert:true,safe:true,multi:true},
-         function(err,data){
-             if(err) throw err;
-        })
-}
-
-teamSchema.statics.swap = function(currTeam,newTeam,userID,type){
-  this.pullFromRoster(currTeam,userID,type);
-  this.addToRoster(newTeam,userID,type);
-}
-
-
-
 
 teamSchema.virtual("roster").get(function(){
     var team=this.players.concat(this.goalies);
@@ -92,13 +80,9 @@ teamSchema.virtual("roster").get(function(){
     return team.sort(function(a,b){
       if(+a.team.jersey_number>+b.team.jersey_number) return 1;
       if(+a.team.jersey_number<+b.team.jersey_number) return -1;
-        return 0;  
+        return 0;
     })
 
 })
 
 module.exports = mongoose.model("team",teamSchema)
-
-
-
-

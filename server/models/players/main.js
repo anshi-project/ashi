@@ -1,16 +1,12 @@
 var mongoose=require("mongoose");
 var Schema=mongoose.Schema;
 
-var format=require('saymyname');
-
 var methods=require("./methods");
 
 
 var playerSchema=new Schema({
-    firstname:{type:String,lowercase:true},
-    lastname:{type:String,lowercase:true},
-    paid:{type:Boolean,default:false},
-    headshot:{type:Boolean,default:false},
+    firstname:String,
+    lastname:String,
     team:{
       name:String,
       division:String,
@@ -26,7 +22,6 @@ var playerSchema=new Schema({
       hometown:String
     },
     background:{
-      hometown:String,
       education:String,
       hockey_history:String,
       other_sports:String,
@@ -43,7 +38,7 @@ var playerSchema=new Schema({
     contact:{
       phone1:String,
       phone2:{type:String,default:"N/A"},
-      email:{type:String,lowercase:true,unique:true},
+      email:{type:String,lowercase:true},
       alt_email:String,
       passport:String,
       passport_expiration:{type:String,default:"N/A"},
@@ -59,7 +54,10 @@ var playerSchema=new Schema({
         }
       }
     },
-    apparel:{},
+    apparel:{
+
+    },
+
     hockey_info:{
       website:String,
       leaugue_team: String,
@@ -73,6 +71,7 @@ playerSchema.virtual("public_data.age").get(function(){
     var dob=new Date(this.public_data.date_of_birth).getTime();
     var ageDate=new Date(now-dob);
     return Math.abs(ageDate.getUTCFullYear()-1970)
+
 })
 
 playerSchema.virtual("team.pos_abrv").get(function(){
@@ -80,13 +79,8 @@ playerSchema.virtual("team.pos_abrv").get(function(){
   if(pos[1]=="Defense") return "D";
 
   return pos.map(v=> v.charAt(0)).join("")
+
 })
-
-playerSchema.plugin(require("../plugins/setFullName"))
-
-
-
-
 
 playerSchema.statics.assign=methods.assign;
 //Create a new player object from the registration object. Assign to a team.
@@ -94,5 +88,5 @@ playerSchema.statics.reassign=methods.reassign
 //Assign a player that already exists within the database to a new team;
 
 
-module.exports=mongoose.model("Player",playerSchema)
 
+module.exports=mongoose.model("Player",playerSchema)

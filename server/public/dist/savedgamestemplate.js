@@ -5,15 +5,13 @@ var savedGamesTemplate = `
             <div class='col-sm-3'>
                 <p class='game'><%=g.team_name%> - <%=g.opponent%>&nbsp; &nbsp; <%=g.date%>&nbsp; &nbsp; <%=g.time%></p>
             </div>
-            <div class='col-sm-2'>
+            <div class='col-sm-9'>
+                <button type='submit' class='edit-scorecard btn btn-sm btn-primary'>Edit</button>
+                <span class='game-details'><%=g.team_name%>,<%=g.opponent%>,<%=g.date%>,<%=g.time%></span>
                 <button type='submit' class='send-to-server btn btn-sm btn-primary'>Send to ASHI server</button>
                 <span class='game-details'><%=g.team_name%>,<%=g.opponent%>,<%=g.date%>,<%=g.time%></span>
-            </div>
-            <div class='col-sm-1'>
                 <button type='submit' class='delete-game btn btn-sm btn-danger'>Delete from local drive</button>
                 <span class='game-details'><%=g.team_name%>,<%=g.opponent%>,<%=g.date%>,<%=g.time%></span>
-            </div>
-            <div class='col-sm-6'>
             </div>
         </div>
     <% }) %>`

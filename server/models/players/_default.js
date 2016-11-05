@@ -17,6 +17,8 @@ var PlayerSeasonStatsSchema = new Schema({
             GWG:{type:Number,default:0},
             PPG:{type:Number,default:0},
             SHG:{type:Number,default:0},
+            SOG:{type:Number,default:0},
+            SOM:{type:Number,default:0},
             win:{type:Number,default:0},
             loss:{type:Number,default:0},
             tie:{type:Number,default:0}
@@ -38,7 +40,9 @@ var PlayerGameStatsSchema = new Schema({
             OTG:{type:Number,default:0},
             GWG:{type:Number,default:0},
             PPG:{type:Number,default:0},
-            SHG:{type:Number,default:0} 
+            SHG:{type:Number,default:0},
+            SOG:{type:Number,default:0},
+            SOM:{type:Number,default:0}
 });
 
 var PlayerStatsSchema = new Schema({
@@ -54,12 +58,14 @@ var PlayerStatsSchema = new Schema({
                     GWG:{type:Number,default:0},
                     PPG:{type:Number,default:0},
                     SHG:{type:Number,default:0},
+                    SOG:{type:Number,default:0},
+                    SOM:{type:Number,default:0},
                     win:{type:Number,default:0},
                     loss:{type:Number,default:0},
                     tie:{type:Number,default:0}}
 });
 
 var player=Player.discriminator("Default", PlayerStatsSchema);
-       
+
 
 module.exports=player;

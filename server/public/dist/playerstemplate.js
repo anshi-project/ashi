@@ -13,6 +13,8 @@ var playersTemplate = `<table class='<%=location%>-playersTable' id='ashi-team'>
                         <th><bold>SHG</bold></th>
                         <th><bold>GWG</bold></th>
                         <th><bold>OTG</bold></th>
+                        <th><bold>SOG</bold></th>
+                        <th><bold>SOM</bold></th>
                       </tr>
                       </thead>
                       <tbody>
@@ -21,6 +23,8 @@ var playersTemplate = `<table class='<%=location%>-playersTable' id='ashi-team'>
                             <td class="select-player"><input type="checkbox"></td>
                             <td class='player-number'><%=player.team.jersey_number%></td>
                             <td class='name'><%=player.lastname%></td>
+                            <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
+                            <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
                             <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
                             <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
                             <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>

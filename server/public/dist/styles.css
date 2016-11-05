@@ -3,6 +3,10 @@ body{
     font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 
+img {
+    margin: 0.5em 0em 0em 0.5em;
+}
+
 input.parsley-success,
 select.parsley-success,
 textarea.parsley-success {
@@ -86,7 +90,7 @@ textarea.parsley-error {
     #registration-form{
         width:95%;
     }
-    
+
     label{
         font-size:.7em;
     }
@@ -119,7 +123,7 @@ h1 {
 h2 {
     margin-left: 12em;
     font-size: 1.5em;
-    
+
 }
 
 
@@ -146,9 +150,19 @@ p {
     text-align: center;
 }
 
-button.submit-scorecard {
-    margin-left: 1em;
+.notes {
+  margin-left: 0.7em;
 }
+
+.notes,
+.submit-scorecard {
+    margin-right: 1em;
+}
+
+.reset-scorecard {
+  margin: 2em 0em 2em 0.7em;
+}
+
 
 .select-box-label {
     margin-left: 2em;
@@ -238,13 +252,8 @@ p {
     text-align: center;
 }
 
-button.submit-scorecard {
-    margin-left: 1em;
-}
-
-button.save-to-local-disk {
+.save-to-local-disk {
     display: inline;
-    margin-left: 3em;
 }
 
 .lock-unlock-scorecard {
@@ -298,11 +307,6 @@ button.save-to-local-disk {
   margin-top: 1.5em;
 }
 
-
-.submit-scorecard {
-    margin-bottom: 1em;
-}
-
 .scorecard-title {
     margin-top: -2em;
 }
@@ -354,10 +358,6 @@ td.name {
     color: #000;
 }
 
-.submit-scorecard {
-    margin-bottom: 2em;
-}
-
 .saved-game {
     background-color: white;
     border-top: 1px solid black;
@@ -368,9 +368,10 @@ p.game {
     font-weight: normal;
 }
 
+.edit-scorecard,
 .send-to-server,
 .delete-game {
-    margin-top: 1.8em;
+    margin: 1.8em 1em 0em 1em;
 }
 
 h2.saved-games-header {
@@ -384,4 +385,3 @@ h2.saved-games-header {
 .flatpickr-calendar.open {
     border: 1px solid #555;
 }
-
