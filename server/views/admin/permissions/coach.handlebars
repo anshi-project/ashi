@@ -1,5 +1,5 @@
 <h1>A.S.H.I. Coaches</h1>
-<table class="table table-bordered table-condensed">
+<table class="table table-bordered table-condensed" data-staff="coach">
   	<thead>
   		<tr>
   			<td>Name</td>
@@ -7,7 +7,7 @@
   			<td>Email</td>
         <td>Team</td>
         <td>Position</td>
-        <td>Status</td>
+        <td>Permissions</td>
   			<td>Record</td>
   		</tr>
   	</thead>
@@ -18,7 +18,7 @@
   	<td>{{this.contact.email}}</td>
     <td>{{this.team.name}}</td>
     <td>{{this.team.role}}</td>
-    <td>{{this.status}}</td>
+    <td> <button type="button" class="permission-btn" data-status="{{this.status}}" data-user="{{this._id}}">Revoke</button></td>
     <td><a href="/admin/records/coach?id={{this._id}}" target="_blank">View</a></td>
   	</tr>
   {{/each}}

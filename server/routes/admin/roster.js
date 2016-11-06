@@ -7,7 +7,7 @@ module.exports=function(app){
   
       Team.find({},"key name players goalies coaches")
           .sort({"name":-1})
-          .populate({path:"coaches players goalies"})
+          .populate({path:"coaches players goalies", match:{status:"Active"}})
           .exec(function(e,d){
              res.render("admin/roster/team",{teams:d,layout:"spreadsheet"});
       })    

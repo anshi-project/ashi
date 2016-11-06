@@ -1,7 +1,4 @@
 var Registration=require("../../models/registration/main");
-var _=require("lodash");
-
-function getDivision(name,teams){return _.find(teams,v=>{return v.name==name}).division; }
 
 module.exports=function(app){
     
@@ -19,36 +16,46 @@ module.exports=function(app){
         })
     })
 
-    app.post("/admin/assign/returning-player",function(req,res){
+    app.put("/admin/assign/player",function(req,res){
         var id=req.query.id;
         var Player=require("../../models/players/main");
 
-        Player.reassign(id,req.body);
+        Player.assignToTeam(id,req.body,function(err,doc){
+            if(err) throw err;
+            res.send(doc);
+        })
+    })
 
-        res.send(req.body);
+    app.put("/admin/assign/manager",function(req,res){
+        var id=req.query.id;
+        var division=req.body.division;
+        var GM=require("../../models/staff/manager");
+        GM.assign(id,division)
+        res.send("i hope this worked")
     })
 
     app.post("/admin/assign/coach",function(req,res){
         var id=req.query.id;
-        var division=getDivision(req.body.name,app.locals.teams);
-        var team=Object.assign(req.body,{division});
+        var team=req.body
         
-        Registration.assignCoach(id,{team},function(err){
+        Registration.assignCoach(id,team,function(err){
             if(err) throw err;
             res.send("Successfully added")
         });
+       
     }) 
     
     app.post("/admin/assign/player",function(req,res){
         var id=req.query.id;
-        var division=getDivision(req.body.name,app.locals.teams);
-        var team=Object.assign(req.body,{division});        
+        var team=req.body;      
         var type=(team.position=="Goalie");
 
         Registration.assignPlayer(id,team,type,function(data){
             res.send(data);
         })  
+
     })
+
     app.delete("/admin/assign",function(req,res){
         var id=req.query.id;
 

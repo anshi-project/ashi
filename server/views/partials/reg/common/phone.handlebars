@@ -3,14 +3,14 @@
     <label for="contact[phone1]" class="control-form">Primary Phone Number:</label>
     <div class="input-group">
         <span class="input-group-addon">+1</span>
-       <input type="text" data-parsley-pattern="\d{3}[\-]\d{3}[\-]\d{4}" class="form-control phone" name="contact[phone1]" required>
+       <input type="text" data-parsley-pattern="((\(\d{3}\) ?)|(\d{3}-))?\d{3}-\d{4}" class="form-control phone-field" name="contact[phone1]"  required>
        </div>      
   </div>  
     <div class="form-group col-md-4 col-md-offset-2">
     <label for="contact[phone2]" class="control-form">Secondary Phone Number:</label>
     <div class="input-group">
         <span class="input-group-addon">+1</span>
-       <input type="text" data-parsley-pattern="^[\d\+\-\.\(\)\/\s]*$" class="form-control" name="contact[phone2]" >
+       <input type="text" data-parsley-pattern="((\(\d{3}\) ?)|(\d{3}-))?\d{3}-\d{4}" class="form-control phone-field" name="contact[phone2]" >
        </div>       
   </div>
   </div>

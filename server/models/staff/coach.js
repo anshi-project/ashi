@@ -10,6 +10,13 @@ var coachSchema=new Schema({
 		role:String,
 	},
 	role:String,
+	status:{type:String,default:"Active"},
+	/*	This models status field defaults to active because unlike the 
+	other two categories of staff member, a coach model instance is created 
+	after a 'coach-registration' model has been approved and assigned to a team. 
+		The other 2 categories (GM, admin) are created directly after their respective 
+	registration forms are submitted, and need to be approved by an existing admin.
+	*/
 	contact:{
 		email:String,
 		alt_email:String,
@@ -35,13 +42,6 @@ var coachSchema=new Schema({
 	apparel:{}
 })
 
-coachSchema.statics.assign=function(id,team,role){
-
-	this.findByIdAndUpdate(id,{status:"Active",team,role},
-		{upsert:true,safe:true})
-	
-	Team.addToRoster({name:team},id,"coaches")
-}
 
 coachSchema.statics.removeFromTeam=function(id,callback){
 	var currTeam;
@@ -49,32 +49,11 @@ coachSchema.statics.removeFromTeam=function(id,callback){
 		if(err) throw "Error removing Coach during the initial query.";
 		currTeam={name:data.team.name};
 		data.status="inactive";
-		data.division="none";
 		data.save();
 	})
 	.then(()=>{Team.pullFromRoster(currTeam,id,"managers")})
 	.then(data=> {return callback(data)})
 	.catch(err=>{if(err) throw "Error removing coach from team";});		
-}
-
-coachSchema.statics.changeRole=function(id,newRole,callback){
-	this.findByIdAndUpdate(id,{"team.role":newRole},{upsert:true,safe:true})
-		.then(()=>{ return callback()})
-		.catch(err=>{ if(err) throw "Error updating the coaches role"});
-}
-
-coachSchema.statics.updateAssignment=function(id,newTeam,callback){
-		var currTeam;
-		this.findById(id,"division").exec(function(err,data){
-			 if(err) throw "Error updating coach assignment during initial query.";
-			 currTeam={name:data.team.name};
-			 data.status="active";
-			 data.team=newTeam.name;
-			 data.save();
-		})
-		.then(()=>{Team.swap(currTeam,newTeam,id,"coaches")})
-		.then(data=>{return callback(data) })
-		.catch(err=>{ if(err)throw err; })
 }
 
 module.exports=Staff.discriminator("coach",coachSchema);

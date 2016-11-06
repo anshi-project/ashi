@@ -1,58 +1,22 @@
 <div>
 <div class="page-header">
-<h1 class="style={text-align:center}">Team Roster:
+<h1>Team Roster:
   <span class="team-roster-display"></span>
 </h1>
-<a href="/gm/roster/export" class="btn-md btn-success pull-right">Export </a>
 <span class="clearfix"></span>
 	<div class="form-horizontal">
 		<label for="team-name">Select Team:</label>
-		<select class="team-name form-control">
-		{{#each teams}}
-		<option value={{@index}}>{{this.name}}</option>
-		{{/each}}
+		<select class="team-name">
+			{{#each teams}}
+			<option value="{{this.name}}">{{this.name}}</option>
+			{{/each}}
 		</select>
 	</div>
 </div>	
 	{{#each teams}}
-		<div class="team-table">
-		{{> admin/player_roster}}
-		{{> admin/coach_roster}}
+		<div class="team-table" data-teamname="{{this.name}}">
+		{{> gm/player_table}}
 		</div>
 	{{/each}}
 
 </div>
-
-<style>
-html{
-	min-height: 100%;
-}
-body{
-background: black;
-color:white;
-
-}
-.table{
-	background: #fff;
-	color:black;
-}
-thead{
-	background: #4886c3;
-	color:white;
-}
- .team-table{
- 	display: none;
- }
- .team-table-active{
- 	display: block;
- }
- .form-horizontal{
- 	text-align: center;
- }
- select{
- 	color:black;
- }
- h1{
- 	margin-bottom: 5px;
- }
-</style>

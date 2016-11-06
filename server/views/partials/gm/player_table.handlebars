@@ -1,0 +1,29 @@
+<table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+    {{> gm/player_headers}}
+      </tr>
+    </thead>
+    <tbody>
+        {{#each roster}}
+      <tr>  
+        <td>{{this.fullname}}</td>
+        <td>{{this.team.pos_abrv}}</td>
+        <td>{{this.team.jersey_number}}</td>
+        <td>{{this.contact.email}}</td>
+        <td>{{this.contact.phone1}}</td>
+        <td>{{this.public_data.age}}</td>
+        <td>{{this.public_data.height}}</td>
+        <td>{{this.background.hometown}}</td>
+        <td>{{this.team.shooting_hand}}</td>
+        <td>{{this.apparel.hat}}</td>
+        <td>{{this.apparel.jersey}}</td>
+        <td>{{this.apparel.jacket}}</td>
+        <td>{{this.apparel.polo}}</td>
+        <td>{{this.apparel.shorts}}</td>        
+        <td>{{this.headshot}}</td>
+        <td>{{this.paid}}</td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table> 

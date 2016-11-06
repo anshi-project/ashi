@@ -71,6 +71,20 @@ $(".passport").on("change",function(){
     toggleFormField(expDate,condition);
 })
 
+$(".phone-field").on("input",function(e){
+    var number = $(this).val().replace(/[^\d]/g, '');
+    
+    if(number.length==3){
+      number=number.replace(/(\d{3})/, "($1) ")
+    } 
+    else if (number.length == 7) {
+      number = number.replace(/(\d{3})(\d{4})/, "($1) $2");
+    } else if (number.length == 10) {
+      number = number.replace(/(\d{3})(\d{3})(\d{4})/, "($1) $2-$3");
+    }
+    $(this).val(number)
+  });
+
 
 
 $(".dob").on("change",function(){

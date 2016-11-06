@@ -1,5 +1,7 @@
+{{> modal/teampicker_manager}}
+
 <h1>A.S.H.I. Managers</h1>
-<table class="table table-bordered table-condensed">
+<table class="table table-bordered table-condensed" data-staff="manager">
   	<thead>
   		<tr>
   			<td>Name</td>
@@ -9,8 +11,7 @@
   			<td>Email</td>
   			<td>Secondary Email</td>
   			<td>Username</td>
-        <td>Status</td>
-        <td>Update</td>
+        <td>Permissions</td>
   			<td>Record</td>
   		</tr>
   	</thead>
@@ -23,9 +24,8 @@
   	<td>{{this.contact.email}}</td>
   	<td>{{this.contact.alt_email}}</td>
   	<td>{{this.username}}</td>
-    <td>{{this.status}}</td>
     <td>
-    <button class="permission btn btn-sm" data-url="/manager/id=?{{this._id}}" >Grant Permissions</button>
+      <button type="button" class="permission-btn" data-status="{{this.status}}" data-user="{{this._id}}">Revoke</button>
     </td>
     <td>
       <a href="/admin/records/manager?id={{this._id}}" target="_blank">View</a>

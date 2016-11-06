@@ -68,7 +68,8 @@ module.exports=function(app){
 
 		if(record.team.name!=body.team.name){
 			Team.swap({name:record.team.name},{name:body.team.name},id,category);			
-		}
+		}// handles the edge case in which the current team is changed on an individuals record 
+		 // so the Team model needs to be updated as well 
 
 		UserModel.findById(id).update(req.body).exec(function(e,d){
 			if(e)throw e;

@@ -1,15 +1,13 @@
-var mongoose=require("mongoose");
-var Schema=mongoose.Schema;
+var mongoose = require("mongoose");
+var Schema = mongoose.Schema;
 
-var methods=require("./methods");
-
+var methods = require("./methods");
 
 var playerSchema=new Schema({
     firstname:String,
     lastname:String,
     team:{
       name:String,
-      division:String,
       position:String,
       jersey_number:String,
       shooting_hand:String
@@ -63,7 +61,7 @@ var playerSchema=new Schema({
       leaugue_team: String,
       tournament_team: String
     },
-     status:{type:String,default:"active"} //retired, renewing membership, active
+     status:{type:String,default:"Active"} //inactive, renewing membership, active
 })
 
 playerSchema.virtual("public_data.age").get(function(){
@@ -82,7 +80,7 @@ playerSchema.virtual("team.pos_abrv").get(function(){
 
 })
 
-playerSchema.statics.assign=methods.assign;
+playerSchema.statics.assignToTeam=methods.assign;
 //Create a new player object from the registration object. Assign to a team.
 playerSchema.statics.reassign=methods.reassign
 //Assign a player that already exists within the database to a new team;

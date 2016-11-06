@@ -2,8 +2,8 @@ html{
 	min-height: 100%;
 }
 body{
-background: black;
-color:white;
+background: #672d2d;
+
 }
  .team-table{
  	display: none;
@@ -14,14 +14,13 @@ color:white;
  .form-horizontal{
  	text-align: center;
  }
- .modal{
- 	color:black;
- }
- select{
- 	color:black;
- }
  h1{
  	margin-bottom: 5px;
+ 	color:white;
+ 	text-align:center;
+ }
+ label[for='team-name']{
+ 	color:white;
  }
 .table, .table-bordered, .panel{
 	background: #fff;
@@ -30,7 +29,6 @@ color:white;
 
  .table-bordered .row-Active{
 	background: #f1ffa3;
-	font-weight: bold;
 }
 .table-bordered .row-inactive{
 	background:#a5a5a5;
@@ -43,14 +41,20 @@ color:white;
 	background: #37c777;
 	color:#142a67;
 }
-
+.permission-btn{
+	width:100%;
+}
 
 .manager-pending{
 	font-style: italic;
 	color:red;
 }
-
+td{
+	text-align: center;
+}
 thead{
 	background: #4886c3;
 	color:white;
+	font-weight: bold;
 }
+

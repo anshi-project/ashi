@@ -8,8 +8,8 @@ var divisions=["Junior\'s","Men\'s","Women\'s","Women\'s Master\'s","Men's Maste
 
 jQuery.fn.extend({
     createDropdown:function(array,fieldName,label){
-        var currVal=$("input[name='"+fieldName+"']").val();
-        var html=`<label for='${fieldName}' class='control-form'>${label}:</label><select name='${fieldName}' class='form-control'><option value='${currVal}'>${currVal}</option>`
+        var currVal=$("input[name='"+fieldName+"']").val()||"";
+        var html=`<label for='${fieldName}' class='control-form'>${label}:</label><select name='${fieldName}' class='form-control'><option value="${currVal}">${currVal}</option>`
         array.forEach(function(p){if(p!=currVal){html+=`<option value="${p}">${p}</option>`}})
         html+="</select>";
         this.html(html);

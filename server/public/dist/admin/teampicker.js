@@ -1,7 +1,10 @@
 function formatReqBody(serializedArr){
-	return serializedArr.reduce(function(a,b){
-		a[b.name]=b.value;
-		 return a},{});
+	return serializedArr.reduce((a,b)=>{
+		a[b.name] = b.value;
+		
+		return a
+		
+		},{});
 }
 
 
@@ -10,21 +13,23 @@ $('#coach-modal, #player-modal').on('show.bs.modal', function (event) {
       var person = button.data('person');
       var url=button.data("url");
 
+      $(this).find(".btn-primary").data({type:button.data("type")});
       $(this).find(".btn-primary").attr("id",url);
       $(this).find('.modal-title').text(person);
-
 })
 
 $(".modal .btn-primary").on("click",function(evt){
-	var formData=$("form").serializeArray();
-	var data=formatReqBody(formData);
-	var id=$(this).attr("id")
-	var url=$("form").attr("action")+id;
-	
+	var formData = $("form").serializeArray();
+	var data = formatReqBody(formData);
+	var id = $(this).attr("id")
+	var url = $("form").attr("action")+id;
+	var $type = $(this).data().type;
+	var type = ($type=="Default"||$type=="Goalie")? "PUT" : "POST"  
+		
 	$.ajax({
 		url,
 		data,
-		type:"POST",
+		type,
 		success:function(d){
 			console.log(d);
 		}
@@ -43,6 +48,5 @@ $(".btn-danger").on("click",function(){
 			success:(d)=>{console.log(d)}
 		})	
 	}	
-
 })
 

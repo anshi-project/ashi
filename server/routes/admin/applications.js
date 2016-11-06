@@ -24,3 +24,19 @@ module.exports=function(app){
 	})
 
 }
+
+    // app.get("/seed",function(req,res){
+    //    var Registration = require("../../models/registration/_playerReg");
+    //    var Player = require("../../models/players/main");
+
+    //    Player.findOne({},"-_id -__t -__v").lean().exec(function(e,doc){
+    //         var arr=[doc];
+    //         app.locals.players.forEach(function(player){
+    //             var p=Object.assign({},doc, player);
+    //             p.hockey_info.team="U20";
+    //             p.hockey_info.position="Goalie";
+    //             Registration.create(p,function(err,d){if(err) console.log(err)});
+    //         })
+    //         res.send(arr);
+    //     })
+    // })

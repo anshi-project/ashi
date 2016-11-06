@@ -12,7 +12,11 @@
     <div class="row">
     {{#each player}}
     <div class="col-md-3">
-        <h3><a data-toggle="modal" data-person="{{this.fullname}}" data-url="{{this._id}}" href="#player-modal">{{this.fullname}}</a></h3>
+        <h3>
+        <a data-toggle="modal"  data-type="{{this.__t}}" data-person={{this.fullname}} data-url="{{this._id}}" href="#player-modal">
+          {{this.fullname}}
+        </a>
+       </h3>
     </div>
     {{/each}}
     </div>

@@ -30,13 +30,11 @@ exports.assignCoach=function(id,team,callback){
 
         var coach=_.omit(doc,["_id","__t","__v","createdAt","updatedAt","status"])
             coach.team=team; 
-
         Coach.create(coach,(err)=>{if(err) throw "Error creating new coach"})
             .then((coach)=>{Team.addToRoster({name:team.name},coach._id,"coaches")})
             .then(()=> {return callback()})
             .catch((err)=>{if(err) throw err; })
-    }).then(function(){
-
+    }).then(function(){        
         Registration.findByIdAndRemove(id,function(err){if(err) throw err});
     })
 }
@@ -53,15 +51,14 @@ exports.handleFormSubmission=function(fields,type,callback){
 }
 
 exports.findRegisteredPlayers=function(callback){
-    this.find({__t:"player-registration"},"firstname fullname lastname hockey_info")
+    this.find({__t:"player-registration"},"firstname __t fullname lastname hockey_info")
     .exec((err)=>{if(err) throw "Error finding player registrations";})
     .then(newPlayers=>{
-        console.log(newPlayers);
+        
         Player.find({status:"renewing membership"},"__t fullname lastname team").lean()
         .exec(function(err,oldPlayers){
             if(err) throw "Error retrieving returning players";
             var result=oldPlayers.concat(newPlayers)
-                        .map(v=>{ return Object.assign(v, {new:(v.hasOwnProperty("hockey_info"))})})
                         .sort((a,b)=> {if(a.lastname>b.lastname) {return 1} return 0; })
             return callback(result);
         })

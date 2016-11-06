@@ -1,23 +1,19 @@
 var Team=require("../team/team")
 
+exports.assign=function(id,team,callback){
+	var type=team.position=="Goalie"? "goalies":"players";
+	var person;
+	this.findById(id,function(err,doc){
+		person=doc.fullname;
+		doc.team.name=team.name;
+		doc.team.position=team.position;
+		doc.status="Active";
+		doc.save();
+	}).then(()=> {Team.addToRoster({name:team.name},id,type)})
+	  .then(()=> {return callback(null,person)})
+	  .catch((err)=>{if(err) return callback(err) })
+}
 
-exports.assign=function(registration,team,type,callback){  
-   var NewPlayer=require(type);
-   var fields=["firstname","lastname","contact","public_data","hockey_info",
-                "apparel","background","favorite","apparel"];
-   var player={team:team};
-
-   fields.forEach(v=>player[v]=registration[v]);
-
-   player.team.shooting_hand=registration.hockey_info.shooting_hand;
-  
-   NewPlayer.create(player,function(err,doc){
-      if(err)throw err;
-      doc.query={name:team.name,division:team.division}
-      console.log("player created")
-      callback(doc);
-    });
-}//Create a new player object from the registration object. Assign to a team.
 
 exports.reassign=function(id,team){
      this.findById(id,function(err,doc){
