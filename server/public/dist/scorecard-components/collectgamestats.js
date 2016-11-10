@@ -1,6 +1,7 @@
 import {getStats} from './getstats';
 import {getPlayerStats} from './getplayerstats';
 import {getGoalieStats} from './getgoaliestats';
+import {toasts} from './toasts/toasts';
 
 export function collectGameStats() {
     var ashiTeamName = $('.ashi-team-name').text();
@@ -22,7 +23,7 @@ export function collectGameStats() {
     var ashiResult;
     var opponentResult;
     if ($('#flatpickr').val() === '') {
-        toastr.error('Set game date and time before submitting scorecard');
+        toasts.setDateTime();
         return 'error';
     } else {
         date = $('#flatpickr').val().split(' ')[0];
@@ -31,7 +32,7 @@ export function collectGameStats() {
     }
 
     if ($('.team-name-input').val() === "") {
-        toastr.error('Fill out opponent team name');
+        toasts.opponentName();
         return 'error';
     }
 
@@ -49,7 +50,7 @@ export function collectGameStats() {
     });
 
     if (incompleteScorecard) {
-        toastr.error('Fill in jersey number and name for all opponent players and goalies');
+        toasts.fillOutBlank();
         return 'error';
     }
 
@@ -80,7 +81,7 @@ export function collectGameStats() {
     }
 
     if (ag[4] === 0 || og[4] === 0) {
-        toastr.error("Shots Against stat can't be 0");
+        toasts.shotsAgainst();
         return 'error';
     }
 
@@ -159,7 +160,7 @@ export function collectGameStats() {
 
     if (ashi_player_stats.length === 0 || ashi_goalie_stats.length === 0 ||
         opponent_player_stats.length === 0 || opponent_goalie_stats.length === 0) {
-        toastr.error('select all players and goalies who played');
+        toasts.tickBoxes();
         return 'error';
     }
     return gameStats;

@@ -93,12 +93,37 @@ function selectOpponent(){
   toastr.error('Select the opposing team');
 }
 
+function setDateTime (){
+  toastr.error('Set game date and time before submitting scorecard');
+}
+
+function fillOutBlank() {
+  toastr.error('Fill out jersey number and name for all opponent players and goalies');
+}
+
+function opponentName (){
+  toastr.error('Fill out opponent team name');
+}
+
+function shotsAgainst (){
+  toastr.error("Shots Against stat can't be 0");
+}
+
+function tickBoxes (){
+  toastr.error('select all players and goalies who played');
+}
+
 var toasts = {
   selectPlayers: selectPlayers,
   resetScorecard: resetScorecard,
   notStoredInDb: notStoredInDb,
   storedInDb: storedInDb,
-  selectOpponent: selectOpponent
+  selectOpponent: selectOpponent,
+  fillOutBlank: fillOutBlank,
+  setDateTime: setDateTime,
+  opponentName: opponentName,
+  shotsAgainst: shotsAgainst,
+  tickBoxes: tickBoxes,  
 };
 
 
@@ -722,7 +747,9 @@ var teamTemplate = `<div class="row">
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__getstats__ = __webpack_require__(29);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__getplayerstats__ = __webpack_require__(28);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__getgoaliestats__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__toasts_toasts__ = __webpack_require__(0);
 /* harmony export (immutable) */ exports["a"] = collectGameStats;
+
 
 
 
@@ -747,7 +774,7 @@ function collectGameStats() {
     var ashiResult;
     var opponentResult;
     if ($('#flatpickr').val() === '') {
-        toastr.error('Set game date and time before submitting scorecard');
+        __WEBPACK_IMPORTED_MODULE_3__toasts_toasts__["a" /* toasts */].setDateTime();
         return 'error';
     } else {
         date = $('#flatpickr').val().split(' ')[0];
@@ -756,7 +783,7 @@ function collectGameStats() {
     }
 
     if ($('.team-name-input').val() === "") {
-        toastr.error('Fill out opponent team name');
+        __WEBPACK_IMPORTED_MODULE_3__toasts_toasts__["a" /* toasts */].opponentName();
         return 'error';
     }
 
@@ -774,7 +801,7 @@ function collectGameStats() {
     });
 
     if (incompleteScorecard) {
-        toastr.error('Fill in jersey number and name for all opponent players and goalies');
+        __WEBPACK_IMPORTED_MODULE_3__toasts_toasts__["a" /* toasts */].fillOutBlank();
         return 'error';
     }
 
@@ -805,7 +832,7 @@ function collectGameStats() {
     }
 
     if (ag[4] === 0 || og[4] === 0) {
-        toastr.error("Shots Against stat can't be 0");
+        __WEBPACK_IMPORTED_MODULE_3__toasts_toasts__["a" /* toasts */].shotsAgainst();
         return 'error';
     }
 
@@ -884,7 +911,7 @@ function collectGameStats() {
 
     if (ashi_player_stats.length === 0 || ashi_goalie_stats.length === 0 ||
         opponent_player_stats.length === 0 || opponent_goalie_stats.length === 0) {
-        toastr.error('select all players and goalies who played');
+        __WEBPACK_IMPORTED_MODULE_3__toasts_toasts__["a" /* toasts */].tickBoxes();
         return 'error';
     }
     return gameStats;
@@ -1195,19 +1222,37 @@ function getGoalieStats(g, opponent, home_game, result, date, season, ashiTeamNa
 
 "use strict";
 /* harmony export (immutable) */ exports["a"] = getPlayerStats;
-function getPlayerStats(p, opponent, home_game, result, date, season, ashiTeamName){
-	var playersStatsArr = [];
-	while (p.length > 0){
-		var player = {jersey_number: String(p[1]), name: p[2], G: p[3], A: p[4],
-		              P: p[5], PM: p[6], PIM: p[7], PPG: p[8], SHG: p[9],
-		              GWG: p[10], OTG: p[11], SOG: p[12], SOM: p[13], result: result, opponent: opponent,
-		              date: date, season: season, home_game: home_game, team_name: ashiTeamName,
-									stats_for_editing: [p[3], p[4], p[5], p[6], p[7],
-									p[8], p[9], p[10], p[11], p[12], p[13]]};
-		playersStatsArr.push(player);
-		p = p.slice(14);
-	}
-	return playersStatsArr;
+function getPlayerStats(p, opponent, home_game, result, date, season, ashiTeamName) {
+    var playersStatsArr = [];
+    while (p.length > 0) {
+        var player = {
+            jersey_number: String(p[1]),
+            name: p[2],
+            G: p[3],
+            A: p[4],
+            P: p[5],
+            PM: p[6],
+            PIM: p[7],
+            PPG: p[8],
+            SHG: p[9],
+            GWG: p[10],
+            OTG: p[11],
+            SOG: p[12],
+            SOM: p[13],
+            result: result,
+            opponent: opponent,
+            date: date,
+            season: season,
+            home_game: home_game,
+            team_name: ashiTeamName,
+            stats_for_editing: [p[3], p[4], p[5], p[6], p[7],
+                p[8], p[9], p[10], p[11], p[12], p[13]
+            ]
+        };
+        playersStatsArr.push(player);
+        p = p.slice(14);
+    }
+    return playersStatsArr;
 }
 
 
@@ -1225,32 +1270,33 @@ function getStats(tableClass) {
       var stat;
       tds = $(this).find('td');
       $.each(tds, function(index) {
-          if (index === 3 && (tableClass === '.home-goaliesTable' || tableClass === '.road-goaliesTable')) {
-              stat = $(this).children().val();
-              arr.push(parseInt(stat, 10));
-              return;
-          }
-          if ((index === 1 || index === 2) && ($(tableClass).hasClass('blank-table'))) {
-              stat = $(this).children().val();
-              arr.push(stat);
-              if (stat === '') incomplete = true;
-              return;
-          }
-          stat = $(this).text();
-          if ((index === 1 || index === 2) && (tableClass !== '.home-team-stats') &&
-              (tableClass !== '.road-team-stats')) {
-              arr.push(stat);
-              return;
-          }
-          if (tableClass === '.home-team-stats' || tableClass === '.road-team-stats') {
-              stat = index > 0 ? +stat.replace(/[-+]/g, '') : stat;
-              arr.push(stat);
-              return;
-          } else {
-              stat = index > 2 ? +stat.replace(/[-+]/g, '') : stat;
-              arr.push(stat);
-              return;
-          }
+        if (index === 3 && (tableClass === '.home-goaliesTable' ||
+            tableClass === '.road-goaliesTable')) {
+            stat = $(this).children().val();
+            arr.push(parseInt(stat, 10));
+            return;
+        }
+        if ((index === 1 || index === 2) && ($(tableClass).hasClass('blank-table'))) {
+            stat = $(this).children().val();
+            arr.push(stat);
+            if (stat === '') incomplete = true;
+            return;
+        }
+        stat = $(this).text();
+        if ((index === 1 || index === 2) && (tableClass !== '.home-team-stats') &&
+            (tableClass !== '.road-team-stats')) {
+            arr.push(stat);
+            return;
+        }
+        if (tableClass === '.home-team-stats' || tableClass === '.road-team-stats') {
+            stat = index > 0 ? +stat.replace(/[-+]/g, '') : stat;
+            arr.push(stat);
+            return;
+        } else {
+            stat = index > 2 ? +stat.replace(/[-+]/g, '') : stat;
+            arr.push(stat);
+            return;
+        }
       });
   });
   if (incomplete) {

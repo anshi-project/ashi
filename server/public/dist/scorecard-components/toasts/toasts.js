@@ -21,10 +21,35 @@ function selectOpponent(){
   toastr.error('Select the opposing team');
 }
 
+function setDateTime (){
+  toastr.error('Set game date and time before submitting scorecard');
+}
+
+function fillOutBlank() {
+  toastr.error('Fill out jersey number and name for all opponent players and goalies');
+}
+
+function opponentName (){
+  toastr.error('Fill out opponent team name');
+}
+
+function shotsAgainst (){
+  toastr.error("Shots Against stat can't be 0");
+}
+
+function tickBoxes (){
+  toastr.error('select all players and goalies who played');
+}
+
 export var toasts = {
   selectPlayers: selectPlayers,
   resetScorecard: resetScorecard,
   notStoredInDb: notStoredInDb,
   storedInDb: storedInDb,
-  selectOpponent: selectOpponent
+  selectOpponent: selectOpponent,
+  fillOutBlank: fillOutBlank,
+  setDateTime: setDateTime,
+  opponentName: opponentName,
+  shotsAgainst: shotsAgainst,
+  tickBoxes: tickBoxes,
 };
