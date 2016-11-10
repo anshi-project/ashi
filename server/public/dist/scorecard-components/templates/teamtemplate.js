@@ -1,4 +1,4 @@
-var teamTemplate = `<div class="row">
+export var teamTemplate = `<div class="row">
                 			<div class="col-sm-6">
                 				<table class="<%=location%>-team-stats">
                           <thead>
@@ -33,7 +33,3 @@ var teamTemplate = `<div class="row">
                 			</div>
                 			<div class="col-sm-6"></div>
                 		</div>`
-
-define('teamtemplate', function(){
-    return teamTemplate;
-})

@@ -1,4 +1,4 @@
-var playersTemplate = `<table class='<%=location%>-playersTable' id='ashi-team'>
+export var playersTemplate = `<table class='<%=location%>-playersTable' id='ashi-team'>
                       <thead>
                       <tr>
                         <th class='select-player'></th>
@@ -38,7 +38,3 @@ var playersTemplate = `<table class='<%=location%>-playersTable' id='ashi-team'>
                       <% }) %>
                       </tbody>
                 </table>`
-
-define('playerstemplate', function(){
-    return playersTemplate;
-})

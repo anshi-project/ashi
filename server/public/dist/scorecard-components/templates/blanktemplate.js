@@ -1,4 +1,4 @@
-var blankTemplate = `<table class='<%=location%>-playersTable blank-table'>
+export var blankTemplate = `<table class='<%=location%>-playersTable blank-table'>
                               <thead>
                               <tr>
                                 <th class='select-player'></th>
@@ -113,7 +113,3 @@ var blankTemplate = `<table class='<%=location%>-playersTable blank-table'>
                         			</div>
                         			<div class="col-sm-6"></div>
                         		</div>`
-
-define('blanktemplate', function(){
-    return blankTemplate;
-})

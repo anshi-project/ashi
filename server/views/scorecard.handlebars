@@ -1,3 +1,5 @@
+<div class='ashi-team-name'></div>
+<div class='home-game'></div>
 <img src='../public/images/ashi-logo.png' alt='ashi logo'>
 <div class='container-fluid'>
 	<h1 class='scorecard-title'>ASHI Score card</h1>
@@ -12,7 +14,7 @@
 					<select class="form-control" id="home-dropdown">
 						<option value="">Select Home team</option>
 						{{>scorecard/_teamDropdown}}
-						<option value="blank score card">blank scorecard</option>
+						<option value="blank scorecard">blank scorecard</option>
 					</select>
 				</div>
 				<h2 class='home-team-name'></h2>
@@ -24,7 +26,7 @@
 					<select class="form-control" id='road-dropdown'>
 						<option value="">Select Road team</option>
 						{{>scorecard/_teamDropdown}}
-						<option value="blank score card">blank scorecard</option>
+						<option value="blank scorecard">blank scorecard</option>
 					</select>
 				</div>
 				<h2 class='road-team-name'></h2>
@@ -60,7 +62,7 @@
                     <h4 class="modal-title" id="myModalLabel">Notes</h4>
                     </div>
                     <div class="modal-body">
-                        <textarea class="form-control col-xs-12"></textarea>
+                        <textarea rows='20' class="form-control col-xs-12"></textarea>
                     </div>
                     <div class="modal-footer">
                     <button type="button" class="btn btn-primary save-notes " data-dismiss="modal">Save</button>

@@ -1,5 +1,5 @@
 body{
-    background:#f0ffff;
+    background:#fff;
     font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 
@@ -151,12 +151,12 @@ p {
 }
 
 .notes {
-  margin-left: 0.7em;
+  margin: 0em 1em 0em 0.7em;
 }
 
-.notes,
+
 .submit-scorecard {
-    margin-right: 1em;
+    margin: 0em 1em 0em 0em;
 }
 
 .reset-scorecard {
@@ -223,14 +223,6 @@ p {
 .date {
     margin-bottom: 2em;
     text-align: center;
-}
-
-.hometeam,
-.roadteam,
-.home,
-.road {
-    margin-left: 1em;
-    margin-bottom: 3em;
 }
 
 .player-number,
@@ -384,4 +376,10 @@ h2.saved-games-header {
 
 .flatpickr-calendar.open {
     border: 1px solid #555;
+}
+
+
+.ashi-team-name,
+.home-game {
+  display: none;
 }
