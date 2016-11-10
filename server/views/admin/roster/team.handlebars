@@ -3,7 +3,6 @@
 <h1>Team Roster:
   <span class="team-roster-display"></span>
 </h1>
-<span class="clearfix"></span>
 	<div class="form-horizontal">
 		<label for="team-name">Select Team:</label>
 		<select class="team-name">
@@ -11,10 +10,24 @@
 			<option value="{{this.name}}">{{this.name}}</option>
 			{{/each}}
 		</select>
+		<a class="btn btn-success" href="/admin/roster/download?division={{division}}">
+		Download player list as CSV
+		</a>
 	</div>
 </div>	
+	{{#each teams.managers}}
+		<p>{{this.fullname}}</p>
+	{{/each}}
 	{{#each teams}}
 		<div class="team-table" data-teamname="{{this.name}}">
+		<span class="roster-gm-display">
+			<h4>Managers:</h4>
+			{{#each managers}}
+			<h5>
+				<a href="/admin/records/manager?id={{this._id}}">{{this.fullname}}</a>
+			</h5>
+			{{/each}}
+		</span>
 		{{> admin/player_roster}}
 		{{> admin/coach_roster}}
 		</div>

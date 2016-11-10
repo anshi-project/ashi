@@ -1,28 +1,44 @@
 var Team=require("../../models/team/team");
-var Player=require("../../models/players/main");
+var writeFile=require("../../config/export/manager_roster/output");
+var Player=require("../../models/players/main")
+var _=require("lodash");
 
 module.exports=function(app){
 	
   app.get("/admin/roster",function(req,res){
-  
-      Team.find({},"key name players goalies coaches")
-          .sort({"name":-1})
-          .populate({path:"coaches players goalies", match:{status:"Active"}})
-          .exec(function(e,d){
-             res.render("admin/roster/team",{teams:d,layout:"spreadsheet"});
-      })    
+    var division = req.query.division || {} ;
+    var select= "firstname contact paid background.hometown public_data lastname team";  
+    
+    Team.find({division},"key name players goalies coaches managers")
+      .sort({"name":-1})
+      .populate({path:"players coaches goalies managers",match:{status:"Active"}, select})
+      .exec(function(e,d){    
+        if(e) throw e;           
+        res.render("admin/roster/team",{teams:d,layout:"spreadsheet",division,admin:req.user});
+      })
 	})
 
-  app.get("/admin/db/:dbRoute/:type/:ID",function(req,res){
-    var dbRoute=req.params.dbRoute;
-    var type=req.params.type;
-    var Member=require("../../models/players/_goalie");
+  app.get("/admin/roster/download",function(req,res,next){
 
-    Member.find({},function(err,doc){
-      if(err)throw err;
-      res.send(doc);
-    })
+    var division = req.query.division || "";
+    var query = division.length? {"team.division":division} : {};
+
+    Player.find(query)
+      .sort({lastname:1})
+      .exec(function(err,docs){
+        if(err) throw err;
+
+        if(!docs.length){
+          return next();
+        }
+        writeFile(docs,function(err,file){
+          if(err) throw err;
+          res.download(file, division+".xlsx", err=>{if(err) throw err;});
+        })
+      })
   })
-
 }
+
+
+
 

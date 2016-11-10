@@ -8,7 +8,7 @@ module.exports=function(app){
 		{successRedirect:'/admin/index',failureRedirect: '/login/admin'}));
     
     app.get("/admin/index",function(req,res){
-    	res.render("admin/menu",{admin:req.user});
+    	res.render("admin/menu",{admin:req.user,layout:"spreadsheet"});
     })                                                	
 	app.get("/logout",function(req,res){
   		req.logOut();

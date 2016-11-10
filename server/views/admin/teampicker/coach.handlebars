@@ -1,10 +1,11 @@
 {{> modal/teampicker_coach}}
 
 <div class="container">
-    <div class="page-header">
-        {{#if coach}}
-        <h4>The following coaches have not yet been assigned a role or team.</h4>
-        <h6>If you wish to review any of their applications, click here to export an excel spreadsheet.</h6>
+    <div class="page-header" style="color:white">
+        {{#if player}}
+        <h4>The following Coached have not been assigned to a team.</h4>
+        <h6>If you wish to review any of their applications,
+        <a href="/admin/applications/coach"> CLICK HERE</a> to export an excel spreadsheet.</h6>
         {{else}}
         <h4>There are not any pending coach registrations at this time.</h4>
         {{/if}}

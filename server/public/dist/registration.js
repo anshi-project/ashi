@@ -1,8 +1,8 @@
 function today(){
-  var d = new Date(),
-     dd = d.getDate(),
-     mm = d.getMonth()+1,
-   yyyy = d.getFullYear();
+  var d = new Date();
+  var dd = d.getDate();
+  var mm = d.getMonth()+1;
+  var yyyy = d.getFullYear();
 
   [dd,mm].forEach(v=> {if(v<10) return "0"+v});
     
@@ -23,7 +23,9 @@ function toggleFormField(element,condition){
     }
 }
 
-
+$(window).on("load",function(){
+  $(".loader").fadeOut(1000);
+})
 
 
 
@@ -107,15 +109,6 @@ $(".reg-submit-manager").on("click",function(evt){
     }
 })
 
-
-
-$("input[name='preferred_coaching_positions']").on("change",function(){
-    if($(this).val()=="Other"){
-        var newPosition=prompt("Please specify the name of the position you are seeking.");
-        $(this).val("__other: "+newPosition);
-        $(".other-opt").text(newPosition);
-    }
-})
 
 })
 

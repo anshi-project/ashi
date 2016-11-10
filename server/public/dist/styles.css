@@ -7,6 +7,21 @@ img {
     margin: 0.5em 0em 0em 0.5em;
 }
 
+@keyframes spin {
+    from { transform: scale(1) rotate(0deg);}
+    to { transform: scale(1) rotate(360deg);}
+}
+
+
+.glyphicon-cog{
+  font-size:130px;
+  text-align: center;
+  animation: spin .9s infinite linear;
+  margin-top:100px;
+
+}
+
+
 input.parsley-success,
 select.parsley-success,
 textarea.parsley-success {
@@ -48,7 +63,7 @@ textarea.parsley-error {
   display:block;
 }
 
-.login-form, #registration-form{
+.login-form, #registration-form, .loader{
   border-radius: 30px;
   border:1px solid #f16f6f;
   box-shadow:inset -2px -3px 4px 2px rgba(182,103,103,0.4),
@@ -60,12 +75,24 @@ textarea.parsley-error {
   width:50%;
 }
 
+.loader{
+  border:none;
+  margin-top:0;
+  width:100%;
+  height:100%;
+  background:#3446c3;
+  position: absolute;
+  z-index: 3;
+}
+
+
 #registration-form{
     color: #e4ff4e;
     background: #3446c3;
     width:60%;
     margin:30px auto 10px;
     padding:6px;
+    position: relative;
     text-transform: capitalize;
     text-align: left;
 }

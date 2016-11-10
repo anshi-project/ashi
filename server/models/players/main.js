@@ -6,8 +6,11 @@ var methods = require("./methods");
 var playerSchema=new Schema({
     firstname:String,
     lastname:String,
+    paid:{type:Boolean,default:false},
+    headshot:{type:Boolean,default:false},
     team:{
       name:String,
+      division:String,
       position:String,
       jersey_number:String,
       shooting_hand:String
@@ -17,9 +20,9 @@ var playerSchema=new Schema({
       gender:String,
       weight:String,
       height:String,
-      hometown:String
     },
     background:{
+      hometown:String,
       education:String,
       hockey_history:String,
       other_sports:String,
@@ -59,10 +62,15 @@ var playerSchema=new Schema({
     hockey_info:{
       website:String,
       leaugue_team: String,
-      tournament_team: String
+      tournament_team: String,
+      jersey_number:{
+        choice1:Number,
+        choice2:Number,
+        choice3:Number  
+      }
     },
-     status:{type:String,default:"Active"} //inactive, renewing membership, active
-})
+     status:{type:String,default:"Active"} //inactive, renewing membership, Active
+},{timestamps:true})
 
 playerSchema.virtual("public_data.age").get(function(){
     var now=Date.now();
@@ -77,8 +85,10 @@ playerSchema.virtual("team.pos_abrv").get(function(){
   if(pos[1]=="Defense") return "D";
 
   return pos.map(v=> v.charAt(0)).join("")
-
 })
+
+playerSchema.plugin(require("../plugins/setFullName"));
+
 
 playerSchema.statics.assignToTeam=methods.assign;
 //Create a new player object from the registration object. Assign to a team.

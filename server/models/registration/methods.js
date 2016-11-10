@@ -11,8 +11,10 @@ exports.assignPlayer=function(id,team,playerIsGoalie,callback){
     
     Registration.findById(id).lean().exec(function(err,doc){
         if(err)throw err;
+        var info=doc.hockey_info;
+        var num=info.jersey_number? info.jersey_number.choice1 : Math.floor(Math.random()*100)
         var player=_.omit(doc,["_id","__t","__v","createdAt","updatedAt","status"])
-            player.team=Object.assign({},team,{shooting_hand:doc.hockey_info.shooting_hand}); 
+            player.team=Object.assign({},team,{shooting_hand:info.shooting_hand,jersey_number:num}); 
             
             Player.create(player,(err)=>{if(err) throw "Error creating new player"} )
             .then((player)=>{Team.addToRoster({name:team.name},player._id, type)})
@@ -54,7 +56,6 @@ exports.findRegisteredPlayers=function(callback){
     this.find({__t:"player-registration"},"firstname __t fullname lastname hockey_info")
     .exec((err)=>{if(err) throw "Error finding player registrations";})
     .then(newPlayers=>{
-        
         Player.find({status:"renewing membership"},"__t fullname lastname team").lean()
         .exec(function(err,oldPlayers){
             if(err) throw "Error retrieving returning players";

@@ -14,7 +14,6 @@ exports.assign=function(id,team,callback){
 	  .catch((err)=>{if(err) return callback(err) })
 }
 
-
 exports.reassign=function(id,team){
      this.findById(id,function(err,doc){
           if(err) throw err;

@@ -1,0 +1,52 @@
+<nav id="menu" class="panel hidden" role="navigation">
+  <h2>{{admin.fullname}}</h2>
+    <ul class="list-group">
+    <li class="list-group-item">
+      <div class="dropdown">
+      <a class="dropdown-toggle" type="button" href="#dropdown1" data-toggle="dropdown"><h4>Set Up Teams</h4></a>
+        <ul class="dropdown-menu dropdown-menu-right" id="#dropdown1" aria-labelledby="dropdown1">
+          <li><a href="/admin/assign/player">Players</a></li>
+          <li><a href="/admin/assign/coach">Coaches</a></li>
+        </ul>      
+      </div>
+    </li>
+    <li class="list-group-item">
+      <div class="dropdown">
+      <a class="dropdown-toggle" type="button" href="#dropdown2" data-toggle="dropdown"><h4>Staff Info</h4></a>
+        <ul class="dropdown-menu dropdown-menu-right" id="#dropdown2" aria-labelledby="dropdown2">
+          <li><a href="/admin/permissions/coach">Coaches</a></li>
+          <li><a href="/admin/permissions/manager">Managers</a></li>
+          <li><a href="/admin/permissions/admin">Admins</li>
+        </ul>      
+      </div>
+    </li>
+    <li class="list-group-item">
+      <div class="dropdown">
+      <a class="dropdown-toggle" type="button" href="#dropdown3" data-toggle="dropdown"><h4>Rosters</h4></a>
+        <ul class="dropdown-menu dropdown-menu-right" id="#dropdown3" aria-labelledby="dropdown3">
+          <li><a href="/admin/roster?division=Junior's">Juniors</a></li>
+          <li><a href="/admin/roster?division=Men's">Men's</a></li>
+          <li><a href="/admin/roster?division=Women's">Women's</li>
+          <li><a href="/admin/roster?division=Men's Master's">Men's Master's</a></li>
+          <li><a href="/admin/roster?division=Women's Master's">Women's Master's</li>
+        </ul>      
+      </div>
+    </li>
+    <li class="list-group-item"><a href="/logout"><h4>Log Out</h4></a></li>
+    </ul>
+</nav>
+<a href="#menu" class="menu-link push"><span class="glyphicon glyphicon-chevron-right"></span></a>
+
+<style>
+#menu{
+  z-index: 1;
+  box-shadow: 5px 4px 3px rgba(0,0,0,0.7);
+}
+
+.menu-link span{
+font-size:50px;
+top:250px; 
+}
+
+
+</style>

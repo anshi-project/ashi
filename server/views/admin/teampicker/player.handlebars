@@ -1,10 +1,11 @@
 {{> modal/teampicker_player}}
 
 <div class="container">
-    <div class="page-header">
+    <div class="page-header" style="color:white">
         {{#if player}}
         <h4>The following Players have not been assigned to a team.</h4>
-        <h6>If you wish to review any of their applications, click here to export an excel spreadsheet.</h6>
+        <h6>If you wish to review any of their applications,
+        <a href="/admin/applications/player"> CLICK HERE</a> to export an excel spreadsheet.</h6>
         {{else}}
         <h4>There are not any pending player registrations at this time.</h4>
         {{/if}}

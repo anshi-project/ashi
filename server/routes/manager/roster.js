@@ -1,4 +1,5 @@
 var Team=require("../../models/team/team");
+var Players=require("../../models/players/main");
 var writeFile=require("../../config/export/manager_roster/output");
 var fs=require("fs");
 
@@ -15,20 +16,28 @@ module.exports=function(app){
 				 res.render("manager/roster",{teams:d,layout:"spreadsheet"});
 			})			
 	})
+
+	app.get("/send",function(req,res){
+		require("../../config/email/nodemailer")(req,res);
+	});
+
+	
+
+
 	app.get("/gm/roster/export",function(req,res){
-		var teamData;
-		if(req.query.q){
-			teamData=req.user.teams.filter(v=>{return v.key==req.query.q});
-		}else{
-			teamData=req.user.teams;
-		}
-		writeFile(teamData,function(err,file){
-			if(err) throw err;
-			res.download(file,"team-data.xlsx",function(err){
-				if(err) throw err;
-			});
-		})
-		
+		var division=req.user.division;
+
+		Players.find({"team.division":division})
+			.sort({lastname:1})
+			.lean()
+			.exec(function(err,players){
+				writeFile(players,function(err,file){
+					if(err) throw err;
+					res.download(file,division+".xlsx",function(err){
+						if(err) throw err;
+					});
+				})	
+			})	
 	})
 }
 

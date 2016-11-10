@@ -57,4 +57,17 @@ thead{
 	color:white;
 	font-weight: bold;
 }
-
+.dropdown-menu-right{
+	top:-15px;
+	left:14.3em;
+}
+.roster-gm-display{
+	display:flex;
+	align-items: center;
+	color:#fff;
+}
+.roster-gm-display a{
+	color:white;
+	margin-left:6px;
+	font-size:1.4em;
+}

@@ -1,10 +1,12 @@
 var Registration=require("../../models/registration/main");
+var Player=require("../../models/players/main");
 
 module.exports=function(app){
     
     app.get("/admin/assign/player",function(req,res){
+
         Registration.findRegisteredPlayers(function(player){ 
-            res.render("admin/teampicker/player",{player,layout:"spreadsheet"});
+            res.render("admin/teampicker/player",{player,admin:req.user,layout:"spreadsheet"});
         })
     })
 
@@ -12,14 +14,13 @@ module.exports=function(app){
         var Coaches=require("../../models/registration/_coachReg");
         Coaches.find({},function(err,coach){
             if(err)throw err;
-            res.render("admin/teampicker/coach",{coach,layout:"spreadsheet"})
+            res.render("admin/teampicker/coach",{coach,admin:req.user,layout:"spreadsheet"})
         })
     })
 
     app.put("/admin/assign/player",function(req,res){
         var id=req.query.id;
-        var Player=require("../../models/players/main");
-
+        
         Player.assignToTeam(id,req.body,function(err,doc){
             if(err) throw err;
             res.send(doc);
