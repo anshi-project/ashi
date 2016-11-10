@@ -113,6 +113,12 @@ function tickBoxes (){
   toastr.error('select all players and goalies who played');
 }
 
+function privateBrowserMode (){
+  toastr.warning(`If your browser is in 'private browser mode'
+                  and/or doesn\'t store browsing history you can\'t
+                  save games to your local drive`);
+}
+
 var toasts = {
   selectPlayers: selectPlayers,
   resetScorecard: resetScorecard,
@@ -123,7 +129,8 @@ var toasts = {
   setDateTime: setDateTime,
   opponentName: opponentName,
   shotsAgainst: shotsAgainst,
-  tickBoxes: tickBoxes,  
+  tickBoxes: tickBoxes,
+  privateBrowserMode: privateBrowserMode,
 };
 
 
@@ -923,13 +930,18 @@ function collectGameStats() {
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__displaysavedgames__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__toasts_toasts__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__displaysavedgames__ = __webpack_require__(1);
 /* harmony export (immutable) */ exports["a"] = getLocalSavedGames;
 
 
+
 function getLocalSavedGames(err, savedGames){
+  if (err){
+    __WEBPACK_IMPORTED_MODULE_0__toasts_toasts__["a" /* toasts */].privateBrowserMode();
+  }
   if (savedGames !== null){
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__displaysavedgames__["a" /* displaySavedGames */])(savedGames);
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__displaysavedgames__["a" /* displaySavedGames */])(savedGames);
   }
 }
 

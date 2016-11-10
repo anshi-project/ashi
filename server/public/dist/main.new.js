@@ -13,8 +13,8 @@ import {saveToLocalDisk} from './scorecard-components/callbacks/savetolocaldisk'
 import {getLocalSavedGames} from './scorecard-components/callbacks/getlocalsavedgames';
 import {toastrSetOptions} from './scorecard-components/toasts/toastrsetoptions';
 import {getPlayers} from './scorecard-components/callbacks/getplayers';
-import {resetScorecard} from './scorecard-components/callbacks/resetScorecard';
-import {submitScorecard} from './scorecard-components/callbacks/submitScorecard';
+import {resetScorecard} from './scorecard-components/callbacks/resetscorecard';
+import {submitScorecard} from './scorecard-components/callbacks/submitscorecard';
 import {saveNotes} from './scorecard-components/callbacks/savenotes';
 import {lockUnlockCard} from './scorecard-components/callbacks/lockunlockcard';
 import {teamSelect} from './scorecard-components/callbacks/teamselect';

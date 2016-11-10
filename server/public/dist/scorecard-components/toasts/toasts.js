@@ -41,6 +41,12 @@ function tickBoxes (){
   toastr.error('select all players and goalies who played');
 }
 
+function privateBrowserMode (){
+  toastr.warning(`If your browser is in 'private browser mode'
+                  and/or doesn\'t store browsing history you can\'t
+                  save games to your local drive`);
+}
+
 export var toasts = {
   selectPlayers: selectPlayers,
   resetScorecard: resetScorecard,
@@ -52,4 +58,5 @@ export var toasts = {
   opponentName: opponentName,
   shotsAgainst: shotsAgainst,
   tickBoxes: tickBoxes,
+  privateBrowserMode: privateBrowserMode,
 };
