@@ -216,7 +216,7 @@ th.name {
     text-align: left;
 }
 
-tr:nth-child(even) {background-color: #e6ecff}
+/*tr:nth-child(even) {background-color: #e6ecff}*/
 
 
 .name {
@@ -259,12 +259,24 @@ p {
 
 .minus,
 .plus {
-  background-color: #ccd9ff;
+  /*background-color: #e6ecff;*/
+  /*background-color #e6e6e6;*/
+  /*background-color: #ccd9ff;*/
+  /*background-color: #337ab7;*/
   padding-left: 0.3em;
   padding-right: 0.3em;
   margin-left: 0.1em;
   margin-right: 0.1em;
   cursor: pointer;
+  border-radius: 10%;
+}
+
+.minus.active,
+.plus.active {
+  background-color: #275d8b;
+  /*background-color: #404040;*/
+  color: white;
+
 }
 
 .date-input {
@@ -409,4 +421,28 @@ h2.saved-games-header {
 .ashi-team-name,
 .home-game {
   display: none;
+}
+
+.btn-primary {
+  background-color: #275d8b;
+}
+
+.btn-danger {
+  background-color: #d1332e;
+}
+
+.toast-warning {
+  background-color: #955904;
+}
+
+.toast-success {
+  background-color: #367d36;
+}
+
+.toast-error {
+  background-color: #d1332e;
+}
+
+.btn-success {
+  background-color: #367d36;
 }

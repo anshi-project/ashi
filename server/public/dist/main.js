@@ -188,9 +188,7 @@ function displaySavedGames (savedGames){
 /* harmony export (immutable) */ exports["a"] = checkbox;
 function checkbox(){
   $(this).parents('tr').toggleClass('playing').toggleClass('not-playing');
-  $(this).parent('td').siblings('td')
-                      .children('.minus, .plus')
-                      .toggleClass('active');
+  $(this).parent('td').siblings('td').children('.minus, .plus').toggleClass('active');
 }
 
 
@@ -857,10 +855,10 @@ function collectGameStats() {
         opponentResult = 'win'
     }
 
-    if (ag[4] === 0 || og[4] === 0) {
-        __WEBPACK_IMPORTED_MODULE_3__toasts_toasts__["a" /* toasts */].shotsAgainst();
-        return 'error';
-    }
+    // if (ag[4] === 0 || og[4] === 0) {
+    //     toasts.shotsAgainst();
+    //     return 'error';
+    // }
 
     if (ag[3] === 0 || og[3] === 0) {
       __WEBPACK_IMPORTED_MODULE_3__toasts_toasts__["a" /* toasts */].goalieMinutes();

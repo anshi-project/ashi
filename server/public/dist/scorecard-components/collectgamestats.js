@@ -80,10 +80,10 @@ export function collectGameStats() {
         opponentResult = 'win'
     }
 
-    if (ag[4] === 0 || og[4] === 0) {
-        toasts.shotsAgainst();
-        return 'error';
-    }
+    // if (ag[4] === 0 || og[4] === 0) {
+    //     toasts.shotsAgainst();
+    //     return 'error';
+    // }
 
     if (ag[3] === 0 || og[3] === 0) {
       toasts.goalieMinutes();
