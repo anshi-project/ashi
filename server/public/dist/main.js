@@ -61,7 +61,7 @@
 /******/ 	__webpack_require__.p = "";
 
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 32);
+/******/ 	return __webpack_require__(__webpack_require__.s = 31);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -69,7 +69,10 @@
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__deletesavedgame_js__ = __webpack_require__(5);
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return toasts; });
+
+
 function selectPlayers(){
   toastr.info(`Only select players and goalies who are playing by ticking the
     box next to their jersey number.`,
@@ -115,8 +118,20 @@ function tickBoxes (){
 
 function privateBrowserMode (){
   toastr.warning(`If your browser is in 'private browser mode'
-                  and/or doesn\'t store browsing history you can\'t
+                  and/or doesn't store browsing history you can't
                   save games to your local drive`);
+}
+
+function confirmDeleteGame(savedGameArr){
+  toastr.warning("Delete game on local drive?<br /><br /><button type='button' class='confirm-delete-game btn btn-danger'>Yes</button>")
+  $('.confirm-delete-game')
+    .on('click', function() {
+      __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__deletesavedgame_js__["a" /* deleteSavedGame */])(savedGameArr);
+    });
+}
+
+function goalieMinutes(){
+  toastr.warning('the number of minutes a goalie has played should be greater than 0');
 }
 
 var toasts = {
@@ -131,6 +146,8 @@ var toasts = {
   shotsAgainst: shotsAgainst,
   tickBoxes: tickBoxes,
   privateBrowserMode: privateBrowserMode,
+  confirmDeleteGame: confirmDeleteGame,
+  goalieMinutes: goalieMinutes,
 };
 
 
@@ -171,7 +188,9 @@ function displaySavedGames (savedGames){
 /* harmony export (immutable) */ exports["a"] = checkbox;
 function checkbox(){
   $(this).parents('tr').toggleClass('playing').toggleClass('not-playing');
-  $(this).parent('td').siblings('td').children('.minus, .plus').toggleClass('active');
+  $(this).parent('td').siblings('td')
+                      .children('.minus, .plus')
+                      .toggleClass('active');
 }
 
 
@@ -843,6 +862,11 @@ function collectGameStats() {
         return 'error';
     }
 
+    if (ag[3] === 0 || og[3] === 0) {
+      __WEBPACK_IMPORTED_MODULE_3__toasts_toasts__["a" /* toasts */].goalieMinutes();
+      return 'error';
+    }
+
     var pkPercAshi = ot[9] > 0 ? (ot[9] - ot[8]) / ot[9] : -999; // -999 means that there where no power play opportunities against.
     var pkPercOpp = at[9] > 0 ? (at[9] - at[8]) / at[9] : -999;
     var ppPercAshi = at[9] > 0 ? (at[8] / at[9]) : -999;
@@ -854,9 +878,10 @@ function collectGameStats() {
         P2_goals: at[2],
         P3_goals: at[3],
         OT: at[4],
-        OT2: ot[5],
-        OT3: ot[6],
+        OT2: at[5],
+        OT3: at[6],
         GF: at[7],
+        GA: ot[7],
         PPG: at[8],
         PPO: at[9],
         PKP: pkPercAshi,
@@ -939,6 +964,7 @@ function collectGameStats() {
 function getLocalSavedGames(err, savedGames){
   if (err){
     __WEBPACK_IMPORTED_MODULE_0__toasts_toasts__["a" /* toasts */].privateBrowserMode();
+    return;
   }
   if (savedGames !== null){
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__displaysavedgames__["a" /* displaySavedGames */])(savedGames);
@@ -1105,14 +1131,14 @@ function toastrSetOptions () {
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__toasts_deletegame__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__toasts_toasts__ = __webpack_require__(0);
 /* harmony export (immutable) */ exports["a"] = deleteGame;
 
 
-function deleteGame (){
+function deleteGame() {
   $('.confirm-delete-game').off();
   var savedGameArr = ($(this).siblings('.game-details')).text().split(',');
-  __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__toasts_deletegame__["a" /* toastDeleteGame */])(savedGameArr);
+  __WEBPACK_IMPORTED_MODULE_0__toasts_toasts__["a" /* toasts */].confirmDeleteGame(savedGameArr);
 }
 
 
@@ -1126,7 +1152,9 @@ function deleteGame (){
 
 
 function sendToServer (){
-    var savedGameArr = ($(this).next().text()).split(',');
+  console.log('effe')
+    var savedGameArr = ($(this).siblings('span').text()).split(',');
+    console.log(savedGameArr)
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__sendsavedgame__["a" /* sendSavedGame */])(savedGameArr);
 }
 
@@ -1353,22 +1381,6 @@ function sendSavedGame(arr){
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__deletesavedgame_js__ = __webpack_require__(5);
-/* harmony export (immutable) */ exports["a"] = toastDeleteGame;
-
-function toastDeleteGame (savedGameArr){
-  toastr.warning("Delete game on local drive?<br /><br /><button type='button' class='confirm-delete-game btn btn-danger'>Yes</button>")
-  $('.confirm-delete-game').on('click', function(){
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__deletesavedgame_js__["a" /* deleteSavedGame */])(savedGameArr);
-  });
-}
-
-
-/***/ },
-/* 32 */
-/***/ function(module, exports, __webpack_require__) {
-
-"use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__scorecard_components_templates_blanktemplate__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__scorecard_components_templates_goaliestemplate__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__scorecard_components_templates_playerstemplate__ = __webpack_require__(12);
@@ -1384,8 +1396,8 @@ function toastDeleteGame (savedGameArr){
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__scorecard_components_callbacks_getlocalsavedgames__ = __webpack_require__(16);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__scorecard_components_toasts_toastrsetoptions__ = __webpack_require__(23);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__scorecard_components_callbacks_getplayers__ = __webpack_require__(17);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__scorecard_components_callbacks_resetScorecard__ = __webpack_require__(19);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__scorecard_components_callbacks_submitScorecard__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__scorecard_components_callbacks_resetscorecard__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__scorecard_components_callbacks_submitscorecard__ = __webpack_require__(22);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__scorecard_components_callbacks_savenotes__ = __webpack_require__(20);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__scorecard_components_callbacks_lockunlockcard__ = __webpack_require__(18);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__scorecard_components_callbacks_teamselect__ = __webpack_require__(7);
@@ -1420,13 +1432,13 @@ $("#road-dropdown, #home-dropdown").on("change", __WEBPACK_IMPORTED_MODULE_19__s
 
 $('.save-notes').on('click', __WEBPACK_IMPORTED_MODULE_17__scorecard_components_callbacks_savenotes__["a" /* saveNotes */]);
 
-$(".submit-scorecard").on('click', __WEBPACK_IMPORTED_MODULE_16__scorecard_components_callbacks_submitScorecard__["a" /* submitScorecard */]);
+$(".submit-scorecard").on('click', __WEBPACK_IMPORTED_MODULE_16__scorecard_components_callbacks_submitscorecard__["a" /* submitScorecard */]);
 
 $('.save-to-local-disk').on('click', __WEBPACK_IMPORTED_MODULE_11__scorecard_components_callbacks_savetolocaldisk__["a" /* saveToLocalDisk */]);
 
 $(".lock-unlock-scorecard").on('click', __WEBPACK_IMPORTED_MODULE_18__scorecard_components_callbacks_lockunlockcard__["a" /* lockUnlockCard */]);
 
-$('.reset-scorecard').on('click', __WEBPACK_IMPORTED_MODULE_15__scorecard_components_callbacks_resetScorecard__["a" /* resetScorecard */]);
+$('.reset-scorecard').on('click', __WEBPACK_IMPORTED_MODULE_15__scorecard_components_callbacks_resetscorecard__["a" /* resetScorecard */]);
 
 $('.edit-scorecard').on('click', __WEBPACK_IMPORTED_MODULE_21__scorecard_components_callbacks_editscorecard__["a" /* editScorecard */]);
 

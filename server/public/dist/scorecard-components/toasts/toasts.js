@@ -1,3 +1,5 @@
+import {deleteSavedGame} from '../deletesavedgame.js';
+
 function selectPlayers(){
   toastr.info(`Only select players and goalies who are playing by ticking the
     box next to their jersey number.`,
@@ -43,8 +45,20 @@ function tickBoxes (){
 
 function privateBrowserMode (){
   toastr.warning(`If your browser is in 'private browser mode'
-                  and/or doesn\'t store browsing history you can\'t
+                  and/or doesn't store browsing history you can't
                   save games to your local drive`);
+}
+
+function confirmDeleteGame(savedGameArr){
+  toastr.warning("Delete game on local drive?<br /><br /><button type='button' class='confirm-delete-game btn btn-danger'>Yes</button>")
+  $('.confirm-delete-game')
+    .on('click', function() {
+      deleteSavedGame(savedGameArr);
+    });
+}
+
+function goalieMinutes(){
+  toastr.warning('the number of minutes a goalie has played should be greater than 0');
 }
 
 export var toasts = {
@@ -59,4 +73,6 @@ export var toasts = {
   shotsAgainst: shotsAgainst,
   tickBoxes: tickBoxes,
   privateBrowserMode: privateBrowserMode,
+  confirmDeleteGame: confirmDeleteGame,
+  goalieMinutes: goalieMinutes,
 };

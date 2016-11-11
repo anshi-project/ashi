@@ -1,7 +1,7 @@
-import { toastDeleteGame } from '../toasts/deletegame';
+import {toasts} from '../toasts/toasts';
 
 export function deleteGame() {
   $('.confirm-delete-game').off();
   var savedGameArr = ($(this).siblings('.game-details')).text().split(',');
-  toastDeleteGame(savedGameArr);
+  toasts.confirmDeleteGame(savedGameArr);
 }

@@ -1,6 +1,8 @@
 import {sendSavedGame} from '../sendsavedgame';
 
 export function sendToServer (){
-    var savedGameArr = ($(this).next().text()).split(',');
+  console.log('effe')
+    var savedGameArr = ($(this).siblings('span').text()).split(',');
+    console.log(savedGameArr)
     sendSavedGame(savedGameArr);
 }

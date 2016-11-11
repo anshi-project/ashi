@@ -85,6 +85,11 @@ export function collectGameStats() {
         return 'error';
     }
 
+    if (ag[3] === 0 || og[3] === 0) {
+      toasts.goalieMinutes();
+      return 'error';
+    }
+
     var pkPercAshi = ot[9] > 0 ? (ot[9] - ot[8]) / ot[9] : -999; // -999 means that there where no power play opportunities against.
     var pkPercOpp = at[9] > 0 ? (at[9] - at[8]) / at[9] : -999;
     var ppPercAshi = at[9] > 0 ? (at[8] / at[9]) : -999;
@@ -96,9 +101,10 @@ export function collectGameStats() {
         P2_goals: at[2],
         P3_goals: at[3],
         OT: at[4],
-        OT2: ot[5],
-        OT3: ot[6],
+        OT2: at[5],
+        OT3: at[6],
         GF: at[7],
+        GA: ot[7],
         PPG: at[8],
         PPO: at[9],
         PKP: pkPercAshi,
