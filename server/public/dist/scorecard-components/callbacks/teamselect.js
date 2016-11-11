@@ -15,8 +15,8 @@ export function teamSelect (loc, teamName, edit, stats, blank){
   var opponentLoc;
 
   if (edit){
-    $('textarea').text();
-    $('textarea').text(stats.gameNotes);
+    $('textarea').val('');
+    $('textarea').val(stats.gameNotes);
     prevHomeDropDownVal = $('#home-dropdown').val();
     prevRoadDropDownVal = $('#road-dropdown').val();
     dropDownVal = blank? 'blank scorecard': teamName;

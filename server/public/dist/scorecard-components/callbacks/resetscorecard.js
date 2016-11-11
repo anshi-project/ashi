@@ -9,5 +9,6 @@ export function resetScorecard(){
     $('#home-dropdown').val('').attr('placeholder', 'Select Home team');
     $('#road-dropdown').val('').attr('placeholder', 'Select Road team');
     $('.home-team-name, .road-team-name, .home-name-input, .road-name-input, .home, .road').empty();
+    $('textarea').val('');
   });
 };

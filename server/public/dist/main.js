@@ -326,8 +326,8 @@ function teamSelect (loc, teamName, edit, stats, blank){
   var opponentLoc;
 
   if (edit){
-    $('textarea').text();
-    $('textarea').text(stats.gameNotes);
+    $('textarea').val('');
+    $('textarea').val(stats.gameNotes);
     prevHomeDropDownVal = $('#home-dropdown').val();
     prevRoadDropDownVal = $('#road-dropdown').val();
     dropDownVal = blank? 'blank scorecard': teamName;
@@ -1021,6 +1021,7 @@ function resetScorecard(){
     $('#home-dropdown').val('').attr('placeholder', 'Select Home team');
     $('#road-dropdown').val('').attr('placeholder', 'Select Road team');
     $('.home-team-name, .road-team-name, .home-name-input, .road-name-input, .home, .road').empty();
+    $('textarea').val('');
   });
 };
 
