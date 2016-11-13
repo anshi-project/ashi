@@ -76,7 +76,7 @@
 function selectPlayers(){
   toastr.info(`Only select players and goalies who are playing by ticking the
     box next to their jersey number.`,
-    'Use the score card in "Safe mode" after you have configured it.');
+    'Use the score card in "Safe mode" (green button on right-hand side) after you have configured it.');
 }
 
 function resetScorecard(){
@@ -92,9 +92,9 @@ function storedInDb(){
   toastr.success('Game stored in database')
 }
 
-function selectOpponent(){
-  toastr.error('Select the opposing team');
-}
+// function selectOpponent(){
+//   toastr.error('Select the opposing team');
+// }
 
 function setDateTime (){
   toastr.error('Set game date and time before submitting scorecard');
@@ -139,7 +139,7 @@ var toasts = {
   resetScorecard: resetScorecard,
   notStoredInDb: notStoredInDb,
   storedInDb: storedInDb,
-  selectOpponent: selectOpponent,
+  // selectOpponent: selectOpponent,
   fillOutBlank: fillOutBlank,
   setDateTime: setDateTime,
   opponentName: opponentName,
@@ -267,32 +267,31 @@ function editScorecard (){
   var edit = true;
   var arr = ($(this).siblings('.game-details')).text().split(',');
   localforage.getItem('ashi-data-store', function(err, v){
-
-      for (var i = 0; i < v.length; i++){
-        if (v[i].team_name === arr[0] && v[i].opponent === arr[1]
-          && v[i].date === arr[2] && v[i].time === arr[3]){
-            var stats = v[i];
-            var homeGame = stats.home_game === 'true'? true: false;
-            var ashiLocation = homeGame? 'home': 'road';
-            var opponentLocation = homeGame? 'road': 'home';
-            $('#flatpickr').val(stats.date + ' ' + stats.time);
-            var selAshi = homeGame? '#home-dropdown': '#road-dropdown';
-            var selOpponent = homeGame? '#road-dropdown': '#home-dropdown';
-            $("select" + selAshi + " option")
-              .filter(function() {
-                return $(this).text() === stats.team_name;
-              })
-              .prop('selected', true);
-            $("select" + selOpponent + " option")
-              .filter(function() {
-                return $(this).text() === 'blank scorecard';
-              })
-              .prop('selected', true);
-            __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__teamselect__["a" /* teamSelect */])(opponentLocation, stats.opponent, edit, stats, true);
-            __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__teamselect__["a" /* teamSelect */])(ashiLocation, stats.team_name, edit, stats, false);
-            __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__deletesavedgame__["a" /* deleteSavedGame */])(arr);
-        }
+    for (var i = 0; i < v.length; i++){
+      if (v[i].team_name === arr[0] && v[i].opponent === arr[1]
+        && v[i].date === arr[2] && v[i].time === arr[3]){
+          var stats = v[i];
+          var homeGame = stats.home_game === 'true'? true: false;
+          var ashiLocation = homeGame? 'home': 'road';
+          var opponentLocation = homeGame? 'road': 'home';
+          $('#flatpickr').val(stats.date + ' ' + stats.time);
+          var selAshi = homeGame? '#home-dropdown': '#road-dropdown';
+          var selOpponent = homeGame? '#road-dropdown': '#home-dropdown';
+          $("select" + selAshi + " option")
+            .filter(function() {
+              return $(this).text() === stats.team_name;
+            })
+            .prop('selected', true);
+          $("select" + selOpponent + " option")
+            .filter(function() {
+              return $(this).text() === 'blank scorecard';
+            })
+            .prop('selected', true);
+          __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__teamselect__["a" /* teamSelect */])(opponentLocation, stats.opponent, edit, stats, true);
+          __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__teamselect__["a" /* teamSelect */])(ashiLocation, stats.team_name, edit, stats, false);
+          __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__deletesavedgame__["a" /* deleteSavedGame */])(arr);
       }
+    }
   });
 }
 
@@ -344,10 +343,10 @@ function teamSelect (loc, teamName, edit, stats, blank){
   } else {
       dropDownVal = this.value;
       if (dropDownVal === "") return;
-      if ($('#road-dropdown').val() === $('#home-dropdown').val()) {
-        __WEBPACK_IMPORTED_MODULE_3__toasts_toasts__["a" /* toasts */].selectOpponent();
-        return;
-      }
+      // if ($('#road-dropdown').val() === $('#home-dropdown').val()) {
+      //   toasts.selectOpponent();
+      //   return;
+      // }
       location = $(this).attr("id").replace("-dropdown","");
       if (location === 'home') {
        prevHomeDropDownVal = homeDropDownVal;
@@ -360,7 +359,7 @@ function teamSelect (loc, teamName, edit, stats, blank){
 
   if (dropDownVal === 'blank scorecard') {
    $('.' + location + '-team-name').text(location + ' team:')
-   $('.' + location + '-name-input').html('<input type="text" maxlength="30" class="team-name-input">');
+   $('.' + location + '-name-input').html('<input type="text" maxlength="30" class="team-name-input" placeholder="  Fill in team name">');
    $('.' + location + '-name-input').children().val(teamName);
    $('.' + location + '-team-name').css({'display':'inline-block', 'margin-left' : '4em'});
    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__displayblankteam__["a" /* displayBlankTeam */])(location);

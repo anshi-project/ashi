@@ -238,10 +238,6 @@ th.name {
   margin-top: 2em;
 }
 
-input {
-    color:black;
-}
-
 p {
     margin: 2em 0em -1em 1em;
     font-weight: bold;
@@ -300,7 +296,7 @@ p {
 }
 
 .team-stats-header {
-  width: 10.3em;
+  width: 10.8em;
   text-align: left;
   padding-left: 3.2em;
 }
@@ -330,7 +326,7 @@ p {
 
 .team-stats-header-blank
  {
-  width: 12.8em;
+  width: 13.3em;
 }
 
 
@@ -347,7 +343,7 @@ p {
 }
 
 .playing {
-    color: #000;
+    color: #333;
 }
 
 .blank-number-input {
@@ -364,29 +360,18 @@ p {
     width: 17em;
     line-height: 1.5em;
     box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
-    border: 1px solid #ccc;
+    border: 1px solid #333;
     border-radius: 4px;
     padding: 6px 12px;
-    color: #555;
+    color: #333;
 }
 
-::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-  color: #555;
-}
-::-moz-placeholder { /* Firefox 19+ */
-  color: #555;
-}
-:-ms-input-placeholder { /* IE 10+ */
-  color: #555;
-}
-:-moz-placeholder { /* Firefox 18- */
-  color: #555;
-}
+
 
 td.player-number,
 td.goalie-number,
 td.name {
-    color: #000;
+    color: #333;
 }
 
 .saved-game {
@@ -428,7 +413,7 @@ h2.saved-games-header {
 }
 
 .btn-danger {
-  background-color: #d1332e;
+  background-color: #bc2e29;
 }
 
 .toast-warning {
@@ -440,9 +425,76 @@ h2.saved-games-header {
 }
 
 .toast-error {
-  background-color: #d1332e;
+  background-color: ##bc2e29;
 }
 
 .btn-success {
   background-color: #367d36;
+}
+
+input {
+  color: #333;
+  border: solid #333 1px;
+}
+
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: #333;
+}
+::-moz-placeholder { /* Firefox 19+ */
+  color: #333;
+}
+:-ms-input-placeholder { /* IE 10+ */
+  color: #333;
+}
+:-moz-placeholder { /* Firefox 18- */
+  color: #333;
+}
+
+
+.team-name-input::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  font-style: italic;
+  color: #333;
+}
+.team-name-input::-moz-placeholder { /* Firefox 19+ */
+  font-style: italic;
+  color: #333;
+}
+.team-name-input:-ms-input-placeholder { /* IE 10+ */
+  font-style: italic;
+  color: #333;
+}
+.team-name-input:-moz-placeholder { /* Firefox 18- */
+  font-style: italic;
+  color: #333;
+}
+
+.form-control {
+  color: #333;
+  border: solid #333 1px;
+}
+
+input[type="checkbox"] {
+    height: 15px;
+    width: 15px;
+    vertical-align: middle;
+    margin: 0.3em 0.4em 0.4em 0;
+    border: 1px solid #333;
+
+    -webkit-appearance: none;
+    -webkit-transition: box-shadow 200ms;
+    -webkit-border-radius:2px;
+    border-radius:2px;
+}
+
+input[type="checkbox"]:checked:before {
+  content: '';
+  display: block;
+  width: 4px;
+  height: 8px;
+  border: solid #666;
+  border-width: 0 2px 2px 0;
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+  margin-left: 4px;
+  margin-top: 1px;
 }

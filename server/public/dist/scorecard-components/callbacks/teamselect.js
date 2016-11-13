@@ -35,10 +35,10 @@ export function teamSelect (loc, teamName, edit, stats, blank){
   } else {
       dropDownVal = this.value;
       if (dropDownVal === "") return;
-      if ($('#road-dropdown').val() === $('#home-dropdown').val()) {
-        toasts.selectOpponent();
-        return;
-      }
+      // if ($('#road-dropdown').val() === $('#home-dropdown').val()) {
+      //   toasts.selectOpponent();
+      //   return;
+      // }
       location = $(this).attr("id").replace("-dropdown","");
       if (location === 'home') {
        prevHomeDropDownVal = homeDropDownVal;
@@ -51,7 +51,7 @@ export function teamSelect (loc, teamName, edit, stats, blank){
 
   if (dropDownVal === 'blank scorecard') {
    $('.' + location + '-team-name').text(location + ' team:')
-   $('.' + location + '-name-input').html('<input type="text" maxlength="30" class="team-name-input">');
+   $('.' + location + '-name-input').html('<input type="text" maxlength="30" class="team-name-input" placeholder="  Fill in team name">');
    $('.' + location + '-name-input').children().val(teamName);
    $('.' + location + '-team-name').css({'display':'inline-block', 'margin-left' : '4em'});
    displayBlankTeam(location);

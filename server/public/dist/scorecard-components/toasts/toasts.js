@@ -3,7 +3,7 @@ import {deleteSavedGame} from '../deletesavedgame.js';
 function selectPlayers(){
   toastr.info(`Only select players and goalies who are playing by ticking the
     box next to their jersey number.`,
-    'Use the score card in "Safe mode" after you have configured it.');
+    'Use the score card in "Safe mode" (green button on right-hand side) after you have configured it.');
 }
 
 function resetScorecard(){
@@ -19,9 +19,9 @@ function storedInDb(){
   toastr.success('Game stored in database')
 }
 
-function selectOpponent(){
-  toastr.error('Select the opposing team');
-}
+// function selectOpponent(){
+//   toastr.error('Select the opposing team');
+// }
 
 function setDateTime (){
   toastr.error('Set game date and time before submitting scorecard');
@@ -66,7 +66,7 @@ export var toasts = {
   resetScorecard: resetScorecard,
   notStoredInDb: notStoredInDb,
   storedInDb: storedInDb,
-  selectOpponent: selectOpponent,
+  // selectOpponent: selectOpponent,
   fillOutBlank: fillOutBlank,
   setDateTime: setDateTime,
   opponentName: opponentName,
