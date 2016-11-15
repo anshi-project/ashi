@@ -1,5 +1,4 @@
 var Player=require("../../models/players/main");
-var sendToSpreadSheet=require("../../config/export/google_spreadsheet");
 
 module.exports=function(app){
     app.get("/register/player/renew",function(req,res){
