@@ -14,5 +14,4 @@ function getFullGameStats (req, res){
         }
     });
 }
-
 module.exports = getFullGameStats;
