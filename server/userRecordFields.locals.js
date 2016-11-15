@@ -20,8 +20,8 @@ var player={
         {label:"Passport",name:"contact[passport]"},
         {label:"Facebook",name:"contact[social_media][facebook]"},
         {label:"Instagram",name:"contact[social_media][instagram]"},
-        {label:"Twitter",name:"contact]social_media][twitter]"},
-        {label:"Linkedin",name:"contact]social_media][linkedin]"},        
+        {label:"Twitter",name:"contact[social_media][twitter]"},
+        {label:"Linkedin",name:"contact[social_media][linkedin]"},        
         {label:"Passport Exp",name:"contact[passport_expiration]"},
         {label:"street",name:"contact[private_data][address][street]"},
         {label:"City",name:"contact[private_data][address][city]"},
@@ -59,23 +59,20 @@ var player={
         ]    
 }
 
-var manager={
-    part1:[{label:"First Name",name:"firstname",type:"text"},
-           {label:"Last Name",name:"lastname",type:"text"},
-           {label:"Division",name:"division",class:"division-dropdown"},
-           {label:"Username",name:"username",type:"text"},
-           {label:"Email",name:"contact[email]" ,type:"email"},
-           {label:"Alt Email",name:"contact[alt_email]"},
-           {label:"Phone",name:"contact[phone1]"},
-           {label:"Alt Phone",name:"contact[phone2]"}],
-
-    part2:[        
-        {label:"Shirt size",name:"apparel[shirt]"},
-        {label:"Jacket size",name:"apparel[jacket]"},
-        {label:"Hat size",name:"apparel[hat]"},
-        {label:"Polo size",name:"apparel[polo]"}
-    ]
-}
+var manager={part1:[
+  {label:"First Name",name:"firstname",type:"text"},
+  {label:"Last Name",name:"lastname",type:"text"},
+  {label:"Division",name:"division",class:"division-dropdown"},
+  {label:"Username",name:"username",type:"text"},
+  {label:"Email",name:"contact[email]" ,type:"email"},
+  {label:"Alt Email",name:"contact[alt_email]"},
+  {label:"Phone",name:"contact[phone1]"},
+  {label:"Alt Phone",name:"contact[phone2]"},        
+  {label:"Shirt size",name:"apparel[shirt]"},
+  {label:"Jacket size",name:"apparel[jacket]"},
+  {label:"Hat size",name:"apparel[hat]"},
+  {label:"Polo size",name:"apparel[polo]"}
+]}
 
 var coach={
     part1:[{label:"First Name",name:"firstname",type:"text"},
@@ -92,8 +89,8 @@ var coach={
     part2:[        
         {label:"Facebook",name:"contact[social_media][facebook]"},
         {label:"Instagram",name:"contact[social_media][instagram]"},
-        {label:"Twitter",name:"contact]social_media][twitter]"},
-        {label:"Linkedin",name:"contact]social_media][linkedin]"},     
+        {label:"Twitter",name:"contact[social_media][twitter]"},
+        {label:"Linkedin",name:"contact[social_media][linkedin]"},     
         {label:"Shirt size",name:"apparel[shirt]"},
         {label:"Jacket size",name:"apparel[jacket]"},
         {label:"Hat size",name:"apparel[hat]"},
@@ -109,7 +106,7 @@ module.exports=function(type,queryResults){
    
    for (var prop in model) {
      var x=model[prop].map(v=> {
-        return Object.assign({},v,{value:_.result(queryResults, v.name)||"N|A" })
+        return Object.assign({},v,{value:_.result(queryResults, v.name)})
     })
       res[prop]=x;
    }

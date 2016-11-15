@@ -19,7 +19,7 @@ background: #672d2d;
  	color:white;
  	text-align:center;
  }
- label[for='team-name']{
+ label[for='team-name'],label[for='.staff-checkbox']{
  	color:white;
  }
 .table, .table-bordered, .panel{
@@ -35,6 +35,7 @@ background: #672d2d;
     color: #4e5252;
 	opacity: 0.8;
 	font-style:italic;
+	display:none;
 }
 
 .table-bordered .row-Pending{

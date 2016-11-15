@@ -1,27 +1,29 @@
 var Team=require("../../models/team/team");
-var writeFile=require("../../config/export/manager_roster/output");
+var writeFile=require("../../locals/rosterDownload");
 var Player=require("../../models/players/main")
 var _=require("lodash");
 
 module.exports=function(app){
 	
   app.get("/admin/roster",function(req,res){
-    var division = req.query.division || {} ;
+    var division = req.query.division
+    var query = division ? {division} : {} ;
     var select= "firstname contact paid background.hometown public_data lastname team";  
     
-    Team.find({division},"key name players goalies coaches managers")
+    Team.find(query,"key name players goalies coaches managers")
       .sort({"name":-1})
       .populate({path:"players coaches goalies managers",match:{status:"Active"}, select})
       .exec(function(e,d){    
         if(e) throw e;           
-        res.render("admin/roster/team",{teams:d,layout:"spreadsheet",division,admin:req.user});
+        res.render("admin/roster/team",{teams:d,layout:"spreadsheet",division , admin:req.user});
       })
 	})
 
   app.get("/admin/roster/download",function(req,res,next){
 
-    var division = req.query.division || "";
+    var division = req.query.division
     var query = division.length? {"team.division":division} : {};
+    var filename = division.length? division+".xlsx" : "ASHI-Players.xlsx"
 
     Player.find(query)
       .sort({lastname:1})

@@ -12,23 +12,13 @@
     <title>Registration</title>
 </head>
 <body>
-	<form id="registration-form" action="/register/{{type}}" method="post">
+	<form id="registration-form" class="form-horizontal" action="/register/{{type}}" method="post">
 		<div class="loader">
 			<span class="glyphicon glyphicon-cog"></span>
 		</div>
-			{{> reg/common/header}}
+			{{> reg/header}}
   			{{{body}}}
-  			<hr>
-	  <div class="form-navigation">
-	    <button type="button" class="previous btn btn-nav pull-left">
-	    <span class="glyphicon glyphicon-chevron-left"></span>
-	 	</button>
-	    <button type="button" class="next btn btn-nav pull-right">
-	    <span class="glyphicon glyphicon-chevron-right"></span>
-	    </button>
-	    <input type="submit" class="btn btn-submit pull-right">
-	    <span class="clearfix"></span>
-	  </div>  			
+			{{> reg/navbuttons}}			
 	</form>
  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
  	

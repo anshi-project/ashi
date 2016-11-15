@@ -1,18 +1,3 @@
-var players=[
-    {lastname:"Cave",firstname:"Colby"},
-    {lastname:"Bergeron",firstname:"Patrice"},
-    {lastname:"Bonino",firstname:"Nick"},
-    {lastname:"Ferlin",firstname:"Brian"},
-    {lastname:"Smith",firstname:"Steve"},
-    {lastname:"Williams",firstname:"Evan"},
-    {lastname:"Beam",firstname:"Jim"},
-    { lastname:"Daniels",firstname:"Jack"},
-    {lastname:"Waters",firstname:"Roger"},
-    {lastname:"Mason",firstname:"Nick"},
-    { lastname:"Wright",firstname:"Richard"},
-    { lastname:"Gilmour",firstname:"David"}    
-]
-
 var teams=[
     {division:"Junior's",name:"U16"},    
     {division:"Junior's",name:"U18"}, 
@@ -39,18 +24,27 @@ var heights=["4'9\"","4'10\"","4'11\"","5'0\"","5'1\"","5'2\"","5'3\"","5'4\"",
 var sizes=["SM","M","L","XL","XXL","XXXL"]
 sizes=sizes.map(v=>{return{size:v}});
 
+var jerseySizes=sizes.concat([{size:"Goalie-XXL"},{size:"Goalie-XXXL"}]);
+var sockSizes= [{size:"M"},{size:"L"},{size:"XL"}];
+
 var apparel=[
-    {name:"shirt",sizes:sizes},
-    {name:"polo",sizes:sizes},
-    {name:"jacket",sizes:sizes},
-    {name:"hat",sizes:[{size:"SM/MD"},{size:"L/XL"}]}
+    {name:"shirt",sizes},
+    {name:"polo",sizes},
+    {name:"jacket",sizes},
+    {name:"hat",sizes:[{size:"S/M"},{size:"L/XL"}]}
     ]                      
 
+var playerApparel=[
+    {name:"jersey", sizes:jerseySizes},
+    {name:"socks",sizes:sockSizes},
+    {name:"shorts",sizes}
+]
+
 module.exports={
-    states:states,
-    heights:heights,
-    players:players,
-    teams:teams,
-    heights:heights,
-    apparel:apparel
+    states,
+    heights,
+    teams,
+    heights,
+    apparel,
+    playerApparel
 };

@@ -1,0 +1,27 @@
+<form class="login-form form-horizontal" method="post" action="/login/admin">
+	<div class="container-fluid">
+		<div class="form-group">
+			<label for="username" class="control-label col-sm-2">Username:</label>
+			<div class="col-sm-10">
+				<input type="text" name="username" class="form-control" required>
+			</div>
+			<label for="password" class="control-label col-sm-2">Password:</label>
+			<div class="col-sm-10">
+				<input type="password" name="password" class="form-control" required>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-2 control-label">Role: </label>
+			<div class="col-sm-10">
+				<label class="radio-inline" for="admin" >
+					<input type="radio" id="admin" name="role" value="admin" selected>Admin
+				</label>
+				<label class="radio-inline" for="manager">
+					<input type="radio" id="manager" name="role" value="manager">Manager
+				</label>
+			</div>
+		</div>
+		<input type="submit" class="btn-primary btn-md pull-right" value="Log In">
+		<span class="clearfix"></span>
+	</div>		
+</form>

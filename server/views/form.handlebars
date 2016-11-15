@@ -1,0 +1,27 @@
+{{#each fields as |section|}}
+	<div class="container-fluid">
+	{{#each section}}
+	<div class="form-group ">
+		{{#if this.textarea}}
+			<div class='col-xs-10 col-xs-offset-1'>
+				<label for='{{this.name}}'>{{this.label}}</label>
+				<textarea class='form-control' rows='7' name='{{this.name}}'></textarea>
+			</div>	
+		{{else}}
+			<label class="control-label col-xs-2">{{this.label}}</label>
+			<div class="col-xs-8">
+				{{#if this.radio}}
+					{{> reg/radio}}
+				{{else if this.dropdown}}
+					{{> reg/dropdown}}
+				{{else if this.checkbox}}
+					{{> reg/checkbox}}		
+				{{else}}
+					<input type="{{this.type}}" class="form-control" name="{{this.name}}" required={{this.required}}>
+				{{/if}}
+			{{/if}}	
+			</div>
+		</div>
+	{{/each}}
+	</div>
+{{/each}}

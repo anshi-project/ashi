@@ -1,4 +1,6 @@
 <h1>A.S.H.I. Admins</h1>
+<label for=".staff-checkbox">Show all?</label>
+<input type="checkbox" class="staff-checkbox">
 <table class="table table-bordered table-condensed" data-staff="admin">
   	<thead>
   		<tr >
@@ -9,6 +11,7 @@
   			<td>Update</td>
   		</tr>
   	</thead>
+    <tbody>
   	{{#each user}}
   	<tr class="row-{{this.status}}">
     	<td>{{this.fullname}}</td>
@@ -17,8 +20,8 @@
     	<td>{{this.contact.email}}</br>
     	   {{this.contact.alt_email}}</td>
     	<td>{{this.username}}</td>
-    	
   	<td><button type="button" class="permission-btn" data-status="{{this.status}}" data-user="{{this._id}}">Revoke</button></td>
   	</tr>
   {{/each}}
+  </tbody>
 </table>

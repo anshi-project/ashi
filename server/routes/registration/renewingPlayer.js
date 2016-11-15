@@ -13,14 +13,11 @@ module.exports=function(app){
 
         Player.findOne(query,function(err,player){
             if(err || !player){
-                return res.send("There is no record of a player with that name and/or email")
+                return res.send("There is no record of a player with that name and/or email").status(500);
             }else{
                 player.status="renewing membership";
                 player.save();
-                sendToSpreadSheet("returning_player",player,function(){
-                    res.render("reg/success");    
-                })
-                
+                res.render("reg/success");    
             }
         })
     }) 

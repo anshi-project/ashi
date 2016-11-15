@@ -1,9 +1,9 @@
-var mongoose=require("mongoose");
-var Schema=mongoose.Schema;
+var mongoose = require("mongoose");
+var Schema = mongoose.Schema;
 
-var Registration=require("./main");
+var Registration = require("./main");
 
-var PlayerReg=Registration.discriminator("player-registration",
+var PlayerReg = Registration.discriminator("player-registration",
   new Schema({
     public_data:{  
       date_of_birth:{type:String},

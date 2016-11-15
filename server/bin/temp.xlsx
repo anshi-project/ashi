@@ -1,0 +1,8 @@
+"Timestamp","Name","#","Position","Email","Phone","Age","Height","Weight","Hometown","Shooting Hand","Shirt size","Sock size","Jacket size","Hat size","Polo size","Shorts size","Jersey size","Headshot","Paid"
+"""2016-11-10T22:20:03.655Z""","Jason Bourne","14","Center","m@msms.com","781-784-2737",26,"6'4""","187","Boston, MA","right","XL","L","XL","L/XL","XXL","M","XL",false,false
+"""2016-11-10T22:29:59.572Z""","Brian Ferlin","64","Right Defense","m@msms.com","781-784-2737",38,"5'8""","157","Boston, MA","right","XL","L","XL","L/XL","XXL","M","XL",false,false
+"""2016-11-10T22:20:03.662Z""","Sal Figuero","7","Left Wing","m@msms.com","781-784-2737",31,"5'8""","165","Boston, MA","right","XL","L","XL","L/XL","XXL","M","XL",false,true
+"""2016-11-11T00:26:11.508Z""","Robert Johnson","44","Center","asrwe@fdaf.com","323-232-2322",78,"6'2""","443","N|A","left","XXL","L","XXL","SM/MD","XXL","M","XL",false,false
+"""2016-11-10T22:20:03.619Z""","Ryan Lopez","12","Center","m@msms.com","781-784-2737",38,"5'6""","153","Boston, MA","right","XL","L","XL","L/XL","XXL","M","XL",false,false
+"""2016-11-10T22:33:43.647Z""","Mike O'reilly","19","Goalie","m@msms.com","781-784-2737",25,"5'9""","177","Boston, MA","left","XL","L","XL","L/XL","XXL","M","XL",false,true
+"""2016-11-10T22:20:03.649Z""","Jonathan Williams","21","Left Wing","m@msms.com","781-784-2737",36,"5'11""","212","Boston, MA","right","XL","L","XL","L/XL","XXL","M","XL",false,false

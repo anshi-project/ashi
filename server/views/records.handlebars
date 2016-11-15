@@ -1,0 +1,13 @@
+<form  method="post" action="/admin/records/{{type}}?id={{id}}&_method=PUT" >
+	<fieldset class="input-group">
+	{{#each fields}}
+	<div class="col-xs-2 ">
+	<label for="{{this.name}}" class="control-form">{{this.label}}</label>
+	<input type={{this.type}} class="form-control" value="{{this.value}}" name={{this.name}}>
+	</div>
+	{{/each}}
+	</fieldset>
+<input type="submit" value="Update Record">
+</form>
+	
+<style type="text/css"> .well{color:black;}</style>

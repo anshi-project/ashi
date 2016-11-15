@@ -8,7 +8,7 @@ module.exports = function(app){
     var $regex = new RegExp(type,"i")    
     
     StaffMember.find({username:{$ne:req.user.username},__t:{$regex}})
-      .sort({"lastname":1})
+      .sort({"status":1,"lastname":1})
       .exec(function(e,user){
         res.render("admin/permissions/"+type,{user, layout:"spreadsheet"})
     })

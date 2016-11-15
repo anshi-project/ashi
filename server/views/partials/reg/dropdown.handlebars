@@ -1,0 +1,6 @@
+<select name="{{this.name}}" class="form-control">
+	<option selected="true" disabled></option>
+	{{#each this.dropdown}}
+	<option value="{{this}}">{{this}}</option>
+	{{/each}}
+</select>

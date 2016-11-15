@@ -14,6 +14,7 @@ module.exports=function(app){
   		req.logOut();
   		res.redirect("/")
   	})
+  		
 	require("./teampicker")(app);
 	require("./applications")(app)
 	require("./roster")(app);

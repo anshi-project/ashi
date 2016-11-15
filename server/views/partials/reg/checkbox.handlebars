@@ -1,0 +1,5 @@
+	{{#each this.checkbox}}
+        <label for="{{../name}}-{{this}}" class="checkbox-inline">
+            <input type="checkbox" name="{{../name}}" value="{{this}}" id="{{../name}}-{{this}}" >{{this}}
+        </label>
+	{{/each}}

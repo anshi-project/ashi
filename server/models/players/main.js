@@ -4,8 +4,8 @@ var Schema = mongoose.Schema;
 var methods = require("./methods");
 
 var playerSchema=new Schema({
-    firstname:String,
-    lastname:String,
+    firstname:{type:String,lowercase:true,trim:true},
+    lastname:{type:String,lowercase:true,trim:true},
     paid:{type:Boolean,default:false},
     headshot:{type:Boolean,default:false},
     team:{
@@ -30,7 +30,7 @@ var playerSchema=new Schema({
     },
     favorite:{
       movie:String,
-      tvshow:String,
+      tv_show:String,
       athlete:String,
       sports_team:String,
       other_sport:String,

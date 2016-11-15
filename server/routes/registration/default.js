@@ -1,41 +1,26 @@
-var sendToSpreadSheet=require("../../config/export/google_spreadsheet")
+var player = require("../../models/registration/_playerReg");
+var coach = require("../../models/registration/_coachReg");
+var manager = require("../../models/staff/manager");
+var admin = require("../../models/staff/admin");
+
+var models = {player , coach , manager , admin}
 
 module.exports=function(app){
-    app.get("/register/:type",function(req,res,next){
-        var type=req.params.type;
-        var locals=Object.assign({},app.locals,
-            {type:type,layout:"registration",action:type});
-        res.render("reg/"+type,locals );
-    })
-
-    app.post("/register/player",function(req,res){       
-        var Registration=require("../../models/registration/_playerReg");
-
-        Registration.create(req.body,function(err,doc){
-            if(err) throw err;
-            sendToSpreadSheet("player",doc,function(e,d){
-                res.render("reg/success")    
-            })    
-        })
+    
+    app.get("/register/:type",function(req,res){
+        var type = req.params.type;
+        var getFields = require("../../locals/registration").renderForm;
+        var fields = getFields(type);
+        
+        res.render("form",{fields,layout:"registration",type});
     })
     
-    app.post("/register/coach",function(req,res){       
-        var Registration=require("../../models/registration/_coachReg");
+    app.post("/register/:type",function(req,res){       
+        var Registration = models[req.params.type];
 
         Registration.create(req.body,function(err,doc){
             if(err) throw err;
-            sendToSpreadSheet("coach",doc,function(e,d){
-                res.render("reg/success")    
-            })    
-        })
-    })    
-
-    app.post("/register/:type",function(req,res){
-        var type=req.params.type;
-        var User=require("../../models/staff/"+type);
-
-        User.create(req.body,function(e,d){
-            res.render("reg/success");
-        })
-    })  
+            res.render("reg/success")    
+        })    
+    }) 
 }
