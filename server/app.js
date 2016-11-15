@@ -14,11 +14,9 @@ var methodOverride=require("method-override");
 require("dotenv").config();
 
 
-
 mongoose.Promise=require("bluebird");
 mongoose.connect(process.env.mongoURI);
 
-app.locals=require("./locals");
 app.use(methodOverride('_method'));
 
 
@@ -44,7 +42,7 @@ require("./routes/registration")(app);
 require("./routes/admin/index")(app);
 require("./routes/manager/index")(app);
 require("./routes/stats/index")(app);
-require("./routes/player_records/index")(app);
+// require("./routes/player_records/index")(app);
 
 
 // app.listen(process.env.PORT|| 8080, () => console.log('port 8080 => Adam'));

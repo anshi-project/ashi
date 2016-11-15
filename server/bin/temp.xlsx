@@ -1,8 +1,22 @@
 "Timestamp","Name","#","Position","Email","Phone","Age","Height","Weight","Hometown","Shooting Hand","Shirt size","Sock size","Jacket size","Hat size","Polo size","Shorts size","Jersey size","Headshot","Paid"
-"""2016-11-10T22:20:03.655Z""","Jason Bourne","14","Center","m@msms.com","781-784-2737",26,"6'4""","187","Boston, MA","right","XL","L","XL","L/XL","XXL","M","XL",false,false
-"""2016-11-10T22:29:59.572Z""","Brian Ferlin","64","Right Defense","m@msms.com","781-784-2737",38,"5'8""","157","Boston, MA","right","XL","L","XL","L/XL","XXL","M","XL",false,false
-"""2016-11-10T22:20:03.662Z""","Sal Figuero","7","Left Wing","m@msms.com","781-784-2737",31,"5'8""","165","Boston, MA","right","XL","L","XL","L/XL","XXL","M","XL",false,true
-"""2016-11-11T00:26:11.508Z""","Robert Johnson","44","Center","asrwe@fdaf.com","323-232-2322",78,"6'2""","443","N|A","left","XXL","L","XXL","SM/MD","XXL","M","XL",false,false
-"""2016-11-10T22:20:03.619Z""","Ryan Lopez","12","Center","m@msms.com","781-784-2737",38,"5'6""","153","Boston, MA","right","XL","L","XL","L/XL","XXL","M","XL",false,false
-"""2016-11-10T22:33:43.647Z""","Mike O'reilly","19","Goalie","m@msms.com","781-784-2737",25,"5'9""","177","Boston, MA","left","XL","L","XL","L/XL","XXL","M","XL",false,true
-"""2016-11-10T22:20:03.649Z""","Jonathan Williams","21","Left Wing","m@msms.com","781-784-2737",36,"5'11""","212","Boston, MA","right","XL","L","XL","L/XL","XXL","M","XL",false,false
+"""2016-11-11T09:12:18.304Z""","Jim Beam","19","Goalie","adamhs3521@gmail.com","7817842528",30,"6'0""","168","Sharon, MA","left","L","L","M","L/XL","XL","XL","XL",false,false
+"""2016-11-11T09:12:18.133Z""","Patrice Bergeron","22","Left Wing","adamhs3521@gmail.com","7817842528",30,"6'0""","168","N|A","left","L","L","M","L/XL","XL","XL","XL",false,false
+"""2016-11-10T22:20:03.787Z""","Nick Bonino","14","Left Wing","adamhs3521@gmail.com","7817822543",30,"6'0""","168","Boise,ID","left","L","L","M","L/XL","XL","XL","XL",false,false
+"""2016-11-10T22:20:03.559Z""","Eric Callahan","74","Left Wing","asrwe@fdaf.com","555555555555",60,"5'8""","154","Boston, MA","right","XL","L","XXL","L/XL","L","M","L",false,false
+"""2016-11-10T22:20:03.528Z""","Jack Daniels","32","Right Wing","adamhs3521@gmail.com","7817842528",29,"6'2""","153","Sharon, MA","left","L","L","M","L/XL","XL","XL","XL",false,false
+"""2016-11-10T22:20:03.506Z""","David Gilmour","7","Left Defense","adamhs3521@gmail.com","7817842528",30,"6'0""","168","Sharon, MA","left","L","L","M","L/XL","XL","XL","XL",false,false
+"""2016-11-10T22:20:03.585Z""","Brad Granoff","16","Goalie","cxzcxx@ff.com","4353465356",17,"5'2""","110","Swampscot, ND","right","L","L","M","SM/MD","M","M","XL",false,false
+"""2016-11-10T22:20:03.569Z""","Brian Grant","3","Right Wing","cxzcxx@ff.com","4353465356",17,"5'2""","110","Providence, RI","right","L","L","M","SM/MD","M","M","XL",false,false
+"""2016-11-10T22:20:03.544Z""","Tequan Jackson","3","Right Wing","addsc21@gmail.com","7817842528",30,"6'0""","168","Bellingham, MA","left","L","L","M","L/XL","XL","XL","XL",false,false
+"""2016-11-10T22:20:03.598Z""","Sven Johanssen","31","Goalie","s@f.com","2132341234",34,"6'2""","219","Providence, RI","right","XL","L","L","L/XL","L","L","XXL",false,false
+"""2016-11-10T22:20:03.563Z""","Patrick Johnson","21","Left Wing","adamhs3521@gmail.com","7817842528",30,"5'4""","143","Foxboro, MA","left","M","L","M","L/XL","XL","XL","XL",false,false
+"""2016-11-11T09:37:20.294Z""","Ricky Martin","37","Goalie","adamhs3521@gmail.com","7817842528",29,"6'2""","181","Hopkington, ME","left","L","L","M","L/XL","XL","XL","XL",false,false
+"""2016-11-10T22:20:03.517Z""","Nick Mason","43","Center","adamhs3521@gmail.com","7817842528",30,"6'0""","168","Sharon, MA","left","L","L","M","L/XL","XL","XL","XL",false,false
+"""2016-11-10T22:20:03.539Z""","Regis Philbin","7","Center","adamhs3521@gmail.com","7817842528",30,"5'5""","138","Burlington, VA","left","L","L","M","L/XL","XL","XL","XL",false,false
+"""2016-11-10T22:20:03.793Z""","John Philips","11","Right Defense","j@j.com","2131242345",23,"6'0""","178","Westin,MA","left","L","L","L","SM/MD","XXL","L","XXXL",false,false
+"""2016-11-10T22:20:03.496Z""","Steve Smith","54","Right Defense","adamhs3521@gmail.com","7817842528",30,"6'0""","168","Sharon, MA","left","L","L","M","L/XL","XL","XL","XL",false,false
+"""2016-11-11T09:37:20.298Z""","Leopold Stotch","64","Left Defense","adamhs3521@gmail.com","7817842528",30,"6'0""","168","South Park, CO","left","L","L","M","L/XL","XL","XL","XL",false,false
+"""2016-11-11T03:54:50.232Z""","John Washington","69","Goalie","j@j.com","2131242345",23,"6'0""","178","Seattle, WA","left","L","L","L","SM/MD","XXL","L","XXXL",false,false
+"""2016-11-10T22:20:03.521Z""","Roger Waters","21","Left Wing","adamhs3521@gmail.com","7817842528",30,"6'0""","168","Sharon, MA","left","L","L","M","L/XL","XL","XL","XL",false,false
+"""2016-11-11T03:44:14.801Z""","Collin Westin","23","Right Defense","bferlin3@gmail.com","7817842528",25,"6'0""","168","Chicago, IL","left","L","L","M","L/XL","XL","XL","XL",false,false
+"""2016-11-10T22:20:03.512Z""","Richard Wright","39","Right Defense","adamhs3521@gmail.com","7817842528",30,"6'0""","168","Sharon, MA","left","L","L","M","L/XL","XL","XL","XL",false,false
