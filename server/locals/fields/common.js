@@ -45,22 +45,22 @@ module.exports = {
 	},
 	facebook: {
 		label: "Facebook",
-		name: "contact[social_media][facebook]",
+		name: "background[social_media][facebook]",
 		required: false
 	},
 	instagram: {
 		label: "Instagram",
-		name: "contact[social_media][instagram]",
+		name: "background[social_media][instagram]",
 		required: false
 	},
 	twitter: {
 		label: "Twitter",
-		name: "contact[social_media][twitter]",
+		name: "background[social_media][twitter]",
 		required: false
 	},
 	linkedin: {
 		label: "Linkedin",
-		name: "contact[social_media][linkedin]",
+		name: "background[social_media][linkedin]",
 		required: false
 	},
 	shirt: {

@@ -22,6 +22,7 @@ var playerSchema=new Schema({
       height:String,
     },
     background:{
+      social_media:{},
       hometown:String,
       education:String,
       hockey_history:String,
@@ -43,7 +44,6 @@ var playerSchema=new Schema({
       alt_email:String,
       passport:String,
       passport_expiration:{type:String,default:"N/A"},
-      social_media:{},
       private_data:{
         guardian_name:{type:String,default:"N/A"},
         guardian_number:{type:String,default:"N/A"},
@@ -55,13 +55,10 @@ var playerSchema=new Schema({
         }
       }
     },
-    apparel:{
-
-    },
-
+    apparel:{},
     hockey_info:{
       website:String,
-      leaugue_team: String,
+      league_team: String,
       tournament_team: String,
       jersey_number:{
         choice1:Number,

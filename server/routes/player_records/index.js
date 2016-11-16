@@ -1,36 +1,15 @@
-// var Player=require("../../models/players/main")
-// var mapPlayersValuesToFields=require("../../userRecordFields.locals");
-
-// module.exports=function(app){
-
-// 	app.get("/admin/records",function(req,res){
-// 		Player.find({},"firstname lastname").sort({"lastname":1})
-// 			.exec(function(e,d){
-// 			res.render("profile/list",{records:d})
-// 		})
-// 	})
+var Player=require("../../models/players/main")
 
 
-// 	app.get("/admin/records/player",function(req,res){
-		
-// 		var id=req.query.id;
+module.exports=function(app){
 
-// 		if(!id){
-// 			return res.redirect("/admin/records")
-// 		}
+	app.get("/api/player",function(req,res){
+		var fields = "-contact -apparel -paid -headshot -_id -__v -__t -createdAt -hockey_info.jersey_number -updatedAt"
+		var id = req.query.id  
+		var query = id? {_id:id} : {};
 
-//         Player.findById(id,function(e,doc){
-//         	var fields=mapPlayersValuesToFields("player",doc);
-//             res.render("profile/admin",{fields,id})
-//         })
-// 	})
-
-// 	app.post("/admin/records/player",function(req,res){
-// 		var id=req.query.id;
-// 		Player.findById(id).update(req.body).exec(function(e,d){
-// 			if(e)throw e;
-// 			res.redirect("/admin/records");
-// 		})
-
-// 	})
-// }
+		Player.find({} ,"hockey_info").exec(function(e,d){
+			res.send(d)
+		})
+	})
+}

@@ -7,6 +7,7 @@ module.exports = function(app) {
         Registration.findRegisteredPlayers(function(player) {            
             res.render("admin/teampicker/player", {
                 player,
+                teams:require("../../locals/fields/teams").names,
                 admin: req.user,
                 layout: "spreadsheet"
             });

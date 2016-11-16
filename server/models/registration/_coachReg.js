@@ -6,6 +6,7 @@ var Registration=require("./main");
 var CoachReg=Registration.discriminator("coach-registration",
     new Schema({
         background:{
+            social_media:{},
             former_coaching_positions:[{type:String}],
             hometown:String,         
             short_answers:{

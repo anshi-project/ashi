@@ -18,6 +18,7 @@ var coachSchema=new Schema({
 	registration forms are submitted, and need to be approved by an existing admin.
 	*/
 	contact:{
+		social_media:{},
 		email:String,
 		alt_email:String,
 		phone1:String,
@@ -26,6 +27,7 @@ var coachSchema=new Schema({
 		passport_expiration:String
 	},
 	background:{
+		social_media:{},
 	    former_coaching_positions:[{type:String}],
 	    hometown:String,         
 	    short_answers:{

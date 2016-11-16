@@ -62,7 +62,7 @@ exports.renderCompletedForm = function(type,id,next){
 		if(err) return next(err);
 
 		var fields = _fields.reduce((prev,curr)=>{
-			prev[curr.label] = _.result(doc, curr.name);
+			prev[curr.label] = _.result(doc, curr.name); 
 			return prev;
 		},{})
 

@@ -5,14 +5,8 @@ var parse = require("saymyname")
 var Method = require("./methods");
 
 var registrationSchema = new Schema({
-	firstname: {
-		type: String,
-		lowercase: true
-	},
-	lastname: {
-		type: String,
-		lowercase: true
-	},
+	firstname: {type: String,lowercase: true},
+	lastname: {type: String,lowercase: true},
 	apparel: {},
 	contact: {},
 	public_data: {},

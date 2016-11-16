@@ -12,8 +12,10 @@ var teamData = [
 	{division: "Women's Master's",name: "Women's Team Blue"}
 ]
 
+
 exports.getDivision = function(teamName){
- 	return _.find( teamData, {name: teamName})
+ 	var obj = _.find( teamData, {name: teamName});
+ 	return obj.division;
  }
 
 exports.names = teamData.map(t => {return t.name})

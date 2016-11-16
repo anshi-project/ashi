@@ -37,12 +37,9 @@ app.set('view engine', 'handlebars');
 app.use('/public', express.static('public'));
 
 require("./config/passport")(app);
+
 require("./routes/index")(app);
-require("./routes/registration")(app);
-require("./routes/admin/index")(app);
-require("./routes/manager/index")(app);
-require("./routes/stats/index")(app);
-// require("./routes/player_records/index")(app);
+
 
 
 // app.listen(process.env.PORT|| 8080, () => console.log('port 8080 => Adam'));

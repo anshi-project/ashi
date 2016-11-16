@@ -1,5 +1,4 @@
 var StaffMember = require("../../models/staff/main");
-var Team = require("../../models/team/team");
 
 module.exports = function(app){
 

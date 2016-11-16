@@ -16,7 +16,6 @@ img {
 .glyphicon-cog{
   font-size:130px;
   text-align: center;
-  animation: spin .9s infinite linear;
   margin-top:100px;
 
 }
@@ -63,9 +62,10 @@ textarea.parsley-error {
   display:block;
 }
 
-.login-form, #registration-form, .loader{
+ .loader, #registration-form{
   border-radius: 30px;
   border:1px solid #f16f6f;
+
   box-shadow:inset -2px -3px 4px 2px rgba(182,103,103,0.4),
            2px 3px 4px 2px rgba(0,0,0,0.7);
   text-align: center;
@@ -87,8 +87,7 @@ textarea.parsley-error {
 
 
 #registration-form{
-    color: #e4ff4e;
-    background: #3446c3;
+    background: #eee;
     width:90%;
     margin:30px auto 10px;
     padding:6px;
@@ -107,7 +106,9 @@ textarea.parsley-error {
 .btn-nav{
   background:#0c0323;
 }
-
+.btn-submit{
+  color:black;
+}
 .btn-nav:hover{
     color: #ffff25;
     background: #04050c;
@@ -123,13 +124,6 @@ textarea.parsley-error {
     }
 }
 
-.error{
-    text-indent: 5px;
-    font-style: italic;
-    letter-spacing: 1px;
-    color:yellow;
-    background:black;
-}
 
 
 

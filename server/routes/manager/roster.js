@@ -13,35 +13,23 @@ module.exports = function(app) {
 			}, "division key name players goalies coaches")
 			.populate({
 				path: "coaches players goalies",
-				match: {
-					status: "Active"
-				},
+				match: {status: "Active"},
 				select: fields
 			})
 			.exec(function(e, d) {
-				req.user.teams = d;
-
-				res.render("manager/roster", {
-					teams: d,
-					layout: "spreadsheet"
-				});
+				res.render("manager/roster", {teams: d});
 			})
 	})
 
 	app.get("/gm/roster/export", function(req, res) {
-		var division = req.user.division;
-
-		Players.find({
-				"team.division": division
-			})
-			.sort({
-				lastname: 1
-			})
+		
+		Players.find({"team.division": req.user.division})
+			.sort({lastname: 1})
 			.lean()
 			.exec(function(err, players) {
 				writeFile(players, function(err, file) {
 					if (err) throw err;
-					res.download(file, division + ".xlsx", function(err) {
+					res.download(file, req.user.division + ".xlsx", function(err) {
 						if (err) throw err;
 					});
 				})
