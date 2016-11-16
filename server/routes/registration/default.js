@@ -20,7 +20,7 @@ module.exports=function(app){
 
         Registration.create(req.body,function(err,doc){
             if(err) throw err;
-            res.render("reg/success")    
+            res.render("index")    
         })    
     }) 
 }
