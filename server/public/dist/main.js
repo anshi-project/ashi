@@ -61,7 +61,7 @@
 /******/ 	__webpack_require__.p = "";
 
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 31);
+/******/ 	return __webpack_require__(__webpack_require__.s = 32);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -203,6 +203,23 @@ function minus(){
             var num = Number( $(this).next().text() ) -1;
             if (num >= 0){
               $(this).next().text(num);
+              num = Number($(this).siblings('.points').text()) - 1;
+              $(this).siblings('.points').text(num);
+              if ($(this).parent().hasClass('goals') || $(this).parent().hasClass('assists')){
+                num = Number($(this).parent().siblings('.points').text()) - 1;
+                $(this).parent().siblings('.points').text(num);
+                return;
+              }
+              if ($(this).parent().hasClass('shots-against')){
+                num = Number($(this).parent().siblings('.goals-against').text()) - 1;
+                $(this).parent().siblings('.goals-against').text(num);
+                return;
+              }
+              if ($(this).parent().hasClass('saves')){
+                num = Number($(this).parent().siblings('.goals-against').text()) + 1;
+                $(this).parent().siblings('.goals-against').text(num);
+                return;
+              }
             }
           }
 }
@@ -215,9 +232,29 @@ function minus(){
 "use strict";
 /* harmony export (immutable) */ exports["a"] = plus;
 function plus(){
+  var num;
   if ($(this).attr('class') === 'plus active'){
-    var num = Number( $(this).prev().text() ) + 1;
+    num = Number( $(this).prev().text() ) + 1;
     $(this).prev().text(num);
+  } else {
+    return;
+  }
+
+  if ($(this).parent().hasClass('goals') || $(this).parent().hasClass('assists')){
+    num = Number($(this).parent().siblings('.points').text()) + 1;
+    $(this).parent().siblings('.points').text(num);
+    return;
+  }
+  if ($(this).parent().hasClass('shots-against')){
+    console.log('effe')
+    num = Number($(this).parent().siblings('.goals-against').text()) + 1;
+    $(this).parent().siblings('.goals-against').text(num);
+    return;
+  }
+  if ($(this).parent().hasClass('saves')){
+    num = Number($(this).parent().siblings('.goals-against').text()) - 1;
+    $(this).parent().siblings('.goals-against').text(num);
+    return;
   }
 }
 
@@ -303,7 +340,7 @@ function editScorecard (){
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__displayblankteam__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__displayashiteam__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__fillOutScorecard__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__fillOutScorecard__ = __webpack_require__(27);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__toasts_toasts__ = __webpack_require__(0);
 /* harmony export (immutable) */ exports["a"] = teamSelect;
 
@@ -405,10 +442,12 @@ function teamSelect (loc, teamName, edit, stats, blank){
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__callbacks_plus__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__callbacks_minus__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__callbacks_checkbox__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__templates_playerstemplate__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__templates_goaliestemplate__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__templates_teamtemplate__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__callbacks_updateplayerpoints__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__templates_playerstemplate__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__templates_goaliestemplate__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__templates_teamtemplate__ = __webpack_require__(14);
 /* harmony export (immutable) */ exports["a"] = displayAshiTeam;
+
 
 
 
@@ -418,19 +457,20 @@ function teamSelect (loc, teamName, edit, stats, blank){
 
 function displayAshiTeam(location, team, playersArr, goaliesArr){
   var i;
-  var playersHtml = _.template(__WEBPACK_IMPORTED_MODULE_3__templates_playerstemplate__["a" /* playersTemplate */])({'players': playersArr, 'location': location})
+  var playersHtml = _.template(__WEBPACK_IMPORTED_MODULE_4__templates_playerstemplate__["a" /* playersTemplate */])({'players': playersArr, 'location': location})
   $("." + location).html(playersHtml);
 
-  var goaliesHtml = _.template(__WEBPACK_IMPORTED_MODULE_4__templates_goaliestemplate__["a" /* goaliesTemplate */])({'goalies': goaliesArr, 'location': location});
+  var goaliesHtml = _.template(__WEBPACK_IMPORTED_MODULE_5__templates_goaliestemplate__["a" /* goaliesTemplate */])({'goalies': goaliesArr, 'location': location});
   $("." + location).append(goaliesHtml);
   for (i = 0; i <= 60; i++){
     $('.goalie-min-dropdown').append($('<option></option>').val(i).html(i));
   }
 
-  var teamHtml = _.template(__WEBPACK_IMPORTED_MODULE_5__templates_teamtemplate__["a" /* teamTemplate */])({'location': location});
+  var teamHtml = _.template(__WEBPACK_IMPORTED_MODULE_6__templates_teamtemplate__["a" /* teamTemplate */])({'location': location});
   $("." + location).append(teamHtml);
 
-  $('.minus, .plus, :checkbox').off();
+  $('.minus, .plus, :checkbox, .goals, .assists').off();
+  $('.goals, .assists').change(__WEBPACK_IMPORTED_MODULE_3__callbacks_updateplayerpoints__["a" /* updatePlayerPoints */]);
   $('.plus').on('click', __WEBPACK_IMPORTED_MODULE_0__callbacks_plus__["a" /* plus */]);
   $('.minus').on('click', __WEBPACK_IMPORTED_MODULE_1__callbacks_minus__["a" /* minus */]);
   $(':checkbox').change(__WEBPACK_IMPORTED_MODULE_2__callbacks_checkbox__["a" /* checkbox */]);
@@ -472,121 +512,122 @@ function displayBlankTeam(location){
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return blankTemplate; });
-var blankTemplate = `<table class='<%=location%>-playersTable blank-table'>
-                              <thead>
-                              <tr>
-                                <th class='select-player'></th>
-                                <th class='player-number-blank'><bold>#</bold></th>
-                                <th class='name'><bold>Player</bold></th>
-                                <th><bold>G</bold></th>
-                                <th><bold>A</bold></th>
-                                <th><bold>P</bold></th>
-                                <th><bold>+-</bold></th>
-                                <th><bold>PIM</bold></th>
-                                <th><bold>PPG</bold></th>
-                                <th><bold>SHG</bold></th>
-                                <th><bold>GWG</bold></th>
-                                <th><bold>OTG</bold></th>
-                                <th><bold>SOG</bold></th>
-                                <th><bold>SOM</bold></th>
-                              </tr>
-                              </thead>
-                              <tbody>
-                              <% _.each([0,0,0,0,0,0,0,0,0,0,0], function(player) { %>
-                                  <tr class='not-playing'>
-                                    <td class="select-player"><input type="checkbox" class='blank-scorecard'></td>
-                                    <td class='player-number-blank'><input type='text' class='blank-scorecard blank-number-input' maxlength="2" size="2"></td>
-                                    <td class='player-name-blank'><input type='text' class='blank-scorecard blank-name-input' maxlength='30'></td>
-                                    <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
-                                    <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
-                                    <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
-                                    <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
-                                    <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
-                                    <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
-                                    <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
-                                    <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
-                                    <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
-                                    <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
-                                    <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
-                                  </tr>
-                              <% }) %>
-                              </tbody>
-                          </table>
-                          <table class='<%=location%>-goaliesTable blank-table'>
-                            <thead>
-                              <tr>
-                                <th class='select-player'></th>
-                                <th class='goalie-number'><bold>#</bold></th>
-                                <th class='name goalie-name-blank'><bold>Goal tender</bold></th>
-                                <th><bold>MIN</bold></th>
-                                <th><bold>SA</bold></th>
-                                <th><bold>SV</bold></th>
-                                <th><bold>GA</bold></th>
-                                <th><bold>SO</bold></th>
-                                <th><bold>G</bold></th>
-                                <th><bold>A</bold></th>
-                                <th><bold>P</bold></th>
-                                <th><bold>PIM</bold></th>
-                                <th><bold>SOSh</bold></th>
-                                <th><bold>SOSa</bold></th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                            <% _.each([0,0,0], function(goalie) { %>
-                                <tr class='not-playing'>
-                                  <td class ="select-player"><input type="checkbox" class='blank-scorecard'></td>
-                                  <td class ='player-number-blank'><input type='text' class='blank-scorecard blank-number-input' maxlength="2" size = "2"></td>
-                                  <td><input class='blank-scorecard blank-name-input' type='text' maxlength='30'></td>
-                                  <td><select class='goalie-opp-min-dropdown minutes'></select></td>
-                                  <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
-                                  <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
-                                  <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
-                                  <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
-                                  <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
-                                  <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
-                                  <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
-                                  <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
-                                  <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
-                                  <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
-                                </tr>
-                            <% }) %>
-                            </tbody>
-                          </table>
-                          <div class="row">
-                        			<div class="col-sm-6">
-                        				<table class="<%=location%>-team-stats">
-                                  <thead>
-                          					<tr>
-                          						<th ><div class='team-stats-header-blank'><bold>Team Stats</bold></div></th>
-                                      <th><bold>1st</bold></th>
-                                      <th><bold>2nd</bold></th>
-                                      <th><bold>3rd</bold></th>
-                          						<th><bold>OT</bold></th>
-                          						<th><bold>OT2</bold></th>
-                  				            <th><bold>OT3</bold></th>
-                                      <th><bold>GF</bold></th>
-                                      <th><bold>PPG</bold></th>
-                                      <th><bold>PPO</bold></th>
-                          					</tr>
-                                  </thead>
-                                  <tbody>
-                          					<tr class='playing'>
-                                      <td ><div class='team-stats-header-blank'></div></td>
-                          						<td><span class='minus active'>-</span><span class='num'>0</span><span class='plus active'>+</span></td>
-                          						<td><span class='minus active'>-</span><span class='num'>0</span><span class='plus active'>+</span></td>
-                          						<td><span class='minus active'>-</span><span class='num'>0</span><span class='plus active'>+</span></td>
-                                      <td><span class='minus active'>-</span><span class='num'>0</span><span class='plus active'>+</span></td>
-                                      <td><span class='minus active'>-</span><span class='num'>0</span><span class='plus active'>+</span></td>
-                                      <td><span class='minus active'>-</span><span class='num'>0</span><span class='plus active'>+</span></td>
-                                      <td><span class='minus active'>-</span><span class='num'>0</span><span class='plus active'>+</span></td>
-                                      <td><span class='minus active'>-</span><span class='num'>0</span><span class='plus active'>+</span></td>
-                                      <td><span class='minus active'>-</span><span class='num'>0</span><span class='plus active'>+</span></td>
-                          					</tr>
-                                  </tbody>
-                        				</table>
-                        			</div>
-                        			<div class="col-sm-6"></div>
-                        		</div>`
+var blankTemplate = `
+ <table class='<%=location%>-playersTable blank-table'>
+  <thead>
+  <tr>
+    <th class='select-player'></th>
+    <th class='player-number-blank'><bold>#</bold></th>
+    <th class='name'><bold>Player</bold></th>
+    <th><bold>G</bold></th>
+    <th><bold>A</bold></th>
+    <th><bold>P</bold></th>
+    <th><bold>+-</bold></th>
+    <th><bold>PIM</bold></th>
+    <th><bold>PPG</bold></th>
+    <th><bold>SHG</bold></th>
+    <th><bold>GWG</bold></th>
+    <th><bold>OTG</bold></th>
+    <th><bold>SOG</bold></th>
+    <th><bold>SOM</bold></th>
+  </tr>
+  </thead>
+  <tbody>
+  <% _.each([0,0,0,0,0,0,0,0,0,0,0], function(player) { %>
+      <tr class='not-playing'>
+        <td class="select-player"><input type="checkbox" class='blank-scorecard'></td>
+        <td class='player-number-blank'><input type='text' class='blank-scorecard blank-number-input' maxlength="2" size="2"></td>
+        <td class='player-name-blank'><input type='text' class='blank-scorecard blank-name-input' maxlength='30'></td>
+        <td class='goals'><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
+        <td class='assists'><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
+        <td class='points'>0   </td>
+        <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
+        <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
+        <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
+        <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
+        <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
+        <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
+        <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
+        <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
+      </tr>
+  <% }) %>
+  </tbody>
+  </table>
+  <table class='<%=location%>-goaliesTable blank-table'>
+  <thead>
+  <tr>
+    <th class='select-player'></th>
+    <th class='goalie-number'><bold>#</bold></th>
+    <th class='name goalie-name-blank'><bold>Goal tender</bold></th>
+    <th><bold>MIN</bold></th>
+    <th><bold>SA</bold></th>
+    <th><bold>SV</bold></th>
+    <th><bold>GA</bold></th>
+    <th><bold>SO</bold></th>
+    <th><bold>G</bold></th>
+    <th><bold>A</bold></th>
+    <th><bold>P</bold></th>
+    <th><bold>PIM</bold></th>
+    <th><bold>SOSh</bold></th>
+    <th><bold>SOSa</bold></th>
+  </tr>
+  </thead>
+  <tbody>
+  <% _.each([0,0,0], function(goalie) { %>
+    <tr class='not-playing'>
+      <td class ="select-player"><input type="checkbox" class='blank-scorecard'></td>
+      <td class ='player-number-blank'><input type='text' class='blank-scorecard blank-number-input' maxlength="2" size = "2"></td>
+      <td><input class='blank-scorecard blank-name-input' type='text' maxlength='30'></td>
+      <td><select class='goalie-opp-min-dropdown minutes'></select></td>
+      <td class='shots-against'><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
+      <td class='saves'><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
+      <td class='goals-against'>0</td>
+      <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
+      <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
+      <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
+      <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
+      <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
+      <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
+      <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
+    </tr>
+  <% }) %>
+  </tbody>
+  </table>
+  <div class="row">
+  <div class="col-sm-6">
+  	<table class="<%=location%>-team-stats">
+      <thead>
+  			<tr>
+  				<th ><div class='team-stats-header-blank'><bold>Team Stats</bold></div></th>
+          <th><bold>1st</bold></th>
+          <th><bold>2nd</bold></th>
+          <th><bold>3rd</bold></th>
+  				<th><bold>OT</bold></th>
+  				<th><bold>OT2</bold></th>
+          <th><bold>OT3</bold></th>
+          <th><bold>GF</bold></th>
+          <th><bold>PPG</bold></th>
+          <th><bold>PPO</bold></th>
+  			</tr>
+      </thead>
+      <tbody>
+  			<tr class='playing'>
+          <td ><div class='team-stats-header-blank'></div></td>
+  				<td><span class='minus active'>-</span><span class='num'>0</span><span class='plus active'>+</span></td>
+  				<td><span class='minus active'>-</span><span class='num'>0</span><span class='plus active'>+</span></td>
+  				<td><span class='minus active'>-</span><span class='num'>0</span><span class='plus active'>+</span></td>
+          <td><span class='minus active'>-</span><span class='num'>0</span><span class='plus active'>+</span></td>
+          <td><span class='minus active'>-</span><span class='num'>0</span><span class='plus active'>+</span></td>
+          <td><span class='minus active'>-</span><span class='num'>0</span><span class='plus active'>+</span></td>
+          <td><span class='minus active'>-</span><span class='num'>0</span><span class='plus active'>+</span></td>
+          <td><span class='minus active'>-</span><span class='num'>0</span><span class='plus active'>+</span></td>
+          <td><span class='minus active'>-</span><span class='num'>0</span><span class='plus active'>+</span></td>
+  			</tr>
+      </tbody>
+  	</table>
+  </div>
+  <div class="col-sm-6"></div>
+  </div>`
 
 
 /***/ },
@@ -595,47 +636,47 @@ var blankTemplate = `<table class='<%=location%>-playersTable blank-table'>
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return goaliesTemplate; });
-var goaliesTemplate = `<table class='<%=location%>-goaliesTable'>
-                              <thead>
-                                <tr>
-                                  <th class='select-player'></th>
-                                  <th class='goalie-number'><bold>#</bold></th>
-                                  <th class='name'><bold>Goal tender</bold></th>
-                                  <th><bold>MIN</bold></th>
-                                  <th><bold>SA</bold></th>
-                                  <th><bold>SV</bold></th>
-                                  <th><bold>GA</bold></th>
-                                  <th><bold>SO</bold></th>
-                                  <th><bold>G</bold></th>
-                                  <th><bold>A</bold></th>
-                                  <th><bold>P</bold></th>
-                                  <th><bold>PIM</bold></th>
-                                  <th><bold>SOSh</bold></th>
-                                  <th><bold>SOSa</bold></th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                              <% _.each(goalies, function(goalie) { %>
-                                  <tr class="not-playing">
-                                    <td class="select-player"><input type="checkbox"></td>
-                                    <td class='goalie-number'><%=goalie.team.jersey_number%></td>
-                                    <td class='name'><%=goalie.lastname%></td>
-                                    <td><select class='goalie-min-dropdown minutes'></select></td>
-                                    <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
-                                    <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
-                                    <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
-                                    <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
-                                    <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
-                                    <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
-                                    <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
-                                    <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
-                                    <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
-                                    <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
-
-                                  </tr>
-                              <% }) %>
-                              </tbody>
-                            </table>`
+var goaliesTemplate = `
+  <table class='<%=location%>-goaliesTable'>
+    <thead>
+      <tr>
+        <th class='select-player'></th>
+        <th class='goalie-number'><bold>#</bold></th>
+        <th class='name'><bold>Goal tender</bold></th>
+        <th><bold>MIN</bold></th>
+        <th><bold>SA</bold></th>
+        <th><bold>SV</bold></th>
+        <th><bold>GA</bold></th>
+        <th><bold>SO</bold></th>
+        <th><bold>G</bold></th>
+        <th><bold>A</bold></th>
+        <th><bold>P</bold></th>
+        <th><bold>PIM</bold></th>
+        <th><bold>SOSh</bold></th>
+        <th><bold>SOSa</bold></th>
+      </tr>
+    </thead>
+    <tbody>
+    <% _.each(goalies, function(goalie) { %>
+      <tr class="playing">
+        <td class="select-player"><input type="checkbox" checked></td>
+        <td class='goalie-number'><%=goalie.team.jersey_number%></td>
+        <td class='name'><%=goalie.lastname%></td>
+        <td><select class='goalie-min-dropdown minutes'></select></td>
+        <td class='shots-against'><span class='minus active'>-</span><span class='num'>0</span><span class='plus active'>+</span></td>
+        <td class='saves'><span class='minus active'>-</span><span class='num'>0</span><span class='plus active'>+</span></td>
+        <td class='goals-against'>0</td>
+        <td><span class='minus active'>-</span><span class='num'>0</span><span class='plus active'>+</span></td>
+        <td><span class='minus active'>-</span><span class='num'>0</span><span class='plus active'>+</span></td>
+        <td><span class='minus active'>-</span><span class='num'>0</span><span class='plus active'>+</span></td>
+        <td><span class='minus active'>-</span><span class='num'>0</span><span class='plus active'>+</span></td>
+        <td><span class='minus active'>-</span><span class='num'>0</span><span class='plus active'>+</span></td>
+        <td><span class='minus active'>-</span><span class='num'>0</span><span class='plus active'>+</span></td>
+        <td><span class='minus active'>-</span><span class='num'>0</span><span class='plus active'>+</span></td>
+      </tr>
+    <% }) %>
+    </tbody>
+  </table>`
 
 
 /***/ },
@@ -644,46 +685,47 @@ var goaliesTemplate = `<table class='<%=location%>-goaliesTable'>
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(exports, "a", function() { return playersTemplate; });
-var playersTemplate = `<table class='<%=location%>-playersTable' id='ashi-team'>
-                      <thead>
-                      <tr>
-                        <th class='select-player'></th>
-                        <th class='player-number'><bold>#</bold></th>
-                        <th class='name'><bold>Player</bold></th>
-                        <th><bold>G</bold></th>
-                        <th><bold>A</bold></th>
-                        <th><bold>P</bold></th>
-                        <th><bold>+-</bold></th>
-                        <th><bold>PIM</bold></th>
-                        <th><bold>PPG</bold></th>
-                        <th><bold>SHG</bold></th>
-                        <th><bold>GWG</bold></th>
-                        <th><bold>OTG</bold></th>
-                        <th><bold>SOG</bold></th>
-                        <th><bold>SOM</bold></th>
-                      </tr>
-                      </thead>
-                      <tbody>
-                      <% _.each(players, function(player) { %>
-                          <tr class="not-playing">
-                            <td class="select-player"><input type="checkbox"></td>
-                            <td class='player-number'><%=player.team.jersey_number%></td>
-                            <td class='name'><%=player.lastname%></td>
-                            <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
-                            <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
-                            <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
-                            <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
-                            <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
-                            <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
-                            <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
-                            <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
-                            <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
-                            <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
-                            <td><span class='minus'>-</span><span class='num'>0</span><span class='plus'>+</span></td>
-                          </tr>
-                      <% }) %>
-                      </tbody>
-                </table>`
+var playersTemplate = `
+  <table class='<%=location%>-playersTable' id='ashi-team'>
+    <thead>
+    <tr>
+      <th class='select-player'></th>
+      <th class='player-number'><bold>#</bold></th>
+      <th class='name'><bold>Player</bold></th>
+      <th><bold>G</bold></th>
+      <th><bold>A</bold></th>
+      <th><bold>P</bold></th>
+      <th><bold>+-</bold></th>
+      <th><bold>PIM</bold></th>
+      <th><bold>PPG</bold></th>
+      <th><bold>SHG</bold></th>
+      <th><bold>GWG</bold></th>
+      <th><bold>OTG</bold></th>
+      <th><bold>SOG</bold></th>
+      <th><bold>SOM</bold></th>
+    </tr>
+    </thead>
+    <tbody>
+    <% _.each(players, function(player) { %>
+        <tr class="playing">
+          <td class="select-player"><input type="checkbox" checked></td>
+          <td class='player-number'><%=player.team.jersey_number%></td>
+          <td class='name'><%=player.lastname%></td>
+          <td class='goals'><span class='minus active'>-</span><span class='num'>0</span><span class='plus active'>+</span></td>
+          <td class='assists'><span class='minus active'>-</span><span class='num'>0</span><span class='plus active'>+</span></td>
+          <td class='points'>0</td>
+          <td><span class='minus active'>-</span><span class='num'>0</span><span class='plus active'>+</span></td>
+          <td><span class='minus active'>-</span><span class='num'>0</span><span class='plus active'>+</span></td>
+          <td><span class='minus active'>-</span><span class='num'>0</span><span class='plus active'>+</span></td>
+          <td><span class='minus active'>-</span><span class='num'>0</span><span class='plus active'>+</span></td>
+          <td><span class='minus active'>-</span><span class='num'>0</span><span class='plus active'>+</span></td>
+          <td><span class='minus active'>-</span><span class='num'>0</span><span class='plus active'>+</span></td>
+          <td><span class='minus active'>-</span><span class='num'>0</span><span class='plus active'>+</span></td>
+          <td><span class='minus active'>-</span><span class='num'>0</span><span class='plus active'>+</span></td>
+        </tr>
+    <% }) %>
+    </tbody>
+  </table>`
 
 
 /***/ },
@@ -767,9 +809,9 @@ var teamTemplate = `<div class="row">
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__getstats__ = __webpack_require__(29);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__getplayerstats__ = __webpack_require__(28);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__getgoaliestats__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__getstats__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__getplayerstats__ = __webpack_require__(29);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__getgoaliestats__ = __webpack_require__(28);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__toasts_toasts__ = __webpack_require__(0);
 /* harmony export (immutable) */ exports["a"] = collectGameStats;
 
@@ -1145,7 +1187,7 @@ function deleteGame() {
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__sendsavedgame__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__sendsavedgame__ = __webpack_require__(31);
 /* harmony export (immutable) */ exports["a"] = sendToServer;
 
 
@@ -1159,6 +1201,17 @@ function sendToServer (){
 
 /***/ },
 /* 26 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ exports["a"] = updatePlayerPoints;
+function updatePlayerPoints(){
+  console.log('update player points');
+}
+
+
+/***/ },
+/* 27 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1232,7 +1285,7 @@ function fillOutScorecard(tableClass, stats) {
 
 
 /***/ },
-/* 27 */
+/* 28 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1255,7 +1308,7 @@ function getGoalieStats(g, opponent, home_game, result, date, season, ashiTeamNa
 
 
 /***/ },
-/* 28 */
+/* 29 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1295,7 +1348,7 @@ function getPlayerStats(p, opponent, home_game, result, date, season, ashiTeamNa
 
 
 /***/ },
-/* 29 */
+/* 30 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1346,7 +1399,7 @@ function getStats(tableClass) {
 
 
 /***/ },
-/* 30 */
+/* 31 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1375,7 +1428,7 @@ function sendSavedGame(arr){
 
 
 /***/ },
-/* 31 */
+/* 32 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1449,6 +1502,13 @@ __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_13__scorecard_components_toasts_
 __WEBPACK_IMPORTED_MODULE_20__scorecard_components_toasts_toasts__["a" /* toasts */].selectPlayers();
 
 toastr.options.positionClass = "toast-top-center";
+
+window.addEventListener("beforeunload", function (e) {
+  var confirmationMessage = "\o/";
+
+  e.returnValue = confirmationMessage;     // Gecko, Trident, Chrome 34+
+  return confirmationMessage;              // Gecko, WebKit, Chrome <34
+});
 
 
 /***/ }
