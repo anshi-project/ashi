@@ -5,7 +5,7 @@ function getScorecard (req,res){
         .populate({path:"players goalies",select:"firstname lastname team.jersey_number"})
         .exec(function(e,d){
             req.session.teamData=d;
-            res.render("scorecard"); 
+            res.render("scorecard",{layout:"scorecard"}); 
         });
 }
 

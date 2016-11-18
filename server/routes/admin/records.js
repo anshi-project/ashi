@@ -1,8 +1,20 @@
 var Record = require("../../locals/records");
 
+function notEqual(a,b,options){
+  if(Array.isArray(b) && b.indexOf(a)==-1 || !Array.isArray(b) && a !== b) {
+    return options.fn(this);
+  }
+  return options.inverse(this);
+}
+
+function isEqual(a,b,options){
+  if(a == b) {
+    return options.fn(this);
+  }
+  return options.inverse(this);	
+}
+
 module.exports = function(app) {
-
-
 	app.get("/admin/records/:type", function(req, res) {
 		var type = req.params.type;
 		var id = req.query.id;
@@ -10,28 +22,34 @@ module.exports = function(app) {
 		if (!id) {
 			return res.redirect("/admin/index")
 		}
-
-		Record.render(type,id,function(error,fields,doc){
+		Record.render(type,id,function(error,fields,fields2, doc){
 			if(error) throw error;
-			req.session.memberRecord = doc
-			res.render("records", {fields,id,type})
+			req.session.memberRecord = doc;
+			var person = doc.firstname +" "+ doc.lastname
+			
+			res.render("records", {fields, fields2, person, id,type, helpers:{notEqual,isEqual}})
 		})
 
 	})
 
-
-
-	app.put("/admin/records/:type", function(req, res) {
-		var recordBeforeUpdate = req.session.memberRecord;
+	app.put("/admin/update/team-records/:type",function(req,res){
 		var type = req.params.type;
 		var id = req.query.id;
+		var update = req.body;
 
-		var HandleUpdate = Record.handleUpdate(type, id, recordBeforeUpdate);
+				
+		Record.handleTeamChange(type, id, req.body, function(data){
+			res.send(data);
+		})
+	})
+
+	app.put("/admin/records/:type", function(req, res) {
+		var type = req.params.type;
+		var id = req.query.id;
 		
-		HandleUpdate(req.body, function(err){
+		Record.handleUpdate(type,id,req.body, function(err){
 		 	if(err) throw err;
-		 	delete req.session.memberRecord;
-		 	res.send(recordBeforeUpdate)
+		 	res.send("Updated I think")
 		})	
 	})
 }

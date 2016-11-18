@@ -1,4 +1,5 @@
 var Team=require("../team/team")
+var _ = require("lodash");
 
 exports.assign=function(id,team,callback){
 	var type=team.position=="Goalie"? "goalies":"players";
@@ -26,3 +27,38 @@ exports.reassign=function(id,team){
           Team.addToRoster(query,id,type);
      })
 }//Assign a player that already exists within the database to a new team;
+
+exports.updateTeamRecords = function(id, update, next){
+	var division = require("../../locals/fields/teams").getDivision;
+	var teams = [update["prev-team"].name, update.team.name];
+
+	this.findById(id, function(err,doc){
+		var category = doc.team.position == "Goalie"? "goalies" : "players"
+		doc.team.name = update.team.name;
+		doc.team.division = division( update.team.name);
+		doc.paid = update.paid;
+		doc.headshot = update.headshot;
+		doc.markModified("team.name")
+		doc.save();
+
+		if(teams[0]!= teams[1]){
+			Team.find({}).exec(function(err,docs){
+				if(err) return next(err);
+				docs.forEach(team => {
+					if(team.name != update.team.name){
+						team[category] = team[category].filter(v=>{return v != id})
+					}else{
+						team[category].push(id)
+					}
+					team.markModified(category);
+					team.save()
+				})
+			})
+		}
+		next(null,doc);
+
+	})
+
+}
+
+

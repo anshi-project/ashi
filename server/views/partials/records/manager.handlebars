@@ -1,0 +1,15 @@
+<div class="form-group">
+	{{#each fields2}}
+		{{#each this.checkbox}}
+			{{#notEqual this ../value}}
+        		<label for="{{../name}}-{{this}}" class="checkbox">
+            		<input type="checkbox" name="division" value="{{this}}" id="{{../name}}-{{this}}" >{{this}}
+        		</label>
+        	{{else}}
+        	<label for="{{../name}}-{{this}}" class="checkbox">
+            	<input type="checkbox" name="division" value="{{this}}" id="{{../name}}-{{this}}" checked="true">{{this}}
+        	</label>
+        	{{/notEqual}}
+        {{/each}}	
+	{{/each}}
+</div>

@@ -24,17 +24,34 @@ module.exports = [
         label:"Team",
         name:"team[name]",
         dropdown:teams,
+        recordOnly:true,
+        fields2:true
+    },
+    {
+        label:"Paid?",
+        name:"paid",
+        dropdown:[true, false],
+        fields2:true,
         recordOnly:true
+    },
+    {
+        label:"Headshot?",
+        name:"headshot",
+        dropdown:[true,false],
+        recordOnly:true,
+        fields2:true
     },
     {
         label:"Jersey Number",
         name:"team[jersey_number]",
-        recordOnly:true        
+        type:"number",
+        recordOnly:true    
     },
     {
         label:"Position",
         name:"team[position]",
-        recordOnly:true        
+        dropdown:positions,
+        recordOnly:true,      
     },    
     {
         label:"Shooting hand",

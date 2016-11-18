@@ -6,6 +6,10 @@ function formatReqBody(serializedArr){
 		
 		},{});
 }
+$(window).on("load",function(){
+    $("#menu").removeClass("hidden");
+    $('.menu-link').bigSlide({easyClose:true});
+})
 
 
 $('#coach-modal, #player-modal').on('show.bs.modal', function (event) {

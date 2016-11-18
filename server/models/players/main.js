@@ -86,7 +86,7 @@ playerSchema.virtual("team.pos_abrv").get(function(){
 
 playerSchema.plugin(require("../plugins/setFullName"));
 
-
+playerSchema.statics.updateTeamRecords = methods.updateTeamRecords;
 playerSchema.statics.assignToTeam=methods.assign;
 //Create a new player object from the registration object. Assign to a team.
 playerSchema.statics.reassign=methods.reassign

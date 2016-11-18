@@ -1,0 +1,10 @@
+<div class="col-xs-3">
+	<select name="{{this.name}}" class="form-control">
+		<option value="{{this.value}}" selected >{{this.value}}</option>
+		{{#each this.list}}
+			{{#notEqual this ../value}}
+			<option value="{{this}}">{{this}}</option>
+			{{/notEqual}}
+		{{/each}}
+	</select>
+</div>

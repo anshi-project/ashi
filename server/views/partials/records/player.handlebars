@@ -1,0 +1,17 @@
+<div class="form-group">
+    <div class="row">
+	{{#each fields2}}
+        <div class="col-xs-4">
+        <label>{{this.label}}</label>
+        <select name="{{this.name}}" class="form-control">
+            <option value="{{this.value}}" selected>{{this.value}}</option>
+            {{#each this.list}}
+            {{#notEqual this ../value}}
+            <option value="{{this}}">{{this}}</option>
+            {{/notEqual}}
+            {{/each}}
+        </select>
+        </div>
+	{{/each}}
+    </div>
+</div>

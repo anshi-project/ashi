@@ -34,6 +34,7 @@ $(function() {
     }) 
 
 
+
     $(".permission-btn").each(function() {
             var status = $(this).data("status");
 
@@ -71,20 +72,26 @@ $(function() {
 
     $("#gm-modal .btn-success").on("click", function() {
         var formData = $("form").serializeArray();
-        var body = {
-            division: formData[0].value
-        }
+        
+        var body = formData.reduce(function(prev,curr){
+
+            curr.division = prev.division || [];
+            curr.division.push(curr.value)
+            return curr;
+        },{})
         var id = $(this).attr("id");
 
         if (!body.division.length) {
             return alert("no")
         }
+        console.log(formData)
+        console.log(body)
         $.ajax({
             url: "/admin/assign/manager?id=" + id,
             type: "PUT",
-            data: body,
+            data: {division:body.division},
             success: function(response) {
-
+                alert(response);
             }
         })
 

@@ -7,7 +7,16 @@
       </div>
       <div class="modal-body">
         <form id="assign-coach" action="/admin/assign/manager?id=" disabled>
-          <div class="form-group division-dropdown"></div>
+          <div class="form-group">
+          <label>Add to these divisions:</label>
+          {{#each divisions}}
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" name="division" value="{{this}}">{{this}}
+              </label>
+            </div>
+          {{/each}}
+          </div>
         </form>
       </div>
       <div class="modal-footer">

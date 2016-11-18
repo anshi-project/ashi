@@ -1,4 +1,5 @@
 var StaffMember = require("../../models/staff/main");
+var divisions = require("../../locals/fields/teams").divisions
 
 module.exports = function(app){
 
@@ -9,7 +10,7 @@ module.exports = function(app){
     StaffMember.find({username:{$ne:req.user.username},__t:{$regex}})
       .sort({"status":1,"lastname":1})
       .exec(function(e,user){
-        res.render("admin/permissions/"+type,{user, layout:"spreadsheet"})
+        res.render("admin/permissions/"+type,{user, layout:"spreadsheet",divisions})
     })
   })
 

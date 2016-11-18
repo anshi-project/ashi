@@ -71,7 +71,6 @@ teamSchema.statics.addToRoster = function(query,id,type){
          function(err,data){
              if(err) throw err;
         })
-
 }
 
 teamSchema.statics.swap = function(currQuery,newQuery,id,type){

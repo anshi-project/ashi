@@ -2,21 +2,19 @@ var mongoose=require("mongoose");
 var Schema=mongoose.Schema;
 var Staff=require("./main");
 var Team=require("../team/team");
+var _ = require("lodash");
 
-var coachSchema=new Schema({
-	team:{
+var teamSchema = {
 		name:String,
 		division:String,
 		role:String,
-	},
-	role:String,
-	status:{type:String,default:"Active"},
-	/*	This models status field defaults to active because unlike the 
-	other two categories of staff member, a coach model instance is created 
-	after a 'coach-registration' model has been approved and assigned to a team. 
-		The other 2 categories (GM, admin) are created directly after their respective 
-	registration forms are submitted, and need to be approved by an existing admin.
-	*/
+	}
+
+var coachSchema=new Schema({
+	team:teamSchema,
+	team2:teamSchema,
+	team3:teamSchema,
+	status:{type:String,default:"Active"}, 
 	contact:{
 		social_media:{},
 		email:String,
@@ -45,17 +43,34 @@ var coachSchema=new Schema({
 })
 
 
-coachSchema.statics.removeFromTeam=function(id,callback){
-	var currTeam;
+coachSchema.statics.updateTeamRecords=function(id,update,callback){
+	var prev = [update["prev-team"],update["prev-team2"],update["prev-team3"]].map(v=>{return v.name})
+	var curr = [update["team"],update["team2"],update["team3"]].map(v=>{return v.name})
+		prev = prev.filter((v,i,a) => {return a.lastIndexOf(v) == i && curr.indexOf(v)==-1})
+		curr = curr.filter((v,i,a) => {return a.lastIndexOf(v) == i && prev.index(v) == -1})
+
 	this.findById(id,"team").exec((err,data)=>{
-		if(err) throw "Error removing Coach during the initial query.";
-		currTeam={name:data.team.name};
-		data.status="inactive";
+		data.team = update.team;
+		data.team2 = update.team2;
+		data.team3 = update.team3;
 		data.save();
 	})
-	.then(()=>{Team.pullFromRoster(currTeam,id,"managers")})
-	.then(data=> {return callback(data)})
-	.catch(err=>{if(err) throw "Error removing coach from team";});		
+	.then(()=>{
+		Team.find({name:{$in: prev.concat(curr)}},"name coaches")
+		.exec(function(err,docs){
+			docs.forEach(team =>{
+				if(prev.indexOf(team.name)!= -1){
+					team.coaches = team.coaches.filter(v=>{return v!=id})
+				}else{
+					team.coaches.push(id)
+				}
+				team.markModified("coaches");
+				team.save();
+			})
+			callback(docs);
+		})
+	})
+	.catch(err=>{if(err) throw "Error updating team records for the coach";});		
 }
 
 module.exports=Staff.discriminator("coach",coachSchema);

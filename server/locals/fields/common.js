@@ -123,12 +123,14 @@ module.exports = {
 	password:{
 		label:"Password",
 		name:"password",
-		type:"password"
+		type:"password",
+		registration_only:true
 	},
 	confirmPW:{
 		label:"Confirm Password",
 		name:"",
-		type:"password"
+		type:"password",
+		registration_only:true
 	}
 }
 

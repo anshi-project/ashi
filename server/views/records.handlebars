@@ -1,13 +1,40 @@
-<form  method="post" action="/admin/records/{{type}}?id={{id}}&_method=PUT" >
-	<fieldset class="input-group">
+<div class="jumbotron">
+	<h3>{{person}}</h3>
+</div>
+
+<div class="container">
+	<div class="well">
+		<form class="form-horizontal team-records" disabled>
+			{{#isEqual type "player"}}
+				{{> records/player}}
+			{{/isEqual}}
+			{{#isEqual type "coach"}}
+				{{> records/coach}}
+			{{/isEqual}}
+			{{#isEqual type "manager"}}
+				{{> records/manager}}
+			{{/isEqual}}
+			<button class="record-update btn btn-sm center-block"  data-id={{id}} data-type={{type}}>Update</button>				
+		</form>
+	</div>
+</div>
+
+<form  method="post" class="form-horizontal main-records" action="/admin/records/{{type}}?id={{id}}&_method=PUT" disabled="true">
+	<div class="container-fluid">
 	{{#each fields}}
-	<div class="col-xs-2 ">
-	<label for="{{this.name}}" class="control-form">{{this.label}}</label>
-	<input type={{this.type}} class="form-control" value="{{this.value}}" name={{this.name}}>
+	<div class="form-group">
+	<label for="{{this.name}}" class="control-label col-xs-2">{{this.label}}</label>
+	
+	{{#if this.list}}
+		{{> records/list}}
+	{{else}}
+		<div class="col-xs-3">
+			<input type="{{this.type}}" class="form-control" value="{{this.value}}" name={{this.name}}>
+		</div>
+	{{/if}}	
 	</div>
 	{{/each}}
-	</fieldset>
-<input type="submit" value="Update Record">
+<input type="submit" class="update-main-records" value="Update Record">
+</div>
 </form>
 	
-<style type="text/css"> .well{color:black;}</style>

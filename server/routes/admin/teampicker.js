@@ -34,7 +34,11 @@ module.exports = function(app) {
             res.send(doc);
         })
     })
+  app.get("/search",function(req,res){
+    var m= require("../../models/staff/manager");
 
+    m.findOne({"firstname":"mark"},function(e,d){ res.send(d)})
+  })
     app.put("/admin/assign/manager", function(req, res) {
         var id = req.query.id;
         var division = req.body.division;
@@ -45,7 +49,7 @@ module.exports = function(app) {
 
     app.post("/admin/assign/coach", function(req, res) {
         var id = req.query.id;
-        var team = req.body
+        var team = req.body;
 
         Registration.assignCoach(id, team, function(err) {
             if (err) throw err;

@@ -1,9 +1,6 @@
 var passport = require("passport")
 
-
-
 module.exports=function(app){
-
     app.get("/login",function(req,res,next){
         var user=req.user;
 
