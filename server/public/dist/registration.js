@@ -25,10 +25,6 @@ function toggleFormField(element, condition) {
   }
 }
 
-$(window).on("load", function() {
-  $(".loader").fadeOut(1000);
-})
-
 
 
 $(function() {

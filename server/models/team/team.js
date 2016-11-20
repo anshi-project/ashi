@@ -73,18 +73,17 @@ teamSchema.statics.addToRoster = function(query,id,type){
         })
 }
 
-teamSchema.statics.swap = function(currQuery,newQuery,id,type){
+teamSchema.statics.swap = function(currTeam,newTeam,id,type){
     var update = {};
     update[type] = id;
-
-   this.update(currQuery,{"$pull":update},{upsert:true,safe:true,multi:true},
+   
+   this.update({name:currTeam},{"$pull":update},{upsert:true,safe:true,multi:true},
          function(err,data){
              if(err) throw err;
     })    
 
-    this.addToRoster(newQuery,id,type);
+    this.addToRoster({name:newTeam},id,type);
 }
-
 
 teamSchema.virtual("roster").get(function(){
     var team=this.players.concat(this.goalies);
@@ -94,7 +93,7 @@ teamSchema.virtual("roster").get(function(){
       if(+a.team.jersey_number<+b.team.jersey_number) return -1;
         return 0;
     })
-
 })
+
 
 module.exports = mongoose.model("team",teamSchema)

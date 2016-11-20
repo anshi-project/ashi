@@ -1,19 +1,5 @@
 var Record = require("../../locals/records");
 
-function notEqual(a,b,options){
-  if(Array.isArray(b) && b.indexOf(a)==-1 || !Array.isArray(b) && a !== b) {
-    return options.fn(this);
-  }
-  return options.inverse(this);
-}
-
-function isEqual(a,b,options){
-  if(a == b) {
-    return options.fn(this);
-  }
-  return options.inverse(this);	
-}
-
 module.exports = function(app) {
 	app.get("/admin/records/:type", function(req, res) {
 		var type = req.params.type;
@@ -22,12 +8,12 @@ module.exports = function(app) {
 		if (!id) {
 			return res.redirect("/admin/index")
 		}
-		Record.render(type,id,function(error,fields,fields2, doc){
+		Record.render(type,id,function(error,fields, doc){
 			if(error) throw error;
-			req.session.memberRecord = doc;
+
 			var person = doc.firstname +" "+ doc.lastname
-			
-			res.render("records", {fields, fields2, person, id,type, helpers:{notEqual,isEqual}})
+		
+			res.render("records", {userType:"admin",layout:"user",fields, person, id,type})
 		})
 
 	})

@@ -20,11 +20,7 @@ gmSchema.statics.assign=function(id,division){
 }
 
 gmSchema.statics.updateTeamRecords=function(id,update,callback){
-	
-		var prev = update["prev-division"]
-		var curr = update.division;
-		var a = prev.filter((v,i,a) => {return a.lastIndexOf(v) == i && curr.indexOf(v)==-1})
-		var b = curr.filter((v,i,a) => {return a.lastIndexOf(v) == i && prev.indexOf(v) == -1})
+	var curr = update.division;
 
 	this.findById(id,"division").exec((err,data)=>{
 		data.division = update.division;
@@ -35,9 +31,9 @@ gmSchema.statics.updateTeamRecords=function(id,update,callback){
 		Team.find({},"division managers")
 		.exec(function(err,docs){
 			docs.forEach(team =>{
-				if(prev.indexOf(team.division)!= -1){
+				if(curr.indexOf(team.division) == -1){
 					team.managers = team.managers.filter(v=> {return v != id})
-				}else{
+				}else if(team.managers.indexOf(id) == -1){
 					team.managers.push(id)
 				}
 				team.markModified("managers");
@@ -49,16 +45,5 @@ gmSchema.statics.updateTeamRecords=function(id,update,callback){
 	.catch(err=>{if(err) throw "Error updating team records for the coach";});		
 }
 
-
-gmSchema.statics.removeFromDivision=function(id,callback){
-	this.findById(id,"division").exec((err,data)=>{
-		if(err) throw "Error removing GM during the initial query.";
-		data.status="inactive";
-		data.save();
-	})
-	.then((doc)=>{Team.pullFromRoster({division:doc.division},id,"managers")})
-	.then(data=> {return callback(data)})
-	.catch(err=>{if(err) throw err;});		
-}
 
 module.exports=Staff.discriminator("manager",gmSchema);

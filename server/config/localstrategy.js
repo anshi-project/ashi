@@ -4,7 +4,7 @@ var User=require("../models/staff/main")
 
 module.exports= new LocalStrategy(function(username, password, done) {
 	
-  User.findOne({ username: username,status:"Active"}, function (err, user) {
+  User.findOne({ username ,status:"Active"}, function (err, user) {
     
   		if(err) { 
   			return done(err); 
@@ -13,7 +13,8 @@ module.exports= new LocalStrategy(function(username, password, done) {
     		return done(null, false);
   		}
 
-  		user.comparePassword(password,user.password,function(err,success){		
+  		user.comparePassword(password, user.password, function(err,success){	
+
         if(err) return done(err);
   		
   			if(success){

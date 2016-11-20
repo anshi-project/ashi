@@ -1,3 +1,4 @@
+{{> modal/email}}
 <div>
 <div class="page-header">
 <h1>Team Roster:
@@ -11,6 +12,7 @@
 			<option value="{{this.name}}">{{this.name}}</option>
 			{{/each}}
 		</select>
+		<button class="email-btn" data-toggle="modal" data-target="#email-modal">Send Message To Team</button>
 	</div>
 </div>	
 	{{#each teams}}

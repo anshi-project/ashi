@@ -16,7 +16,7 @@ module.exports=function(app){
     })
     
     app.post('/auth', passport.authenticate('local', 
-        {successRedirect:'/auth/success',failureRedirect: '/login'}));
+        {successRedirect:'/auth/success',failureRedirect: '/login?failure=true'}));
     
     app.get("/auth/success",function(req,res,next){
         if(!req.user) return next();

@@ -66,7 +66,7 @@ var playerSchema=new Schema({
         choice3:Number  
       }
     },
-     status:{type:String,default:"Active"} //inactive, renewing membership, Active
+    status:{type:String,default:"Active"} //inactive, renewing membership, Active
 },{timestamps:true})
 
 playerSchema.virtual("public_data.age").get(function(){
@@ -89,8 +89,7 @@ playerSchema.plugin(require("../plugins/setFullName"));
 playerSchema.statics.updateTeamRecords = methods.updateTeamRecords;
 playerSchema.statics.assignToTeam=methods.assign;
 //Create a new player object from the registration object. Assign to a team.
-playerSchema.statics.reassign=methods.reassign
-//Assign a player that already exists within the database to a new team;
+
 
 
 

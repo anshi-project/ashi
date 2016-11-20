@@ -1,9 +1,13 @@
 var express=require("express");
-var app=express();
-var MongoStore=require("connect-mongo")(express);
+var app = express();
+var MongoStore = require("connect-mongo")(express);
 
-var exphbs=require('express-handlebars');
+var exphbs = require('express-handlebars');
 
+var hbs = exphbs.create({
+	helpers:require("./views/helpers/index"),
+	defaultLayout:"main"
+})
 
 var mongoose=require("mongoose");
 var bodyParser=require('body-parser');
@@ -31,7 +35,7 @@ app.use(session({resave:false,
 );
 
 
-app.engine('handlebars', exphbs({defaultLayout: 'main'}));
+app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
 
 app.use('/public', express.static('public'));

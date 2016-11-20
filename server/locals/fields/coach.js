@@ -11,6 +11,18 @@ var roles = ["Head Coach", "Assistant Head Coach", "Assistant Coach for Forwards
 module.exports = [
     common.firstname,
     common.lastname,
+    {
+        label: "Team",
+        name:"team[name]",
+        dropdown:teamArray,
+        recordOnly:true
+    },
+    {
+        label: "Role",
+        name:"team[role]",
+        dropdown:roles,
+        recordOnly:true
+    },      
     common.passport,
     common.passport_exp,
     common.email,
@@ -76,47 +88,5 @@ module.exports = [
         label: "Career highlights",
         name: "background[career_highlights]",
         textarea: true
-    },
-    {
-        label: "Team",
-        name:"team[name]",
-        dropdown:teamArray,
-        recordOnly:true,
-        fields2:true
-    },
-    {
-        label: "Role",
-        name:"team[role]",
-        dropdown:roles,
-        recordOnly:true,
-        fields2:true
-    },    
-    {
-        label: "Team",
-        name:"team2[name]",
-        dropdown:teamArray,
-        recordOnly:true,
-        fields2:true
-    },
-    {
-        label: "Role",
-        name:"team2[role]",
-        dropdown:roles,
-        recordOnly:true,
-        fields2:true
-    },     
-    {
-        label: "Team",
-        name:"team3[name]",
-        dropdown:teamArray,
-        recordOnly:true,
-        fields2:true
-    }, 
-        {
-        label: "Role",
-        name:"team3[role]",
-        dropdown:roles,
-        recordOnly:true,
-        fields2:true
-    },        
+    }   
 ]

@@ -39,15 +39,15 @@ exports.render = function(type, id, next) {
 		var Model = Models[type];
 
 		Model.findById(id).lean().exec(function(err, doc) {
-			if (err) return next("There was an error Adam");
+			if (err) return next(err);
 
 			fields.forEach((obj) => {
 				obj.value = _.result(doc, obj.name);
-				obj.list =  obj.radio || obj.checkbox || obj.dropdown || null;
+				obj.list =  obj.radio || obj.dropdown || null;
 			})
 			
-			fields = _.partition(fields, "fields2")
-			return next(null, fields[1],fields[0], doc);
+			
+			return next(null, fields, doc);
 		})
 	}
 	//render an editable/populated form of a persons records 

@@ -1,0 +1,52 @@
+<h2>Player A.P.I.</h2>
+<form class="form-horizontal" action="/admin/api/player" target="_blank">
+	<div class="container-fluid">
+		<div class="form-group">
+		   <label class="control-label col-xs-2" for="lastname">First name</label>
+		   <div class="col-xs-10">
+		   		<input type="text" class="form-control" name="firstname" required>
+		   </div>
+		</div>
+		<div class="form-group">
+		   <label class="control-label col-xs-2" for="lastname">Last name</label>
+		   <div class="col-xs-10">
+		   		<input type="text" class="form-control" name="lastname" required>
+		   </div>
+		</div>
+		<div class="form-group">
+		   <label class="control-label col-xs-2" for="team.jersey_number">Jersey Number</label>
+		   <div class="col-xs-10">
+		   		<input type="text" class="form-control" name="team.jersey_number" maxlength="2" required>
+		   </div>
+		</div>	
+		<input type="submit" value="Get API" class="btn-success api-search pull-right">			
+	</div>
+</form>
+
+<h2>Team A.P.I.</h2>
+<form class="form-horizontal" action="/admin/api/team" target="_blank">
+	<div class="container-fluid">
+		<div class="form-group">
+		   <label class="control-label col-xs-2" for="name">Team name</label>
+		   <div class="col-xs-10">
+		   		<select name="name">
+		   			{{#each teams as |team|}}
+		   			{{#if @first}}
+		   			<option value="{{team}}" required>{{team}}</option>
+		   			{{else}}
+		   			<option value="{{team}}">{{team}}</option>
+		   			{{/if}}
+		   			{{/each}}
+		   		</select>
+		   </div>
+		</div>
+		<input type="submit" value="Get API" class="btn-success api-search pull-right">			
+	</div>
+</form>
+
+<style>
+form{
+	padding:10px;
+	background:#eeefee;
+}
+</style>

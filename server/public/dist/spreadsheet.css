@@ -2,7 +2,7 @@ html{
 	min-height: 100%;
 }
 body{
-background: #672d2d;
+background: #f5fffe;
 
 }
  .team-table{
@@ -16,15 +16,12 @@ background: #672d2d;
  }
  h1{
  	margin-bottom: 5px;
- 	color:white;
  	text-align:center;
  }
  label[for='team-name'],label[for='.staff-checkbox']{
- 	color:white;
  }
 .table, .table-bordered, .panel{
 	background: #fff;
-	color:black;
 }
 
  .table-bordered .row-Active{
@@ -65,10 +62,9 @@ thead{
 .roster-gm-display{
 	display:flex;
 	align-items: center;
-	color:#fff;
 }
 .roster-gm-display a{
-	color:white;
+	color:black;
 	margin-left:6px;
 	font-size:1.4em;
 }

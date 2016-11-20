@@ -1,3 +1,13 @@
+
+var rowPaid = "payment-true";
+var rowUnpaid = "payment-false";
+
+$(window).on("load",function(){
+	$(".payment-true button").text("Mark as unpaid");	
+})
+
+
+
 $(".player-payment-search-input").on("input",function(e){
 	var inputVal = new RegExp($(this).val(), "i" );
 
@@ -17,7 +27,7 @@ $(".player-payment-search-input").on("input",function(e){
 			$(this).hide();
 		}
 	})
-})
+})//filter by name
 
 $("input[name='paid-filter']").on("change",function(){
 	var row = $(this).val();
@@ -30,19 +40,19 @@ $("input[name='paid-filter']").on("change",function(){
 
 function updateRow(){
 	var flag = $(this).hasClass("payment-true");
-	var a = flag? "payment-false" : "payment-true";
-	var b = flag? "payment-true" : "payment-false";
+	var a = flag? rowUnpaid : rowPaid;
+	var b = flag? rowPaid : rowUnpaid;
+	var text = flag? "Mark as Paid" : "Mark as Unpaid"; 
 
 	$(this).addClass(a).removeClass(b);
-	$(this).css("background","pink")
+	$(this).children().children("button").text(text)
 }
+
 
 $(".payment-btn").on("click",function(){
 	var paidStatus = $(this).data("paid");
 	var id = $(this).data("id");
 	var row = $(this).parent().parent();
-
-
 
 	$.ajax({
 		url:`/admin/payments/${id}`,

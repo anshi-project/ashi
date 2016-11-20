@@ -5,12 +5,11 @@ module.exports=function(app){
 
   app.get("/admin/payments", function(req,res){
     Player.find({},"firstname lastname team paid contact.email contact.phone1")
-      .sort({paid:1,lastname:1})
+      .sort({lastname:1})
       .lean()
-      .exec((err,docs) => {
-        
+      .exec((err,docs) => {        
         if(err) throw err;
-        res.render("admin/payments",{layout:"spreadsheet",player:docs});
+        res.render("admin/payments",{userType:"admin",layout:"user",player:docs});
       })  
   })
 

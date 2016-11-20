@@ -5,7 +5,7 @@ module.exports=function(schema){
     schema.pre('save', function(next) {
       var user = this;
       
-      if(user.__t=="coach"){
+      if(user.__t=="coach" || !user.isNew ){
         return next();
       }
 

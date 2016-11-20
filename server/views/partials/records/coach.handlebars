@@ -2,9 +2,9 @@
 <div class="form-group">
 	{{#each fields2}}
         <label class="control-label col-xs-3">{{this.label}}</label>
-        <div class="col-xs-3">
+        <div class="col-xs-7">
         <select name="{{this.name}}" class="form-control">
-            <option value="{{this.value}}">{{this.value}}</option>
+            <option value="{{this.value}}" selected="true">{{this.value}}</option>
 		    {{#each this.list}}
 			{{#notEqual this ../value}}
             <option value="{{this}}">{{this}}</option>

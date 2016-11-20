@@ -1,7 +1,7 @@
-var Team=require("../../models/team/team");
-var writeFile=require("../../locals/rosterDownload");
-var Player=require("../../models/players/main")
-var _=require("lodash");
+var Team = require("../../models/team/team");
+var writeFile = require("../../locals/rosterDownload");
+var Player = require("../../models/players/main")
+var _ = require("lodash");
 
 module.exports=function(app){
 	
@@ -13,11 +13,12 @@ module.exports=function(app){
     Team.find(query,"key name players goalies coaches managers")
       .sort({"name":-1})
       .populate({path:"players coaches goalies managers",match:{status:"Active"}, select})
-      .exec(function(e,d){    
-        if(e) throw e;           
-        res.render("admin/roster/team",{teams:d,layout:"spreadsheet",division , admin:req.user});
+      .exec(function(err,teams){    
+        if(err) throw err;           
+        res.render("admin/roster/team",{teams,division,userType:"admin",layout:"user"});
       })
 	})
+
 
   app.get("/admin/roster/download",function(req,res,next){
 

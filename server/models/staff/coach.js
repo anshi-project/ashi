@@ -1,8 +1,6 @@
 var mongoose=require("mongoose");
-var Schema=mongoose.Schema;
 var Staff=require("./main");
 var Team=require("../team/team");
-var _ = require("lodash");
 
 var teamSchema = {
 		name:String,
@@ -10,10 +8,8 @@ var teamSchema = {
 		role:String,
 	}
 
-var coachSchema=new Schema({
+var coachSchema=new mongoose.Schema({
 	team:teamSchema,
-	team2:teamSchema,
-	team3:teamSchema,
 	status:{type:String,default:"Active"}, 
 	contact:{
 		social_media:{},
@@ -44,32 +40,15 @@ var coachSchema=new Schema({
 
 
 coachSchema.statics.updateTeamRecords=function(id,update,callback){
-	var prev = [update["prev-team"],update["prev-team2"],update["prev-team3"]].map(v=>{return v.name})
-	var curr = [update["team"],update["team2"],update["team3"]].map(v=>{return v.name})
-		prev = prev.filter((v,i,a) => {return a.lastIndexOf(v) == i && curr.indexOf(v)==-1})
-		curr = curr.filter((v,i,a) => {return a.lastIndexOf(v) == i && prev.index(v) == -1})
+    var teamA = update["prev-team"].name;
+    var teamB = update.team.name;
 
 	this.findById(id,"team").exec((err,data)=>{
 		data.team = update.team;
-		data.team2 = update.team2;
-		data.team3 = update.team3;
 		data.save();
 	})
-	.then(()=>{
-		Team.find({name:{$in: prev.concat(curr)}},"name coaches")
-		.exec(function(err,docs){
-			docs.forEach(team =>{
-				if(prev.indexOf(team.name)!= -1){
-					team.coaches = team.coaches.filter(v=>{return v!=id})
-				}else{
-					team.coaches.push(id)
-				}
-				team.markModified("coaches");
-				team.save();
-			})
-			callback(docs);
-		})
-	})
+	.then(()=>{Team.swap(teamA, teamB, id, "coaches");})
+	.then(docs => { return callback(docs) })
 	.catch(err=>{if(err) throw "Error updating team records for the coach";});		
 }
 

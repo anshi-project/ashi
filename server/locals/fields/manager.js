@@ -4,6 +4,11 @@ var divisions = require("./teams").divisions
 module.exports = [
     common.firstname,
     common.lastname,
+    {label:"Division",
+     name:"division",
+     checkbox:divisions,
+     recordOnly:true
+    },    
     common.passport,    
     common.passport_exp,
     common.email,
@@ -16,11 +21,5 @@ module.exports = [
     common.hat,
     common.username,
     common.password,
-    common.confirmPW,
-    {label:"Division",
-     name:"division",
-     checkbox:divisions,
-     recordOnly:true,
-     fields2:true
-    },
+    common.confirmPW
 ]

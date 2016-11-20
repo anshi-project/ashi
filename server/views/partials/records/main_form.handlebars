@@ -1,13 +1,9 @@
-
-	<h3>{{person}}</h3>
-
 <form  method="post" class="main-records" action="/admin/records/{{type}}?id={{id}}&_method=PUT">
-	<div class="container-fluid">
 	{{#each fields}}
 	<div class="form-group">
 	<label for="{{this.name}}">{{this.label}}</label>
 		{{#if this.checkbox}}
-			{{> records/checkbox}}
+			{{> records/manager}}
 		{{else if this.list}}
 			{{> records/list}}
 		{{else}}
@@ -18,6 +14,4 @@
 	</div>
 	{{/each}}
 	<input type="submit" class="update-main-records" value="Update Record">
-	</div>
 </form>
-

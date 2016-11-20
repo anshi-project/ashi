@@ -7,23 +7,29 @@ var _ = require("lodash")
 
 module.exports = function(app) {
 	app.get("/gm/roster", function(req, res) {
-		var fields = "-contact.private_data -favorite -career_stats -game_stats -season_stats"
-		Team.find({
-				division: req.user.division
-			}, "division key name players goalies coaches")
-			.populate({
-				path: "coaches players goalies",
-				match: {status: "Active"},
-				select: fields
-			})
-			.exec(function(e, d) {
-				res.render("manager/roster", {teams: d});
+		var path = "managers coaches players goalies";
+		var fields = "division key name "+path;
+		var select = "-contact.private_data -favorite -background -career_stats -game_stats -season_stats";
+		var match =  {status: "Active"};
+
+		Team.find({division: {$in: req.user.division}}, fields)
+			.populate({path, match, select})
+			.exec(function(err, teams) {
+				if(err) throw err;
+				res.render("manager/roster", {teams,layout:"user",userType:"manager"});
 			})
 	})
 
+ 	app.post("/message",function(req,res){
+    	var sendMessage = require("../../config/nodemailer");
+
+    	sendMessage(req.body);
+    	res.send(req.body);    
+    })
+
 	app.get("/gm/roster/export", function(req, res) {
-		
-		Players.find({"team.division": req.user.division})
+
+		Players.find({"team.division": {$in:req.user.division}})
 			.sort({lastname: 1})
 			.lean()
 			.exec(function(err, players) {

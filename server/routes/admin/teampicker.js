@@ -8,8 +8,8 @@ module.exports = function(app) {
             res.render("admin/teampicker/player", {
                 player,
                 teams:require("../../locals/fields/teams").names,
-                admin: req.user,
-                layout: "spreadsheet"
+                layout: "user",
+                userType:"admin"
             });
         })
     })
@@ -20,8 +20,8 @@ module.exports = function(app) {
             if (err) throw err;
             res.render("admin/teampicker/coach", {
                 coach,
-                admin: req.user,
-                layout: "spreadsheet"
+                layout: "user",
+                userType:"admin"
             })
         })
     })
@@ -34,11 +34,7 @@ module.exports = function(app) {
             res.send(doc);
         })
     })
-  app.get("/search",function(req,res){
-    var m= require("../../models/staff/manager");
 
-    m.findOne({"firstname":"mark"},function(e,d){ res.send(d)})
-  })
     app.put("/admin/assign/manager", function(req, res) {
         var id = req.query.id;
         var division = req.body.division;
@@ -76,5 +72,4 @@ module.exports = function(app) {
             res.send("Successfully deleted application.");
         })
     })
-
 }
