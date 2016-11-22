@@ -22,16 +22,17 @@ gmSchema.statics.assign=function(id,division){
 gmSchema.statics.updateTeamRecords=function(id,update,callback){
 	var curr = update.division;
 
-	this.findById(id,"division").exec((err,data)=>{
-		data.division = update.division;
-		data.markModified("division");
+	this.findById(id).exec((err,gm)=>{
+		var fields = Object.keys(update);
+
+		fields.forEach(key =>{gm[key] = update[key]})
 		data.save();
 	})
 	.then(()=>{
 		Team.find({},"division managers")
 		.exec(function(err,docs){
 			docs.forEach(team =>{
-				if(curr.indexOf(team.division) == -1){
+				if(curr.indexOf(team.division) == -1 && team.managers.indexOf(id) != -1){
 					team.managers = team.managers.filter(v=> {return v != id})
 				}else if(team.managers.indexOf(id) == -1){
 					team.managers.push(id)

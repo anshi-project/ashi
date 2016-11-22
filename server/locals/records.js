@@ -11,11 +11,11 @@ var getDivision = require("./fields/teams").getDivision
 
 
 
-exports.handleTeamChange = function(type, id, update, next) {
+exports.handleTeamChange = function(type, id,prev, update, next){
 	var Model = Models[type];
 
-	Model.updateTeamRecords(id, update, function(data){
-		return next(data)
+	Model.updateTeamRecords(id,prev, update, function(err, data){
+		return next(err, data)
 	})
 
 }

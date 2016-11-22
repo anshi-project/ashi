@@ -80,6 +80,7 @@ teamSchema.statics.swap = function(currTeam,newTeam,id,type){
    this.update({name:currTeam},{"$pull":update},{upsert:true,safe:true,multi:true},
          function(err,data){
              if(err) throw err;
+             console.log("Pulled "+id+" from "+currTeam);
     })    
 
     this.addToRoster({name:newTeam},id,type);

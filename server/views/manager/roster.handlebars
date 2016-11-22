@@ -1,24 +1,31 @@
 {{> modal/email}}
 <div>
-<div class="page-header">
-<h1>Team Roster:
-  <span class="team-roster-display"></span>
-</h1>
-<span class="clearfix"></span>
-	<div class="form-horizontal">
-		<label for="team-name">Select Team:</label>
-		<select class="team-name">
-			{{#each teams}}
-			<option value="{{this.name}}">{{this.name}}</option>
-			{{/each}}
-		</select>
-		<button class="email-btn" data-toggle="modal" data-target="#email-modal">Send Message To Team</button>
-	</div>
-</div>	
+	<div class="page-header">
+	<h1><span class="team-roster-display"></span></h1>
+	<hr>
+		<span class="clearfix"></span>
+		<div class="roster-controls">
+			<div>
+				<label for="team-name">Select Team:</label>
+					<select class="team-name">
+					{{#each teams}}
+					<option value="{{this.name}}">{{this.name}}</option>
+					{{/each}}
+				</select>
+			</div>
+			<a href="/gm/roster/export" class="btn btn-sm btn-info">
+			<span class="glyphicon glyphicon-export"></span>Export CSV</a>	
+			<button class="email-btn btn-sm btn-success" data-toggle="modal" data-target="#email-modal">
+				<span class="glyphicon glyphicon-envelope"></span>
+				Email These Players</button>
+			<button class="edit-roster-btn btn-sm btn-warning">
+				<span class="glyphicon glyphicon-edit"></span>
+			Edit?</button>
+		</div>
+	</div>	
 	{{#each teams}}
 		<div class="team-table" data-teamname="{{this.name}}">
 		{{> gm/player_table}}
 		</div>
 	{{/each}}
-
 </div>

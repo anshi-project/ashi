@@ -8,7 +8,7 @@ var teamSchema = {
 		role:String,
 	}
 
-var coachSchema=new mongoose.Schema({
+var coachSchema = new mongoose.Schema({
 	team:teamSchema,
 	status:{type:String,default:"Active"}, 
 	contact:{
@@ -39,17 +39,18 @@ var coachSchema=new mongoose.Schema({
 })
 
 
-coachSchema.statics.updateTeamRecords=function(id,update,callback){
-    var teamA = update["prev-team"].name;
-    var teamB = update.team.name;
-
-	this.findById(id,"team").exec((err,data)=>{
-		data.team = update.team;
-		data.save();
+coachSchema.statics.updateTeamRecords = function(id,prev,update,callback){
+  	var division = require("../../locals/fields/teams").getDivision;
+  	
+	this.findById(id, "team").exec((err,coach)=>{
+		coach.team.division = division( update.team.name);
+		coach.save();
 	})
-	.then(()=>{Team.swap(teamA, teamB, id, "coaches");})
-	.then(docs => { return callback(docs) })
-	.catch(err=>{if(err) throw "Error updating team records for the coach";});		
+	.then(()=>{Team.swap(prev, update.team.name, id, "coaches");})
+	.then(docs => { return callback(null,docs) })
+	.catch(err=>{if(err) return callback("Error updating team records for the coach");});		
 }
 
 module.exports=Staff.discriminator("coach",coachSchema);
+
+	

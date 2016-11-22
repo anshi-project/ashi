@@ -14,13 +14,22 @@ $(document).ready(function(){
             
             },{});
     }
-    var prevTeamRecords = formatReqBody($(".team-records"),"prev-"); 
+    
+    var initialRecords = formatReqBody($("form")); 
 
     $(".update-main-records").on("click",function(evt){
         evt.preventDefault();
         var form = $(".main-records");
         var url = form.attr("action")
         var data = formatReqBody(form); 
+        var teamUpdate = initialRecords.hasOwnProperty("team[name]")? initialRecords["team[name]"] : initialRecords.division
+
+        if(initialRecords["team[name]"] != data["team[name]"] || initialRecords.division != data.division){
+           url+= "&teamUpdate=" + teamUpdate;
+           console.log(url)
+        }
+
+
         $.ajax({
             url,
             type:"PUT",
@@ -28,20 +37,4 @@ $(document).ready(function(){
             success: d=>{console.log(d)}
         })
     })    
-
-    $(".record-update").on("click",function(evt){
-        evt.preventDefault();
-        var type= $(this).data("type");
-        var id= $(this).data("id")
-        var url ="/admin/update/team-records/"+type+"?id="+id;
-        var currTeamRecords = formatReqBody($(".team-records"));
-        var data = Object.assign({}, prevTeamRecords,currTeamRecords)
-
-        $.ajax({
-            url,
-            type:"PUT",
-            data,
-            success: d=>{console.log(d)}
-        })
-    })
 })

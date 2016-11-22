@@ -15,24 +15,15 @@ exports.assign=function(id,team,callback){
 	.catch((err)=>{ if(err) return callback(err) })
 }
 
-exports.updateTeamRecords = function(id, update, next){
-	var division = require("../../locals/fields/teams").getDivision;
-	var teamA = update["prev-team"].name; 
-	var teamB = update.team.name;
+exports.updateTeamRecords = function(id,prev, update, next){
 
-	this.findById(id, function(err,doc){
-		var category = doc.team.position == "Goalie"? "goalies" : "players"
-		doc.team.name = update.team.name;
-		doc.team.division = division( update.team.name);
-		doc.paid = update.paid;
-		doc.headshot = update.headshot;
-		doc.markModified("team.name")
-		doc.save();
+	this.findById(id, function(err,player){
+		if(err) return next(err);
+		player.team.division = division( update.team.name);
+		player.save();
 
-		if(teamA!= teamB){
-			Team.swap(teamA,teamB,id,category);
-		}
-		next(null,doc);
+		Team.swap(prev,update.team.name,id, player.team.position == "Goalie"? "goalies" : "players");
+		return next(null,"Updated team record for player: "+id)
 	})
 }
 

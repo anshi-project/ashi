@@ -22,19 +22,23 @@
         <td>{{this.apparel.jacket}}</td>
         <td>{{this.apparel.polo}}</td>
         <td>{{this.apparel.shorts}}</td>        
-        <td>
-          {{#isEqual this.headshot true}}
-          <input type="checkbox" checked>
+        <td class="td-checkbox" data-field="headshot" data-id="{{this._id}}">
+          {{#if this.headshot}}
+          <span class="glyphicon glyphicon-check"></span>
+          <input type="checkbox" class="roster-checkbox" checked>
           {{else}}
-          <input type="checkbox">
-          {{/isEqual}}          
+          <span class="glyphicon glyphicon-remove"></span>
+          <input type="checkbox" class="roster-checkbox">
+          {{/if}}          
         </td>
-        <td>
-          {{#isEqual this.paid true}}
-          <input type="checkbox" checked>
+        <td class="td-checkbox" data-field="paid" data-id="{{this._id}}">
+          {{#if this.paid}}
+          <span class="glyphicon glyphicon-check"></span>
+          <input type="checkbox" class="roster-checkbox"  checked>
           {{else}}
-          <input type="checkbox">
-          {{/isEqual}}
+          <span class="glyphicon glyphicon-remove"></span>
+          <input type="checkbox" class="roster-checkbox">
+          {{/if}}
         </td>
       </tr>
       {{/each}}
