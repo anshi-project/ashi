@@ -30,12 +30,27 @@ exports.updateTeamRecords = function(id,prev, update, next){
 exports.reset = function(teamName){
 	this.find({"team.name":teamName},function(err,docs){
 		docs.forEach(player=>{
-			player.paid = false;
 			player.status = "inactive";
 			player.save();
 		})
 	})
 }
 
+exports.updatePayments = function(reqBody, next){
+	var ids = Object.keys(reqBody);
+	
+	this.find({_id:{$in:ids}},function(err,docs){
+		if(err) return next(err);
+		docs.forEach(player=>{
+			var id = player._id;
+			var update = reqBody[id];
+		
+			player.paid = update.paid;
+			player.headshot = update.headshot;
+			player.save()
+		})
+		return next(null, docs);
+	})
+}
 
 

@@ -4,8 +4,8 @@ var nodemailer = require('nodemailer');
 var transporter = nodemailer.createTransport({
     service: 'Gmail',
     auth: {
-        user: 'adamhs7843521@gmail.com',
-        pass: 'adam3521'
+        user: 'ashi.hockey132@gmail.com',
+        pass: 'hockey1234'
     },
     logger: true, // log to console
     debug: true // include SMTP traffic in the logs
@@ -16,18 +16,14 @@ var transporter = nodemailer.createTransport({
 });
 
 module.exports = function(body){
-  var cc = "<dreaser@ashihockey.org>";
-  var DEFAULT = "adamhs3521@gmail.com, michael@freecodecamp.com, ms-ams@outlook.com, jasonrfcc@gmail.com"
+  var cc = body.cc 
+  var DEFAULT = "adamhs3521@gmail.com"
   var rec = body.recipients || DEFAULT;
   var recipients =  rec.split(" ").map(v=> {return "<"+v+">"}).join(", ")
   
-  
-
-
-
   transporter.sendMail({
     from: 'American Street Hockey Institute',
-    cc,
+    // cc,
     to: recipients,
     subject:body.subject,
     text: body.message

@@ -1,36 +1,19 @@
 <div>
-<div class="page-header">
-<h1>Team Roster:
-  <span class="team-roster-display"></span>
-</h1>
-	<div class="form-horizontal">
-		<label for="team-name">Select Team:</label>
-		<select class="team-name">
-			{{#each teams}}
-			<option value="{{this.name}}">{{this.name}}</option>
-			{{/each}}
-		</select>
-		<a class="btn btn-success" href="/admin/roster/download?division={{division}}">
-		Download player list as CSV
-		</a>
-	</div>
-</div>	
-	{{#each teams.managers}}
-		<p>{{this.fullname}}</p>
-	{{/each}}
+	{{> roster/controls}}	
 	{{#each teams}}
-		<div class="team-table" data-teamname="{{this.name}}">
-		<span class="roster-gm-display">
-			<h4>Managers:</h4>
-			{{#each managers}}
-			<h5>
-				<a href="/admin/records/manager?id={{this._id}}">{{this.fullname}}</a>
-			</h5>
+	<div class="team-table" data-division="{{this.division}}" data-teamname="{{this.name}}">
+		<div class="roster-gm-display">
+			<h4>Manager(s):</h4>
+				{{#each managers}}
+			<h4>
+				<a href="/admin/records/manager?id={{this._id}}">
+					{{this.fullname}}{{#unless @last}},{{/unless}}
+				</a>
+			</h4>
 			{{/each}}
-		</span>
+		</div>
 		{{> admin/player_roster}}
 		{{> admin/coach_roster}}
-		</div>
+	</div>
 	{{/each}}
-
 </div>

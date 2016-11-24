@@ -5,121 +5,136 @@ $(document).ready(function(){
 	var SaveBtn = `<span class='glyphicon glyphicon-floppy-disk'></span>Save`
     var EditBtn = $(".edit-roster-btn").html();
     var stateTracker;
-    var currState;
+    var exportTeamHREF = $("#export-team").attr("href");
+    var exportDivHREF = $("#export-division").attr("href");
+
 
 	function render(){
 		var title=$("select option:selected").text();
-		$(".team-roster-display").text(title)
-
-		$.each(tables,function(t){
+		
+		$.each(tables,function(){
 			if($(this).data("teamname")==title){
-			   $(this).addClass("team-table-active")
- 			   
+			   $(this).addClass("team-table-active")	   
 			}
 		})
+		var team = $(".team-table-active").data("teamname");
+		var division = $(".team-table-active").data("division"); 
+		
+		$(".team-roster-display").text(title);
+		$("#export-team").attr("href", exportTeamHREF+"?q=" + team);
+		$("#export-division").attr("href", exportDivHREF+"?q="+division);
 	}
-	render();
-
+	
+	function updateView(){
+		if(EditMode){
+			saveUpdate();
+		 	$(".team-name").prop("disabled",false);
+		 	$(".team-name").css("opacity","1");
+		 	$(".roster-checkbox").hide();
+			$(".td-checkbox span").show();
+			$(".edit-roster-btn").html(EditBtn);
+			$(".cancel-edit-btn").hide();			
+		}else{
+			stateTracker = getTableState();
+		 	$(".team-name").prop("disabled",true)
+		 	$(".team-name").css("opacity","0.4");
+		 	$(".roster-checkbox").show();
+		 	$(".td-checkbox span").hide();
+		 	$(".cancel-edit-btn").show();
+		 	$(".edit-roster-btn").html(SaveBtn);
+		}
+		$(".edit-roster-btn").toggleClass("btn-primary").toggleClass("btn-warning");
+		EditMode = !EditMode;
+	}
 
 	function getTableState(){
-		var initialState = {};
-		var modifications = {}
+		var a = {};//initial state
+		var b = {};//curr state
 		
 		$(".team-table-active").find(".td-checkbox").each(function(){
 			var id = $(this).data("id");
 			var field = $(this).data("field")
 			var flag = $(this).children("input").is(":checked");
 
-			initialState[id] = initialState[id] || {};
-			modifications[id] = modifications[id] || {};
-			initialState[id][field] = flag;
-			modifications[id][field] = flag;
-		})	//The only way I could think of to create two unique object with embedded objects as values
-			//that were initially identical, was to manually assign them both within this loop
-			//Object.assign would result in the nested properties being a reference to the original object
-					
-		
-		
-
+			a[id] = a[id] || {};
+			b[id] = b[id] || {};
+			b[id][field] = flag;
+			a[id][field] = flag;
+		})
 		return function(id, col){
 			if(arguments.length == 2){
-				modifications[id][col] = !modifications[id][col];
-				console.log(initialState[id],modifications[id])
-			}else if(arguments.length == 1){
-				return initialState;
+				b[id][col] = !b[id][col];
 			}else{
-				var keys = Object.keys(modifications);
-				var obj = {}
-				keys.forEach(key =>{
-					
-					if(modifications[key]["paid"] != initialState[key]["paid"] || 
-						modifications[key]["headshot"] != initialState[key]["headshot"]){
-						obj[key] = modifications[key];
+				var keys = Object.keys(b);
+				var modified = {};
+				
+				for(var i=0; i<keys.length; i++){
+					var key = keys[i];				
+					if(b[key]["paid"] != a[key]["paid"] || b[key]["headshot"] != a[key]["headshot"]){
+						modified[key] = b[key];
 					}
-				})
-				return obj;
+				}
+				return modified;
 			} 
 		} 
+	}
 
+	function resetCells(){
+		$(".team-table-active").find(".td-checkbox").each(function(){
+			var flag = $(this).children("span").hasClass("glyphicon-check")
+			$(this).children("input").prop("checked", flag);
+		})
+		updateView();
+	}
+	
+
+	function updateCells(){
+		$(".team-table-active").find(".td-checkbox").each(function(){
+			var input = $(this).children("input");
+			var span = $(this).children("span"); 
+			
+			if(input.is(":checked") && span.hasClass("glyphicon-remove")){
+				span.addClass("glyphicon-check").removeClass("glyphicon-remove")
+			}else if(!input.is(":checked") && span.hasClass("glyphicon-check")){
+				span.removeClass("glyphicon-check").addClass("glyphicon-remove")
+			}
+		})
 	}
 
 	function saveUpdate(){
 		var data = stateTracker();
-		console.log(data);
+		var userType = $(".edit-roster-btn").data("user");
+		var url = "/"+userType+"/roster";
+		var type = "PUT";
+
+		
+		if (jQuery.isEmptyObject(data)) return
+
+		$.ajax({
+			url, 
+			type, 
+			data, 
+			success:updateCells,
+			failure:d=>{console.log(d)}
+		})
 	}
 
 	$(".team-name").on("change",function(){
-		$(".team-table-active").removeClass("team-table-active")
-			render();
+		$(".team-table-active").removeClass("team-table-active");
+		render();
 	})
 
-	$(".email-btn").on("click",function(){
-
-		var emails = $(".team-table-active .player-email").text().trim();
-		$("#recipient-name").val(emails);
-	})
-
-	$(".send-email-btn").on("click",function(){
-		var url = "/message"
-		// var recipients = $("#recipient-name").val();
-		var message = $("#message-text").val() ;
-		var subject = $("#subject").val() || "No Subject";
-		var data = {recipients: "adamhs3521@gmail.com michael@freecodecamp.com ms-ams@outlook.com jasonrfcc@gmail.com"
-			, message, subject}
-
-		$.ajax({
-			url,
-			type:"POST",
-			data,
-			success: res => {console.log(res); $(".modal").modal("toggle");}
-		})
-	})
-
-	$(".edit-roster-btn").on("click",function(){
-		 if(EditMode){
-		 	saveUpdate();
-		 	$(".roster-checkbox").hide();
-		 	$(".td-checkbox span").show();
-		 	$(this).html(EditBtn);
-		 }else{
-		 	stateTracker = getTableState();
-		 	$(".roster-checkbox").show();
-		 	$(".td-checkbox span").hide();
-		 	$(this).html(SaveBtn);
-		 }
-		 $(this).toggleClass("btn-primary").toggleClass("btn-warning");
-		EditMode = !EditMode;
-		$(".team-name").attr("disabled", EditMode);
-
-	})
+	$(".cancel-edit-btn").on("click",resetCells)
+	$(".edit-roster-btn").on("click", updateView);
 	
 	$(".td-checkbox input").on("change",function(){
 		var parent = $(this).parent();
 		var id = parent.data("id");
 		var field = parent.data("field");
-		stateTracker(id, field)
-	})
 
+		stateTracker(id, field);
+	})
+	render();
 });
 
 

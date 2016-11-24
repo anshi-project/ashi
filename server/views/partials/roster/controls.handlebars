@@ -1,0 +1,30 @@
+<div class="page-header">
+<h1><span class="team-roster-display"></span></h1>
+<hr>
+	<span class="clearfix"></span>
+	<div class="roster-controls">
+		<div>
+			<label for="team-name">Select Team:</label>
+				<select class="team-name">
+				{{#each teams}}
+				<option value="{{this.name}}">{{this.name}}</option>
+				{{/each}}
+			</select>
+		</div>
+		{{> roster/export_btn}}					
+		<button class="email-btn btn-sm btn-success" data-toggle="modal" data-target="#email-modal">
+			<span class="glyphicon glyphicon-envelope"></span>
+			Email These Players</button>
+		<div class="btn-group">
+			<button class="edit-roster-btn btn-sm btn-warning" data-user="{{userType}}">
+				<span class="glyphicon glyphicon-edit"></span>
+			Edit?</button>
+			<button class="btn-sm cancel-edit-btn btn-danger">
+			Cancel
+			</button>
+		</div>
+	</div>
+</div>	
+
+
+</a>

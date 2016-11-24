@@ -35,7 +35,7 @@ $(".modal .btn-primary").on("click",function(evt){
 	})
 })
 
-$(".btn-danger").on("click",function(){
+$(".btn-delete").on("click",function(){
 	var id=$(this).data("url");
 	var msg="Are you sure you want to permanently delete this application? This can't be undone.";
 	var url="/admin/assign?id="+id;

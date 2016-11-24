@@ -5,7 +5,7 @@ body{
 background: #f5fffe;
 
 }
- .team-table, .roster-checkbox{
+ .team-table, .roster-checkbox, .cancel-edit-btn{
  	display: none;
  }
  .team-table-active{
@@ -18,8 +18,7 @@ background: #f5fffe;
  	margin-bottom: 5px;
  	text-align:center;
  }
- label[for='team-name'],label[for='.staff-checkbox']{
- }
+
 .table, .table-bordered, .panel{
 	background: #fff;
 }
@@ -58,9 +57,16 @@ background: #f5fffe;
 	display: flex;
 	justify-content: space-around;
 }
+.roster-gm-display{
+	display:flex;
+	align-items: center;
+}
+.roster-gm-display h4{
+	margin-left:10px; 
+}
 
 thead{
-	background: #4886c3;
+	background: #3e4f5f;
 	color:white;
 	font-weight: bold;
 }

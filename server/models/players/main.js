@@ -89,6 +89,7 @@ playerSchema.plugin(require("../plugins/setFullName"));
 playerSchema.statics.updateTeamRecords = methods.updateTeamRecords;
 playerSchema.statics.assignToTeam=methods.assign;
 //Create a new player object from the registration object. Assign to a team.
+playerSchema.statics.updatePayments = methods.updatePayments;
 
 
 

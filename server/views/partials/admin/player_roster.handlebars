@@ -16,8 +16,7 @@
         <td>{{this.public_data.height}}</td>
         <td>{{this.public_data.weight}}</td>
         <td>{{this.team.shooting_hand}}</td>
-        <td>{{this.headshot}}</td>
-        <td>{{this.paid}}</td>
+        {{> roster/paid}}
         <td> 
             <a target="_blank" href="/admin/records/player?id={{this._id}}">Edit</a>
         </td>

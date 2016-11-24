@@ -24,9 +24,16 @@ module.exports = function(app) {
     	var sendMessage = require("../../config/nodemailer");
     	
     	sendMessage(req.body);
-    	
+	
     	res.send(req.body);    
     })
+
+	app.put("/gm/roster",function(req,res){
+		Player.updatePayments(req.body, function(err,data){
+			if(err) return res.send("Something went wrong").status(500);
+			res.send(docs).status(200);
+		})
+	})
 
 	app.get("/gm/roster/export", function(req, res) {
 

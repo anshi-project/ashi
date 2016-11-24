@@ -34,19 +34,3 @@ module.exports=function(data,next){
 		    return next(null,filename);
 	    }); 
 }
-
-
-/*
-Progress Indication , 
-Time estimate,
-Mention the passport,
-Labels on top of input,
-Dont capitalize labels,
-Logo in upper left of screen,
-Width of input relative to amount of info required,
-Date input,
-Parents FULL NAME,
-No colons on label,
-
-
-*/

@@ -22,24 +22,7 @@
         <td>{{this.apparel.jacket}}</td>
         <td>{{this.apparel.polo}}</td>
         <td>{{this.apparel.shorts}}</td>        
-        <td class="td-checkbox" data-field="headshot" data-id="{{this._id}}">
-          {{#if this.headshot}}
-          <span class="glyphicon glyphicon-check"></span>
-          <input type="checkbox" class="roster-checkbox" checked>
-          {{else}}
-          <span class="glyphicon glyphicon-remove"></span>
-          <input type="checkbox" class="roster-checkbox">
-          {{/if}}          
-        </td>
-        <td class="td-checkbox" data-field="paid" data-id="{{this._id}}">
-          {{#if this.paid}}
-          <span class="glyphicon glyphicon-check"></span>
-          <input type="checkbox" class="roster-checkbox"  checked>
-          {{else}}
-          <span class="glyphicon glyphicon-remove"></span>
-          <input type="checkbox" class="roster-checkbox">
-          {{/if}}
-        </td>
+        {{> roster/paid}}
       </tr>
       {{/each}}
     </tbody>

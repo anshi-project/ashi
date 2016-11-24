@@ -1,0 +1,20 @@
+<div class="btn-group">
+<button type="button" class="btn-sm btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">		
+	<span class="glyphicon glyphicon-export"></span>
+	Export CSV
+	<span class="caret"></span>
+	<span class="sr-only">Toggle Dropdown</span>
+</button>
+<ul class="dropdown-menu">
+	<li>
+		<a href="/{{userType}}/roster/name/export" id="export-team">Players in team</a>
+	</li>
+	<li>
+		<a href="/{{userType}}/roster/division/export" id="export-division">Players in division</a>
+	</li>
+	<li role="seperator" class="divider"></li>
+	<li>
+		<a href="/{{userType}}/roster/all/export">All Players</a>
+	</li>
+</ul>  
+</div>

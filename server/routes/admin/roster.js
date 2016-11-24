@@ -8,9 +8,9 @@ module.exports=function(app){
   app.get("/admin/roster",function(req,res){
     var division = req.query.division
     var query = division ? {division} : {} ;
-    var select= "firstname contact paid background.hometown public_data lastname team";  
+    var select= "firstname contact paid headshot public_data lastname team";  
     
-    Team.find(query,"key name players goalies coaches managers")
+    Team.find(query,"key name division players goalies coaches managers")
       .sort({"name":-1})
       .populate({path:"players coaches goalies managers",match:{status:"Active"}, select})
       .exec(function(err,teams){    
@@ -19,24 +19,36 @@ module.exports=function(app){
       })
 	})
 
+  app.put("/admin/roster",function(req,res){     
+      Player.updatePayments(req.body, function(err,data){
+        if(err) return res.send("Something went wrong").status(500);
+        res.send(data).status(200);
+    })  
+  })
 
-  app.get("/admin/roster/download",function(req,res,next){
+  app.get("/admin/roster/:key/export",function(req,res,next){
 
-    var division = req.query.division
-    var query = division.length? {"team.division":division} : {};
-    var filename = division.length? division+".xlsx" : "ASHI-Players.xlsx"
+    var key = req.params.key;
+    var val = req.query.q
+    var filename = val? val+".xlsx" : "ASHI-Players.xlsx"
+    var query = {};
+
+    if(key != "all"){
+      query["team."+key] = val; 
+    }
+  
 
     Player.find(query)
       .sort({lastname:1})
       .exec(function(err,docs){
         if(err) throw err;
 
-        if(!docs.length){
-          return next();
+        if(!docs.length){ 
+          return res.send(query).status(404);
         }
         writeFile(docs,function(err,file){
           if(err) throw err;
-          res.download(file, division+".xlsx", err=>{if(err) throw err;});
+          res.download(file, filename, err=>{if(err) throw err;});
         })
       })
   })
