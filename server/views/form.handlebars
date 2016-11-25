@@ -3,7 +3,7 @@
 	{{#if this.textarea}}
 		<div>
 			<label for='{{this.name}}'><strong>{{this.label}}</strong></label>
-			<textarea  class='form-control' rows='7' name='{{this.name}}'></textarea>
+			<textarea  class='form-control' rows='7' name='{{this.name}}' required={{this.required}}></textarea>
 		</div>
 	{{else}}
 		<label><strong>{{this.label}}</strong></label>

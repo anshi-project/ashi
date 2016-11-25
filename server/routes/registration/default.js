@@ -2,6 +2,7 @@ var player = require("../../models/registration/_playerReg");
 var coach = require("../../models/registration/_coachReg");
 var manager = require("../../models/staff/manager");
 var admin = require("../../models/staff/admin");
+var StaffMember = require('../../models/staff/main');
 
 var models = {player , coach , manager , admin}
 
@@ -11,15 +12,25 @@ module.exports=function(app){
         var type = req.params.type;
         var getFields = require("../../locals/registration").renderForm;
         var fields = getFields(type);
-        res.render("form",{fields,layout:"registration",type});
-    })
+        var admin = fields.admin? true: false;
+        res.render("form",{fields,layout:"registration",type, admin});
+    });
 
     app.post("/register/:type",function(req,res){
         var Registration = models[req.params.type];
-        console.log(req.body);
         Registration.create(req.body,function(err,doc){
             if(err) throw err;
             res.render("index")
-        })
-    })
+        });
+    });
+
+    app.post("/check-username/:username",function(req,res){
+        var username = req.params.username;
+        console.log('username: ', username);
+        StaffMember.find({username: username}, function(err,doc){
+            if(err) throw err;
+            res.send(doc);
+            // console.log(doc);
+        });
+    });
 }

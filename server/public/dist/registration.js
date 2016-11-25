@@ -16,7 +16,6 @@ $(function() {
 
   $("input[name='contact[passport]']").on("change", function() {
     var passport = $(this).val();
-    console.log('passport: ', passport)
     var expMonth = $("select[name='contact[passport_exp]']");
     var expDay = $("input[name='passport-day']");
     var expYear = $("input[name='passport-year']");
@@ -53,22 +52,13 @@ $(function() {
     if (birthdayYear === 0) notRightFunc(birthdayMessage, birthdayYearSel);
 
     if ($('input[name="contact[passport]"]:checked').val() === 'Yes'){
-      var todaysDate = Date.now()
       var passportMessage = "Please fill out your passport expiration date.";
-      var passportExpired = 'Your passport is expired.';
       var passportMonthSel = $('select[name="contact[passport_exp]"]');
       var passportDaySel = $('input[name="passport-day"]');
       var passportYearSel = $('input[name="passport-year"]');
       var passportMonth = Number(passportMonthSel.val());
       var passportDay = Number(passportDaySel.val());
       var passportYear = Number(passportYearSel.val());
-      var passportDate = new Date(passportYear, (passportMonth - 1), passportDay);
-
-      if (passportDate < todaysDate) {
-        notRightFunc(passportExpired, passportDaySel);
-        notRightFunc(passportExpired, passportMonthSel);
-        notRightFunc(passportExpired, passportYearSel);
-      }
       if (passportDay === 0 ) notRightFunc(passportMessage, passportDaySel);
       if (passportMonth === 0) notRightFunc(passportMessage, passportMonthSel);
       if (passportYear === 0) notRightFunc(passportMessage, passportYearSel);
@@ -76,4 +66,14 @@ $(function() {
       $('input[name="contact[passport_expiration]"]').val(passportDate);
     }
   });
+
+  // if ($('.reg-type').text() === 'admin'){
+  //   $('.message-box').css('border-color', '#f9f9f9').text('');
+  // }
+
+  // window.addEventListener("beforeunload", function (e) {
+  //   var confirmationMessage = "\o/";
+  //   (e || window.event).returnValue = confirmationMessage; //Gecko + IE
+  //   return confirmationMessage;                            //Webkit, Safari, Chrome
+  // });
 });

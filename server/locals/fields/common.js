@@ -148,5 +148,13 @@ module.exports = {
 		name:"",
 		type:"password",
 		registration_only:true
+    class: 'password',
+	},
+	confirmPW:{
+		label:"Confirm password",
+		name:"confirm_password",
+		type:"password",
+    registration_only:true
+    class: 'confirm-password',
 	}
 }

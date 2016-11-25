@@ -7,6 +7,5 @@ function toggleFormField(expMonth, expDay, expYear, condition) {
     expMonth.attr("required", true).attr("disabled", false).parent().css("opacity", "1");
     expDay.attr("required", true).attr("disabled", false).parent().css("opacity", "1");
     expYear.attr("required", true).attr("disabled", false).parent().css("opacity", "1");
-    // element.attr("required", true).attr("disabled", false).parent().css("opacity", "1");
   }
 }

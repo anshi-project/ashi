@@ -26,12 +26,14 @@ function formatter(type){
 }
 
 exports.renderForm = function(typeOfApplicant){
+  console.log(typeOfApplicant)
 	var fields = getFields(typeOfApplicant);
 
 	fields.forEach(function(p){
     	p["required"] = p.hasOwnProperty('required')? p.required : true;
     	p["type"] = p.hasOwnProperty('type')? p.type : "text";
 	})
+  if (typeOfApplicant === 'admin') fields.admin = true;
   return fields;
 }
 
