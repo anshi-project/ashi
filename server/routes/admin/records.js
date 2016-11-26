@@ -15,7 +15,6 @@ module.exports = function(app) {
 		
 			res.render("records", {userType:"admin",layout:"user",fields, person, id,type})
 		})
-
 	})
 
 
@@ -24,8 +23,9 @@ module.exports = function(app) {
 		var type = req.params.type;
 		var id = req.query.id;
 		var messages = [];
+		var team_update = req.query.teamUpdate
 
-		if(req.query.teamUpdate){
+		if(team_update){
 			Record.handleTeamChange(type, id, req.query.teamUpdate, req.body, function(err,data){
 				if(err) return res.send("Error updating team/division of " + id).status(500)
 			    console.log("Team updated");

@@ -24,6 +24,7 @@ module.exports=function(app){
         res.render("index")
     });
 
+    require("./email")(app);
     require("./auth")(app);
     require("./player_records/index")(app);
     require("./registration")(app);

@@ -34,7 +34,16 @@ $(document).ready(function(){
             url,
             type:"PUT",
             data,
-            success: d=>{console.log(d)}
+            success: function(){
+                $("form").hide();
+                $(".alert-info p").text("Record has been updated.")
+                $(".alert-info").fadeIn("slow");
+            },
+            failure:function(){
+                $("form").hide();
+                $(".alert-danger p").text("Something went wrong. Please try again.")
+                $(".alert-danger").fadeIn("slow");
+            }
         })
     })    
 })

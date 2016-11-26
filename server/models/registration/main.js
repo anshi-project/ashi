@@ -18,8 +18,8 @@ var registrationSchema = new Schema({
 	timestamps: true
 })
 
-
 registrationSchema.plugin(require("../plugins/setFullName"))
+registrationSchema.plugin(require("../plugins/phonenumber"))
 
 registrationSchema.statics.assignCoach = Method.assignCoach;
 

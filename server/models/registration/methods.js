@@ -12,18 +12,19 @@ exports.assignPlayer = function(id,team,playerIsGoalie,callback){
     
     Registration.findById(id).lean().exec((err,doc) => {
         if(err)throw err;
-
-        var jersey_number = doc.hockey_info.jersey_number.choice1
-        var shooting_hand = doc.hockey_info.shooting_hand
+        var info = doc.hockey_info;
+        var jersey_number = info.jersey_number.choice1;
+        var shooting_hand = info.shooting_hand;
+        var position = info.position;
         
         var player=_.omit(doc,["_id","__t","__v","createdAt","updatedAt","status"])
             player.team=Object.assign(team,{shooting_hand,jersey_number}); 
             
             Player.create(player,(err)=>{if(err) throw "Error creating new player"} )
-            .then((player) => { Team.addToRoster({name:team.name},player._id, type) })
+            .then( player => { Team.addToRoster({name:team.name},player._id, type) })
             .then(()=> {return callback()})
-            .catch((err)=>{if(err) throw err; })
-    }).then(function(){
+            .catch( err=>{if(err) throw err; })
+    }).then(()=> {
         Registration.findByIdAndRemove(id,function(err){if(err) throw err});
     })
 };

@@ -20,14 +20,6 @@ module.exports = function(app) {
 			})
 	})
 
- 	app.post("/message",function(req,res){
-    	var sendMessage = require("../../config/nodemailer");
-    	
-    	sendMessage(req.body);
-	
-    	res.send(req.body);    
-    })
-
 	app.put("/gm/roster",function(req,res){
 		Player.updatePayments(req.body, function(err,data){
 			if(err) return res.send("Something went wrong").status(500);

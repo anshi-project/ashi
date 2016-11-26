@@ -13,13 +13,10 @@ $(function() {
     function toggleRow(btn, oldStatus, newStatus) {
         var parentRow = $(btn).parentsUntil("tbody");
 
-        parentRow.removeClass("row-" + oldStatus)
-            .addClass("row-" + newStatus);
+        parentRow.removeClass("row-" + oldStatus).addClass("row-" + newStatus);
 
-        $(btn).data({
-            status: newStatus
-        })
-
+        $(btn).data({status: newStatus})
+        
         toggleBtn(btn);
     } //Updates the appearance of a table row to reflect a change in status
 
@@ -63,9 +60,7 @@ $(function() {
         $.ajax({
             url,
             type: "PUT",
-            data: {
-                status
-            },
+            data: {status},
             success: toggleRow(self, currStatus, status)
         })
     })

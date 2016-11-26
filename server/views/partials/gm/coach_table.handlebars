@@ -1,0 +1,19 @@
+<table class="table table-bordered table-condensed">
+  <thead>
+    <tr>
+    {{> gm/coach_headers}}
+    </tr>
+  </thead>
+  <tbody>
+    {{#each coaches}}
+    <tr>  
+      <td>{{this.fullname}}</td>
+      <td>{{this.team.role}}</td>
+      <td>
+        <a href="mailto:{{this.contact.email}}" class="email-cell"> {{this.contact.email}}</a>
+      </td>
+      <td>{{this.contact.phone1}}</td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table> 

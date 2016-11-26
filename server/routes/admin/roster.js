@@ -6,16 +6,16 @@ var _ = require("lodash");
 module.exports=function(app){
 	
   app.get("/admin/roster",function(req,res){
-    var division = req.query.division
-    var query = division ? {division} : {} ;
+  
     var select= "firstname contact paid headshot public_data lastname team";  
     
-    Team.find(query,"key name division players goalies coaches managers")
+    Team.find({},"key name division players goalies coaches managers")
       .sort({"name":-1})
       .populate({path:"players coaches goalies managers",match:{status:"Active"}, select})
       .exec(function(err,teams){    
         if(err) throw err;           
-        res.render("admin/roster/team",{teams,division,userType:"admin",layout:"user"});
+        res.render("admin/roster/team",{teams,userType:"admin",
+          email:req.user.contact.email, layout:"user"});
       })
 	})
 

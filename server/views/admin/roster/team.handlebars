@@ -1,11 +1,14 @@
+{{> modal/email}}
 <div>
 	{{> roster/controls}}	
 	{{#each teams}}
 	<div class="team-table" data-division="{{this.division}}" data-teamname="{{this.name}}">
+		<p class="email-cc">{{email}}<p>
 		<div class="roster-gm-display">
 			<h4>Manager(s):</h4>
 				{{#each managers}}
 			<h4>
+				<p class="hidden email-cc">{{this.contact.email}}</p>
 				<a href="/admin/records/manager?id={{this._id}}">
 					{{this.fullname}}{{#unless @last}},{{/unless}}
 				</a>

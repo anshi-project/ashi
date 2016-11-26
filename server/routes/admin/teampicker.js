@@ -33,7 +33,7 @@ module.exports = function(app) {
             if (err) throw err;
             res.send(doc);
         })
-    })
+    })//handles adding a returning player to a team;
 
     app.put("/admin/assign/manager", function(req, res) {
         var id = req.query.id;

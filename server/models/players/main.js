@@ -11,7 +11,7 @@ var playerSchema=new Schema({
     team:{
       name:String,
       division:String,
-      position:String,
+      position:[String],
       jersey_number:String,
       shooting_hand:String
     },
@@ -78,13 +78,21 @@ playerSchema.virtual("public_data.age").get(function(){
 })
 
 playerSchema.virtual("team.pos_abrv").get(function(){
-  var pos=this.team.position.split(" ");
-  if(pos[1]=="Defense") return "D";
-
-  return pos.map(v=> v.charAt(0)).join("")
+  var arr=[];
+  this.team.position.forEach(pos=>{
+    if(/Defense/.test(pos)){
+      arr.push("D")
+    }else{
+      pos = pos.split(" ").map(v=>{return v.charAt(0)}).join("")
+      arr.push(pos);
+    }
+  })
+  return arr.join("/")
 })
 
+
 playerSchema.plugin(require("../plugins/setFullName"));
+playerSchema.plugin(require("../plugins/phonenumber"))
 
 playerSchema.statics.updateTeamRecords = methods.updateTeamRecords;
 playerSchema.statics.assignToTeam=methods.assign;

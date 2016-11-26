@@ -13,11 +13,11 @@ var PlayerReg = Registration.discriminator("player-registration",
     },
     contact:{
       phone1:String,
-      phone2:{type:String,set:Default},
+      phone2:{type:String},
       email:{type:String,lowercase:true},
       alt_email:String,
       passport:String,
-      passport_expiration:{type:String,set:Default},
+      passport_expiration:{type:String},
       private_data:{
         guardian_name:{type:String},
         guardian_number:{type:String},
@@ -47,7 +47,7 @@ var PlayerReg = Registration.discriminator("player-registration",
     },         
     hockey_info:{
       team:String,
-      position:String,
+      position:[String],
       shooting_hand:String,
       tournament_team:String,
       league_team:String,
@@ -61,7 +61,4 @@ var PlayerReg = Registration.discriminator("player-registration",
   })
 )
 
-function Default(val){
-  return val||"N|A"
-}
 module.exports=PlayerReg;

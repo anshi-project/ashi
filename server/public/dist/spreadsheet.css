@@ -5,7 +5,7 @@ body{
 background: #f5fffe;
 
 }
- .team-table, .roster-checkbox, .cancel-edit-btn{
+ .team-table, .roster-checkbox, .cancel-edit-btn, .alert{
  	display: none;
  }
  .team-table-active{
@@ -14,6 +14,16 @@ background: #f5fffe;
  .form-horizontal{
  	text-align: center;
  }
+#loading{
+	width:100%;
+	height:100%;
+	background: black;
+	color:blue;
+	font-size: 2.2em;
+	position: relative;
+	z-index: 2;
+}
+
  h1{
  	margin-bottom: 5px;
  	text-align:center;

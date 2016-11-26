@@ -2,7 +2,11 @@
 {{> roster/controls}}
 	{{#each teams}}
 		<div class="team-table" data-teamname="{{this.name}}">
+		{{#each managers}}
+		<p class="hidden email-cc"> {{this.contact.email}} </p>
+		{{/each}}
 		{{> gm/player_table}}
+		{{> gm/coach_table}}
 		</div>
 	{{/each}}
 </div>
