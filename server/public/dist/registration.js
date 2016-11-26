@@ -67,13 +67,9 @@ $(function() {
     }
   });
 
-  // if ($('.reg-type').text() === 'admin'){
-  //   $('.message-box').css('border-color', '#f9f9f9').text('');
-  // }
-
-  // window.addEventListener("beforeunload", function (e) {
-  //   var confirmationMessage = "\o/";
-  //   (e || window.event).returnValue = confirmationMessage; //Gecko + IE
-  //   return confirmationMessage;                            //Webkit, Safari, Chrome
-  // });
+  window.addEventListener("beforeunload", function (e) {
+    var confirmationMessage = "\o/";
+    (e || window.event).returnValue = confirmationMessage; //Gecko + IE
+    return confirmationMessage;                            //Webkit, Safari, Chrome
+  });
 });

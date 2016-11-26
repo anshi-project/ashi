@@ -272,8 +272,29 @@
         'hockey_info[team]': {
           required: true,
         },
+        'background[short_answers][preparation]': {
+          required: true,
+          maxlength: 8000,
+        },
+        'background[short_answers][coaching_style]': {
+          required: true,
+          maxlength: 8000,
+        },
+        'background[short_answers][why_a_good_candidate]': {
+          required: true,
+          maxlength: 8000,
+        },
+        'background[short_answers][create_team_atmosphere]': {
+          required: true,
+          maxlength: 4000,
+        },
+        'background[career_highlights]': {
+          required: true,
+          maxlength: 4000,
+        },
         "background[hockey_history]": {
           required: true,
+          maxlength: 4000,
         },
         "background[former_coaching_positions]": {
           required: true,
@@ -289,9 +310,7 @@
         },
         "background[other_sports]": {
           required: true,
-        },
-        "background[career_highlights]": {
-          required: true,
+          maxlength: 4000,
         },
         'hockey_info[jersey_number][choice1]':{
           required: true,
