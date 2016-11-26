@@ -5,12 +5,10 @@ $(function(){
 	$(document)
   		.ajaxStart(function () {
   			$("body").attr("disabled","true").css("opacity",".6");
-  			$("form").hide();
-  			$loading.show();
   		})
   		.ajaxStop(function () {
   			$("body").attr("disabled","false").css("opacity","1")
-  			$loading.hide();
+  			
   		});
 
 
@@ -32,7 +30,6 @@ $(function(){
 			data,
 			success: function(res){
 				$(".modal").modal("toggle");
-				alert("Sent");
 			}
 		})
 	})

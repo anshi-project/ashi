@@ -6,7 +6,7 @@ var fs = require("fs");
 var _ = require("lodash")
 
 module.exports = function(app) {
-	app.get("/gm/roster", function(req, res) {
+	app.get("/gm/index", function(req, res) {
 		var path = "managers coaches players goalies";
 		var fields = "division key name "+path;
 		var select = "-contact.private_data -favorite -background -career_stats -game_stats -season_stats";
@@ -20,14 +20,14 @@ module.exports = function(app) {
 			})
 	})
 
-	app.put("/gm/roster",function(req,res){
-		Player.updatePayments(req.body, function(err,data){
+	app.put("/manager/roster",function(req,res){
+		Players.updatePayments(req.body, function(err,data){
 			if(err) return res.send("Something went wrong").status(500);
-			res.send(docs).status(200);
+			res.send(data).status(200);
 		})
 	})
 
-	app.get("/gm/roster/export", function(req, res) {
+	app.get("/manager/roster/export", function(req, res) {
 
 		Players.find({"team.division": {$in:req.user.division}})
 			.sort({lastname: 1})

@@ -30,6 +30,7 @@ module.exports = [
     },
     common.passport,
     common.passport_exp,
+    common.passport_expiration,
     common.email,
     common.alt_email,
     common.phone1,

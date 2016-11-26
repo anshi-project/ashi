@@ -55,8 +55,16 @@ module.exports = {
 		day_input: 'passport-day',
 		year_input: 'passport-year',
 		class: 'passport',
-    hidden: 'contact[passport_expiration]',
+    	hidden: 'contact[passport_expiration]',
+    	registration_only:true
 	},
+	passport_expiration:{
+		label:"Passport expiration date",
+		name:"contact[passport_expiration]",
+		type:"date",
+		recordOnly:true
+	},
+
 	facebook: {
 		label: "Facebook",
 		name: "background[social_media][facebook]",

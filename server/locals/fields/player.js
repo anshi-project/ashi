@@ -86,12 +86,20 @@ module.exports = [
         date: 'date',
         month: months,
         day_input: 'birthday-day',
-    		year_input: 'birthday-year',
+    	year_input: 'birthday-year',
         class: 'birthday',
         hidden: 'public_data[date_of_birth]',
+        registration_only:true
+    },
+    {
+        label:"Birthday",
+        name:"public_data[date_of_birth]",
+        type:"date",
+        recordOnly:true
     },
     common.passport,
     common.passport_exp,
+    common.passport_expiration,
     common.email,
     common.alt_email,
     common.phone1,

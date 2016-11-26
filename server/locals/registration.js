@@ -18,6 +18,7 @@ function formatter(type){
   			return str;
   		}else{
   			for(i = 0; i<fields.length; i++){
+            console.log(fields[i].name);
   				str += (_.result(doc,fields[i].name)|| "N|A") +", "
   			}
   			str+="\n";
@@ -60,7 +61,7 @@ exports.renderCompletedForm = function(type,id,next){
 
 	Registration.findById(id).exec(function(err,doc){
 		if(err) return next(err);
-
+    doc.contact.passport_exp = doc.contact.passport_expiration;
 		var fields = _fields.reduce((prev,curr)=>{
 			prev[curr.label] = _.result(doc, curr.name);
 			return prev;

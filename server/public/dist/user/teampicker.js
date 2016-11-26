@@ -39,12 +39,16 @@ $(".btn-delete").on("click",function(){
 	var id=$(this).data("url");
 	var msg="Are you sure you want to permanently delete this application? This can't be undone.";
 	var url="/admin/assign?id="+id;
+	var row = $(this).parentsUntil("tbody");
 
 	if(confirm(msg)){
 		$.ajax({
 			url,
 			type:"DELETE",
-			success:(d)=>{console.log(d)}
+			success:(d)=>{
+				console.log(d);
+				row.hide();
+			}
 		})	
 	}	
 })
