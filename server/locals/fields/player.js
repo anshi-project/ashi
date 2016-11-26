@@ -142,7 +142,7 @@ module.exports = [
     {
         label: "Position",
         name: "hockey_info[position]",
-        radio: positions,
+        checkbox: positions,
         registration_only:true
     },
     {
@@ -224,35 +224,35 @@ module.exports = [
     {
        label: "Favorite movie",
        name: "favorite[movie]",
-       class: 'fullwidth',
+       class: 'fullwidth optional',
    },
 
    {
        label: "Favorite tv show",
        name: "favorite[tv_show]",
-       class: 'fullwidth',
+       class: 'fullwidth optional',
    },
    {
        label: "Favorite sports team",
        name: "favorite[sports_team]",
-       class: 'fullwidth',
+       class: 'fullwidth optional',
    },
    {
        label: "Favorite athlete",
        name: "favorite[athlete]",
-       class: 'fullwidth',
+       class: 'fullwidth optional',
    },
 
    {
        label: "Favorite sport (other than hockey)",
        name: "favorite[other_sport]",
-       class: 'fullwidth',
+       class: 'fullwidth optional',
    },
 
    {
        label: "Favorite food or restaurant",
        name: "favorite[food_or_restaurant]",
-       class: 'fullwidth',
+       class: 'fullwidth optional',
    },
    common.facebook,
    common.twitter,

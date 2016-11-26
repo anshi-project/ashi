@@ -367,7 +367,7 @@ p {
 td.player-number,
 td.goalie-number,
 td.name {
-    color: #666;
+    color: #333;
 }
 
 .saved-game {

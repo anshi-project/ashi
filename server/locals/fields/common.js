@@ -82,32 +82,32 @@ module.exports = {
 		required: false
 	},
 	shirt: {
-		label: "Shirt size",
+		label: "Shirt size (Unisex)",
 		name: "apparel[shirt]",
 		radio: sizes
 	},
 	jacket: {
-		label: "Jacket size",
+		label: "Jacket size (Unisex)",
 		name: "apparel[jacket]",
 		radio: sizes
 	},
 	hat: {
-		label: "Hat size",
+		label: "Hat size (Unisex)",
 		name: "apparel[hat]",
 		radio: ["S/M", "L/XL"]
 	},
 	polo: {
-		label: "Polo size",
+		label: "Polo size (Unisex)",
 		name: "apparel[polo]",
 		radio: sizes
 	},
 	shorts: {
-		label: "Shorts size",
+		label: "Shorts size (Unisex)",
 		name: "apparel[shorts]",
 		radio: sizes
 	},
 	jersey: {
-		label: "Jersey size",
+		label: "Jersey size (Unisex)",
 		name: "apparel[jersey]",
 		radio: sizes.concat(["Goalie-XXL", "Goalie-XXXL"]),
 	},
@@ -138,7 +138,7 @@ module.exports = {
 		name:"username"
 	},
 	password:{
-		label:"Password",
+		label:"Password (at least 8 characters, including 1 uppercase letter and 1 digit)",
 		name:"password",
 		type:"password",
 		registration_only:true

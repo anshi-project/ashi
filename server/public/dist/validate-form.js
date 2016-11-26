@@ -23,13 +23,14 @@
 
   $.validator.addMethod("username-check", function(value) {
     var username = $('input[name="username"]').val();
-    console.log('username: ', username);
     $.post(usernameURL + username, function(result){
-      console.log('result: ', result);
       if (result.length > 0) {
-        console.log(usernameMessage);
+        $('input[name="username"]').addClass('redBorder');
+        $('input[name="username"]').closest('.form-group').find('.empty').remove();
+        $('input[name="username"]').closest('.form-group').append("<p class='empty'>" + usernameMessage + "</p>");
       } else {
-        console.log('username choice OK')
+        $('input[name="username"]').closest('.form-group').find('.empty').remove();
+        $('input[name="username"]').removeClass('redBorder');
       }
     });
     return true;
@@ -102,11 +103,9 @@
 
     $('.month').change(function (){
     var self = $(this);
-    console.log('month: ', self)
     var day = Number(self.next().children('.day').val());
     var month = Number(self.val());
     passportMonth = month;
-    console.log('month: ', self)
     if (passportExpired(self)) return;
     var year = Number(self.next().children('.year').val());
     if (self.val() !== 0) {
@@ -276,6 +275,18 @@
         "background[hockey_history]": {
           required: true,
         },
+        "background[former_coaching_positions]": {
+          required: true,
+        },
+        "background[team_applying_for]": {
+          required: true,
+        },
+        "background[highest_level_coached]": {
+          required: true,
+        },
+        "background[preferred_coaching_position]": {
+          required: true,
+        },
         "background[other_sports]": {
           required: true,
         },
@@ -341,7 +352,6 @@
           maxlength: 50,
         },
         "password": {
-          required: true,
           pwcheck: true,
           minlength: 8,
         },
@@ -432,11 +442,7 @@
           max: jerseyNumber,
         },
         "password": {
-          required: passwordMessage,
           pwcheck: passwordMessage,
-        },
-        "password": {
-          username_check: usernameMessage,
         },
         "username": {
           'username-check': usernameMessage,
@@ -450,7 +456,7 @@
         $(element).removeClass('redBorder');
     },
     errorPlacement: function (error, element) {
-        if (element.attr('type') == 'radio') {
+        if (element.attr('type') == 'radio' || element.attr('type') == 'checkbox' ) {
             element.closest('.form-group').append(error).addClass('redBorder');
         }
         else {
