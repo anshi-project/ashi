@@ -1,26 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-  	<link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
+	<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous"> -->
+	<link rel="stylesheet" href="/public/lib/bootstrap.css">
+	<link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
 	<link rel="stylesheet" type="text/css" href="/public/dist/registration.css">
-	 <script   src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script> 
-	 <script type="text/javascript" src="/public/lib/parsley.min.js"></script>
-    <script src="/public/dist/registration.js"></script>
-    <title>Registration</title>
+	<!-- <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script> -->
+	<script src="/public/lib/jquery-2.2.4.js"></script>
+	<!-- <script type="text/javascript" src="/public/lib/parsley.min.js"></script> -->
+	<script type="text/javascript" src="/public/lib/jquery.validate.js"></script>
+	<script type="text/javascript" src="/public/lib/validate-additional-methods.js"></script>
+	<title>Registration</title>
 </head>
+
 <body>
-	<form id="registration-form" class="form-horizontal" action="/register/{{type}}" method="post">
-		<div class="loader">
-			<span class="glyphicon glyphicon-cog"></span>
-		</div>
+	<div class="container-fluid">
+		<img src='../public/images/ashi-logo.png' alt='ashi logo'>
+		<!-- <div class="loader">Loading ...	</div> -->
+		<form id="registration-form" class="form-horizontal" action="/register/{{type}}" method="post">
 			{{> reg/header}}
-  			{{{body}}}
-			{{> reg/navbuttons}}			
-	</form>
- 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
- 	
+			{{{body}}}
+			<input type="submit" class="btn btn-primary">
+		</form>
+	</div>
+	<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script> -->
+	<script src="/public/lib/bootstrap.js"></script>
+	<script src="/public/dist/registration.js"></script>
+	<script src="/public/dist/validate-form.js"></script>
+
+
 </body>
+
 </html>

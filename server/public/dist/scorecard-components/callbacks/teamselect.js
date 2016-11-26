@@ -51,9 +51,9 @@ export function teamSelect (loc, teamName, edit, stats, blank){
 
   if (dropDownVal === 'blank scorecard') {
    $('.' + location + '-team-name').text(location + ' team:')
-   $('.' + location + '-name-input').html('<input type="text" maxlength="30" class="team-name-input" placeholder="  Fill in team name">');
+   $('.' + location + '-name-input').html('<input type="text" maxlength="30" class="team-name-input">');
    $('.' + location + '-name-input').children().val(teamName);
-   $('.' + location + '-team-name').css({'display':'inline-block', 'margin-left' : '4em'});
+   $('.' + location + '-team-name').css({'display':'inline-block', 'margin-left' : '13.5em'});
    displayBlankTeam(location);
    $('#' + location + '-dropdown').css('margin-bottom', '-1.15em');
    return;

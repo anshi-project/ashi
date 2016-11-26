@@ -1,27 +1,25 @@
-{{#each fields as |section|}}
-	<div class="container-fluid">
-	{{#each section}}
+{{#each fields}}
 	<div class="form-group ">
-		{{#if this.textarea}}
-			<div class='col-xs-10 col-xs-offset-1'>
-				<label for='{{this.name}}'>{{this.label}}</label>
-				<textarea class='form-control' rows='7' name='{{this.name}}'></textarea>
-			</div>	
-		{{else}}
-			<label class="control-label col-xs-2">{{this.label}}</label>
-			<div class="col-xs-8">
-				{{#if this.radio}}
-					{{> reg/radio}}
-				{{else if this.dropdown}}
-					{{> reg/dropdown}}
-				{{else if this.checkbox}}
-					{{> reg/checkbox}}		
-				{{else}}
-					<input type="{{this.type}}" class="form-control" name="{{this.name}}" required={{this.required}}>
-				{{/if}}
-			{{/if}}	
-			</div>
+	{{#if this.textarea}}
+		<div>
+			<label for='{{this.name}}'><strong>{{this.label}}</strong></label>
+			<textarea  class='form-control' rows='7' name='{{this.name}}'></textarea>
 		</div>
-	{{/each}}
+	{{else}}
+		<label><strong>{{this.label}}</strong></label>
+		<div>
+			{{#if this.radio}}
+				{{> reg/radio}}
+			{{else if this.dropdown}}
+				{{> reg/dropdown}}
+			{{else if this.checkbox}}
+				{{> reg/checkbox}}
+			{{else if this.date}}
+				{{> reg/date}}
+			{{else}}
+				<input type={{this.type}}  class="{{this.class}}" maxlength="{{this.maxlength}}"name="{{this.name}}" required={{this.required}}>
+			{{/if}}
+		</div>
+		{{/if}}
 	</div>
 {{/each}}

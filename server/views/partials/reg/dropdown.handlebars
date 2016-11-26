@@ -1,4 +1,4 @@
-<select name="{{this.name}}" class="form-control">
+<select name="{{this.name}}" class={{this.class}} required={{this.required}}>
 	<option selected="true" disabled></option>
 	{{#each this.dropdown}}
 	<option value="{{this}}">{{this}}</option>

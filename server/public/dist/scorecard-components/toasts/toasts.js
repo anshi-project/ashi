@@ -1,8 +1,8 @@
 import {deleteSavedGame} from '../deletesavedgame.js';
 
 function selectPlayers(){
-  toastr.info(`Only select players and goalies who are playing by ticking the
-    box next to their jersey number.`,
+  toastr.info(`Make sure that only players and goalies who are playing have their checkbox
+               (to the left of jersey number) checked`,
     'Use the score card in "Safe mode" (green button on right-hand side) after you have configured it.');
 }
 

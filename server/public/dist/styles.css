@@ -1,5 +1,5 @@
-body{
-    background:#fff;
+body {
+    background:#fffeff;
     font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 
@@ -64,14 +64,14 @@ textarea.parsley-error {
 }
 
 .login-form, #registration-form, .loader{
-  border-radius: 30px;
-  border:1px solid #f16f6f;
-  box-shadow:inset -2px -3px 4px 2px rgba(182,103,103,0.4),
-           2px 3px 4px 2px rgba(0,0,0,0.7);
+  /*border-radius: 30px;*/
+  /*border:1px solid #f16f6f;*/
+  /*box-shadow:inset -2px -3px 4px 2px rgba(182,103,103,0.4),
+           2px 3px 4px 2px rgba(0,0,0,0.7);*/
   text-align: center;
   margin:100px auto;
   padding:10px;
-  background:#ccbacc;
+  background:#f1f1f1;
   width:50%;
 }
 
@@ -80,15 +80,15 @@ textarea.parsley-error {
   margin-top:0;
   width:100%;
   height:100%;
-  background:#3446c3;
+  background:#f1f1f1;
   position: absolute;
   z-index: 3;
 }
 
 
 #registration-form{
-    color: #e4ff4e;
-    background: #3446c3;
+    color: #222;
+    background: #f1f1f1;
     width:60%;
     margin:30px auto 10px;
     padding:6px;
@@ -194,6 +194,7 @@ p {
 .select-box-label {
     margin-left: 2em;
 }
+
 
 table {
   border-collapse: collapse;
@@ -310,7 +311,7 @@ p {
 .home-name-input,
 .road-name-input {
   display: inline;
-  margin-left: 4em;
+  margin-left: 0.5em;
 }
 
 .blank-scorecard {
@@ -360,7 +361,7 @@ p {
     width: 17em;
     line-height: 1.5em;
     box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
-    border: 1px solid #333;
+    border: 1px solid #666;
     border-radius: 4px;
     padding: 6px 12px;
     color: #333;
@@ -371,7 +372,7 @@ p {
 td.player-number,
 td.goalie-number,
 td.name {
-    color: #333;
+    color: #666;
 }
 
 .saved-game {
@@ -409,7 +410,7 @@ h2.saved-games-header {
 }
 
 .btn-primary {
-  background-color: #275d8b;
+  background-color: #1c4263;
 }
 
 .btn-danger {
@@ -434,7 +435,7 @@ h2.saved-games-header {
 
 input {
   color: #333;
-  border: solid #333 1px;
+  border: solid #666 1px;
 }
 
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
@@ -470,7 +471,7 @@ input {
 
 .form-control {
   color: #333;
-  border: solid #333 1px;
+  border: solid #666 1px;
 }
 
 input[type="checkbox"] {
@@ -501,4 +502,8 @@ input[type="checkbox"]:checked:before {
 
 .goals-against {
   text-align: center;
+}
+
+select {
+  border: 1px solid #666;
 }

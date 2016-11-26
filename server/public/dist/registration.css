@@ -1,101 +1,60 @@
 body{
-    background:#f0ffff;
-    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    background:#fffeff;
+    color: #333;
+    font-family: "Arial, Helvetica Neue", Helvetica, sans-serif;
+    font-size: 1em;
 }
 
 img {
     margin: 0.5em 0em 0em 0.5em;
 }
 
-@keyframes spin {
-    from { transform: scale(1) rotate(0deg);}
-    to { transform: scale(1) rotate(360deg);}
+h2 {
+  font-size: 2em;
+  margin-top: 1em;
+  margin-left: 0.08em;
 }
 
-
-.glyphicon-cog{
-  font-size:130px;
-  text-align: center;
-  margin-top:100px;
-
+span.reg-type {
+   text-transform: capitalize;
 }
 
-
-input.parsley-success,
-select.parsley-success,
-textarea.parsley-success {
-  color: #468847;
-  background-color: #DFF0D8;
-  border: 1px solid #D6E9C6;
+.message-box {
+  margin: 1em 0em 0.5em -0.3em;
+  border: 5px solid #008000;
+  padding-left: 0.2em;
 }
 
-input.parsley-error,
-select.parsley-error,
-textarea.parsley-error {
-  color: #B94A48;
-  background-color: #F2DEDE;
-  border: 1px solid #EED3D7;
-}
-
-.parsley-errors-list {
-  margin: 2px 0 3px;
-  padding: 0;
-  list-style-type: none;
-  font-size: 0.9em;
-  line-height: 0.9em;
-  opacity: 0;
-
-  transition: all .3s ease-in;
-  -o-transition: all .3s ease-in;
-  -moz-transition: all .3s ease-in;
-  -webkit-transition: all .3s ease-in;
-}
-
-.parsley-errors-list.filled {
-  opacity: 1;
-}
 
 .form-section{
   display: none;
+}
+
+.form-group {
+  padding-left: 0.2em;
+  padding-right: 0.3em;
 }
 .current{
   display:block;
 }
 
- .loader, #registration-form{
-  border-radius: 30px;
-  border:1px solid #f16f6f;
-
-  box-shadow:inset -2px -3px 4px 2px rgba(182,103,103,0.4),
-           2px 3px 4px 2px rgba(0,0,0,0.7);
-  text-align: center;
-  margin:100px auto;
+ #registration-form{
+  /*text-align: center;*/
+  margin:5em auto;
+  margin-top: 3em;
   padding:10px;
-  background:#ccbacc;
-  width:50%;
+  background: #f9f9f9;
+  width:29em;
+  padding-left: 2em;
+  padding-right: 2em;
+  position: relative;
+  text-align: left;
+  border: 1px solid #666;
 }
 
-.loader{
-  border:none;
-  margin-top:0;
-  width:100%;
-  height:100%;
-  background:#3446c3;
-  position: absolute;
-  z-index: 3;
+.fullwidth {
+  width: 23em;
 }
-
-
-#registration-form{
-    background: #eee;
-    width:90%;
-    margin:30px auto 10px;
-    padding:6px;
-    position: relative;
-    text-transform: capitalize;
-    text-align: left;
-}
-
 .form-navigation{
   width:95%;
   margin:0 auto;
@@ -106,28 +65,145 @@ textarea.parsley-error {
 .btn-nav{
   background:#0c0323;
 }
-.btn-submit{
-  color:black;
+.btn-primary{
+  background-color: #275d8b;
+  padding: 0 0.3em 0 0.3em;
 }
+
+.btn-primary:hover{
+  background-color: #42a5f5;
+  padding-bottom: 0.2em;
+}
+
 .btn-nav:hover{
     color: #ffff25;
     background: #04050c;
 }
 
-@media (max-width:700px){
-    #registration-form{
-        width:95%;
-    }
 
-    label{
-        font-size:.7em;
-    }
+.weight,
+.jersey-1,
+.jersey-2,
+.jersey-3 {
+  width: 3.2em;
 }
 
 
 
+input {
+  border: 1px solid #737373;
+  height: 2em;
+}
+
+input[type=text] {
+  text-align: left;
+  padding-left: 0.5em;
+}
 
 
 
+.form-control .date {
+  border-radius: 0em;
+  border-color: #737373;
+}
+
+.hidden-date {
+  display: none;
+}
+
+.month,
+.date {
+  display: inline;
+  width: 7em;
+  height: 2em;
+}
+
+select {
+  border: 1px solid #737373;
+  display: block;
+}
+
+.error {
+  color: #dd4b39;
+  font-size: 0.9em;
+  font-weight: bold;
+  display: block;
+}
+
+.page-header {
+  margin-bottom: 1em;
+}
+
+.player-height,
+.state {
+  height: 2em;
+}
 
 
+.empty {
+  color: #dd4b39;
+  font-size: 0.9em;
+  font-weight: bold;
+}
+
+.redBorder {
+  border: 1px solid #dd4b39;
+}
+
+input[type="checkbox"] {
+    background-color: #ffffef;
+    height: 15px;
+    width: 15px;
+    vertical-align: middle;
+    margin: -0.1em 0.4em 0em 0em;
+    border: 2px solid #333;
+
+    -webkit-appearance: none;
+    -webkit-transition: box-shadow 200ms;
+    -webkit-border-radius:2px;
+    border-radius:2px;
+}
+
+input[type="checkbox"]:checked:before {
+  background-color: #ffffef;
+  content: '';
+  display: block;
+  width: 4px;
+  height: 8px;
+  border: 2px solid #333;
+  border-width: 0 2px 2px 0;
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+  margin-left: 4px;
+  margin-top: 1px;
+}
+
+@media (max-width:667px){
+    #registration-form{
+        width:98%;
+        margin: 0 auto;
+        padding-left: 0.5em;
+        padding-right: 0.1em;
+    }
+
+    .fullwidth {
+      width: 96%;
+    }
+
+    img {
+      margin-bottom: 1em;
+    }
+
+    label{
+        font-size:.7em;
+        line-height: 2em;
+    }
+}
+
+input[type='submit']{
+  margin-left: 0.2em;
+}
+
+label.checkbox-inline {
+  margin-right: 1em;
+}

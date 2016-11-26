@@ -1,8 +1,13 @@
 var common = require("./common")
 
 var shortAnswerQuestions = {
-    a: "As A Coach Of Team USA Ball Hockey, You Will Be Working With High Caliber Athletes On A World Level. Please Describe How Your Past Experiences Have Prepared You To Coach Team USA (300-1000 Words)",
-    b:"One Of The Challenges Of Competing With Team USA Is That The Players On The Team Come From All Over The Country. Describe How You Would Go About Forming A Team Atmosphere Knowing You Have Athletes From All Around The Country That Will Only Train Together For A Few Weekends Before The Tournament. (150-500 Words)"
+    a: `As a coach of Team USA Ball Hockey, you will be working with high caliber athletes
+        on a world level. Please describe how your past experiences have prepared you to
+        coach Team USA (300-1000 words)`,
+    b: `One of the challenges of competing with team USA is that the players on the team
+        come from all over the country. Describe how you would go about forming a team
+        atmosphere knowing you have athletes from all around the country that will
+        only train together for a few weekends before the tournament. (150-500 words)`
 }
 
 var teamArray = require("./teams").names
@@ -22,14 +27,14 @@ module.exports = [
         name:"team[role]",
         dropdown:roles,
         recordOnly:true
-    },      
+    },
     common.passport,
     common.passport_exp,
     common.email,
     common.alt_email,
     common.phone1,
     common.phone2,
-    common.hometown, 
+    common.hometown,
     {
         label: "Which team are you applying for?",
         name: "background[team_applying_for]",
@@ -55,10 +60,6 @@ module.exports = [
     common.polo,
     common.jacket,
     common.hat,
-    common.facebook,
-    common.twitter,
-    common.instagram,
-    common.linkedin, 
         {
         label: shortAnswerQuestions.a,
         name: "background[short_answers][preparation]",
@@ -88,5 +89,9 @@ module.exports = [
         label: "Career highlights",
         name: "background[career_highlights]",
         textarea: true
-    }   
+    },
+    common.facebook,
+    common.twitter,
+    common.instagram,
+    common.linkedin,
 ]

@@ -14,12 +14,18 @@ var heights = ["4'9\"", "4'10\"", "4'11\"", "5'0\"", "5'1\"", "5'2\"", "5'3\"", 
     "6'9\"", "6'10\"", "6'11\"", "7'0\""
 ];
 
-var positions = ["Left Wing", "Right Wing", "Center", "Right Defense", "Left Defense", "Goalie"];
+var months = [{num: 1, text: 'January'}, {num: 2, text: 'February'}, {num: 3, text: 'March'},
+              {num: 4, text: 'April'}, {num: 5, text: 'May'}, {num: 6, text: 'June'},
+              {num: 7, text: 'July'}, {num: 8, text: 'August'}, {num: 9, text: 'September'},
+              {num: 10, text: 'October'}, {num: 11, text: 'November'},
+              {num: 12, text: 'December'}];
+
+var positions = ["Left wing", "Right wing", "Center", "Right defense", "Left defense", "Goalie"];
 
 
 module.exports = [
     common.firstname,
-    common.lastname, 
+    common.lastname,
     {
         label:"Team",
         name:"team[name]",
@@ -43,39 +49,46 @@ module.exports = [
         label:"Jersey Number",
         name:"team[jersey_number]",
         type:"number",
-        recordOnly:true    
+        recordOnly:true
     },
     {
         label:"Position",
         name:"team[position]",
         dropdown:positions,
-        recordOnly:true,      
-    },    
+        recordOnly:true,
+    },
     {
         label:"Shooting hand",
         name:"team[shooting_hand]",
         recordOnly:true,
-        dropdown:["Left","Right"]        
-    },    
+        dropdown:["Left","Right"]
+    },
     {
         label: "Gender",
         name: "public_data[gender]",
         radio: ["Male", "Female"]
-    }, 
+    },
     {
         label: "Weight",
         name: "public_data[weight]",
-        type: "number",
+        class: 'weight',
+        maxlength: '3',
     },
     {
         label: "Height",
         name: "public_data[height]",
         dropdown: heights,
+        class: 'player-height'
     },
     {
-        label: "Date of Birth",
-        name: "public_data[date_of_birth]",
-        type: "date"
+        label: "Birthday",
+        name: "public_data[dob]",
+        date: 'date',
+        month: months,
+        day_input: 'birthday-day',
+    		year_input: 'birthday-year',
+        class: 'birthday',
+        hidden: 'public_data[date_of_birth]',
     },
     common.passport,
     common.passport_exp,
@@ -85,19 +98,22 @@ module.exports = [
     common.phone2,
 
     {
-        label: "Street",
-        name: "contact[private_data][address][street]"
+        label: "Address",
+        name: "contact[private_data][address][street]",
+        class: 'fullwidth'
     },
 
     {
         label: "City",
-        name: "contact[private_data][address][city]"
+        name: "contact[private_data][address][city]",
+        class: 'fullwidth'
     },
 
     {
         label: "State",
         name: "contact[private_data][address][state]",
-        dropdown: states
+        dropdown: states,
+        class: 'state'
     },
 
     {
@@ -109,48 +125,52 @@ module.exports = [
 
     {
         label: "Emergency contact: full name",
-        name: "contact[private_data][guardian_name]"
+        name: "contact[private_data][guardian_name]",
+        class: 'fullwidth'
     },
 
     {
         label: "Emergency contact: phone number",
         name: "contact[private_data][guardian_number]"
-    }, 
+    },
     {
-        label: "Team Trying Out For",
+        label: "Team you are trying out for",
         name: "hockey_info[team]",
         radio: ["U16", "U18", "U20", "Men's Master\'s", "Women\'s Master\'s", "Men\'s", "Women\'s"],
         registration_only:true
-    }, 
+    },
     {
         label: "Position",
         name: "hockey_info[position]",
         radio: positions,
         registration_only:true
-    }, 
+    },
     {
-        label:"Shooting Hand",
+        label:"Shooting hand",
         name:"hockey_info[shooting_hand]",
         radio:["Left","Right"],
         registration_only:true
     },
     {
-        label: "Tournament Team",
+        label: "Tournament team",
         name: "hockey_info[tournament_team]",
-        required:false
+        class: 'optional',
+        required:false,
     },
 
     {
-        label: "League Team",
+        label: "League team",
         name: "hockey_info[league_team]",
-        required:false
+        class: 'optional',
+        required:false,
     },
 
     {
-        label: "League or Team Website",
+        label: "League or team website",
         name: "hockey_info[website]",
-        required:false
-    }, 
+        class: 'fullwidth optional',
+        required:false,
+    },
     common.shirt,
     common.polo,
     common.jacket,
@@ -159,83 +179,83 @@ module.exports = [
     common.shorts,
     common.jersey,
     {
-        label: "Jersey # 1st choice",
+        label: "Jersey # (00 - 99) 1st choice",
         name: "hockey_info[jersey_number][choice1]",
-        type: "number",
-        min: "0",
-        max: "99",
+        maxlength: '2',
+        class: 'jersey-1',
         registration_only:true
     },
 
     {
-        label: "Jersey # 2nd choice",
+        label: "Jersey # (00 - 99) 2nd choice",
         name: "hockey_info[jersey_number][choice2]",
-        type: "number",
-        min: "0",
-        max: "99",
+        maxlength: '2',
+        class: 'jersey-2',
         registration_only:true
     },
 
     {
-        label: "Jersey # 3rd choice",
+        label: "Jersey # (00 - 99) 3rd choice",
         name: "hockey_info[jersey_number][choice3]",
-        type: "number",
-        min: "0",
-        max: "99",
+        maxlength: '2',
+        class: 'jersey-3',
         registration_only:true
     },
-
-     {
-        label: "Favorite Movie",
-        name: "favorite[movie]"
-    },
-
     {
-        label: "Favorite TV show",
-        name: "favorite[tv_show]"
-    },
-    {
-        label: "Favorite sports team",
-        name: "favorite[sports_team]"
-    },
-    {
-        label: "Favorite Athlete",
-        name: "favorite[athlete]"
-    },
-
-    {
-        label: "Favorite sport (not hockey)",
-        name: "favorite[other_sport]"
-    },
-
-    {
-        label: "Favorite food or restaurant",
-        name: "favorite[food_or_restaurant]"
-    },
-    common.facebook,
-    common.twitter,
-    common.instagram,
-    common.linkedin,
-        {
         label: "Education",
         name: "background[education]",
+        class: 'fullwidth',
     },
     {
-        label: "Hockey History",
+        label: "Hockey history",
         name: "background[hockey_history]",
         textarea: true
     },
-
     {
         label: "Other sports played",
         name: "background[other_sports]",
-        textarea: true
+        textarea: true,
     },
-
     {
         label: "Career highlights",
         name: "background[career_highlights]",
         textarea: true
-    }
-]
+    },
+    {
+       label: "Favorite movie",
+       name: "favorite[movie]",
+       class: 'fullwidth',
+   },
 
+   {
+       label: "Favorite tv show",
+       name: "favorite[tv_show]",
+       class: 'fullwidth',
+   },
+   {
+       label: "Favorite sports team",
+       name: "favorite[sports_team]",
+       class: 'fullwidth',
+   },
+   {
+       label: "Favorite athlete",
+       name: "favorite[athlete]",
+       class: 'fullwidth',
+   },
+
+   {
+       label: "Favorite sport (other than hockey)",
+       name: "favorite[other_sport]",
+       class: 'fullwidth',
+   },
+
+   {
+       label: "Favorite food or restaurant",
+       name: "favorite[food_or_restaurant]",
+       class: 'fullwidth',
+   },
+   common.facebook,
+   common.twitter,
+   common.instagram,
+   common.linkedin,
+]
