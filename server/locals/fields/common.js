@@ -135,26 +135,26 @@ module.exports = {
 	},
 	username:{
 		label:"Username",
-		name:"username"
+		name:"username",
 	},
 	password:{
 		label:"Password (at least 8 characters, including 1 uppercase letter and 1 digit)",
 		name:"password",
 		type:"password",
-		registration_only:true
+		registration_only:true,
 	},
 	confirmPW:{
 		label:"Confirm password",
 		name:"",
 		type:"password",
-		registration_only:true
+		registration_only:true,
     class: 'password',
 	},
 	confirmPW:{
 		label:"Confirm password",
 		name:"confirm_password",
 		type:"password",
-    registration_only:true
+    registration_only:true,
     class: 'confirm-password',
 	}
 }
