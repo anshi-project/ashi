@@ -142,6 +142,7 @@ module.exports = {
 		name:"password",
 		type:"password",
 		registration_only:true,
+    class: 'password',
 	},
 	confirmPW:{
 		label:"Confirm password",

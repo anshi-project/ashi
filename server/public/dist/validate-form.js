@@ -375,7 +375,6 @@
           minlength: 8,
         },
         "confirm_password": {
-          required: true,
           equalTo: ".password",
           minlength: 8,
         },
