@@ -63,6 +63,7 @@ $(function() {
       if (passportMonth === 0) notRightFunc(passportMessage, passportMonthSel);
       if (passportYear === 0) notRightFunc(passportMessage, passportYearSel);
       passportDate = passportMonth + '/' + passportDay + '/' + passportYear;
+      console.log(passportDate)
       $('input[name="contact[passport_expiration]"]').val(passportDate);
     }
   });
