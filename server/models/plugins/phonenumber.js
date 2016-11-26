@@ -11,8 +11,8 @@ module.exports = schema =>{
 
 		if(c.phone2){
 			c.phone2 = format(c.phone2)
-		}else if(c.private_data.guardian_number){
-			c.private_data.guardian_number = format(c.c.private_data.guardian_number);
+		}else if(c.private_data && c.private_data.guardian_number){
+			c.private_data.guardian_number = format(c.private_data.guardian_number);
 		}
 		next();
 	})
