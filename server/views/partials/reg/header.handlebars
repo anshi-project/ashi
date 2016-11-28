@@ -1,23 +1,11 @@
-{{#notEqual type "renew/player"}}
-<div class="page-header">
-	{{#if admin}}
+{{#if returningPlayer}}
+	{{> reg/alt_header}}
+{{else if admin}}
+	<div class="page-header">
 		<h2><span class='reg-type'>{{type}}</span> registration form</h2>
 		<p class='message-box' style="border-color: #f9f9f9"></p>
-	{{else}}
-		<h2><span class='reg-type'>{{type}}</span> registration form</h2>
-		<p class='message-box'>If you have a passport you will need your passport expiration date to fill out this form.</p>
-	{{/if}}
-</div>
+	</div>
 {{else}}
-	<div class="page-header">
-		<h4>Fill out the following info to register for this upcoming season.</h4>	
-	</div>
-{{/notEqual}}
-
-{{#if error}}
-	<div class="alert alert-danger" role="alert">
-		<p><strong>Error:</strong>There is no record of any player with this name and/or email in our records. Please try again
-		</p>
-	</div>
-{{/if}}
-
+		<h2><span class='reg-type'>{{type}}</span> registration form</h2>
+		<p class='message-box'>If you have a passport you will need your passport expiration date to fill out this form.</p>	
+{{/if}}		

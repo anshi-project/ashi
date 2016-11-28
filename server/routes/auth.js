@@ -28,6 +28,14 @@ module.exports=function(app){
         }
     })
 
+    app.all("/account/*",function(req,res,next){
+        if(req.user){
+            return res.redirect("/")
+        }else{
+            next()
+        }
+    })
+
     app.all("/admin/*",function(req,res,next){
         if(!req.user || req.user.__t!="Admin") {
             return res.redirect("/login");

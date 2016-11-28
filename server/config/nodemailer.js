@@ -16,20 +16,18 @@ var transporter = nodemailer.createTransport({
 });
 
 var format = function(str){
+  if(!str) return null; 
   return str.split(" ").map(v=> {return "<"+v+">"}).join(", ");
 }
 
 module.exports = function(body){
   var cc = format(body.cc); 
-  var rec = body.recipients;
-  var recipients = format(rec);
-
-console.log(body);
+  var recipients = format(body.recipients);
   
   transporter.sendMail({
     from: 'American Street Hockey Institute',
     cc:"<adamhs7843521@gmail.com>",
-    to: "<adamhs3521@gmail.com>",
+    to: "<adamhs3521@gmail.com>", 
     subject:body.subject,
     text: body.message
   });

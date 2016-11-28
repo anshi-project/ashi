@@ -1,0 +1,16 @@
+<tr>
+    <td>{{this.fullname}}</td>
+    <td>
+        <a target="_blank" href="/admin/applications/player/view?id={{this._id}}">View</a>
+    </td>
+    <td>{{this.hockey_info.team}}</td>
+    <td>{{this.hockey_info.position}}</td>
+    <td>
+        <a data-toggle="modal" class="btn btn-success" data-type="{{this.__t}}" data-person="{{this.fullname}}" data-url="{{this._id}}" href="#this-modal"><span class="glyphicon glyphicon-plus"></span></a>
+    </td>    
+    <td>
+        <button class="btn-sm btn-danger btn-delete btn" data-url='{{this._id}}'>
+        <span class="glyphicon glyphicon-scissors"></span>
+        </button>
+    </td>    
+</tr>

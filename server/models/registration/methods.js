@@ -60,7 +60,7 @@ exports.findRegisteredPlayers=function(callback){
     this.find({__t:"player-registration"},"firstname __t fullname lastname hockey_info")
     .exec((err)=>{if(err) throw "Error finding player registrations";})
     .then(newPlayers=>{
-        Player.find({status:"renewing membership"},"__t fullname lastname team").lean()
+        Player.find({status:"renewing membership"},"__t fullname firstname lastname team")
         .exec(function(err,oldPlayers){
             if(err) throw "Error retrieving returning players";
             var result=oldPlayers.concat(newPlayers)

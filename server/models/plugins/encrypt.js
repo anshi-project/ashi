@@ -5,7 +5,7 @@ module.exports=function(schema){
     schema.pre('save', function(next) {
       var user = this;
       
-      if(user.__t=="coach" || !user.isNew ){
+      if(!user.isModified('password')){
         return next();
       }
 

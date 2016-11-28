@@ -3,11 +3,13 @@ var Schema=mongoose.Schema;
 
 var staffSchema=new Schema({
     username:String,
-    password:{type:String},
+    password:{type:String},   
     lastname:{type:String,lowercase:true},
     firstname:{type:String,lowercase:true},
     status:{type:String,default:"Pending"},//Active, Pending, inactive
-    contact:{}
+    contact:{},
+    resetPasswordToken: String,
+  	resetPasswordExpires: Date
 })
 
 staffSchema.plugin(require("../plugins/setFullName"));

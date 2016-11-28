@@ -3,9 +3,10 @@ var _ = require("lodash");
 var player = require("../models/players/main")
 var coach = require("../models/staff/coach");
 var manager = require("../models/staff/manager");
+var admin = require("../models/staff/admin");
 var Team = require("../models/team/team");
 
-var Models = {player,coach,manager};
+var Models = {player,coach,manager,admin};
 
 var getDivision = require("./fields/teams").getDivision
 

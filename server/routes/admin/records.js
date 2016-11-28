@@ -11,13 +11,11 @@ module.exports = function(app) {
 		Record.render(type,id,function(error,fields, doc){
 			if(error) throw error;
 
-			var person = doc.firstname +" "+ doc.lastname
+			var title = doc.firstname +" "+ doc.lastname
 		
-			res.render("records", {userType:"admin",layout:"user",fields, person, id,type})
+			res.render("records", {userType:"admin",layout:"user",fields, title, id,type})
 		})
 	})
-
-
 
 	app.put("/admin/records/:type", function(req, res) {
 		var type = req.params.type;

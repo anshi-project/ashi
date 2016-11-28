@@ -10,7 +10,7 @@
         <h4>There are not any pending player registrations at this time.</h4>
         {{/if}}
     </div>
-    <table class="table">
+    <table class="table table-bordered table-hover" style="text-align:center">
         <thead>
             <tr>
                 <td>Name</td>
@@ -22,21 +22,12 @@
             </tr>
         </thead>
         <tbody>
-            {{#each player}}
-            <tr>
-                <td>{{this.fullname}}</td>
-                <td>
-                    <a target="_blank" href="/admin/applications/player/view?id={{this._id}}">View</a>
-                </td>
-                <td>{{this.hockey_info.team}}</td>
-                <td>{{this.hockey_info.position}}</td>
-                <td>
-                    <a data-toggle="modal" class="btn btn-success" data-type="{{this.__t}}" data-person="{{this.fullname}}" data-url="{{this._id}}" href="#player-modal"><span class="glyphicon glyphicon-plus"></span></a>
-                </td>    
-                <td>
-                    <button class="btn-sm btn-danger btn-delete btn" data-url='{{this._id}}'>Delete</button>
-                </td>    
-            </tr>
+            {{#each player as |player|}}
+                {{#notEqual player.__t "player-registration"}}
+                    {{> teampicker/oldPlayer player}}
+                {{else}}
+                    {{> teampicker/newPlayer player}}
+                {{/notEqual}}
             {{/each}}
         <tbody>
     </table>

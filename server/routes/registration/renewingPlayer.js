@@ -6,7 +6,7 @@ module.exports=function(app){
         var fields = getFields("returningPlayer");
         var error = req.query.redirect;
         
-        res.render("form",{fields,layout:"registration",type:"renew/player",error});
+        res.render("form",{fields,layout:"registration",type:"renew/player",returningPlayer:true,error});
     })
 
     app.post("/register/renew/player",function(req,res){

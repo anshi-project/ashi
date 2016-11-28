@@ -11,6 +11,7 @@
     "body-parser": "^1.15.2",
     "connect-mongo": "^1.3.2",
     "cookie-parser": "^1.4.3",
+    "crypto": "0.0.3",
     "dotenv": "^2.0.0",
     "express": "^3.2.6",
     "express-handlebars": "^3.0.0",
@@ -25,6 +26,7 @@
     "nodemailer": "^2.6.4",
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
+    "randomstring": "^1.1.5",
     "saymyname": "0.0.9"
   },
   "devDependencies": {

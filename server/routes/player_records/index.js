@@ -14,7 +14,12 @@ module.exports=function(app){
 		var fields = "-contact -apparel -paid -headshot -_id -__v -__t -createdAt -hockey_info.jersey_number -updatedAt"
 		var q = req.query;
 
-		var query = {firstname:q.firstname.toLowerCase(),lastname:q.lastname.toLowerCase(), "team.jersey_number":q["team.jersey_number"]}
+		if(q.id && q.registration){
+			query = {_id:q.id}
+			fields = "";
+		}else{
+			query = {firstname:q.firstname.toLowerCase(),lastname:q.lastname.toLowerCase(), "team.jersey_number":q["team.jersey_number"]}
+		}
 
 
 		Player.findOne(query, fields).exec(function(err,player){
