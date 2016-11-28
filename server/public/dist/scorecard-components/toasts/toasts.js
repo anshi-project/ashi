@@ -19,10 +19,6 @@ function storedInDb(){
   toastr.success('Game stored in database')
 }
 
-// function selectOpponent(){
-//   toastr.error('Select the opposing team');
-// }
-
 function setDateTime (){
   toastr.error('Set game date and time before submitting scorecard');
 }
@@ -61,12 +57,15 @@ function goalieMinutes(){
   toastr.warning('the number of minutes a goalie has played should be greater than 0');
 }
 
+function noServerResponse(){
+  toastr.warning('No response from the ASHI server. Please try to submit later again.');
+}
+
 export var toasts = {
   selectPlayers: selectPlayers,
   resetScorecard: resetScorecard,
   notStoredInDb: notStoredInDb,
   storedInDb: storedInDb,
-  // selectOpponent: selectOpponent,
   fillOutBlank: fillOutBlank,
   setDateTime: setDateTime,
   opponentName: opponentName,
@@ -75,4 +74,5 @@ export var toasts = {
   privateBrowserMode: privateBrowserMode,
   confirmDeleteGame: confirmDeleteGame,
   goalieMinutes: goalieMinutes,
+  noServerResponse: noServerResponse,
 };

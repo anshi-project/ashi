@@ -30,7 +30,6 @@ module.exports=function(app){
         StaffMember.find({username: username}, function(err,doc){
             if(err) throw err;
             res.send(doc);
-            // console.log(doc);
         });
     });
 }

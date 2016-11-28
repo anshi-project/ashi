@@ -331,27 +331,21 @@
           max: 99,
         },
         "favorite[movie]": {
-          required: true,
           maxlength: 50,
         },
         "favorite[tv_show]": {
-          required: true,
           maxlength: 50,
         },
         "favorite[sports_team]": {
-          required: true,
           maxlength: 50,
         },
         "favorite[athlete]": {
-          required: true,
           maxlength: 50,
         },
         "favorite[other_sport]": {
-          required: true,
           maxlength: 50,
         },
         "favorite[food_or_restaurant]": {
-          required: true,
           maxlength: 50,
         },
         "background[education]": {

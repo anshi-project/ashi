@@ -5,7 +5,17 @@ import {toasts} from './toasts/toasts';
 
 export function collectGameStats() {
     var ashiTeamName = $('.ashi-team-name').text();
+    var opponent = $('.team-name-input').val();
     var home_game = $('.home-game').text();
+    if (home_game === 'true' && $('div.road-name-input').is(':empty')) {
+      var str = $('.road-team-name').text();
+      opponent = str.slice(str.indexOf(': ') + 2);
+    }
+    if (home_game === 'false' && $('div.home-name-input').is(':empty')) {
+      var str = $('.home-team-name').text();
+      opponent = str.slice(str.indexOf(': ') + 2);
+    }
+    console.log('opponent: ', opponent)
     var incompleteScorecard = false;
     var date;
     var season;
@@ -18,7 +28,6 @@ export function collectGameStats() {
     var op;
     var og;
     var ot;
-    var opponent = $('.team-name-input').val();
     var gameNotes;
     var ashiResult;
     var opponentResult;

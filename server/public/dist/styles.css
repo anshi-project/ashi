@@ -1,6 +1,7 @@
 body {
     background:#fffeff;
     font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 1em;
 }
 
 img {
@@ -149,11 +150,13 @@ h1 {
 
 h2 {
     margin-left: 12em;
-    font-size: 1.5em;
-
+    font-size: 1.3em;
 }
 
-
+h2.home-team-name,
+h2.road-team-name {
+  margin-top: 1em;
+}
 
 p {
     margin: 2em 0em -1em 1em;
@@ -478,13 +481,17 @@ select {
 
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
   color: #333;
+  opacity: 1;
 }
 ::-moz-placeholder { /* Firefox 19+ */
   color: #333;
+  opacity: 1;
 }
 :-ms-input-placeholder { /* IE 10+ */
   color: #333;
+  opacity: 1;
 }
 :-moz-placeholder { /* Firefox 18- */
   color: #333;
+  opacity: 1;
 }

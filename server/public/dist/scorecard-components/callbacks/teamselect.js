@@ -63,7 +63,7 @@ export function teamSelect (loc, teamName, edit, stats, blank){
   $('.home-game').text(home_game);
   if ( (location === 'home' && prevHomeDropDownVal === 'blank scorecard') ||
       (location === 'road' && prevRoadDropDownVal === 'blank scorecard') )  {
-       $('.' + location).css('margin-top', '1.6em');
+       $('.' + location).css('margin-top', '1.5em');
   }
   $('.' + location + '-name-input').children().hide();
   localforage.getItem('teamData', function(err, teamData){
