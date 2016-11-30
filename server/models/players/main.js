@@ -8,6 +8,14 @@ var playerSchema=new Schema({
     lastname:{type:String,lowercase:true,trim:true},
     paid:{type:Boolean,default:false},
     headshot:{type:Boolean,default:false},
+    archive:{
+      paid:Boolean, 
+      //Make sure a player who hasn't paid doesn't get a free pass if theyre archived and then restored
+      //Stores current payment status before being archived
+      season:String, //Year
+      timestamp:Date,
+      isArchived:Boolean
+    },
     team:{
       name:String,
       division:String,
@@ -57,6 +65,7 @@ var playerSchema=new Schema({
     },
     apparel:{},
     hockey_info:{
+      team:String,
       website:String,
       league_team: String,
       tournament_team: String,
@@ -83,7 +92,7 @@ playerSchema.virtual("team.pos_abrv").get(function(){
     if(/Defense/.test(pos)){
       arr.push("D")
     }else{
-      pos = pos.split(" ").map(v=>{return v.charAt(0)}).join("")
+      pos = pos.split(" ").map(v=>{return v.charAt(0).toUpperCase()}).join("")
       arr.push(pos);
     }
   })
@@ -92,13 +101,12 @@ playerSchema.virtual("team.pos_abrv").get(function(){
 
 
 playerSchema.plugin(require("../plugins/setFullName"));
-playerSchema.plugin(require("../plugins/phonenumber"))
+playerSchema.plugin(require("../plugins/phonenumber"));
 
 playerSchema.statics.updateTeamRecords = methods.updateTeamRecords;
 playerSchema.statics.assignToTeam=methods.assign;
 //Create a new player object from the registration object. Assign to a team.
 playerSchema.statics.updatePayments = methods.updatePayments;
-
 
 
 

@@ -8,10 +8,11 @@ module.exports=function(app){
   app.get("/admin/roster",function(req,res){
   
     var select= "firstname contact paid headshot public_data lastname team";  
-    
+    var match = {status:{$in:["Active","archived"]}}
+
     Team.find({},"key name division players goalies coaches managers")
       .sort({"name":-1})
-      .populate({path:"players coaches goalies managers",match:{status:"Active"}, select})
+      .populate({path:"players coaches goalies managers",match, select})
       .exec(function(err,teams){    
         if(err) throw err;           
         res.render("admin/roster/team",{teams,userType:"admin",

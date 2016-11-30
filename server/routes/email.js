@@ -4,8 +4,10 @@ module.exports = function(app){
     	var sendMessage = require("../config/nodemailer");
     	var cc = req.user.contact.email;
 
-    	sendMessage(req.body);
-	
-    	res.send(req.body);    
+    	sendMessage(req.body, function(err,info){
+    		if(err) return res.send("An error occured while sending your emails. Please try again").status(500);
+
+    		res.send(info)
+    	});   
     })
 }

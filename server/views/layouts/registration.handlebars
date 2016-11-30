@@ -16,19 +16,26 @@
 
 <body>
 	<div class="container-fluid">
-		<img src='../public/images/ashi-logo.png' alt='ashi logo'>
+		<img src='../../public/images/ashi-logo.png' alt='ashi logo'>
+		{{#if success}}
+		<hr>
+		<div class="container">
+			<div class="alert alert-success">
+				<h3>Your form has been successfully submitted.</h3>
+			</div>
+		</div>
+		{{else}}
 		<form id="registration-form" class="form-horizontal" action="/register/{{type}}" method="post">
 			{{> reg/header}}
 			{{{body}}}
 			<input type="submit" class="btn btn-primary">
-		</form>
+		</form>		
+		{{/if}}
+
 	</div>
-	<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script> -->
 	<script src="/public/lib/bootstrap.js"></script>
 	<script src="/public/dist/registration.js"></script>
 	<script src="/public/dist/validate-form.js"></script>
-
-
 </body>
 
 </html>

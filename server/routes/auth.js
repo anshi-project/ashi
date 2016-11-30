@@ -11,7 +11,7 @@ module.exports=function(app){
                 return res.redirect("/gm/index");
             }
         }else{
-            res.render("login");
+            res.render("login",{error:req.query.failure, success:req.query.success});
         }
     })
     

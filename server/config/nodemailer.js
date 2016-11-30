@@ -15,21 +15,21 @@ var transporter = nodemailer.createTransport({
 
 });
 
-var format = function(str){
-  if(!str) return null; 
-  return str.split(" ").map(v=> {return "<"+v+">"}).join(", ");
-}
 
-module.exports = function(body){
-  var cc = format(body.cc); 
-  var recipients = format(body.recipients);
-  
+module.exports = function(body,next){
+  var recipients = body.recipients;
+
   transporter.sendMail({
     from: 'American Street Hockey Institute',
-    cc:"<adamhs7843521@gmail.com>",
-    to: "<adamhs3521@gmail.com>", 
+    bcc: "<adamhs3521@gmail.com>, "+recipients, 
     subject:body.subject,
-    text: body.message
+    text: body.message+"\n\n Please Do Not Reply To This Message."
+  },function(err,info){
+    if(err){
+      return next(err);
+    }else{
+      return next(null, info);
+    }
   });
 
 }

@@ -41,4 +41,23 @@ module.exports = function(app) {
 				})
 			})
 	})
+
+	app.put("/:type/roster/archive",function(req,res){
+	 	var Team = require("../models/team/team")
+	 	var teamName = req.body.team;
+	 	var restore = req.body.restore;
+
+	 	if (!restore) {
+	 		Team.archive(teamName, function(err,players){
+	 			if(err) return res.send(err);
+	 			res.send(players)
+	 		})
+	 	}
+	 	else{
+	 		Team.restore(teamName, function(err,players){
+	 			if(err) return res.send(err);
+	 			res.send(players)	 			
+	 		})
+	 	}
+	})
 }

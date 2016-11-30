@@ -11,15 +11,6 @@ var teamSchema = {
 var coachSchema = new mongoose.Schema({
 	team:teamSchema,
 	status:{type:String,default:"Active"}, 
-	contact:{
-		social_media:{},
-		email:String,
-		alt_email:String,
-		phone1:String,
-		phone2:String,
-		passport:String,
-		passport_expiration:String
-	},
 	background:{
 		social_media:{},
 	    former_coaching_positions:[{type:String}],
@@ -42,7 +33,7 @@ var coachSchema = new mongoose.Schema({
 coachSchema.statics.updateTeamRecords = function(id,prev,update,callback){
   	var division = require("../../locals/fields/teams").getDivision;
   	
-	this.findById(id, "team").exec((err,coach)=>{
+	this.findById(id, "team contact").exec((err,coach)=>{
 		coach.team.division = division( update.team.name);
 		coach.save();
 	})

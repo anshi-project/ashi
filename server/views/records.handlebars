@@ -5,11 +5,16 @@
 	<div class="container-fluid">
 	{{#each fields}}
 	<div class="form-group">
+	{{#unless this.textarea}}
 	<label for="{{this.name}}">{{this.label}}</label>
+	{{/unless}}
 		{{#if this.checkbox}}
 			{{> records/checkbox}}
 		{{else if this.list}}
 			{{> records/list}}
+		{{else if this.textarea}}
+			<label for="{{this.name}}">{{this.label}}</label><br>
+			<textarea value="{{this.value}}" name="{{this.name}}"></textarea>	
 		{{else}}
 		<div>
 			<input type="{{this.type}}" value="{{this.value}}" name={{this.name}}>

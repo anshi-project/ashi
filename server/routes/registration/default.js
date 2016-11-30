@@ -13,14 +13,14 @@ module.exports=function(app){
         var getFields = require("../../locals/registration").renderForm;
         var fields = getFields(type);
         var admin = fields.admin? true: false;
-        res.render("form",{fields,layout:"registration",type, admin});
+        res.render("form",{fields,layout:"registration",type, admin, success:req.query.success});
     });
 
     app.post("/register/:type",function(req,res){
         var Registration = models[req.params.type];
         Registration.create(req.body,function(err,doc){
             if(err) throw err;
-            res.render("index")
+            res.redirect("/register/"+req.params.type+"?success=true")
         });
     });
 

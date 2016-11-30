@@ -4,7 +4,8 @@ var User = require("../models/staff/main");
 module.exports = function(app){
 	
 
-	app.get("/account/settings",function(req,res){
+	app.get("/settings",function(req,res,next){
+		if(!req.user) return next();
 		
 		var id = req.user._id;
 		var type = req.user.__t.toLowerCase();
@@ -68,7 +69,7 @@ module.exports = function(app){
 				doc.password = password;
 				doc.resetPasswordExpires = Date.now();
 				doc.save();
-				res.render("login")
+				res.redirect("/login?success=true")
 			}else{
 				return res.send("error")
 			}

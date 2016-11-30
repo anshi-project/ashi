@@ -32,4 +32,8 @@ module.exports=function(app){
     require("./admin/index")(app);
     require("./manager/index")(app);
     require("./stats/index")(app);
+
+    app.get("/*",function(req,res){
+        res.send();
+    })
 }

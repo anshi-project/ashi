@@ -36,14 +36,7 @@ exports.updateTeamRecords = function(id,prev, update, next){
 	})
 }
 
-exports.reset = function(teamName){
-	this.find({"team.name":teamName},function(err,docs){
-		docs.forEach(player=>{
-			player.status = "inactive";
-			player.save();
-		})
-	})
-}
+
 
 exports.updatePayments = function(reqBody, next){
 	var ids = Object.keys(reqBody);
