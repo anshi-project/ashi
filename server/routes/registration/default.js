@@ -25,24 +25,23 @@ module.exports=function(app){
         var query = {regToken:token,regTokenExp:{$gt:now}};
         var form = Object.assign({},req.body)
 
-    
+
         StaffMember.findOne(query).exec(function(err,doc){
             for(var field in form){
                 if(typeof field === "object"){
                     doc[field] = Object.assign({}, field)
                 }else{
                     doc[field] = form[field]
-                }    
+                }
             }
             doc.save()
             res.redirect("/register/manager?success=true")
         })
-        
+
     });
 
     app.post("/register/:type",function(req,res){
         var Registration = models[req.params.type];
-
         Registration.create(req.body,function(err,doc){
             if(err) throw err;
             res.redirect("/register/"+req.params.type+"?success=true")
@@ -51,7 +50,7 @@ module.exports=function(app){
 
     app.post("/check-username/:username",function(req,res){
         var username = req.params.username;
-        
+
         StaffMember.find({username: username}, function(err,doc){
             if(err) throw err;
             res.send(doc);

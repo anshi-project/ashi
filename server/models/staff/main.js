@@ -1,20 +1,37 @@
 var mongoose=require("mongoose");
 var Schema=mongoose.Schema;
 
-var staffSchema=new Schema({
-    username:String,
-    password:{type:String},   
-    lastname:{type:String,lowercase:true},
-    firstname:{type:String,lowercase:true},
-    status:{type:String,default:"Pending"},//Active, Pending, inactive
-    contact:{
-		email:String,
-		alt_email:String,
-		phone1:String,
-		phone2:String,
-		passport:String,
-		passport_expiration:String
+var staffSchema = new Schema({
+    username: {
+      type: String,
+      required: true,
+      // validate: validate.username,
     },
+    password:{
+      type: String,
+      required: true,
+    },
+    lastname:{
+      type:String,
+      required: true,
+      lowercase:true,
+      trim: true,
+      minlength: 1,
+      maxlength: 50,
+    },
+    firstname:{
+      type:String,
+      required: true,
+      lowercase:true,
+      trim: true,
+      minlength: 1,
+      maxlength: 50,
+    },
+    status:{
+      type:String,
+      default:"Pending",
+    },//Active, Pending, inactive
+    contact:{},
     resetPasswordToken: String,
   	resetPasswordExpires: Date,
     regToken:String,
@@ -26,4 +43,4 @@ staffSchema.plugin(require("../plugins/phonenumber"));
 staffSchema.plugin(require("../plugins/encrypt"));
 staffSchema.plugin(require("../plugins/comparePassword"));
 
-module.exports=mongoose.model("StaffMember",staffSchema);
+module.exports = mongoose.model("StaffMember",staffSchema);

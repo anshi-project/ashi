@@ -44,7 +44,7 @@ $(function() {
     var birthdayMonth = Number(birthdayMonthSel.val());
     var birthdayDay = Number(birthdayDaySel.val());
     var birthdayYear = Number(birthdayYearSel.val());
-    var birthdayDate = birthdayMonth + '/' + birthdayDay + '/' + birthdayYear;
+    var birthdayDate = birthdayYear + '-' + birthdayMonth + '-' + birthdayDay;
     $('input[name="public_data[date_of_birth]"]').val(birthdayDate);
 
     if (birthdayDay === 0) notRightFunc(birthdayMessage, birthdayDaySel);
@@ -62,15 +62,8 @@ $(function() {
       if (passportDay === 0 ) notRightFunc(passportMessage, passportDaySel);
       if (passportMonth === 0) notRightFunc(passportMessage, passportMonthSel);
       if (passportYear === 0) notRightFunc(passportMessage, passportYearSel);
-      passportDate = passportMonth + '/' + passportDay + '/' + passportYear;
-      console.log(passportDate)
+      passportDate = passportYear + '-' + passportMonth + '-' + passportDay;
       $('input[name="contact[passport_expiration]"]').val(passportDate);
     }
-  });
-
-  window.addEventListener("beforeunload", function (e) {
-    var confirmationMessage = "\o/";
-    (e || window.event).returnValue = confirmationMessage; //Gecko + IE
-    return confirmationMessage;                            //Webkit, Safari, Chrome
   });
 });
