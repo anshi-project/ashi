@@ -16,7 +16,9 @@ var staffSchema=new Schema({
 		passport_expiration:String
     },
     resetPasswordToken: String,
-  	resetPasswordExpires: Date
+  	resetPasswordExpires: Date,
+    regToken:String,
+    regTokenExp:Date
 })
 
 staffSchema.plugin(require("../plugins/setFullName"));

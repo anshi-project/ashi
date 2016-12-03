@@ -1,6 +1,7 @@
 var Player=require("../../models/players/main");
 
 module.exports=function(app){
+    
     app.get("/register/renew/player",function(req,res){
         var getFields = require("../../locals/registration").renderForm;
         var fields = getFields("returningPlayer");

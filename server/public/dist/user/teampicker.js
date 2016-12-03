@@ -46,10 +46,11 @@ $(".btn-delete").on("click",function(){
 			url,
 			type:"DELETE",
 			success:(d)=>{
-				console.log(d);
-				row.hide();
+				alert(d)
 			}
 		})	
 	}	
 })
+
+
 

@@ -3,15 +3,14 @@
 <h1>A.S.H.I. Managers</h1>
 <label for=".staff-checkbox">Show all?</label>
 <input type="checkbox" class="staff-checkbox">
+{{> permissions/emailForm}}
 <table class="table table-bordered table-condensed" data-staff="manager">
   	<thead>
   		<tr>
   			<td>Name</td>
   			<td>Division</td>
         <td>Phone</td>
-  			<td>Secondary Phone</td>
   			<td>Email</td>
-  			<td>Secondary Email</td>
   			<td>Username</td>
         <td>Permissions</td>
   			<td>Record</td>
@@ -22,9 +21,7 @@
   	<td>{{this.fullname}}</td>
     <td>{{this.division}}</td>
   	<td>{{this.contact.phone1}}</td>
-  	<td>{{this.contact.phone2}}</td>
   	<td>{{this.contact.email}}</td>
-  	<td>{{this.contact.alt_email}}</td>
   	<td>{{this.username}}</td>
     <td>
       <button type="button" class="permission-btn" data-status="{{this.status}}" data-user="{{this._id}}">Revoke</button>

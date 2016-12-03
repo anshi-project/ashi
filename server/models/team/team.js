@@ -39,14 +39,9 @@ var TeamGameStatsSchema = new Schema({
 var teamSchema = new Schema({
     name: String,
     division: String,
-    address: {
-        city: String,
-        state: String,
-        street: String
-    },
     archive:{
-        isArchived:Boolean, 
-        timestamp:Date
+        timestamp:Date,
+        isArchived:Boolean       
     }, 
     key:String,
     managers: [{type: Schema.Types.ObjectId, ref: "manager"}],
@@ -66,17 +61,6 @@ var teamSchema = new Schema({
                     tie:{type:Number,default:0}}
 });
 
-teamSchema.methods.updateAndSave = function(){
-    var Players = require("../players/main");
-    var team = this;
-    if(team.archive.isArchived){
-        team.archive.isArchived = false;
-        team.markModified("archive");
-        Players.find({"team.name": team.name, status:"archived"})
-               .update({status:"inactive"},{upsert:true,safe:true,multi:true})
-    }
-    team.save();
-}//set up roster for new season
 
 teamSchema.statics.addToRoster = function(query,id,type){
     var update = {};
@@ -101,11 +85,47 @@ teamSchema.statics.swap = function(currTeam,newTeam,id,type){
     this.addToRoster({name:newTeam},id,type);
 }
 
-teamSchema.statics.archive = function(name,next){
+teamSchema.virtual("roster").get(function(){
+    var team=this.players.concat(this.goalies);
+    
+
+    return team.sort(function(a,b){
+      if(+a.team.jersey_number>+b.team.jersey_number) return 1;
+      if(+a.team.jersey_number<+b.team.jersey_number) return -1;
+        return 0;
+    })
+})
+
+teamSchema.virtual("archive.canRestore").get(function(){
+    var now = Date.now();
+    
+    if(!this.archive.timestamp) return false;
+
+    var expiration = new Date(this.archive.timestamp);
+    expiration.setMonth(expiration.getMonth()+1);
+
+    if(Date.parse(expiration)> now && this.archive.isArchived){
+        return true
+    }
+    return false;
+})
+
+teamSchema.virtual("archive.canUpdate").get(function(){
+    var now = Date.now()
+    var ts = new Date(this.archive.timestamp)
+    ts.setMonth(ts.getMonth() + 6)
+    
+    if( now > Date.parse(ts)){
+        return true;
+    }
+    return false;
+})//a flag for determining whether or not a new season can be set for a season;
+
+teamSchema.statics.createNewSeason = function(name,next){
     var Players = require("../players/main")
-    var date = new Date();
-    var year = date.getFullYear();
-    var timestamp = Date.parse(date)
+
+    var timestamp = Date.now();
+    
     this.findOne({name}).exec(function(err,doc){
         doc.archive = {isArchived:true,timestamp};
         doc.markModified("archive");
@@ -116,8 +136,6 @@ teamSchema.statics.archive = function(name,next){
                 player.status = "archived";
                 player.archive = {
                     timestamp,
-                    isArchived:true,
-                    season:year,
                     paid: player.paid 
                 }
                 player.paid = false;
@@ -151,19 +169,5 @@ teamSchema.statics.restore = function(name, next){
         })
         .catch(err => { if(err)return next(err) })
     })
-
 }
-
-teamSchema.virtual("roster").get(function(){
-    var team=this.players.concat(this.goalies);
-    
-
-    return team.sort(function(a,b){
-      if(+a.team.jersey_number>+b.team.jersey_number) return 1;
-      if(+a.team.jersey_number<+b.team.jersey_number) return -1;
-        return 0;
-    })
-})
-
-
 module.exports = mongoose.model("team",teamSchema)

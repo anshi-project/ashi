@@ -10,6 +10,9 @@ background: #f5fffe;
  .team-table, .roster-checkbox, .cancel-edit-btn, .alert{
  	display: none;
  }
+ .teampicker-alert{
+ 	display: block;
+ } 
  .team-table-active{
  	display: block;
  }

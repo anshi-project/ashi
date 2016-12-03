@@ -24,7 +24,7 @@ module.exports = function(email,next){
 	
 		Mailer({
 			subject:"Password reset request.",
-			recipients:doc.contact.email,
+			recipients:`<${doc.contact.email}>`,
 			message:format(token)
 		})
 

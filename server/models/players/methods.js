@@ -12,6 +12,7 @@ exports.assign=function(id,team,callback){
 		doc.team.name = team.name;
 		doc.team.division = getDivision(team.name);
 		doc.status = "Active";
+		doc.paid = false;
 		doc.save();
 
 	})
@@ -54,5 +55,6 @@ exports.updatePayments = function(reqBody, next){
 		return next(null, docs);
 	})
 }
+
 
 

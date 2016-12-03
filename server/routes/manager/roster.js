@@ -10,7 +10,7 @@ module.exports = function(app) {
 		var path = "managers coaches players goalies";
 		var fields = "division key name "+path;
 		var select = "-contact.private_data -favorite -background -career_stats -game_stats -season_stats";
-		var match =  {status: "Active"};
+		var match =  {status: {$in:["Active","archive"]}};
 
 		Team.find({division: {$in: req.user.division}}, fields)
 			.populate({path, match, select})

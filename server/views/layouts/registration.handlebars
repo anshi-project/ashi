@@ -25,7 +25,7 @@
 			</div>
 		</div>
 		{{else}}
-		<form id="registration-form" class="form-horizontal" action="/register/{{type}}" method="post">
+		<form id="registration-form" class="form-horizontal" action="/register/{{type}}{{token}}" method="post">
 			{{> reg/header}}
 			{{{body}}}
 			<input type="submit" class="btn btn-primary">

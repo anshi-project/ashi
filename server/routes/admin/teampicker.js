@@ -1,25 +1,38 @@
 var Registration = require("../../models/registration/main");
 var Player = require("../../models/players/main");
+var Team = require("../../models/team/team")
 
 module.exports = function(app) {
 
+    app.all("/admin/assign/*",function(req,res,next){
+        if(req.session.teamSeasons) return next()
+        
+        Team.find({}).select({archive:1,name:1})
+            .exec(function(err,docs){
+                req.session.teamSeasons = docs;
+                next();
+        })
+    })
+
     app.get("/admin/assign/player", function(req, res) {
-        Registration.findRegisteredPlayers(function(player) {            
+        Registration.findRegisteredPlayers(function(player) {  
+          // console.log(req.session.teamSeasons)          
             res.render("admin/teampicker/player", {
                 player,
-                teams:require("../../locals/fields/teams").names,
+                teams: req.session.teamSeasons,
                 layout: "user",
                 userType:"admin"
             });
         })
     })
-
+ 
     app.get("/admin/assign/coach", function(req, res) {
         var Coaches = require("../../models/registration/_coachReg");
         Coaches.find({}, function(err, coach) {
             if (err) throw err;
             res.render("admin/teampicker/coach", {
                 coach,
+                teams:req.session.teamSeasons,
                 layout: "user",
                 userType:"admin"
             })
@@ -62,6 +75,21 @@ module.exports = function(app) {
         Registration.assignPlayer(id, team, flag, function(data) {
             res.send(data);
         })
+    })
+
+    app.put("/admin/new/season",function(req,res){
+        var name = req.query.name;
+
+        if(req.query.restore){
+            Team.restore(name,function(err,docs){
+                res.send(docs)
+            })
+        }else{
+            Team.createNewSeason(name,function(err,docs){
+                res.send(docs)            
+            })
+        }
+    
     })
 
     app.delete("/admin/assign", function(req, res) {

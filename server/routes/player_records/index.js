@@ -33,7 +33,8 @@ module.exports=function(app){
 
 	app.get("/admin/api/team",function(req,res){
 		
-		var query = req.query;
+		var query = req.query||{};
+
 
 		Team.findOne(query)
 		.populate({
@@ -43,7 +44,7 @@ module.exports=function(app){
 		})
 		.exec(function(err,team){
 			if(err ){
-				return res.send("Player not found.")
+				return res.send("Team not found")
 			}else{
 				res.send(team)
 			}

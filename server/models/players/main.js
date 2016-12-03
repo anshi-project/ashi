@@ -12,7 +12,6 @@ var playerSchema=new Schema({
       paid:Boolean, 
       //Make sure a player who hasn't paid doesn't get a free pass if theyre archived and then restored
       //Stores current payment status before being archived
-      season:String, //Year
       timestamp:Date,
       isArchived:Boolean
     },
@@ -98,6 +97,8 @@ playerSchema.virtual("team.pos_abrv").get(function(){
   })
   return arr.join("/")
 })
+
+
 
 
 playerSchema.plugin(require("../plugins/setFullName"));

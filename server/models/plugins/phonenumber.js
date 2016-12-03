@@ -1,5 +1,8 @@
 var format = function(phonenumber){
+	if(!phonenumber) return null;
+	
 	var num = phonenumber.replace(/[^\d]/g, '');
+
 	return num.replace(/(\d{3})(\d{3})(\d{4})/, "($1) $2-$3");
 }
 
