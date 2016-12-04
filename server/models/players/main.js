@@ -377,8 +377,9 @@ playerSchema.virtual("public_data.age").get(function(){
 
 playerSchema.virtual("team.pos_abrv").get(function(){
   var arr=[];
+  var regexp = new RegExp("defense","i");
   this.team.position.forEach(pos=>{
-    if(/Defense/.test(pos)){
+    if(regexp.test(pos)){
       arr.push("D")
     }else{
       pos = pos.split(" ").map(v=>{return v.charAt(0).toUpperCase()}).join("")

@@ -94,7 +94,6 @@ module.exports = [
     {
         label:"Birthday",
         name:"public_data[date_of_birth]",
-        type:"date",
         recordOnly:true
     },
     common.passport,

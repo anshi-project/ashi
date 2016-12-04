@@ -32,14 +32,10 @@ var registrationSchema = new Schema({
 registrationSchema.plugin(require("../plugins/setFullName"))
 registrationSchema.plugin(require("../plugins/phonenumber"))
 
-registrationSchema.statics.assignCoach = Method.assignCoach;
+registrationSchema.statics.assignToTeam = Method.assignToTeam;
 
-registrationSchema.statics.assignPlayer = Method.assignPlayer;
-
-registrationSchema.statics.handleFormSubmission = Method.handleFormSubmission;
-//creates new registration, sets correct fields by passing in a particular discriminator type
 registrationSchema.statics.findRegisteredPlayers = Method.findRegisteredPlayers;
-//fetches a list by a particular type
+//fetches player registrations as well as returning players from previous seasons
 
 
 module.exports = mongoose.model("registration", registrationSchema);

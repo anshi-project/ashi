@@ -2,11 +2,11 @@
 {{> modal/teamSeasons}}
 
 <div class="container">
+    <h1>Player Applications</h1>
+    <hr>
     <div class="page-header">
         {{#if player}}
-        <h4>The following Players have not been assigned to a team.</h4>
-        <h6>If you wish to review any of their applications,
-        <a href="/admin/applications/player"> CLICK HERE</a> to export an excel spreadsheet.</h6>
+            {{> teampicker/nav}}
         {{else}}
         <h4>There are not any pending player registrations at this time.</h4>
         {{/if}}

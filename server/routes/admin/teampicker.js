@@ -56,24 +56,21 @@ module.exports = function(app) {
         res.send(id + " assigned");
     })
 
-    app.post("/admin/assign/coach", function(req, res) {
-        var id = req.query.id;
-        var team = req.body;
 
-        Registration.assignCoach(id, team, function(err) {
-            if (err) throw err;
-            res.send("Successfully added")
-        });
-
+    app.get("/seed",function(req,res){
+        var Registration = require("../../models/registration/_playerReg")
+        var seed = require("../../locals/seed")
+        Registration.create(seed).then(v=> res.send(v))
     })
 
-    app.post("/admin/assign/player", function(req, res) {
+    app.post("/admin/assign/:type", function(req, res) {
         var id = req.query.id;
         var team = req.body;
-        var flag = (team.position == "Goalie");
+        var type = req.params.type;
 
-        Registration.assignPlayer(id, team, flag, function(data) {
-            res.send(data);
+        Registration.assignToTeam(id, team, type, function(err, data) {
+            if(err) return res.send(err).status(500)
+            res.send(data).status(200);
         })
     })
 
@@ -89,7 +86,16 @@ module.exports = function(app) {
                 res.send(docs)            
             })
         }
-    
+    })
+
+    app.put("/admin/archive-player",function(req,res){
+        var id = req.query.id;
+        Player.findByIdAndUpdate(id, {status:"archived"}, {upsert:true,new:true},
+            function(err,doc){
+                if(err) return res.send("Error").status(500)
+                    res.send("Player was archived").status(200)
+        })
+
     })
 
     app.delete("/admin/assign", function(req, res) {

@@ -1,57 +1,57 @@
 var Team=require("../team/team");
 var Player=require("../players/main")
-var Coach=require("../staff/coach")
-var getDivision = require("../../locals/fields/teams").getDivision;
+
 var _=require("lodash");
 
-function formatPlayer(doc,team){
-    var info = doc.hockey_info;
-    var jersey_number = info.jersey_number.choice1;
-    var shooting_hand = info.shooting_hand;
-    var position = info.position;
-    var player=_.omit(doc,["_id","__t","__v","createdAt","updatedAt","status"])
+
+function formatPerson(doc,team,type){
+    var getDivision = require("../../locals/fields/teams").getDivision;
+    var omitArray = ["_id","__t","__v","createdAt","updatedAt","status"];
+    var person =_.omit(doc , omitArray)    
+    team.division = getDivision(team.name)
+    
+
+    if(type == "player"){
+        var info = doc.hockey_info;
+        var jersey_number = info.jersey_number.choice1;
+        var shooting_hand = info.shooting_hand;
+        var position = info.position;
+        var flag = position.indexOf("Goalie") == -1;//Player is not a goalie
         
-        team.division = getDivision(team.name)
-    player.team = Object.assign(team,{shooting_hand, jersey_number, position});
-    return player;
+        person.discriminator = flag? "_default":"_goalie"; 
+        person.model = "../players/" + person.discriminator;
+        person.type = flag? "players" : "goalies";
+
+        team = Object.assign({}, team, {jersey_number,shooting_hand,position})
+        //extra formatting for team field within Player model...
+        //move the relevant hockey_info data into the 'team' field for more convenient API 
+    }else{
+        person.type = "coaches";
+        person.model = "../staff/coach";
+        //type === coach
+    }
+
+    person.team = team;
+    return person;
 }
 
-exports.assignPlayer = function(id,team,playerIsGoalie,callback){   
-    var Registration = require("./_playerReg"); 
-    var playerType =! playerIsGoalie? "_default":"_goalie";
-    var type = playerIsGoalie? "goalies": "players";
-
-    var Player = require("../players/"+ playerType);
+exports.assignToTeam = function(id, team, type, callback){   
+    var Registration = require(`./_${type}Reg`); 
     
-    Registration.findById(id).lean().exec((err,doc) => {
+    Registration.findById(id).exec((err,doc) => {
+        if(err) return callback(err);
+
+        var userData = formatPerson(doc.toObject(), team, type);
         
-        var player = formatPlayer(doc,team);
+        var User = require(userData.model)
+        
 
-        Player.create(player).then( newPlayer => { 
-              Team.addToRoster({name:team.name}, newPlayer._id, type)  
-            }) 
-        })
-        .catch( err=>{if(err) return callback(err) })
-    
-    .then(()=> {Registration.findByIdAndRemove(id,function(err){if(err) throw err});
-    })
-    .catch(err => {if(err) return callback(err)})
-};
-
-exports.assignCoach=function(id,team,callback){
-    var Registration=require("./_coachReg");
-
-    Registration.findById(id).lean().exec(function(err,doc){
-
-        var coach=_.omit(doc,["_id","__t","__v","createdAt","updatedAt","status"])
-            coach.team=team; 
-        Coach.create(coach,(err)=>{if(err) throw "Error creating new coach"})
-            .then((coach)=>{Team.addToRoster({name:team.name},coach._id,"coaches")})
-            .then(()=> {return callback()})
-            .catch((err)=>{if(err) throw err; })
-    }).then(function(){        
-        Registration.findByIdAndRemove(id,function(err){if(err) throw err});
-    })
+        User.create(userData)
+         .then((newUser) => { Team.addToRoster({name:team.name}, newUser._id, userData.type) })
+         .then(() => { doc.remove() })
+         .then(() => {return callback(null, player)})
+         .catch( err=>{if(err) return callback(err) })
+    })    
 }
 
 

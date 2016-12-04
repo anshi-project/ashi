@@ -19,5 +19,7 @@ var upToDateTeams = $(".bg-success").length;
 
 	if($(".bg-success").length != 9 ){
 		$('#seasons-modal').modal('show');
+	}else{
+		$("#seasons-modal").html("")
 	}
 })

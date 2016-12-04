@@ -1,0 +1,28 @@
+<div class="roster-controls">
+	<div>
+		<label>Search</label>
+		<input type="text" class="search-players" list="names">
+		<datalist id="teams">
+		{{#each teams}}
+			<option value="{{this.name}}">
+		{{/each}}
+		</datalist>
+		<br>
+		<div class="pull-left">
+			By Name
+			<input type="radio" name="filter-players" value="name" checked>
+		</div>
+		<div class="pull-right">
+			By Team
+			<input type="radio"  name="filter-players" value="teams">
+		</div>
+	</div>
+	<button class="btn-sm btn-info">
+		<span class="glyphicon glyphicon-export"></span>
+		Export Excel Sheet
+	</button>
+	<button class="btn-sm btn-success">
+		<span class="glyphicon glyphicon-envelope"></span>
+		Email Notification
+	</button>		
+</div>  

@@ -1,43 +1,43 @@
-"Timestamp","Name","#","Position","Email","Phone","Age","Height","Weight","Hometown","Shooting Hand","Shirt size","Sock size","Jacket size","Hat size","Polo size","Shorts size","Jersey size","Headshot","Paid"
-"""2016-11-22T22:16:25.038Z""","Jim Beam","19","[""Goalie""]","adamhs3521@gmail.com","7817842528",30,"6'0""","168","Sharon, MA","left","L","L","M","L/XL","XL","XL","XL",false,true
-"""2016-11-18T19:38:44.018Z""","Patrice Bergeron","22","[""Left Wing""]","adamhs3521@gmail.com","7817842528",30,"6'0""","168","N|A","left","L","L","M","L/XL","XL","XL","XL",false,true
-"""2016-11-18T19:02:39.354Z""","Nick Bonino","14","[""Left Wing""]","adamhs3521@gmail.com","7817822543",30,"6'0""","168","Boise,ID","left","L","L","M","L/XL","XL","XL","XL",false,true
-"""2016-11-23T02:52:20.471Z""","Jason Bourne","14","[""Center""]","m@msms.com","781-784-2737",26,"6'4""","187","Boston, MA","right","XL","L","XL","L/XL","XXL","M","XL",true,true
-"""2016-11-23T21:30:53.075Z""","Patty Bouvier","40","[""Left Defense""]","m@msms.com","781-784-2737",28,"5'4""","153","Boston, MA","left","XL","L","XL","L/XL","XXL","M","XL",true,true
-"""2016-11-18T18:45:10.058Z""","Eric Callahan","74","[""Left Wing""]","asrwe@fdaf.com","555555555555",60,"5'8""","154","Boston, MA","right","XL","L","XXL","L/XL","L","M","L",false,true
-"""2016-11-23T21:30:53.051Z""","Abbi Cave","76","[""Right Defense""]","m@msms.com","781-784-2737",38,"5'8""","233","Boston, MA","right","XL","L","XL","L/XL","XXL","M","XL",true,false
-"""2016-11-26T15:42:33.561Z""","Alison Cleary","24","[""Goalie""]","aly323@yahoo.com","(617) 782-5517",38,"5'2""","127","Boston, MA","right","XL","L","XL","L/XL","XXL","M","XL",false,true
-"""2016-11-23T21:30:53.038Z""","Julie Daniels","29","[""Center""]","m@msms.com","781-784-2737",38,"5'5""","132",,"left","XL","L","XL","L/XL","XXL","M","XL",true,false
-"""2016-11-16T15:28:48.770Z""","Jack Daniels","32","[""Right Wing""]","adamhs3521@gmail.com","7817842528",29,"6'2""","153","Sharon, MA","left","L","L","M","L/XL","XL","XL","XL",false,false
-"""2016-11-25T21:23:57.188Z""","Judith Dench","9","[""Left Wing""]","fdsd@dfsd.com","781-784-2737",82,"5'8""","113","Boston, MA","left","XL","L","XL","L/XL","XXL","M","XL",true,true
-"""2016-11-23T19:10:29.259Z""","Brian Ferlin","64","[""Right Defense""]","m@msms.com","781-784-2737",38,"5'8""","157","Boston, MA","right","XL","L","XL","L/XL","XXL","M","XL",true,false
-"""2016-11-23T19:10:29.293Z""","Sal Figuero","7","[""Left Wing""]","m@msms.com","781-784-2737",31,"5'8""","165","Boston, MA","right","XL","L","XL","L/XL","XXL","M","XL",true,true
-"""2016-11-16T15:28:48.776Z""","David Gilmour","7","[""Left Defense""]","adamhs3521@gmail.com","7817842528",30,"6'0""","168","Sharon, MA","left","L","L","M","L/XL","XL","XL","XL",false,false
-"""2016-11-23T19:11:12.581Z""","Brad Granoff","16","[""Goalie""]","cxzcxx@ff.com","4353465356",17,"5'2""","110","Swampscot, ND","right","L","L","M","SM/MD","M","M","XL",true,true
-"""2016-11-16T15:28:48.784Z""","Brian Grant","3","[""Right Wing""]","cxzcxx@ff.com","4353465356",17,"5'2""","110","Providence, RI","right","L","L","M","SM/MD","M","M","XL",false,false
-"""2016-11-16T01:18:19.485Z""","Herbert Hancock","27","[""Right Defense""]","m@msms.com","781-784-2737",38,"5'5""","213","Boston, MA","N|A","XL","L","XL","L/XL","XXL","M","XL",false,false
-"""2016-11-19T06:02:58.011Z""","Tequan Jackson","3","[""Right Wing""]","zombie43@gmail.com","(781) 721-2338",30,"6'0""","168","Bellingham, MA","left","L","L","M","L/XL","XL","XL","XL",true,false
-"""2016-11-25T18:33:28.634Z""","Sven Johanssen","31","[""Goalie""]","s@f.com","2132341234",34,"6'2""","219","Providence, RI","right","XL","L","L","L/XL","L","L","XXL",true,true
-"""2016-11-25T12:53:17.430Z""","Patrick Johnson","21","[""Left Wing""]","adamhs3521@gmail.com","7817842528",30,"5'4""","143","Foxboro, MA","left","M","L","M","L/XL","XL","XL","XL",true,true
-"""2016-11-16T01:18:19.473Z""","Robert Johnson","44","[""Center""]","asrwe@fdaf.com","323-232-2322",78,"6'2""","443","N|A","left","XXL","L","XXL","SM/MD","XXL","M","XL",false,false
-"""2016-11-22T23:45:07.835Z""","Jason Kelly","11","[""Left Wing""]","jkelly@ashihockey.org","(610) 453-6437",41,"5'11""","255","media","right","XXL","XL","XXL","L/XL","XXL","XXL","XXL",true,true
-"""2016-11-16T01:55:35.525Z""","Harvey Leonard","4","[""Center""]","harvey32@google.com","1(332) 238-3232",24,"5'10""","158","Columbus, OH","Left","M","L","L","L/XL","SM","XL","M",false,false
-"""2016-11-23T02:52:20.466Z""","Ryan Lopez","12","[""Center""]","m@msms.com","781-784-2737",38,"5'6""","153","Boston, MA","right","XL","L","XL","L/XL","XXL","M","XL",true,true
-"""2016-11-25T18:33:28.692Z""","Ricky Martin","37","[""Goalie""]","adamhs3521@gmail.com","7817842528",29,"6'2""","181","Hopkington, ME","left","L","L","M","L/XL","XL","XL","XL",true,true
-"""2016-11-16T15:28:48.813Z""","Nick Mason","43","[""Center""]","adamhs3521@gmail.com","7817842528",30,"6'0""","168","Sharon, MA","left","L","L","M","L/XL","XL","XL","XL",false,false
-"""2016-11-23T02:52:20.478Z""","Mike O'reilly","19","[""Goalie""]","m@msms.com","781-784-2737",25,"5'9""","177","Boston, MA","left","XL","L","XL","L/XL","XXL","M","XL",true,false
-"""2016-11-16T01:57:34.211Z""","Adam Paulson","5","[""Left Wing""]","asrwe@fdaf.com","21847328",33,"5'8""","143","Sharon, MA","Left","M","L","XL","S/M","L","L","SM",false,false
-"""2016-11-25T12:53:17.431Z""","Regis Philbin","7","[""Center""]","rjp343@gmail.com","(781) 784-8432",30,"5'5""","138","Burlington, VA","left","L","L","M","L/XL","XL","XL","XL",true,true
-"""2016-11-25T12:53:17.427Z""","John Philips","11","[""Right Defense""]","j@j.com","2131242345",23,"6'0""","178","Westin,MA","left","L","L","L","SM/MD","XXL","L","XXXL",true,true
-"""2016-11-16T01:18:19.537Z""","Donald Rumsfeld",,"[""Left Defense""]","m@msms.com","781-784-2737",38,"5'2""","143","Boston, MA","","XL","L","XL","L/XL","XXL","M","XL",false,false
-"""2016-11-23T21:30:53.062Z""","Beth Simmons","53","[""Left Defense""]","m@msms.com","781-784-2737",38,"5'3""","148","Boston, MA","left","XL","L","XL","L/XL","XXL","M","XL",true,false
-"""2016-11-18T19:38:44.004Z""","Steve Smith","54","[""Right Defense""]","adamhs3521@gmail.com","7817842528",30,"6'0""","168","Sharon, MA","left","L","L","M","L/XL","XL","XL","XL",false,false
-"""2016-11-23T21:30:33.977Z""","Stephanie Smith","12","[""Left Wing""]","m@msms.com","781-784-2737",34,"5'11""","189","Boston, MA","right","XL","L","XL","L/XL","XXL","M","XL",true,true
-"""2016-11-25T12:53:17.441Z""","Leopold Stotch","64","[""Left Defense""]","adamhs3521@gmail.com","7817842528",30,"6'0""","168","South Park, CO","left","L","L","M","L/XL","XL","XL","XL",true,true
-"""2016-11-16T01:18:19.375Z""","Mark Summers","86","[]","m@msms.com","781-784-2737",38,"5'8""","233","Boston, MA","left","XL","L","XL","L/XL","XXL","M","XL",false,false
-"""2016-11-16T18:33:17.661Z""","John Washington","69","[""Goalie""]","j@j.com","2131242345",23,"6'0""","178","Seattle, WA","left","L","L","L","SM/MD","XXL","L","XXXL",false,true
-"""2016-11-16T15:28:48.889Z""","Roger Waters","21","[""Left Wing""]","adamhs3521@gmail.com","7817842528",30,"6'0""","168","Sharon, MA","left","L","L","M","L/XL","XL","XL","XL",false,false
-"""2016-11-18T19:38:44.156Z""","Collin Westin","23","[""Right Defense""]","bferlin3@gmail.com","7817842528",25,"6'0""","168","Chicago, IL","left","L","L","M","L/XL","XL","XL","XL",false,false
-"""2016-11-16T15:28:48.924Z""","Evan Williams","62","[""Left Defense""]","adamhs3521@gmail.com","7817842528",30,"6'0""","168","Sharon, MA","left","L","L","M","L/XL","XL","XL","XL",false,false
-"""2016-11-19T21:37:18.613Z""","John Williams","21","[""Left Wing""]","m@msms.com","781-784-2737",36,"5'11""","212","Boston, MA","right","XL","L","XL","L/XL","XXL","M","XL",false,true
-"""2016-11-16T15:28:48.929Z""","Richard Wright","39","[""Right Defense""]","adamhs3521@gmail.com","7817842528",30,"6'0""","168","Sharon, MA","left","L","L","M","L/XL","XL","XL","XL",false,false
+First name, Last name, Do you have a passport?, Passport expiration date, Email, Secondary email, Primary phone number, Secondary phone number, Hometown, Which team are you applying for?, In the past, I have coached, The highest level I have coached is, Preferred coaching position, Shirt size (Unisex), Polo size (Unisex), Jacket size (Unisex), Hat size (Unisex), As a coach of Team USA Ball Hockey, you will be working with high caliber athletes
+        on a world level. Please describe how your past experiences have prepared you to
+        coach Team USA (300-1000 words), Please describe your coaching style, What makes you a good candidate to coach ball hockey?, One of the challenges of competing with team USA is that the players on the team
+        come from all over the country. Describe how you would go about forming a team
+        atmosphere knowing you have athletes from all around the country that will
+        only train together for a few weekends before the tournament. (150-500 words), Career highlights, Facebook, Twitter, Instagram, LinkedIn
+frank, zappa, No, N|A, hotrats@zappa.org, N|A, (485) 737-6239, N|A, West Roxbury, MA, Men's Master's, Ball hockey, Youth Hockey, Assistant Coach for Forwards, XXL, XL, XL, L/XL, 	$(".table tbody tr").each(function(){
+		if(mode=="teams" && $(this).data("team") == val){
+			$(this).show()
+		}		
+		else if (mode =="names" && $(this).data("person").match(query)){
+			$(this).show()
+		}else{
+			$(this).hide()
+		}
+	})	, 	$(".table tbody tr").each(function(){
+		if(mode=="teams" && $(this).data("team") == val){
+			$(this).show()
+		}		
+		else if (mode =="names" && $(this).data("person").match(query)){
+			$(this).show()
+		}else{
+			$(this).hide()
+		}
+	})	, 	$(".table tbody tr").each(function(){
+		if(mode=="teams" && $(this).data("team") == val){
+			$(this).show()
+		}		
+		else if (mode =="names" && $(this).data("person").match(query)){
+			$(this).show()
+		}else{
+			$(this).hide()
+		}
+	})	, 	$(".table tbody tr").each(function(){
+		if(mode=="teams" && $(this).data("team") == val){
+			$(this).show()
+		}		
+		else if (mode =="names" && $(this).data("person").match(query)){
+			$(this).show()
+		}else{
+			$(this).hide()
+		}
+	})	, N|A, N|A, N|A, N|A, N|A, 
