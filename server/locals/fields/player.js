@@ -1,26 +1,5 @@
 var common = require("./common")
-var teams = require("./teams").names
-
-var states = ["AK", "AL", "AR", "AZ", "CA", "CO", "CT", "DC", "DE", "FL",
-    "GA", "HI", "IA", "ID", "IL", "IN", "KS", "KY", "LA", "MA", "MD",
-    "ME", "MI", "MN", "MO", "MS", "MT", "NC", "ND", "NE", "NH", "NJ",
-    "NM", "NV", "NY", "OH", "OK", "OR", "PA", "RI", "SC", "SD", "TN",
-    "TX", "UT", "VA", "VT", "WA", "WI", "WV", "WY"
-];
-
-var heights = ["4'9\"", "4'10\"", "4'11\"", "5'0\"", "5'1\"", "5'2\"", "5'3\"", "5'4\"",
-    "5'5\"", "5'6\"", "5'7\"", "5'8\"", "5'9\"", "5'10\"", "5'11\"", "6'0\"",
-    "6'1\"", "6'2\"", "6'3\"", "6'4\"", "6'5\"", "6'6\"", "6'7\"", "6'8\"",
-    "6'9\"", "6'10\"", "6'11\"", "7'0\""
-];
-
-var months = [{num: 1, text: 'January'}, {num: 2, text: 'February'}, {num: 3, text: 'March'},
-              {num: 4, text: 'April'}, {num: 5, text: 'May'}, {num: 6, text: 'June'},
-              {num: 7, text: 'July'}, {num: 8, text: 'August'}, {num: 9, text: 'September'},
-              {num: 10, text: 'October'}, {num: 11, text: 'November'},
-              {num: 12, text: 'December'}];
-
-var positions = ["Left wing", "Right wing", "Center", "Right defense", "Left defense", "Goalie"];
+var enums = require("./enums")
 
 
 module.exports = [
@@ -29,7 +8,7 @@ module.exports = [
     {
         label:"Team",
         name:"team[name]",
-        dropdown:teams,
+        dropdown:enums.teams.names,
         recordOnly:true,
 
     },
@@ -54,19 +33,19 @@ module.exports = [
     {
         label:"Position",
         name:"team[position]",
-        dropdown:positions,
+        dropdown:enums.player.positions,
         recordOnly:true,
     },
     {
         label:"Shooting hand",
         name:"team[shooting_hand]",
         recordOnly:true,
-        dropdown:["Left","Right"]
+        dropdown:enums.player.shooting_hand
     },
     {
         label: "Gender",
         name: "public_data[gender]",
-        radio: ["Male", "Female"]
+        radio: enums.player.gender
     },
     {
         label: "Weight",
@@ -77,14 +56,14 @@ module.exports = [
     {
         label: "Height",
         name: "public_data[height]",
-        dropdown: heights,
+        dropdown: enums.heights,
         class: 'player-height'
     },
     {
         label: "Birthday",
         name: "public_data[dob]",
         date: 'date',
-        month: months,
+        month: enums.months,
         day_input: 'birthday-day',
     	year_input: 'birthday-year',
         class: 'birthday',
@@ -119,7 +98,7 @@ module.exports = [
     {
         label: "State",
         name: "contact[private_data][address][state]",
-        dropdown: states,
+        dropdown: enums.states,
         class: 'state'
     },
 
@@ -143,19 +122,19 @@ module.exports = [
     {
         label: "Team you are trying out for",
         name: "hockey_info[team]",
-        radio: ["U16", "U18", "U20", "Men's Master\'s", "Women\'s Master\'s", "Men\'s", "Women\'s"],
+        radio: enums.teams.applyingFor,
         registration_only:true
     },
     {
         label: "Position",
         name: "hockey_info[position]",
-        checkbox: positions,
+        checkbox: enums.player.positions,
         registration_only:true
     },
     {
         label:"Shooting hand",
         name:"hockey_info[shooting_hand]",
-        radio:["Left","Right"],
+        radio:enums.player.shooting_hand,
         registration_only:true
     },
     {

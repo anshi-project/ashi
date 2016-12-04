@@ -1,5 +1,5 @@
 var common = require("./common")
-var teams = require("./teams").names;
+var enums = require("./enums");
 
 module.exports = [
     common.firstname,
@@ -8,11 +8,11 @@ module.exports = [
     {
     	label:"Team you're trying out for",
 		name:"hockey_info[team]",
-		dropdown:teams
+		dropdown:enums.teams.applyingFor
 	},
 	{
 		label:"Select one or more position",
 		name:"hockey_info[position]",
-		checkbox:["Left wing", "Right wing", "Center", "Right defense", "Left defense", "Goalie"]
+		checkbox: enums.positions
 	}
 ]

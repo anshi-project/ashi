@@ -1,5 +1,5 @@
 var common = require("./common")
-var divisions = require("./teams").divisions
+var divisions = require("./enums").teams.divisions
 
 module.exports = [
     common.firstname,

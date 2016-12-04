@@ -11,7 +11,7 @@ var teamData = [
 	{division: "Women's Master's",name: "Women's Team Red"}, 
 	{division: "Women's Master's",name: "Women's Team Blue"}
 ]
-
+//main config of teams that the rest of the application must reference
 
 exports.getDivision = function(teamName){
  	var obj = _.find( teamData, {name: teamName});

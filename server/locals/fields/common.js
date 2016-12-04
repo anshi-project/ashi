@@ -1,23 +1,16 @@
-var teamData = require("./teams.js");
-var sizes = ["SM", "M", "L", "XL", "XXL", "XXXL"];
-var months = [{num: 1, text: 'January'}, {num: 2, text: 'February'}, {num: 3, text: 'March'},
-              {num: 4, text: 'April'}, {num: 5, text: 'May'}, {num: 6, text: 'June'},
-              {num: 7, text: 'July'}, {num: 8, text: 'August'}, {num: 9, text: 'September'},
-              {num: 10, text: 'October'}, {num: 11, text: 'November'},
-              {num: 12, text: 'December'}];
+var enums = require("./enums.js");
+
 
 module.exports = {
 	firstname: {
 		label: "First name",
 		name: "firstname",
-		class: 'fullwidth',
-		type: 'text'
+		class: 'fullwidth'
 	},
 	lastname: {
 		label: "Last name",
 		name: "lastname",
-		class: 'fullwidth',
-		type: 'text'
+		class: 'fullwidth'
 	},
 	email: {
 		label: "Email",
@@ -38,7 +31,7 @@ module.exports = {
 	phone2: {
 		label: "Secondary phone number",
 		name: "contact[phone2]",
-    class: 'optional',
+    	class: 'optional',
 		required: false,
 	},
 	passport: {
@@ -51,7 +44,7 @@ module.exports = {
 		label: "Passport expiration date",
 		name: "contact[passport_exp]",
 		date: 'date',
-		month: months,
+		month: enums.months,
 		day_input: 'passport-day',
 		year_input: 'passport-year',
 		class: 'passport',
@@ -64,18 +57,17 @@ module.exports = {
 		type:"date",
 		recordOnly:true
 	},
-
 	facebook: {
 		label: "Facebook",
 		name: "background[social_media][facebook]",
 		class: 'fullwidth optional',
-		required: false,
+		required: false
 	},
 	instagram: {
 		label: "Instagram",
 		name: "background[social_media][instagram]",
 		class: 'fullwidth optional',
-		required: false,
+		required: false
 	},
 	twitter: {
 		label: "Twitter",
@@ -92,37 +84,37 @@ module.exports = {
 	shirt: {
 		label: "Shirt size (Unisex)",
 		name: "apparel[shirt]",
-		radio: sizes
+		radio: enums.apparelSizes.default
 	},
 	jacket: {
 		label: "Jacket size (Unisex)",
 		name: "apparel[jacket]",
-		radio: sizes
+		radio: enums.apparelSizes.default
 	},
 	hat: {
 		label: "Hat size (Unisex)",
 		name: "apparel[hat]",
-		radio: ["S/M", "L/XL"]
+		radio: enums.apparelSizes.hat
 	},
 	polo: {
 		label: "Polo size (Unisex)",
 		name: "apparel[polo]",
-		radio: sizes
+		radio: enums.apparelSizes.default
 	},
 	shorts: {
 		label: "Shorts size (Unisex)",
 		name: "apparel[shorts]",
-		radio: sizes
+		radio: enums.apparelSizes.default
 	},
 	jersey: {
 		label: "Jersey size (Unisex)",
 		name: "apparel[jersey]",
-		radio: sizes.concat(["Goalie-XXL", "Goalie-XXXL"]),
+		radio: enums.apparelSizes.jersey
 	},
 	socks: {
 		label: "Sock Size",
 		name: "apparel[socks]",
-		radio: ["M", "L", "XL"]
+		radio: enums.apparelSizes.socks
 	},
 	team: {
 		label: "Team",
@@ -150,20 +142,20 @@ module.exports = {
 		name:"password",
 		type:"password",
 		registration_only:true,
-    class: 'password',
+    	class: 'password',
 	},
 	confirmPW:{
 		label:"Confirm password",
 		name:"",
 		type:"password",
 		registration_only:true,
-    class: 'password',
+    	class: 'password',
 	},
 	confirmPW:{
 		label:"Confirm password",
 		name:"confirm_password",
 		type:"password",
-    registration_only:true,
-    class: 'confirm-password',
+    	registration_only:true,
+    	class: 'confirm-password',
 	}
 }

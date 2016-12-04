@@ -1,4 +1,5 @@
 var common = require("./common")
+var enums = require("./enums")
 
 var shortAnswerQuestions = {
     a: `As a coach of Team USA Ball Hockey, you will be working with high caliber athletes
@@ -10,8 +11,6 @@ var shortAnswerQuestions = {
         only train together for a few weekends before the tournament. (150-500 words)`
 }
 
-var teamArray = require("./teams").names
-var roles = ["Head Coach", "Assistant Head Coach", "Assistant Coach for Forwards", "Assistant Coach for Defense", "Other"]
 
 module.exports = [
     common.firstname,
@@ -19,13 +18,13 @@ module.exports = [
     {
         label: "Team",
         name:"team[name]",
-        dropdown:teamArray,
+        dropdown:enums.teams,
         recordOnly:true
     },
     {
         label: "Role",
         name:"team[role]",
-        dropdown:roles,
+        dropdown:enums.roles,
         recordOnly:true
     },
     common.passport,
@@ -39,22 +38,22 @@ module.exports = [
     {
         label: "Which team are you applying for?",
         name: "background[team_applying_for]",
-        radio: ["U16", "U18", "U20", "Men's Master\'s", "Women\'s Master\'s", "Men\'s", "Women\'s"],
+        radio: enums.teams.applyingFor,
         registration_only:true
     }, {
         label: "In the past, I have coached",
         name: "background[former_coaching_positions]",
-        checkbox: ["Ice hockey", "Ball hockey", "Field Hockey", "Other"],
+        checkbox: enums.former_coaching_positions,
         registration_only:true
     }, {
         label: "The highest level I have coached is",
         name: "background[highest_level_coached]",
-        radio: ["Youth Hockey", "Junior's", "College", "Semi-Professional", "Professional", "Travel Ball Hockey"],
+        radio: enums.highest_level_coached,
         registration_only:true
     }, {
         label: "Preferred coaching position",
         name: "background[preferred_coaching_position]",
-        radio: roles,
+        radio: enums.roles,
         registration_only:true
     },
     common.shirt,

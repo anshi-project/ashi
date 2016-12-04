@@ -25,7 +25,6 @@ var teams = ["U16", "U18", "U20", "Men's Team USA", "Women's Team USA", "Men's M
 
 var positions = ["Left wing", "Right wing", "Center", "Right defense", "Left defense", "Goalie"];
 
-var shootingHand = ['Left', 'Right'];
 
 function isLeapYear (year) {
  if ((parseInt (year) % 4) === 0) {
@@ -160,7 +159,7 @@ var playerSchema = new Schema({
       shooting_hand: {
         type: String,
         required: true,
-        enum: shootingHand,
+        enum: ["Left","Right"],
       },
     },
     public_data:{

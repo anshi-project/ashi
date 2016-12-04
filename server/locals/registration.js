@@ -17,8 +17,7 @@ function formatter(type){
   		if(arguments.length == 0){
   			return str;
   		}else{
-  			for(i = 0; i<fields.length; i++){
-            console.log(fields[i].name);
+  			for(var i = 0; i<fields.length; i++){
   				str += (_.result(doc,fields[i].name)|| "N|A") +", "
   			}
   			str+="\n";
@@ -30,6 +29,7 @@ exports.renderForm = function(typeOfApplicant){
 	var fields = getFields(typeOfApplicant);
 
 	fields.forEach(function(p){
+      console.log(p)
     	p["required"] = p.hasOwnProperty('required')? p.required : true;
     	p["type"] = p.hasOwnProperty('type')? p.type : "text";
 	})
