@@ -8,9 +8,7 @@ var nameSchema = require("../commonFields/name");
 
 var registrationSchema = new Schema({
 	firstname: nameSchema,
-	lastname: nameSchema,  
-    contact: {},
-	public_data: {}
+	lastname: nameSchema
  },
  {
 	timestamps: true

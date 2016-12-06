@@ -5,7 +5,7 @@ module.exports = {
 	website: {
 		type: String,
 		trim: true,
-		validate: validate.url
+		// validate: validate.url
 	},
 
 	league_team: {
@@ -22,17 +22,19 @@ module.exports = {
 
 	team:{
 		type:String,
-		enum:enums.teams.names
+		enum:enums.teams.applyingFor
 	},
 	position:{
 		type:String,
 		required:true,
-		enum: enums.player.position
+		enum: enums.player.positions,
+		
 	},
 	shooting_hand:{
 		type:String,
 		required:true,
-		enum: enums.player.shooting_hand
+		enum: enums.player.shooting_hand,
+	
 	},
 	jersey_number: {
 		choice1: {

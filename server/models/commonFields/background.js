@@ -9,13 +9,11 @@ var common = {
 	hometown: {
 		type: String,
 		trim: true,
-		
 		maxlength: 50,
 	},
 	career_highlights: {
 		type: String,
 		trim: true,
-		
 		maxlength: 4000,
 	}
 }

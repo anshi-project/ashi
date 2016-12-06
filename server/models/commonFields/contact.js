@@ -9,7 +9,6 @@ var staff = {
     },
     phone2:{
         type: String,
-        default: 'N/A',
         // validate: validate.altPhoneNo,
     },
     email: {
@@ -30,7 +29,7 @@ var staff = {
     },
     passport_expiration:{
         type: String,
-        default: "N/A",
+        default:""
         // validate: validate.passport,
     }	
 }

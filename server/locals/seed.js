@@ -1,34 +1,55 @@
+var _ = require("lodash");
+var enums = require("./fields/enums")	
+ 
+ function randomDate(){
+    return _.random(1,12)+"/"+_.random(1,31)+"/"+_.random(1980,2000);
+}
 
-	var schema= {
+function valiDATE(){
+  var str = randomDate();
+  var date = new Date(str);
 
+  while(date == "Invalid Date"){
+    str = randomDate();
+    date = new Date(str);
+  }
+  return str;
+}
+
+module.exports = function(name){
+    name= name.split(" ");
+    console.log(enums.player.gender)
+    return{
+    firstname:name[0],
+    lastname:name[1],
     "apparel": {
-        "jersey": "L",
-        "shorts": "XL",
-        "socks": "L",
-        "hat": "L/XL",
-        "jacket": "L",
-        "polo": "XXL",
-        "shirt": "XXXL"
+        "jersey": enums.apparelSizes.jersey[_.random(0,5)],
+        "shorts": enums.apparelSizes.default[_.random(0,5)],
+        "socks": enums.apparelSizes.socks[_.random(0,2)],
+        "hat": enums.apparelSizes.hat[_.random(0,1)],
+        "jacket": enums.apparelSizes.default[_.random(0,5)],
+        "polo": enums.apparelSizes.default[_.random(0,5)],
+        "shirt": enums.apparelSizes.default[_.random(0,5)]
     },
-    "status": "Active",
+    
     "hockey_info": {
-        "team": "Women's Master's",
+        "team": enums.teams.applyingFor[_.random(0,6)],
         "tournament_team": "",
-        "position":["Goalie"],
-        "shooting_hand":"Left",
+        "position":enums.player.positions[_.random(0,5)],
+        "shooting_hand": enums.player.shooting_hand[_.random(0,1)],
         "league_team": "",
         "website": "",
         "jersey_number": {
-            "choice1": 2,
-            "choice2": 6,
-            "choice3": 87
+            "choice1": _.random(0, 99),
+            "choice2": _.random(0, 99),
+            "choice3": _.random(0, 99)
         }
     },
     "contact": {
         "passport": "No",
-        "email": "sven23@hotmail.com",
+        "email": name[0]+_.random(1,40)+"@gmail.com",
         "alt_email": "",
-        "phone1": "(329) 430-2355",
+        "phone1": _.random(1000000000,9999999999),
         "private_data": {
             "address": {
                 "street": "123 elm st",
@@ -36,14 +57,14 @@
                 "state": "AK",
                 "zipcode": "03294"
             },
-            "guardian_number": "(121) 222-22228",
-            "guardian_name": "Dave"
+            "guardian_number": _.random(1000000000,9999999999),
+            "guardian_name": `Dave ${_.capitalize(name[1])}`
         },
         "passport_expiration": "",
         "phone2": ""
     },
     "favorite": {
-        "movie": "Blank Check",
+        "movie": "The English Patient",
         "tv_show": "30 Minute Meals",
         "sports_team": "Raptors",
         "athlete": "Shaq",
@@ -53,34 +74,21 @@
     "background": {
         "hometown": "Lowell, MA",
         "education": "Harvard Law",
-        "hockey_history": "Thats ancient history ",
+        "hockey_history": "I have amnesia, what is this form for again?",
         "other_sports": "frolf",
-        "career_highlights": "no",
+        "career_highlights": " blah blah blahhhhhhhhhh",
         "social_media": {
-            "linkedin": "",
-            "instagram": "",
-            "twitter": "",
-            "facebook": ""
+            "linkedin": `http://www.linkedin.com/${name[0]}.${name[1]}.${_.random(20,400)}`,
+            "instagram": `http://www.instagram.com/${name[1]}${_.random(0,40)}`,
+            "twitter": `http://www.twitter.com/user/${name[0]}`,
+            "facebook": `http://www.facebook.com/${name[0]}.${name[1]}.${_.random(20,400)}`
         }
     },
     "public_data": {
-        "gender": "Male",
-        "weight": "214",
-        "height": "6'8\"",
-        "date_of_birth": "11/12/1956"
-    },
-    "headshot": false,
-    "paid": false,
+        "gender": enums.player.gender[ _.random(0,1)],
+        "weight": _.random(100,250),
+        "height": enums.heights[_.random(0, enums.heights.length-1)],
+        "date_of_birth": valiDATE()
+    }
  }
-
-var positions = ["Right Wing", "Left Wing", "Goalie", "Center","Left Defense", "Right Defense"]
-var teams = require("./fields/teams").names
-var names = [{firstname:"Bill",lastname:"Monroe"},{firstname:"Carl",lastname:"Weathers"},{firstname:"Corrine",lastname:"Nyguen"}
-,{firstname:"Rebecca",lastname:"John"},{firstname:"Heather",lastname:"Thompson"}]
-
-module.exports = names.map(function(v){
-    var teamName = teams[Math.floor(Math.random()*9)]
-    var position = positions[Math.floor(Math.random()*5)]
-    schema.hockey_info = Object.assign({},schema.hockey_info, {position, team:teamName})
-    return Object.assign({}, schema, v) 
-})
+}

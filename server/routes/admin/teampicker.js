@@ -2,6 +2,10 @@ var Registration = require("../../models/registration/main");
 var Player = require("../../models/players/main");
 var Team = require("../../models/team/team")
 
+var teamsAppliedFor = require("../../locals/fields/enums").teams.applyingFor;
+//the teams listed on the registration form are slightly different than how they are labelled in the database.
+//on the registration forms they are more general e.g. 'Womens Masters' can be Womens Team Red or Womens Team Blue
+
 module.exports = function(app) {
 
     app.all("/admin/assign/*",function(req,res,next){
@@ -20,6 +24,7 @@ module.exports = function(app) {
             res.render("admin/teampicker/player", {
                 player,
                 teams: req.session.teamSeasons,
+                teams2:teamsAppliedFor,
                 layout: "user",
                 userType:"admin"
             });
@@ -59,8 +64,14 @@ module.exports = function(app) {
 
     app.get("/seed",function(req,res){
         var Registration = require("../../models/registration/_playerReg")
-        var seed = require("../../locals/seed")
-        Registration.create(seed).then(v=> res.send(v))
+        var seed = require("../../locals/seed")(req.query.name)
+        
+        var reg = new Registration(seed);
+        reg.save(function(err,doc){
+            if(err) console.error(String(err));
+            res.send(doc)
+        })   
+        
     })
 
     app.post("/admin/assign/:type", function(req, res) {
