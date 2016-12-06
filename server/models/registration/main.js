@@ -4,23 +4,14 @@ var Schema = mongoose.Schema;
 var parse = require("saymyname")
 var Method = require("./methods");
 
+var nameSchema = require("../commonFields/name");
+
 var registrationSchema = new Schema({
-	firstname: {
-    type: String,
-    required: true,
-    lowercase: true,
-    minlength: 2,
-    maxlength: 40,
-  },
-	lastname: {
-    type: String,
-    required: true,
-    lowercase: true,
-    minlength:2,
-    maxlength: 40,
-  },  
+	firstname: nameSchema,
+	lastname: nameSchema,  
     contact: {},
-	public_data: {}},
+	public_data: {}
+ },
  {
 	timestamps: true
 });

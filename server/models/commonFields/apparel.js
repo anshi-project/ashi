@@ -5,22 +5,22 @@ var staff = {
 	shirt: {
 		type: String,
 		required: true,
-		enum: validate.sizes,
+		enum: enums.apparelSizes.default,
 	},
 	polo: {
 		type: String,
 		required: true,
-		enum: validate.sizes,
+		enum: enums.apparelSizes.default,
 	},
 	hat: {
 		type: String,
 		required: true,
-		enum: validate.sizes,
+		enum: enums.apparelSizes.hat,
 	},
 	jacket: {
 		type: String,
 		required: true,
-		enum: validate.sizes,
+		enum: enums.apparelSizes.default,
 	},
 }
 

@@ -2,32 +2,32 @@ var mongoose=require("mongoose");
 var Staff=require("./main");
 var Team=require("../team/team");
 
-var teamSchema = {
-		name:String,
-		division:String,
-		role:String,
-	}
+var enums = require("../../locals/fields/enums")
+var fields = require("../commonFields/index")
 
 var coachSchema = new mongoose.Schema({
-	team:teamSchema,
-	status:{type:String,default:"Active"}, 
-	background:{
-		social_media:{},
-	    former_coaching_positions:[{type:String}],
-	    hometown:String,         
-	    short_answers:{
-	        career_highlights:String,
-	        preparation:String,
-	        coaching_style:String,
-	        why_a_good_candidate:String,
-	        create_team_atmosphere:String,
-	    },
-	    preferred_coaching_position:{type:String},
-	    team_applying_for:String,
-	    highest_level_coached:String		
-	},
-	apparel:{}
+	team:{
+		name:{type: String, enum: enums.teams.names},
+		division:{type:String, enum: enums.teams.divisions},
+		role:{type:String,enum: enums.coach.roles}
+	}, 
+	background: fields.background.coach,
+	apparel: fields.apparel.staff
 })
+
+coachSchema.pre("save",function(next){
+	if(this.isNew()){
+		this.status = "Active";
+		//status on base model defaults to active upon creation, but coaches are an exception because
+		//this Staff-coach model is being created from a previously created object (coach registration model)
+		this.username = this.firstname + Math.floor(Math.random()*40);
+		this.password = "password";
+		next()
+	}
+})// username and password are required fields on the base staff model. Coaches however
+// do not need login credentials as of this version of the app. I'm just setting up defaults
+//here to serve as a placeholder rather than overwrite the required flag of these 2 fields
+
 
 
 coachSchema.statics.updateTeamRecords = function(id,prev,update,callback){

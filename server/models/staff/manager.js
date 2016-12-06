@@ -1,67 +1,20 @@
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
+
 var Staff = require("./main")
 var Team = require("../team/team");
+
 var _ = require("lodash");
-var validate = require('../helpers/validate');
+
+var divisions = require("../../locals/fields/enums").teams.divisions
+var apparel = require("../commonFields/apparel").staff
 
 var gmSchema = new Schema({
-  contact:{
-    phone1: {
-      type: String,
-      required: true,
-      validate: validate.phoneNo,
-    },
-    phone2:{
-      type: String,
-      default: 'N/A',
-      validate: validate.altPhoneNo,
-    },
-    email: {
-      type: String,
-      required: true,
-      lowercase: true,
-      validate: validate.email,
-    },
-    alt_email: {
-      type: String,
-      lowercase: true,
-      validate: validate.altEmail,
-    },
-    passport: {
-      type: String,
-      required: true,
-      enum: ["Yes", "No"],
-    },
-    passport_expiration:{
-      type: String,
-      default: "N/A",
-      validate: validate.passport,
-    },
-  },
-  apparel: {
-    shirt: {
-      type: String,
-      required: true,
-      enum: validate.sizes,
-    },
-    polo: {
-      type: String,
-      required: true,
-      enum: validate.sizes,
-    },
-    hat: {
-      type: String,
-      required: true,
-      enum: validate.sizes,
-    },
-    jacket: {
-      type: String,
-      required: true,
-      enum: validate.sizes,
-    },
-  },
+  division: [{ type: String, enum: divisions }],
+  apparel
 })
+
+
 
 gmSchema.statics.assign=function(id,division){
 	this.findById(id,function(err,doc){
@@ -71,7 +24,10 @@ gmSchema.statics.assign=function(id,division){
 		doc.save();
 	})
 	Team.addToRoster({division:{$in:division}},id,"managers")
-}
+}// function is activated when a manager is initial confirmed by an admin  
+//happens only once per manager
+
+
 
 gmSchema.statics.updateTeamRecords=function(id, prev, update,callback){
 	var prev = prev.split(",");

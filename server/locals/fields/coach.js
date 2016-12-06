@@ -2,14 +2,14 @@ var common = require("./common")
 var enums = require("./enums")
 
 var shortAnswerQuestions = {
-    a: `As a coach of Team USA Ball Hockey, you will be working with high caliber athletes
-        on a world level. Please describe how your past experiences have prepared you to
-        coach Team USA (300-1000 words)`,
-    b: `One of the challenges of competing with team USA is that the players on the team
-        come from all over the country. Describe how you would go about forming a team
-        atmosphere knowing you have athletes from all around the country that will
-        only train together for a few weekends before the tournament. (150-500 words)`
-}
+    a: `As a coach of Team USA Ball Hockey, you will be working with high caliber athletes`
+        +` on a world level. Please describe how your past experiences have prepared you to`
+        +` coach Team USA (300-1000 words)`,
+    b: `One of the challenges of competing with team USA is that the players on the team `+
+        `come from all over the country. Describe how you would go about forming a team`+
+        `atmosphere knowing you have athletes from all around the country that will `+
+        `only train together for a few weekends before the tournament. (150-500 words)`
+}//add plusses to avoid formatting with trailing whitespace
 
 
 module.exports = [
@@ -18,13 +18,13 @@ module.exports = [
     {
         label: "Team",
         name:"team[name]",
-        dropdown:enums.teams,
+        dropdown:enums.teams.names,
         recordOnly:true
     },
     {
         label: "Role",
         name:"team[role]",
-        dropdown:enums.roles,
+        dropdown:enums.coach.roles,
         recordOnly:true
     },
     common.passport,
@@ -43,17 +43,17 @@ module.exports = [
     }, {
         label: "In the past, I have coached",
         name: "background[former_coaching_positions]",
-        checkbox: enums.former_coaching_positions,
+        checkbox: enums.coach.former_coaching_positions,
         registration_only:true
     }, {
         label: "The highest level I have coached is",
         name: "background[highest_level_coached]",
-        radio: enums.highest_level_coached,
+        radio: enums.coach.highest_level_coached,
         registration_only:true
     }, {
         label: "Preferred coaching position",
         name: "background[preferred_coaching_position]",
-        radio: enums.roles,
+        radio: enums.coach.roles,
         registration_only:true
     },
     common.shirt,
@@ -79,7 +79,7 @@ module.exports = [
         registration_only:true
     },
     {
-        label:shortAnswerQuestions.b,
+        label:shortAnswerQuestions.b.trim(),
         name: "background[short_answers][create_team_atmosphere]",
         textarea: true,
         registration_only:true

@@ -1,37 +1,28 @@
 var mongoose=require("mongoose");
 var Schema=mongoose.Schema;
 
+var nameField = require("../commonFields/name")
+var contactField = require("../commonFields/contact").staff
+
 var staffSchema = new Schema({
+    firstname: nameField,
+    lastname: nameField,
     username: {
       type: String,
       required: true,
+      unique:true,
       // validate: validate.username,
     },
     password:{
       type: String,
       required: true,
     },
-    lastname:{
-      type:String,
-      required: true,
-      lowercase:true,
-      trim: true,
-      minlength: 1,
-      maxlength: 50,
-    },
-    firstname:{
-      type:String,
-      required: true,
-      lowercase:true,
-      trim: true,
-      minlength: 1,
-      maxlength: 50,
-    },
     status:{
       type:String,
       default:"Pending",
-    },//Active, Pending, inactive
-    contact:{},
+      enum: ["Active", "Pending", "inactive"] 
+    },
+    contact:contactField,
     resetPasswordToken: String,
   	resetPasswordExpires: Date,
     regToken:String,

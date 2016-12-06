@@ -7,11 +7,20 @@ function getFields(type){
   return _.reject(fields, "recordOnly")
 }
 
+function getLabels(fields){
+  var commas = new RegExp(",", "g")
+  var str="";
+  for(var i=0; i< fields.length; i++){
+    var currLabel = fields[i].label;
+    str+= currLabel.replace(commas, "")+", ";
+  }
+  return str+"\n";
+}
 
 function formatter(type){
     var fields = getFields(type);
-  	var fieldnames = _.map(fields, "label");
-  	var str = fieldnames.join(", ")+"\n";
+  	var str = getLabels(fields);
+    //init the csv string
 
   	return function(doc){
   		if(arguments.length == 0){

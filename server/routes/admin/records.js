@@ -17,6 +17,7 @@ module.exports = function(app) {
 		})
 	})
 
+
 	app.put("/admin/records/:type", function(req, res) {
 		var type = req.params.type;
 		var id = req.query.id;

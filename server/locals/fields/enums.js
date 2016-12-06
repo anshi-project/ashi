@@ -2,10 +2,10 @@ var teams = require("./teams")
 
 
 var apparelSizes = {
-	default: ["SM", "M", "L", "XL", "XXL", "XXXL"],
+	default: ["S", "M", "L", "XL", "XXL", "XXXL"],
 		hat: ["S/M" , "L/XL"],
 	  socks: ["M", "L", "XL"],	
-	 jersey: ["SM", "M", "L", "XL", "XXL", "XXXL", "Goalie-XXL", "Goalie-XXXL"]
+	 jersey: ["S", "M", "L", "XL", "XXL", "XXXL", "Goalie-XXL", "Goalie-XXXL"]
 }
 
 var months = [{num: 1, text: 'January'}, {num: 2, text: 'February'}, {num: 3, text: 'March'},
@@ -30,7 +30,7 @@ var states = ["AK", "AL", "AR", "AZ", "CA", "CO", "CT", "DC", "DE", "FL",
 
 
 var player = {
-	positions:["Left wing", "Right wing", "Center", "Right defense", "Left defense", "Goalie"],
+	positions:["Left Wing", "Right Wing", "Center", "Right Defense", "Left Defense", "Goalie"],
 	shooting_hand:["Left", "Right"],
 	gender:["Male","Female"]
 }

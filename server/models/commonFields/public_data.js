@@ -5,17 +5,17 @@ module.exports= {
   date_of_birth:{
     type: String,
     required: true,
-    validate: validate.birthday,
+    // validate: validate.birthday,
   },
   gender: {
     type: String,
-    required: true,
+    required: [true,"Gender must be included."],
     enum: enums.player.gender,
   },
   weight: {
     type: Number,
-    min: 50,
-    max: 350,
+    min: [50, "Weight must be above 50 lbs"],
+    max: [350, "Weight must be 350 or below"],
   },
   height: {
     type: String,

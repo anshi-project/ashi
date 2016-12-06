@@ -15,6 +15,7 @@ var teamData = [
 
 exports.getDivision = function(teamName){
  	var obj = _.find( teamData, {name: teamName});
+ 	if(!obj) return "Junior's"
  	return obj.division;
  }
 
