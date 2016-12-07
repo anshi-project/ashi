@@ -5,7 +5,7 @@ module.exports= {
   date_of_birth:{
     type: String,
     required: true,
-    // validate: validate.birthday,
+    validate: validate.birthday,
   },
   gender: {
     type: String,

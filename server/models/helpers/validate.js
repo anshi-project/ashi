@@ -18,6 +18,25 @@ function isLeapYear (year) {
  }
 }
 
+function dateValidator (val){
+  var d = new Date();
+  var year = Number(val.substr(0, 4));
+  var month = Number(val.substr(5,2));
+  var day = Number(val.substr(8, 2));
+  var pattern = new RegExp(/^(\d{4})-(\d{1,2})-(\d{1,2})$/);
+  if (!pattern.test(val) || val.length !== 10 || ((d.getFullYear - year) > 1)) {
+    console.log('date error')
+    return false;
+  }
+  if ((day > 29 && month === 2) || (([4, 6, 9, 11].indexOf(month) !== -1) && day === 31) ||
+      (month === 2 && day === 29 && isLeapYear(year) === 'false' || month < 1 || month > 12 ||
+      day < 1 || day > 31)) {
+        console.log('date error')
+        return false;
+  }
+  return true;
+}
+
 function birthdayValidator (val) {
   var d = new Date();
   var year = Number(val.substr(0, 4));
@@ -30,30 +49,35 @@ function birthdayValidator (val) {
     return false;
   }
   if ((day > 29 && month === 2) || (([4, 6, 9, 11].indexOf(month) !== -1) && day === 31) ||
-      (month === 2 && day === 29 && isLeapYear(year) === 'false')) {
+      (month === 2 && day === 29 && isLeapYear(year) === 'false' || month < 1 || month > 12 ||
+      day < 1 || day > 31)) {
         console.log('birthday error')
         return false;
   }
+  return true;
 }
 
 function passportDateValidator (val) {
   var todaysDate;
   var d = todaysDate = new Date();
   var year = Number(val.substr(0, 4));
-  var month = Number(val.substr(5,2));
-  var day = Number(val.substr(8, 2));
+  var month = Number((val.match(/-\d{1,2}-/)[0]).slice(1, -1));
+  var day =  Number(val.match(/-\d{1,2}$/)[0].slice(1));
   var passportDate = new Date(year, (month - 1), day);
   if (year === 0 || month === 0 || day === 0 || (passportDate < todaysDate)) return false;
   var pattern = new RegExp(/^(\d{4})-(\d{1,2})-(\d{1,2})$/);
-  if (!pattern.test(val) || val.length !== 10 || ((d.getFullYear - year) < 5)) {
+
+  if (!pattern.test(val) || val.length < 9 || val.length > 10  || ((d.getFullYear - year) < 5)) {
     console.log('passport date error')
     return false;
   }
   if ((day > 29 && month === 2) || (([4, 6, 9, 11].indexOf(month) !== -1) && day === 31) ||
-      (month === 2 && day === 29 && isLeapYear(year) === 'false')) {
+      (month === 2 && day === 29 && isLeapYear(year) === 'false' || month < 1 || month > 12 ||
+      day < 1 || day > 31)) {
         console.log('passport date error')
         return false;
   }
+  return true;
 }
 
 function jerseyNoValidator (no) {
@@ -106,6 +130,7 @@ var validate = {
   altPhoneNo: altPhoneNoValidator,
   zipcode: zipcodeValidator,
   url: urlValidator,
+  date: dateValidator,
 }
 
 module.exports = validate;

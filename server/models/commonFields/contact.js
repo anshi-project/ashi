@@ -5,22 +5,22 @@ var staff = {
  	phone1: {
         type: String,
         required: true,
-        // validate: validate.phoneNo,
+        validate: validate.phoneNo,
     },
     phone2:{
         type: String,
-        // validate: validate.altPhoneNo,
+        validate: validate.altPhoneNo,
     },
     email: {
         type: String,
         required: true,
         lowercase: true,
-        // validate: validate.email,
+        validate: validate.email,
     },
     alt_email: {
         type: String,
         lowercase: true,
-        // validate: validate.altEmail,
+        validate: validate.altEmail,
     },
     passport: {
         type: String,
@@ -29,9 +29,9 @@ var staff = {
     },
     passport_expiration:{
         type: String,
-        default:""
-        // validate: validate.passport,
-    }	
+        default: "",
+        validate: validate.passport,
+    }
 }
 
 var private_data = {
@@ -61,11 +61,11 @@ var private_data = {
            type: String,
            required: true,
            trim: true,
-           // validate: validate.zipcode,
+           validate: validate.zipcode,
         },
     }
 }
 
 var player = Object.assign({}, staff, {private_data})
- 
+
  module.exports = {player , staff}

@@ -9,11 +9,13 @@ var common = {
 	hometown: {
 		type: String,
 		trim: true,
+    minlength: 1,
 		maxlength: 50,
 	},
 	career_highlights: {
 		type: String,
 		trim: true,
+    minlength: 1,
 		maxlength: 4000,
 	}
 }
@@ -22,16 +24,19 @@ var player = {
 	education: {
 		type: String,
 		trim: true,
+    minlength: 1,
 		maxlength: 50,
 	},
 	hockey_history: {
 		type: String,
 		trim: true,
+    minlength: 1,
 		maxlength: 4000,
 	},
 	other_sports: {
 		type: String,
 		trim: true,
+    minlength: 1,
 		maxlength: 4000,
 	},
 }
@@ -94,4 +99,4 @@ var coach = {
 module.exports = {
 	player:Object.assign({}, common , player),
 	coach:Object.assign({}, common, coach)
-} 
+}

@@ -12,7 +12,7 @@ var hbs = exphbs.create({
 var mongoose=require("mongoose");
 var bodyParser=require('body-parser');
 var cookieParser=require("cookie-parser");
-var session=require('express-session');
+var session = require('express-session');
 var methodOverride=require("method-override");
 
 require("dotenv").config();
@@ -25,6 +25,7 @@ app.use(methodOverride('_method'));
 
 
 app.use(bodyParser.urlencoded({ extended:true}));
+app.use(bodyParser.json());
 app.use(cookieParser());
 
 app.use(session({resave:false,
@@ -48,4 +49,4 @@ require("./routes/index")(app);
 
 // app.listen(process.env.PORT|| 8080, () => console.log('port 8080 => Adam'));
 // app.listen(8081, () => console.log('port 80 81 => Manolo'));
-app.listen(3000, () => console.log('listening on port 3000')); 
+app.listen(3000, () => console.log('listening on port 3000'));
