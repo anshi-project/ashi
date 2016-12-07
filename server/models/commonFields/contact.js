@@ -15,11 +15,13 @@ var staff = {
         type: String,
         required: true,
         lowercase: true,
+        maxlength: 50,
         validate: validate.email,
     },
     alt_email: {
         type: String,
         lowercase: true,
+        maxlength: 50,
         validate: validate.altEmail,
     },
     passport: {

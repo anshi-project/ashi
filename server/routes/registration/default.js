@@ -25,7 +25,6 @@ module.exports=function(app){
         var __t = type.charAt(0).toUpperCase() + type.substr(1).toLowerCase();
         var query = {regToken:token,regTokenExp:{$gt:now},__t };
         var form = Object.assign({},req.body)
-
         if(type != "admin" && type != "manager" ) return next();
 
         StaffMember.findOne(query).exec(function(err,doc){
@@ -51,9 +50,7 @@ module.exports=function(app){
 
     app.post("/register/:type",function(req,res,next){
         var type = req.params.type;
-
-        if(type != "next" && type != "player" ) return next();
-
+        if(type != "player" && type !== "coach" ) return next();
         var Registration = models[req.params.type];
 
         Registration.create(req.body,function(err,doc){
