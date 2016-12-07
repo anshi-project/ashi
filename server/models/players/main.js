@@ -7,66 +7,82 @@ var fields = require("../commonFields/index");
 var enums = require("../../locals/fields/enums")
 
 var playerSchema = new Schema({
-    firstname: fields.name,
-    lastname: fields.name,
-    public_data: fields.public_data,
-    contact: fields.contact.player,
-    paid: {type: Boolean, default: false },
-    headshot: { type: Boolean, default: false },
-    background: fields.background.player,
-    hockey_info: fields.hockey_info,
-    archive: {
-      paid: Boolean,
-      timestamp: Date,
-      isArchived: Boolean
-    }, //make sure payment status is stored!
-    team: {
-      name: {
-        type: String,
-        required: true,
-        enum: enums.teams.names,
-      },
-      division: {
-        type: String,
-        required: true,
-        enum: enums.teams.divisions,
-      },
-      position: [{
-        type: String,
-        required: true,
-        enum: enums.player.positions
-      }],
-      jersey_number: {
-        type: Number,
-        // required: true,
-        // validate: {
-        //   validator: function(num){ return num >= 0 && num < 100 },
-        //   message: "Please pick a number between 0 and 99"
-        // },
-      },
-      shooting_hand: {
-        type: String,
-        required: true,
-        enum: enums.player.shooting_hand,
-      }
-    },
-    status: {
+  firstname: fields.name,
+
+  lastname: fields.name,
+
+  public_data: fields.public_data,
+
+  apparel: fields.apparel.player,
+
+  contact: fields.contact.player,
+
+  favorite: fields.favorite,
+
+  background: fields.background.player,
+
+  hockey_info: fields.hockey_info,
+
+  archive: {
+    paid: Boolean,
+    timestamp: Date,
+    isArchived: Boolean
+  }, //make sure payment status is stored!
+  paid: {
+    type: Boolean,
+    required: true,
+    default: false
+  },
+  headshot: {
+    type: Boolean,
+    required: true,
+    default: false
+  },
+  team: {
+    name: {
       type: String,
-      default: "Active",
-      enum: ["archived", "Active", "renewing membership"]
+      required: true,
+      enum: enums.teams.names,
+    },
+    division: {
+      type: String,
+      required: true,
+      enum: enums.teams.divisions,
+    },
+    position: [{
+      type: String,
+      required: true,
+      enum: enums.player.positions
+    }],
+    jersey_number: {
+      type: Number,
+      required: true,
+      // validate: {
+      //   validator: function(num){ return num >= 0 && num < 100 },
+      //   message: "Please pick a number between 0 and 99"
+      // },
+    },
+    shooting_hand: {
+      type: String,
+      required: true,
+      enum: enums.player.shooting_hand,
     }
-  }, 
-  {
-    timestamps: true
+  },
+  status: {
+    type: String,
+    default: "Active",
+    enum: ["archived", "Active", "renewing membership"]
   }
-);
+}, {
+  timestamps: true
+});
 
-playerSchema.pre("save", function(next){
-  var getDivision = require("../../locals/fields/teams").getDivision;
+// playerSchema.pre("save", function(next){
+//   var getDivision = require("../../locals/fields/teams").getDivision;
 
-  this.team.division = getDivision(this.team.name);
-  
-})
+//   this.team.division = getDivision(this.team.name);
+
+// })
 
 playerSchema.virtual("public_data.age").get(function() {
   var now = Date.now();

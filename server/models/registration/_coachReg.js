@@ -8,7 +8,8 @@ var fields = require("../commonFields/index")
 var CoachReg = Registration.discriminator("coach-registration",
   new Schema ({
     apparel: fields.apparel.staff,
-    background: fields.background.coach
+    background: fields.background.coach,
+    contact: fields.contact.staff
   })
 );
 

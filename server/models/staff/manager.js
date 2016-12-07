@@ -50,4 +50,4 @@ gmSchema.statics.updateTeamRecords=function(id, prev, update,callback){
 }
 
 
-module.exports=Staff.discriminator("manager",gmSchema);
+module.exports=Staff.discriminator("Manager",gmSchema);

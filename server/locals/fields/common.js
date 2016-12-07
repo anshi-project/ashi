@@ -54,7 +54,6 @@ module.exports = {
 	passport_expiration:{
 		label:"Passport expiration date",
 		name:"contact[passport_expiration]",
-		type:"date",
 		recordOnly:true
 	},
 	facebook: {

@@ -44,8 +44,8 @@ var teamSchema = new Schema({
         isArchived:Boolean       
     }, 
     key:String,
-    managers: [{type: Schema.Types.ObjectId, ref: "manager"}],
-    coaches: [{type: Schema.Types.ObjectId, ref: "coach"}],
+    managers: [{type: Schema.Types.ObjectId, ref: "Manager"}],
+    coaches: [{type: Schema.Types.ObjectId, ref: "Coach"}],
     players: [{type: Schema.Types.ObjectId, ref: "Player"}],
     goalies: [{type: Schema.Types.ObjectId, ref: "Player"}],
     game_stats: [TeamGameStatsSchema],

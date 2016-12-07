@@ -23,6 +23,32 @@ module.exports=function(app){
     app.get("/",function(req,res){
         res.render("index")
     });
+
+    app.get("/seed",function(req,res,next){
+        var name = req.query.name;
+
+        var Registration = require("../models/registration/_playerReg")
+        var seed = require("../locals/seed")(req.query.name)
+        
+        var reg = new Registration(seed);
+        reg.save(function(err,doc){
+            if(err) console.error(String(err));
+            res.send(doc)
+        })   
+        
+    })//TEMPORARY FUNCTIONS TO QUICKLY CREATE A NEW PLAYER REG FORM   
+
+    app.get("/seed-coach",function(req,res){
+        var name = req.query.name;       
+        var Registration = require("../models/registration/_coachReg")
+        var seed = require("../locals/seed.coach")(req.query.name)
+        
+        var reg = new Registration(seed);
+        reg.save(function(err,doc){
+            if(err) console.error(String(err));
+            res.send(doc)
+        })     
+    })//TEMPORARY FUNCTIONS TO QUICKLY CREATE A NEW COACH FORM   
     
     require("./auth")(app);    
     require("./email")(app);

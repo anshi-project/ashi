@@ -6,7 +6,7 @@ var _=require("lodash");
 
 function formatPerson(doc,team,type){
     var getDivision = require("../../locals/fields/teams").getDivision;
-    var omitArray = ["_id","__t","__v","createdAt","updatedAt","status"];
+    var omitArray = ["_id","__t","__v","createdAt","updatedAt"];
     var person =_.omit(doc , omitArray)    
     team.division = getDivision(team.name)
     
@@ -16,13 +16,16 @@ function formatPerson(doc,team,type){
         var jersey_number = info.jersey_number.choice1;
         var shooting_hand = info.shooting_hand;
         var position = info.position;
+        var league_team = info.league_team;
+        var tournament_team = info.tournament_team;
+        var website = info.website;
         var flag = position.indexOf("Goalie") == -1;//Player is not a goalie
         
         person.discriminator = flag? "_default":"_goalie"; 
         person.model = "../players/" + person.discriminator;
         person.type = flag? "players" : "goalies";
 
-        team = Object.assign({}, team, {jersey_number,shooting_hand,position})
+        team = Object.assign({}, team, {jersey_number,shooting_hand,position,league_team,tournament_team,website})
         //extra formatting for team field within Player model...
         //move the relevant hockey_info data into the 'team' field for more convenient API 
     }else{
@@ -44,12 +47,12 @@ exports.assignToTeam = function(id, team, type, callback){
         var userData = formatPerson(doc.toObject(), team, type);
         
         var User = require(userData.model)
-        
-
-        User.create(userData)
-         .then((newUser) => { Team.addToRoster({name:team.name}, newUser._id, userData.type) })
+     
+        var user = new User(userData);
+        user.save()
+         .then((newUser) => {Team.addToRoster({name:team.name}, newUser._id, userData.type) })
          .then(() => { doc.remove() })
-         .then(() => {return callback(null, player)})
+         .then(() => {return callback(null, newUser)})
          .catch( err=>{if(err) return callback(err) })
     })    
 }
@@ -63,7 +66,7 @@ exports.findRegisteredPlayers=function(callback){
         .exec(function(err,oldPlayers){
             
             var result=oldPlayers.concat(newPlayers)
-                        .sort((a,b)=> {if(a.lastname>b.lastname) {return 1} return 0; })
+                    
             return callback(result);
         })
     }).catch(function(err){

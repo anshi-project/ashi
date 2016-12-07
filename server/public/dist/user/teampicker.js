@@ -1,9 +1,7 @@
 function formatReqBody(serializedArr){
 	return serializedArr.reduce((a,b)=>{
 		a[b.name] = b.value;
-		
 		return a
-		
 		},{});
 }
 
@@ -25,14 +23,17 @@ $(".modal .btn-primary").on("click",function(evt){
 	var url = $("form").attr("action")+id;
 	var $type = $(this).data().type;
 	var type = ($type=="Default"||$type=="Goalie")? "PUT" : "POST"  
-		
+	
+	console.log(data, url, type)
+
 	$.ajax({
 		url,
 		data,
 		type,
 		success:function(d){
 			console.log(d);
-		}
+		},
+		failure:(d)=> {console.log(d)}
 	})
 })
 

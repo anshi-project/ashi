@@ -38,7 +38,7 @@ exports.renderForm = function(typeOfApplicant){
 	var fields = getFields(typeOfApplicant);
 
 	fields.forEach(function(p){
-      console.log(p)
+      
     	p["required"] = p.hasOwnProperty('required')? p.required : true;
     	p["type"] = p.hasOwnProperty('type')? p.type : "text";
 	})

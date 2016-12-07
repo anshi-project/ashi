@@ -30,6 +30,8 @@ module.exports = function(app) {
             });
         })
     })
+
+
  
     app.get("/admin/assign/coach", function(req, res) {
         var Coaches = require("../../models/registration/_coachReg");
@@ -62,26 +64,15 @@ module.exports = function(app) {
     })
 
 
-    app.get("/seed",function(req,res){
-        var Registration = require("../../models/registration/_playerReg")
-        var seed = require("../../locals/seed")(req.query.name)
-        
-        var reg = new Registration(seed);
-        reg.save(function(err,doc){
-            if(err) console.error(String(err));
-            res.send(doc)
-        })   
-        
-    })
-
     app.post("/admin/assign/:type", function(req, res) {
         var id = req.query.id;
         var team = req.body;
         var type = req.params.type;
 
-        Registration.assignToTeam(id, team, type, function(err, data) {
+        // res.send({id,team,type})
+        Registration.assignToTeam(id, team, type, function(err, data) {      
             if(err) return res.send(err).status(500)
-            res.send(data).status(200);
+            res.send(data)
         })
     })
 

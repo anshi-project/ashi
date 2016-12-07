@@ -16,6 +16,7 @@ module.exports=function(app){
         var query={
             firstname:_.firstname.toLowerCase(),
             lastname:_.lastname.toLowerCase(),
+            status:"archived",
             "contact.email":_.contact.email.toLowerCase()
         }
 
@@ -24,10 +25,12 @@ module.exports=function(app){
                 return res.redirect("/register/renew/player?redirect=error")
             }else{
                 player.status="renewing membership";
-                player.hockey_info.position = _.hockey_info.position;
-                player.hockey_info.team = _.hockey_info.team;
-                player.save();
-                res.redirect("/register/renew/player?success=true");    
+                player.hockey_info.position = _.position;
+                player.hockey_info.team = _.team;
+                player.save()
+                .then(()=>{ res.redirect("/register/renew/player?success=true") })
+                .catch(err =>{ if(err){ console.error(String(err))} })
+                
             }
         })
     }) 

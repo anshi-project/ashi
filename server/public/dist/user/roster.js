@@ -109,7 +109,7 @@ $(document).ready(function(){
 
 		
 		if (jQuery.isEmptyObject(data)) return
-
+	    
 		$.ajax({
 			url, 
 			type, 

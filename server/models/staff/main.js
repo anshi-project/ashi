@@ -9,13 +9,12 @@ var staffSchema = new Schema({
     lastname: nameField,
     username: {
       type: String,
-      required: true,
       unique:true,
+      required:true
       // validate: validate.username,
     },
     password:{
-      type: String,
-      required: true,
+      type: String
     },
     status:{
       type:String,

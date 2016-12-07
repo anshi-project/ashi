@@ -1,7 +1,6 @@
 var StaffMember = require("../../models/staff/main");
 var divisions = require("../../locals/fields/teams").divisions
 
-
 module.exports = function(app){
 
   app.get("/admin/staff/:type",function(req,res){
@@ -19,8 +18,6 @@ module.exports = function(app){
   app.post("/admin/permissions/:type",function(req,res){
     var email = req.body.email;
     var type = req.params.type;
-
-    console.log("connection")
 
     var mailRegForm = require("../../config/addStaff");
 

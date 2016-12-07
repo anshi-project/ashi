@@ -7,12 +7,12 @@ module.exports = [
     common.email,
     {
     	label:"Team you're trying out for",
-		name:"hockey_info[team]",
+		name:"team",
 		dropdown:enums.teams.applyingFor
 	},
 	{
 		label:"Select one or more position",
-		name:"hockey_info[position]",
-		checkbox: enums.positions
+		name:"position",
+		checkbox: enums.player.positions
 	}
 ]

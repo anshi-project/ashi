@@ -16,17 +16,19 @@ module.exports=function(app){
     });
 
     app.post("/register/:type",function(req,res,next){
-
         var type = req.params.type;
-        if(type != "admin" && type != "manager" ) return next();
-
         var token = req.query.token;
         var now = new Date();
-        var query = {regToken:token,regTokenExp:{$gt:now}};
+        
+        var __t = type.charAt(0).toUpperCase() + type.substr(1).toLowerCase();
+        var query = {regToken:token,regTokenExp:{$gt:now},__t };
         var form = Object.assign({},req.body)
 
+        if(type != "admin" && type != "manager" ) return next();
 
         StaffMember.findOne(query).exec(function(err,doc){
+            if(err || !doc) return res.redirect("/register/"+type+"?errror=TRUE")
+            
             for(var field in form){
                 if(typeof field === "object"){
                     doc[field] = Object.assign({}, field)
@@ -35,15 +37,23 @@ module.exports=function(app){
                 }
             }
             doc.save()
-            res.redirect("/register/manager?success=true")
+            .then(()=> {res.redirect("/register/manager?success=true")})
+            .catch((err)=> { if(err) res.send(String(err)) })  
         })
 
     });
 
-    app.post("/register/:type",function(req,res){
+    app.post("/register/:type",function(req,res,next){
+        var type = req.params.type;
+
+        if(type != "next" && type != "player" ) return next();
+        
         var Registration = models[req.params.type];
+        
         Registration.create(req.body,function(err,doc){
-            if(err) throw err;
+            if(err){
+                res.send(console.error(String(err)))
+            }
             res.redirect("/register/"+req.params.type+"?success=true")
         });
     });

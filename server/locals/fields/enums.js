@@ -44,8 +44,8 @@ var teams = {
 
 var coach = {
 	roles:["Head Coach", "Assistant Head Coach", "Assistant Coach for Forwards", "Assistant Coach for Defense", "Other"],
-	former_coaching_positions:["Ice hockey", "Ball hockey", "Field Hockey", "Other"],	
-	highest_level_coached:["Youth Hockey", "Junior's", "College", "Semi-Professional", "Professional", "Travel Ball Hockey"]
+	former_coaching_positions:["Ice Hockey", "Ball Hockey", "Field Hockey", "Other"],	
+	highest_level_coached:["Youth Hockey", "Junior's", "College", "Semi-Professional", "Professional", "Travel Ball Hockey","Other"]
 }
 
 module.exports = {teams, player, coach, apparelSizes, states, heights, months}                     

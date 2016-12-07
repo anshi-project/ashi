@@ -8,18 +8,16 @@ var _ = require("lodash");
 module.exports=function(app){
 	
   app.get("/admin/roster",function(req,res){
-  
-    var select= "firstname contact paid headshot public_data lastname team";  
-    var match = {status:{$in:["Active"]}}
 
-    Team.find({},"key name division archive players goalies coaches managers")
+    var select = "firstname contact paid headshot public_data lastname team";  
+    var query = "key name division archive players goalies coaches managers";
+
+    Team.find({}, query)
       .sort({"name":-1})
-      .populate({path:"players coaches goalies managers",match, select})
+      .populate({path:"players coaches goalies managers",match:{status:"Active"}, select})
       .exec(function(err,teams){    
-        if(err) throw err;
-             
-        res.render("admin/roster/team",{teams,userType:"admin",
-          email:req.user.contact.email, layout:"user"});
+        if(err) throw err;           
+        res.render("admin/roster/team",{teams,userType:"admin", email:req.user.contact.email, layout:"user"});
       })
 	})
 

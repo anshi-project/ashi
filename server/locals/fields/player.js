@@ -142,6 +142,7 @@ module.exports = [
         name: "hockey_info[tournament_team]",
         class: 'optional',
         required:false,
+        registration_only:true
     },
 
     {
@@ -149,6 +150,7 @@ module.exports = [
         name: "hockey_info[league_team]",
         class: 'optional',
         required:false,
+        registration_only:true
     },
 
     {
@@ -156,7 +158,31 @@ module.exports = [
         name: "hockey_info[website]",
         class: 'fullwidth optional',
         required:false,
+        registration_only:true
     },
+    {
+        label: "Tournament team",
+        name: "team[tournament_team]",
+        class: 'optional',
+        required:false,
+        recordOnly:true
+    },
+
+    {
+        label: "League team",
+        name: "team[league_team]",
+        class: 'optional',
+        required:false,
+        recordOnly:true
+    },
+
+    {
+        label: "League or team website",
+        name: "team[website]",
+        class: 'fullwidth optional',
+        required:false,
+        recordOnly:true
+    },    
     common.shirt,
     common.polo,
     common.jacket,

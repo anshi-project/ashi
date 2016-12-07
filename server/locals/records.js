@@ -46,8 +46,7 @@ exports.render = function(type, id, next) {
 			obj.list =  obj.radio || obj.dropdown || null;
 		})
 		
-		
 		return next(null, fields, doc);
 	})
 }
-	//render an editable/populated form of a persons records 
+	//render a pre-populated form of a persons records for editting a members details 
