@@ -10,25 +10,44 @@ var Models = {player,coach,manager,admin};
 
 var getDivision = require("./fields/teams").getDivision
 
+function getTeamField(type){
+	if(type=="player"|| type=="manager") return type+"s";
+	return "coaches"
+}
+
 
 
 exports.handleTeamChange = function(type, id,prev, update, next){
 	var Model = Models[type];
+	var teamField = getTeamField(type); 
 
-	Model.updateTeamRecords(id,prev, update, function(err, data){
-		return next(err, data)
-	})
+	Model.findByIdAndUpdate(id, update)
+		.then(() =>{
+			if(type !=="manager"){
+				Team.swap(prev, update.team.name , id, teamField)
+			}else{
+				prev = prev.split(",");
+				update = update.division || [];
+				
+				Team.swapDivisions(prev, update, id)
+			}
+		})
+		.then(() => { return next(null, "Successful Update")})
+		.catch(() => { if(err) return next(err) })
 }
 
 
 exports.handleUpdate = function(type, id, update,next) {
 	var Model = Models[type];
 
-	Model.findById(id).update(update).exec(function(err){
-		if(err) return next(err);
-		return next(null);
-	})
+	Model.findByIdAndUpdate(id, update)
+		.then(()=>{ return next(null, "Successful update")})
+		.catch( err => { if(err) return next(err)})
+
 }
+
+
+
 
 
 

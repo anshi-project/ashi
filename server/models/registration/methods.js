@@ -5,12 +5,10 @@ var _=require("lodash");
 
 
 function formatPerson(doc,team,type){
-    var getDivision = require("../../locals/fields/teams").getDivision;
+
     var omitArray = ["_id","__t","__v","createdAt","updatedAt"];
     var person =_.omit(doc , omitArray)    
-    team.division = getDivision(team.name)
-    
-
+ 
     if(type == "player"){
         var info = doc.hockey_info;
         var jersey_number = info.jersey_number.choice1;
@@ -20,12 +18,12 @@ function formatPerson(doc,team,type){
         var tournament_team = info.tournament_team;
         var website = info.website;
         var flag = position.indexOf("Goalie") == -1;//Player is not a goalie
-        
+        var teamName = team.name;
         person.discriminator = flag? "_default":"_goalie"; 
         person.model = "../players/" + person.discriminator;
-        person.type = flag? "players" : "goalies";
+        person.type = "players"
 
-        team = Object.assign({}, team, {jersey_number,shooting_hand,position,league_team,tournament_team,website})
+        team = Object.assign({},{name:teamName, jersey_number, shooting_hand, position, league_team, tournament_team, website})
         //extra formatting for team field within Player model...
         //move the relevant hockey_info data into the 'team' field for more convenient API 
     }else{
@@ -49,10 +47,17 @@ exports.assignToTeam = function(id, team, type, callback){
         var User = require(userData.model)
      
         var user = new User(userData);
+
         user.save()
-         .then((newUser) => {Team.addToRoster({name:team.name}, newUser._id, userData.type) })
+         .then((newUser) => {
+            var update = {};
+            
+            update[userData.type] = newUser._id;
+            
+            Team.update({name: newUser.team.name}, {"$push": update} , {upsert:true, new:true}).exec() 
+        })
          .then(() => { doc.remove() })
-         .then(() => {return callback(null, newUser)})
+         .then(() => {return callback(null, "Successfully added user to team")})
          .catch( err=>{if(err) return callback(err) })
     })    
 }
@@ -60,11 +65,10 @@ exports.assignToTeam = function(id, team, type, callback){
 
 exports.findRegisteredPlayers=function(callback){
     this.find({__t:"player-registration"},"firstname __t fullname lastname hockey_info")
-    .exec((err)=>{if(err) throw "Error finding player registrations";})
+    .exec()
     .then(newPlayers=>{
         Player.find({status:"renewing membership"},"__t fullname firstname lastname team")
         .exec(function(err,oldPlayers){
-            
             var result=oldPlayers.concat(newPlayers)
                     
             return callback(result);

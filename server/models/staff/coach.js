@@ -20,18 +20,6 @@ var coachSchema = new mongoose.Schema({
 
 
 
-coachSchema.statics.updateTeamRecords = function(id,prev,update,callback){
-  	var division = require("../../locals/fields/teams").getDivision;
-  	
-	this.findById(id, "team contact").exec((err,coach)=>{
-		coach.team.division = division( update.team.name);
-		coach.save();
-	})
-	.then(()=>{Team.swap(prev, update.team.name, id, "coaches");})
-	.then(docs => { return callback(null,docs) })
-	.catch(err=>{if(err) return callback("Error updating team records for the coach");});		
-}
-
 module.exports=Staff.discriminator("Coach",coachSchema);
 
 	

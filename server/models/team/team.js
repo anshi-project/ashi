@@ -47,7 +47,6 @@ var teamSchema = new Schema({
     managers: [{type: Schema.Types.ObjectId, ref: "Manager"}],
     coaches: [{type: Schema.Types.ObjectId, ref: "Coach"}],
     players: [{type: Schema.Types.ObjectId, ref: "Player"}],
-    goalies: [{type: Schema.Types.ObjectId, ref: "Player"}],
     game_stats: [TeamGameStatsSchema],
     season_stats: [TeamSeasonStatsSchema],
     alltime_stats: {games_played:{type:Number,default:0},
@@ -62,39 +61,53 @@ var teamSchema = new Schema({
 });
 
 
-teamSchema.statics.addToRoster = function(query,id,type){
+teamSchema.statics.addToRoster = function(query, id, type){
     var update = {};
-      update[type] = id;//ex.{players:id}
+    update[type] = id;//ex.{players:id}
 
-   this.update(query,{"$push":update},{upsert:true,safe:true,multi:true},
-         function(err,data){
-             if(err) throw err;
-        })
-}
+   this.update(query, action ,{upsert:true,safe:true,multi:true})  
+
+} 
 
 teamSchema.statics.swap = function(currTeam,newTeam,id,type){
+    var Team = this;
+    var options = {upsert:true,safe:true,multi:true}
     var update = {};
     update[type] = id;
-   
-   this.update({name:currTeam},{"$pull":update},{upsert:true,safe:true,multi:true},
-         function(err,data){
-             if(err) throw err;
-             console.log("Pulled "+id+" from "+currTeam);
-    })    
+    
+    Promise.all([
+        Team.update({name:currTeam}, {"$pull": update }, options).exec(),
+        Team.update({name:newTeam}, {"$push": update},   options).exec() 
+        ])    
+        .then(() => {console.log("User has Successfully swapped rosters")})
+};
 
-    this.addToRoster({name:newTeam},id,type);
+teamSchema.statics.swapDivisions = function(currDivisions,newDivisions,id){
+    var Team = this;
+    var options = {upsert:true,safe:true,multi:true}
+    var update = {managers: id};
+
+    
+    Team.update({division: {$in:currDivisions}} , {$pull: update}, options).exec()
+        .then(() =>{ 
+            Team.update({division: {$in: newDivisions}}, {$push: update}, options).exec() 
+        })
+        .then(() => {return console.log("Successfully swapped manager's divisions")})
+        .catch(err => {if(err) throw err; })
 }
 
-teamSchema.virtual("roster").get(function(){
-    var team=this.players.concat(this.goalies);
-    
 
-    return team.sort(function(a,b){
-      if(+a.team.jersey_number>+b.team.jersey_number) return 1;
-      if(+a.team.jersey_number<+b.team.jersey_number) return -1;
-        return 0;
-    })
+teamSchema.virtual("default_players").get(function(){
+    var players = this.players
+
+    return players.filter(player => {return player.team.position.indexOf("Goalie") == -1} )
 })
+
+teamSchema.virtual("goalies").get(function(){
+    var players = this.players;
+    return players.filter(player => {return player.team.position.indexOf("Goalie") != -1 })
+})
+
 
 teamSchema.virtual("archive.canRestore").get(function(){
     var now = Date.now();

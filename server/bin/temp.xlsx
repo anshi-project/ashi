@@ -1,2 +1,6 @@
 "Timestamp","Name","#","Position","Email","Phone","Age","Height","Weight","Hometown","Shooting Hand","Shirt size","Sock size","Jacket size","Hat size","Polo size","Shorts size","Jersey size","Headshot","Paid"
-"""2016-12-06T18:50:36.409Z""","John Ryan",19,"[""Right Wing""]","john10@gmail.com",,27,"6'3""",131,"Lowell, MA","Left","L","M","XXL","L/XL","XXXL","S","S",true,false
+"""2016-12-07T21:38:28.316Z""","Syd Barrett",33,"[""Left Defense""]","syd3@gmail.com","(536) 050-0335",20,"5'2""",128,"Lowell, MA","Right","XL","L","XL","L/XL","XL","XXL","S",true,true
+"""2016-12-07T21:38:28.381Z""","Jimmy Beam",35,"[""Center""]","jimmy37@gmail.com","(574) 922-1825",22,"6'1""",246,"Lowell, MA","Right","XXL","L","XL","L/XL","L","XL","XXXL",true,false
+"""2016-12-07T21:38:28.342Z""","Sal Figuero",21,"[""Left Wing""]","sal4@gmail.com","(592) 797-7549",21,"5'9""",117,"Lowell, MA","Left","S","M","M","L/XL","L","L","L",true,true
+"""2016-12-07T21:38:28.267Z""","Nick Mason",78,"[""Left Wing""]","nick12@gmail.com","(453) 965-2821",16,"5'9""",151,"Lowell, MA","Left","S","XL","XL","S/M","XXL","XXXL","L",true,false
+"""2016-12-07T21:38:28.399Z""","Harry Osbourne",47,"[""Left Defense""]","harry27@gmail.com","(314) 537-6185",24,"5'4""",140,"Lowell, MA","Right","XXL","M","L","S/M","M","XL","XXXL",false,true

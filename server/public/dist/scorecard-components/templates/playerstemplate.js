@@ -19,7 +19,7 @@ export var playersTemplate = `
     </tr>
     </thead>
     <tbody>
-    <% _.each(players, function(player) { %>
+    <% _.each(default_players, function(player) { %>
         <tr class="playing">
           <td class="select-player"><input type="checkbox" checked></td>
           <td class='player-number'><%=player.team.jersey_number%></td>

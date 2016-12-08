@@ -42,7 +42,6 @@ module.exports = function(type, email, next){
 	User.findOne({"contact.email":email}).exec(function(err,doc){
 		
 		if(err) {
-			console.log(err)
 			return next(err)
 		}
 		else if(doc){
@@ -66,7 +65,6 @@ module.exports = function(type, email, next){
 					if(err) return next(err)
 					return next(null, info)	
 				})
-			.catch(err=> {if(err) return callback(String(err))})	
 			})
 		}
 	}) 

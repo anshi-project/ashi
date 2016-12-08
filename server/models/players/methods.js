@@ -11,7 +11,6 @@ exports.assign=function(id,team,callback){
 		var prev = doc.team.name;
 		
 		doc.team.name = team.name;
-		doc.team.division = getDivision(team.name);
 		doc.status = "Active";
 		doc.paid = false;
 		doc.save()
@@ -25,19 +24,6 @@ exports.assign=function(id,team,callback){
 	})
 }
 
-exports.updateTeamRecords = function(id,prev, update, next){
-
-	this.findById(id,"team", function(err,player){
-		if(err) return next(err);
-		player.team.division = getDivision( update.team.name);
-		player.save();
-
-		Team.swap(prev, update.team.name, id, player.team.position == "Goalie"? "goalies" : "players");
-		return next(null,"Updated team record for "+player.fullname)
-	})
-}
-
-
 
 exports.updatePayments = function(reqBody, next){
 	var ids = Object.keys(reqBody);
@@ -47,7 +33,6 @@ exports.updatePayments = function(reqBody, next){
 		docs.forEach(player=>{
 			var id = player._id;
 			var update = reqBody[id];
-		
 			player.paid = update.paid;
 			player.headshot = update.headshot;
 			player.save()

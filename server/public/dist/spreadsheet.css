@@ -8,7 +8,7 @@ background: #f5fffe;
 .page-header{
 	margin-top:0px;
 }
- .team-table, .roster-checkbox, .cancel-edit-btn, .alert{
+ .team-table, .roster-checkbox, .cancel-edit-btn, .alert, .row-inactive{
  	display: none;
  }
 
@@ -36,21 +36,6 @@ thead{
 	background: #fff;
 }
 
-.table-bordered .row-Active{
-	background: #f1ffa3;
-}
-.table-bordered .row-inactive{
-	background:#a5a5a5;
-    color: #4e5252;
-	opacity: 0.8;
-	font-style:italic;
-	display:none;
-}
-
-.table-bordered .row-Pending{
-	background: #37c777;
-	color:#142a67;
-}
 .permission-btn{
 	width:100%;
 }

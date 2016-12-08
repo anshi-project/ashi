@@ -25,14 +25,15 @@ module.exports = function(app) {
 		var team_update = req.query.teamUpdate
 
 		if(team_update){
-			Record.handleTeamChange(type, id, req.query.teamUpdate, req.body, function(err,data){
+			Record.handleTeamChange(type, id, team_update, req.body, function(err,data){
 				if(err) return res.send("Error updating team/division of " + id).status(500)
-			    console.log("Team updated");
+					res.send(data)
 			})			
-		}
+		}else{
 			Record.handleUpdate(type,id,req.body, function(err){
-		 		if(err) throw err;
-		 		res.send("Updated I think")
+		 		if(err) return res.send(err).status(500);
+		 		res.send("Successful update.")
 			})	
+		}
 	})
 }

@@ -44,11 +44,6 @@ var playerSchema = new Schema({
       required: true,
       enum: enums.teams.names,
     },
-    division: {
-      type: String,
-      required: true,
-      enum: enums.teams.divisions,
-    },
     position: [{
       type: String,
       required: true,
@@ -77,19 +72,12 @@ var playerSchema = new Schema({
   timestamps: true
 });
 
-// playerSchema.pre("save", function(next){
-//   var getDivision = require("../../locals/fields/teams").getDivision;
-
-//   this.team.division = getDivision(this.team.name);
-
-// })
 
 playerSchema.virtual("public_data.age").get(function() {
   var now = Date.now();
   var dob = new Date(this.public_data.date_of_birth).getTime();
   var ageDate = new Date(now - dob);
   return Math.abs(ageDate.getUTCFullYear() - 1970)
-
 })
 
 playerSchema.virtual("team.pos_abrv").get(function() {

@@ -29,25 +29,4 @@ gmSchema.statics.assign=function(id,division){
 
 
 
-gmSchema.statics.updateTeamRecords=function(id, prev, update,callback){
-	var prev = prev.split(",");
-	var update = update.division || [];
-
-	Team.find({}, function(err,docs){
-
-		docs.forEach(team =>{
-			if(update.indexOf(team.division) == -1 && team.managers.indexOf(id) != -1){
-				team.managers = team.managers.filter(v=> {return v != id})
-			}else if(update.indexOf(team.division) != -1 && team.managers.indexOf(id) == -1){
-				team.managers.push(id)
-			}
-			team.markModified("managers");
-			team.save();
-		})
-		callback(docs);
-	})
-	.catch(err=>{if(err) throw "Error updating team records for the coach";});
-}
-
-
 module.exports=Staff.discriminator("Manager",gmSchema);

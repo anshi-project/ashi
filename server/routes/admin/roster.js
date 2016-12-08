@@ -14,7 +14,7 @@ module.exports=function(app){
 
     Team.find({}, query)
       .sort({"name":-1})
-      .populate({path:"players coaches goalies managers",match:{status:"Active"}, select})
+      .populate({path:"players coaches managers",match:{status:"Active"}, select})
       .exec(function(err,teams){    
         if(err) throw err;           
         res.render("admin/roster/team",{teams,userType:"admin", email:req.user.contact.email, layout:"user"});
