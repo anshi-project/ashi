@@ -92,20 +92,17 @@ var PlayerSeasonStatsSchema = new Schema({
   win: {
     type: Number,
     required: true,
-    min: 0,
-    max: 40,
+    enum: [0, 1],
   },
   loss: {
     type: Number,
     required: true,
-    min: 0,
-    max: 40,
+    enum: [0, 1],
   },
   tie: {
     type: Number,
     required: true,
-    min: 0,
-    max: 40,
+    enum: [0, 1],
   },
 });
 
@@ -126,7 +123,7 @@ var PlayerGameStatsSchema = new Schema({
               type: Number,
               required: true,
               min :0,
-              max: 100,
+              max: 20,
             },
             A:{
               type: Number,
@@ -194,8 +191,9 @@ var PlayerGameStatsSchema = new Schema({
               validate: validate.date,
             },
             home_game: {
-              type: Boolean,
+              type: String,
               required: true,
+              enum: ['true', 'false'],
             },
             opponent:{
               type: String,
@@ -288,20 +286,17 @@ var PlayerStatsSchema = new Schema({
       win: {
         type: Number,
         required: true,
-        min: 0,
-        max: 400,
+        enum: [0, 1],
       },
       loss: {
         type: Number,
         required: true,
-        min: 0,
-        max: 400,
+        enum: [0, 1],
       },
       tie: {
         type: Number,
         required: true,
-        min: 0,
-        max: 400,
+        enum: [0, 1],
       },
     }
 });

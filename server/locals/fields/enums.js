@@ -48,4 +48,6 @@ var coach = {
 	highest_level_coached:["Youth Hockey", "Junior's", "College", "Semi-Professional", "Professional", "Travel Ball Hockey","Other"]
 }
 
-module.exports = {teams, player, coach, apparelSizes, states, heights, months}
+var gameResult = ['win', 'loss', 'tie'];
+
+module.exports = {teams, player, gameResult, coach, apparelSizes, states, heights, months}

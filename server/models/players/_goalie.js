@@ -103,24 +103,18 @@ var GoalieSeasonStatsSchema = new Schema({
   win: {
     type: Number,
     required: true,
-    default: 0,
-    min: 0,
-    max: 40,
+    enum: [0, 1],
   },
   loss: {
     type: Number,
     required: true,
-    default: 0,
-    min: 0,
-    max: 40,
+    enum: [0, 1],
   },
   tie: {
     type: Number,
     required: true,
-    default: 0,
-    min: 0,
-    max: 40,
-  }
+    enum: [0, 1],
+  },
 });
 
 var GoalieGameStatsSchema = new Schema({
@@ -142,8 +136,9 @@ var GoalieGameStatsSchema = new Schema({
     validate: validate.date,
   },
   home_game: {
-    type: Boolean,
+    type: String,
     required: true,
+    enum: ['true', 'false'],
   },
   opponent:{
     type: String,
@@ -338,24 +333,18 @@ var GoalieStatsSchema = new Schema({
       win: {
         type: Number,
         required: true,
-        default: 0,
-        min: 0,
-        max: 800,
+        enum: [0, 1],
       },
       loss: {
         type: Number,
         required: true,
-        default: 0,
-        min: 0,
-        max: 800,
+        enum: [0, 1],
       },
       tie: {
         type: Number,
         required: true,
-        default: 0,
-        min: 0,
-        max: 800,
-      }
+        enum: [0, 1],
+      },
     }
 });
 

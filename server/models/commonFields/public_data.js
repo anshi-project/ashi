@@ -9,13 +9,13 @@ module.exports= {
   },
   gender: {
     type: String,
-    required: [true,"Gender must be included."],
+    required: true,
     enum: enums.player.gender,
   },
   weight: {
     type: Number,
-    min: [50, "Weight must be above 50 lbs"],
-    max: [350, "Weight must be 350 or below"],
+    min: 50,
+    max: 350,
   },
   height: {
     type: String,

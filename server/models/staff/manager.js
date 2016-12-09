@@ -10,7 +10,9 @@ var divisions = require("../../locals/fields/enums").teams.divisions
 var apparel = require("../commonFields/apparel").staff
 
 var gmSchema = new Schema({
-  division: [{ type: String, enum: divisions }],
+  division: [{ type: String,
+              required: true,
+              enum: divisions }],
   apparel
 })
 

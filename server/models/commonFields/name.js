@@ -3,6 +3,6 @@ module.exports = {
 	required: true,
 	lowercase: true,
 	trim: true,
-	minlength: 2,
+	minlength: 1,
 	maxlength: 40,
 }
