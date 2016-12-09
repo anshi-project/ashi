@@ -36,7 +36,7 @@ thead{
 	background: #fff;
 }
 
-.permission-btn{
+.permission-btn, .add-to-staff, .delete-record{
 	width:100%;
 }
 .manager-pending{
@@ -62,9 +62,7 @@ thead{
 .roster-gm-display h4{
 	margin-left:10px; 
 }
-.btn-delete2{
 
-}
 .btn-add2{
 	color:#fff;
 	background:#10144d;

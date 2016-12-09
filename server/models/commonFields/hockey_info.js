@@ -5,34 +5,34 @@ module.exports = {
 	website: {
 		type: String,
 		trim: true,
-    default: '',
+		default: '',
 		validate: validate.url,
 	},
 
 	league_team: {
 		type: String,
 		trim: true,
-    default: '',
+		default: '',
 		maxlength: 50,
 	},
 
 	tournament_team: {
 		type: String,
 		trim: true,
-    default: '',
+		default: '',
 		maxlength: 50,
 	},
 
-	team:{
-		type:String,
+	team: {
+		type: String,
 		enum: enums.teams.applyingFor
 	},
-	position:{
+	position: {
 		type: String,
 		required: true,
 		enum: enums.player.positions,
 	},
-	shooting_hand:{
+	shooting_hand: {
 		type: String,
 		required: true,
 		enum: enums.player.shooting_hand,

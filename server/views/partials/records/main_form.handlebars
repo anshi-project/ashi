@@ -1,4 +1,4 @@
-<form  method="post" class="main-records" action="/admin/records/{{type}}?id={{id}}&_method=PUT">
+<form  class="form-horizontal" id="registration-form" method="post" action="/admin/records/{{type}}?id={{id}}&_method=PUT">
 	{{#each fields}}
 	<div class="form-group">
 	<label for="{{this.name}}">{{this.label}}</label>

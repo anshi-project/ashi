@@ -15,18 +15,4 @@ var gmSchema = new Schema({
 })
 
 
-
-gmSchema.statics.assign=function(id,division){
-	this.findById(id,function(err,doc){
-		if(err) throw err;
-		doc.division=division;
-		doc.status="Active";
-		doc.save();
-	})
-	Team.addToRoster({division:{$in:division}},id,"managers")
-}// function is activated when a manager is initial confirmed by an admin  
-//happens only once per manager
-
-
-
 module.exports=Staff.discriminator("Manager",gmSchema);

@@ -36,6 +36,16 @@ $(function() {
     return;
   }
 
+  $("input[name='contact[phone1]'], input[name='contact[phone2]']")
+    .on("change",function(){
+      var phonenumber = $(this).val()
+      var num = phonenumber.replace(/[^\d]/g, '');
+
+      if(num.length == 10){
+        $(this).val(num.replace(/(\d{3})(\d{3})(\d{4})/, "($1) $2-$3"))
+      }
+  })//format the phone number if valid
+  
   $('input[type=submit]').click(function(){
     var birthdayMessage = 'Please fill out your birthday.';
     var birthdayMonthSel = $('select[name="public_data[dob]"]');

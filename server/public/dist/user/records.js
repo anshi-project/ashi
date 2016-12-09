@@ -17,9 +17,19 @@ $(document).ready(function(){
     
     var initialRecords = formatReqBody($("form")); 
 
+    (function(){
+        var url = window.location.pathname;
+        var exp = new RegExp("settings","i");
+        var formAttr = $("form").attr("action")
+
+        if(exp.test(url) && formAttr.match("manager") ){
+            $("label[for='division']").hide();
+        } 
+    }())// Temporary solution for hiding a label that shouldnt be rendering in Handlebars
+
     $(".update-main-records").on("click",function(evt){
         evt.preventDefault();
-        var form = $(".main-records");
+        var form = $("#records-form");
         var url = form.attr("action")
         var data = formatReqBody(form); 
         var teamUpdate = initialRecords.hasOwnProperty("team[name]")? initialRecords["team[name]"] : initialRecords.division

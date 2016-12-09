@@ -13,7 +13,7 @@ module.exports = function(app) {
 
 			var title = doc.firstname +" "+ doc.lastname
 		
-			res.render("records", {userType:"admin",layout:"user",fields, title, id,type})
+			res.render("records", {userType:"admin",layout:"userRecords",fields, title, id,type})
 		})
 	})
 

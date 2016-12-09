@@ -57,10 +57,15 @@ module.exports = function(app) {
 
     app.put("/admin/assign/manager", function(req, res) {
         var id = req.query.id;
-        var division = req.body.division;
+        var divisions = req.body.division;
         var GM = require("../../models/staff/manager");
-        GM.assign(id, division)
-        res.send(id + " assigned");
+        
+        GM.findByIdAndUpdate(id, req.body)
+          .then(() =>{
+            Team.update({division:{$in:divisions}},{$push:{managers:id}},{upsert:true,multi:true}).exec()
+          })
+          .then(()=>{ res.send("Successfully submitted GM to division")})
+          .catch(err => {res.send(err).status(500)})
     })
 
 

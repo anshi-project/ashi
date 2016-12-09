@@ -27,7 +27,7 @@ module.exports = [
     {
         label:"Jersey Number",
         name:"team[jersey_number]",
-        type:"number",
+        class:"weight", //use same class from weight field on form for formatting sake
         recordOnly:true
     },
     {

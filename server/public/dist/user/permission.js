@@ -4,7 +4,7 @@ $(function() {
     function toggleBtn(btn) {
         var status = $(btn).data("status");
         if (status !== "Active") {
-            $(btn).text("Grant");
+            $(btn).text("Grant").addClass("btn-info");
         } else {
             $(btn).text("Revoke");
         }
@@ -30,20 +30,12 @@ $(function() {
         }
     }) 
 
-
-
-    $(".permission-btn").each(function() {
-            var status = $(this).data("status");
-
-            toggleBtn(this)
-
-            if (status == "Pending" && staff == "manager") {
-                $(this).data({
-                    toggle: "modal"
-                }).attr("href", "#gm-modal");
-            }
-
-        }) //set the text of each button on a table row
+    $(".add-to-staff").on("click",function(){
+        var id = $(this).data("user");
+        $("#gm-modal .btn-success").attr("id", id);
+        $("#gm-modal").modal("show");
+        
+    })
 
     $(".permission-btn").on("click", function() {
         var currStatus = $(this).data("status");
@@ -51,11 +43,6 @@ $(function() {
         var id = $(this).data("user");
         var url = "/admin/permissions/" + staff + "?id=" + id;
         var self = this;
-
-        if ($(this).data().toggle) {
-            $("#gm-modal .btn-success").attr("id", id);
-            return $("#gm-modal").modal("show");
-        }
 
         $.ajax({
             url,
@@ -79,14 +66,13 @@ $(function() {
         if (!body.division.length) {
             return alert("no")
         }
-        console.log(formData)
-        console.log(body)
+        $("#gm-modal").modal("hide");
         $.ajax({
             url: "/admin/assign/manager?id=" + id,
             type: "PUT",
-            data: {division:body.division},
+            data: {division:body.division, status:"Active"},
             success: function(response) {
-                alert(response);
+                console.log(response);
             }
         })
 

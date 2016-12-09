@@ -15,15 +15,21 @@
   		</tr>
   	</thead>
     <tbody>
-  	{{#each user}}
-  	<tr class="row-{{this.status}}">
+  	{{#each GM as |user| }}
+    	{{#isEqual GM.status "Active"}}
+      <tr class="bg-success">
+      {{else}}
+      <tr class="bg-warning text-muted">
+      {{/isEqual}}
+
     	<td>{{this.fullname}}</td>
     	<td>{{this.contact.phone1}}<br>
     	   {{this.contact.phone2}}</td>
     	<td>{{this.contact.email}}</br>
     	   {{this.contact.alt_email}}</td>
     	<td>{{this.username}}</td>
-  	<td><button type="button" class="permission-btn" data-status="{{this.status}}" data-user="{{this._id}}">Revoke</button></td>
+
+  	<td><button type="button" class="permission-btn" data-status="{{../status}}" data-user="{{../_id}}">Revoke</button></td>
   	</tr>
   {{/each}}
   </tbody>

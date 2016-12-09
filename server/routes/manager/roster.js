@@ -7,13 +7,12 @@ var _ = require("lodash")
 
 module.exports = function(app) {
 	app.get("/gm/index", function(req, res) {
-		var path = "managers coaches players goalies";
+		var path = "managers coaches players";
 		var fields = "division key name "+path;
 		var select = "-contact.private_data -favorite -background -career_stats -game_stats -season_stats";
-		var match =  {status: {$in:["Active","archive"]}};
-
+	
 		Team.find({division: {$in: req.user.division}}, fields)
-			.populate({path, match, select})
+			.populate({path, match:{status:"Active"}, options:{sort:{"team.jersey_number":-1}}, select})
 			.exec(function(err, teams) {
 				if(err) throw err;
 				res.render("manager/roster", {teams,layout:"user",userType:"manager"});
@@ -29,7 +28,7 @@ module.exports = function(app) {
 
 	app.get("/manager/roster/export", function(req, res) {
 
-		Players.find({"team.division": {$in:req.user.division}})
+		Players.find({"team": {$in:req.user.division}})
 			.sort({lastname: 1})
 			.lean()
 			.exec(function(err, players) {
@@ -40,24 +39,5 @@ module.exports = function(app) {
 					});
 				})
 			})
-	})
-
-	app.put("/:type/roster/archive",function(req,res){
-	 	var Team = require("../models/team/team")
-	 	var teamName = req.body.team;
-	 	var restore = req.body.restore;
-
-	 	if (!restore) {
-	 		Team.archive(teamName, function(err,players){
-	 			if(err) return res.send(err);
-	 			res.send(players)
-	 		})
-	 	}
-	 	else{
-	 		Team.restore(teamName, function(err,players){
-	 			if(err) return res.send(err);
-	 			res.send(players)	 			
-	 		})
-	 	}
 	})
 }

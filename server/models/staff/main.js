@@ -19,7 +19,7 @@ var staffSchema = new Schema({
     status:{
       type:String,
       default:"registration form delivered",
-      enum: ["Active", "Pending", "inactive", "registration form delivered"] 
+      enum: ["Active", "pending", "inactive", "registration form delivered"] 
     },
     contact:contactField,
     resetPasswordToken: String,

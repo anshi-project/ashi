@@ -10,21 +10,23 @@ module.exports = function(app){
 		var id = req.user._id;
 		var type = req.user.__t.toLowerCase();
 			
-		Record.render(type,id,function(error,fields, doc){
+		Record.render(type,id, function(error,fields, doc){
 			if(error) throw error;
 
 			var title = "Update your info"
 	
-			res.render("records", {userType:type,layout:"user",fields, title, id,type})
+			res.render("records", {userType:type, layout:"userRecords",fields, title, id,type})
 		})
 	})
 
+	
 	app.get("/account/reset", function(req,res){
 		var error = req.query.error;
 		var success = req.query.confirmed
 		res.render("password_reset",{error,success})
 	})
 
+	
 	app.get("/account/reset/:token",function(req,res){
 		
 		var token = req.params.token;
@@ -46,35 +48,27 @@ module.exports = function(app){
 	app.post("/account/reset",function(req,res){
 		var Reset = require("../config/reset");
 		var queryStr;
+		var url = req.protocol + '://' + req.get('host');
 
-		Reset(req.body.email, function(err,user){
-			queryStr = err? "error=invalidEmail":"confirmed=true";
+		
+		Reset(req.body.email , url , function(err,user){
+			queryStr = err? "error=invalidEmail":"confirmed=true"
 			res.redirect(`account/reset?${queryStr}`) 
-		})
-	})
+		})	
+	}) //User sent a request for a password - reset link
 
 	app.put("/account/reset/:token",function(req,res){
 		var token = req.params.token;
 		var password = req.body.password;
-		var password2 = req.body.passwordConfirm;
+		var now = new Date();
 
-		if(password != password2){
-			return res.redirect("/account/reset/"+token)
-		}
-
-		User.findOne({resetPasswordToken:token},function(err,doc){
-			if(err) throw err;
-
-			if(doc){
-				doc.password = password;
-				doc.resetPasswordExpires = Date.now();
-				doc.save();
-				res.redirect("/login?success=true")
-			}else{
-				return res.send("error")
-			}
-				
-		})	
-			
+		User.findOne({resetPasswordToken:token, resetPasswordExpires:{$gt:now}})
+			.then((user) =>{
+				user.password = password;
+				user.resetPasswordExpires = now;
+				user.save()
+			})
+			.then(()=>{res.redirect("/login?success=true")})
+			.catch((err) => {if(err) console.error(String(err))})
 	})
 }

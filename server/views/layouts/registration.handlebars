@@ -24,6 +24,13 @@
 				<h3>Your form has been successfully submitted.</h3>
 			</div>
 		</div>
+		{{else if error}}
+		<hr>
+		<div class="container">
+			<div class="alert alert-danger">
+				<h3>An error has occurred while trying to submit your form. Please try again</h3>
+			</div>
+		</div>
 		{{else}}
 		<form id="registration-form" class="form-horizontal" action="/register/{{type}}{{token}}" method="post">
 			{{> reg/header}}
@@ -35,7 +42,6 @@
 	</div>
 	<script src="/public/lib/bootstrap.js"></script>
 	<script src="/public/dist/registration.js"></script>
-	<script src="/public/dist/validate-form.js"></script>
 	<script src="/public/dist/validate-form.js"></script>
 </body>
 

@@ -13,6 +13,7 @@ function valiDATE(){
     str = randomDate();
     date = new Date(str);
   }
+  str = str.split("/").reverse().join("-")
   return str;
 }
 
@@ -88,7 +89,7 @@ module.exports = function(name){
         "gender": enums.player.gender[ _.random(0,1)],
         "weight": _.random(100,250),
         "height": enums.heights[_.random(0, enums.heights.length-1)],
-        "date_of_birth": valiDATE()
+        "date_of_birth": ""
     }
  }
 }

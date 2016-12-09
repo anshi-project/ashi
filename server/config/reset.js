@@ -1,35 +1,45 @@
 var randomstring = require("randomstring");
-var Mailer = require("./nodemailer")
+var Mailer = require("./nodemailer");
 var User = require("../models/staff/main");
 
-var format = function(token){
-	return 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
-          'Please click on the following link to set a new login:\n\n' +
-          'http://localhost:3000/account/reset/' + token + '\n\n' +
-          'If you did not request this, please ignore this email and your password will remain unchanged.\n'	
+var date = new Date();
+	date.setHours(date.getHours() + 3)
+
+var expiration = date.toTimeString(); 
+
+
+var format = function(token, url){		
+	return "<p>To reset your A.S.H.I account Password, simply follow the link below.</p>"+ 
+		   `<p>${url}/account/reset/${token}</p>`+
+           `<p>This link will expire at <em>${expiration}<em></p>`+
+           "<p>If you feel this is a mistake, you may ignore this message and your account will remain unchanged</p>"	
 } 
 
 
-module.exports = function(email,next){
+module.exports = function(email,url ,next){
 
 	var token = randomstring.generate();
 
-	User.findOne({"contact.email" :email}, function(err,doc){
-		
-		if(err || !doc) return next(true)
+	User.findOne({"contact.email" :email})
+		.exec((err,user) =>{
+			user.resetPasswordToken = token;
+			user.resetPasswordExpires = Date.now() + (60*60*2000) ; 
+			user.contact.phone1 = user.contact.phone1 || "2837364462"
 
-			doc.resetPasswordToken = token;
-			doc.resetPasswordExpires = Date.now() + (60*60*2000) ; 
-			doc.save();
-	
-		Mailer({
-			subject:"Password reset request.",
-			recipients:`<${doc.contact.email}>`,
-			message:format(token)
-		})
-
-		return next(null,doc)
-
+			user.save()
+			 .then(() => {
+				Mailer({
+					subject:"Password reset request.",
+					recipients:`<${user.contact.email}>`,
+					message:format(token, url)
+				}, 
+				function(err,success){
+					if(err) return next(err);
+					return next(null, success)
+				})
+			})
+			.catch(err => {if(err) console.error(String(err))}) 
 	})
 }
+
 

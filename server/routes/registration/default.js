@@ -7,44 +7,68 @@ var models = {player , coach }
 
 
 module.exports=function(app){
-      app.get("/register/:type",function(req,res){
+    
+    app.all(/\/register\/(?=\badmin\b|\bmanager\b)/,function(req,res,next){
+        var token = req.query.token;
+        var now = new Date()
+        var type = req.originalUrl.match("admin")? "admin" : "manager";
+
+        if(req.query.success || req.query.error) return next();
+        //disregard token check when form was successfully submitted or an error with a submission occurred;
+
+        StaffMember.findOne({regToken: token, regTokenExp:{$gt:now}})
+            .then(user => {
+                if(!user) return res.send("You don't have the proper credentials for this route, or it is from an expired session");
+                req.session.regToken = `?token=${token}`;
+                req.session.regType = type;
+
+                if(req.body && req.body.password){
+                    user.status = "pending";
+                    user.password = req.body.password;
+                    user.regTokenExp = now;
+                    user.save()
+                        .then(() => { return next()})
+                        .catch(err => {console.error(String(err))})
+                } //if POST request, save the password here. The hook which encrypts the password wont be
+                //set off on by updating the user which is what will take place on the actual POST route
+                //because it is more effiecent than retrieving this DB entry twice
+                else{
+                    return next()
+                }
+            })
+    })//If a user is trying to access a registration form for an admin or GM, make sure they have a valid token
+
+
+
+    app.get("/register/:type",function(req,res){
         var type = req.params.type;
         var getFields = require("../../locals/registration").renderForm;
         var fields = getFields(type);
-        var token = req.query.token? "?token="+req.query.token : ""
+        var token = req.session.regToken || ""
         var admin = fields.admin? true: false;
-        res.render("form",{fields,layout:"registration",type, admin, token, success:req.query.success});
+        
+        res.render("form",{fields,layout:"registration",type, admin, token, error:req.query.error, success:req.query.success});
     });
 
-    app.post("/register/:type",function(req,res,next){
-        var type = req.params.type;
+
+
+    
+    app.post(/\/register\/(?=\badmin\b|\bmanager\b)/,function(req,res,next){
+        var type = req.session.regType;
         var token = req.query.token;
-        var now = new Date();
-        console.log(type +  ' registration form submitted')
 
-        var __t = type.charAt(0).toUpperCase() + type.substr(1).toLowerCase();
-        var query = {regToken:token,regTokenExp:{$gt:now},__t };
+        var query = {regToken:token};
+
         var form = Object.assign({},req.body)
-        if(type != "admin" && type != "manager" ) return next();
 
-        StaffMember.findOne(query).exec(function(err,doc){
-            if(err || !doc) return res.redirect("/register/"+type+"?error=TRUE")
+        delete form.password;
+        //delete password so the previously applied encryption from the middleware is not overwritten
 
-            for(var field in form){
-                if(typeof field === "object"){
-                    doc[field] = Object.assign({}, field)
-                }else{
-                    doc[field] = form[field]
-                }
-            }
-            doc.save()
-            .then(()=> {res.redirect("/register/manager?success=true")})
-            .catch((err)=> { if(err) {
-                console.log(err);
-                // res.send(String(err))
-              }
+        StaffMember.update(query, form, {upsert:true})
+            .then(() => { 
+                res.redirect(`/register/${type}?token=${token}&success=true`)
             })
-        })
+            .catch(err => {if(err) res.redirect(`/register/${type}?token=${token}&error=${String(err)}`)})
 
     });
 

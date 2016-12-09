@@ -6,8 +6,9 @@ module.exports = function(app){
   app.get("/admin/staff/:type",function(req,res){
     var type = req.params.type;
     var $regex = new RegExp(type,"i")    
-    
-    StaffMember.find({username:{$ne:req.user.username},__t:{$regex}})
+    var query = {username:{$ne:req.user.username},__t:{$regex}, status:{$ne:"registration form delivered"}}
+
+    StaffMember.find(query)
       .sort({"status":1,"lastname":1})
       .exec(function(e,user){
         res.render("admin/permissions/"+type,
@@ -18,10 +19,10 @@ module.exports = function(app){
   app.post("/admin/permissions/:type",function(req,res){
     var email = req.body.email;
     var type = req.params.type;
-
+    var url = req.protocol + '://' + req.get('host');
     var mailRegForm = require("../../config/addStaff");
 
-    mailRegForm(type, email, function(err,info){
+    mailRegForm(type, email, url, function(err,info){
       if(err) res.send(err).status(500)
         res.send(info).status(200)
     })

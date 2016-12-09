@@ -1,4 +1,4 @@
-
+{{#if fields}}
 {{#each fields}}
 <div class="form-group ">
 {{#if this.textarea}}
@@ -24,4 +24,14 @@
 	{{/if}}
 </div>
 {{/each}}
+
+{{else}}
+		<hr>
+		<div class="container">
+			<div class="alert alert-success">
+				<h3>Your form has been successfully submitted.</h3>
+			</div>
+		</div>
+
+{{/if}}
 

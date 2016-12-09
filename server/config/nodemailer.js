@@ -1,35 +1,33 @@
 var nodemailer = require('nodemailer');
 
+var flag = process.env.mode == "development";
+
 // Create a SMTP transporter object
 var transporter = nodemailer.createTransport({
     service: 'Gmail',
+    
     auth: {
-        user: 'ashi.hockey132@gmail.com',
-        pass: 'hockey1234'
+      user: process.env.google_address,
+      pass: process.env.google_password
     },
-    logger: true, // log to console
-    debug: true // include SMTP traffic in the logs
-}, {
-
-    from: 'A.S.H.I. <noreply@ashi.com>',
-
+    logger: flag, // log to console
+    debug: flag// include SMTP traffic in the logs
 });
 
-
 module.exports = function(body,next){
-  var recipients = body.recipients;
+  var recipients = flag? "<adamhs3521@gmail.com>" : body.recipients;
 
   transporter.sendMail({
     from: 'American Street Hockey Institute',
-    bcc: "<adamhs3521@gmail.com>, "+recipients, 
-    subject:body.subject,
-    text: body.message+"\n\n Please Do Not Reply To This Message."
-  },function(err,info){
-    if(err){
-      return next(err);
-    }else{
-      return next(null, info);
-    }
+    bcc: recipients, 
+    subject: body.subject,
+    html:"<div>"+ body.message+"</div><hr><h4>Please Do Not Reply To This Message.</h4>"
+  }, 
+    function(err,info){
+      if(err){
+        return next(err);
+      }else{
+        return next(null, info);
+      }
   });
-
 }

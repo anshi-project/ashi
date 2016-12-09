@@ -21,7 +21,11 @@ module.exports=function(app){
 
 
     app.get("/",function(req,res){
-        res.render("index")
+        if(req.user){
+            var user = req.user.__t.toLowerCase()
+            return res.redirect(user+"/index")
+        }
+        res.render("index",{layout:"main"})
     });
 
     app.get("/seed",function(req,res,next){

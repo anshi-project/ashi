@@ -58,6 +58,7 @@ function birthdayValidator (val) {
 }
 
 function passportDateValidator (val) {
+  if(!val) return true;
   var todaysDate;
   var d = todaysDate = new Date();
   var year = Number(val.substr(0, 4));

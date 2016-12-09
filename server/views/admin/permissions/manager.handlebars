@@ -16,19 +16,34 @@
   			<td>Record</td>
   		</tr>
   	</thead>
-  	{{#each user}}
-  	<tr class="row-{{this.status}} table-row">
-  	<td>{{this.fullname}}</td>
-    <td>{{this.division}}</td>
-  	<td>{{this.contact.phone1}}</td>
-  	<td>{{this.contact.email}}</td>
-  	<td>{{this.username}}</td>
+  	{{#each user as |GM|}}
+      {{#isEqual GM.status "Active"}}
+      <tr class="row-active">
+      {{else}}
+      <tr class="bg-warning text-muted row-{{GM.status}}">
+      {{/isEqual}} 
+  	<td>{{GM.fullname}}</td>
+    <td>{{GM.division}}</td>
+  	<td>{{GM.contact.phone1}}</td>
+  	<td>{{GM.contact.email}}</td>
+  	<td>{{GM.username}}</td>
+    {{#isEqual GM.status "pending"}}
+      <td><button class="btn-primary add-to-staff" data-user="{{GM._id}}" >Add to staff</button></td>
+      <td><button class="btn-danger delete-record">Delete</button></td>
+    {{else}}
     <td>
-      <button type="button" class="permission-btn" data-status="{{this.status}}" data-user="{{this._id}}">Revoke</button>
+      <button type="button" class="btn-success permission-btn" data-status="{{GM.status}}" data-user="{{GM._id}}">
+      {{#isEqual GM.status "Active"}}  
+      Revoke Credentials
+      {{else}}
+      Grant Credentials
+      {{/isEqual}}
+      </button>
     </td>
     <td>
-      <a href="/admin/records/manager?id={{this._id}}" target="_blank">View</a>
+      <a href="/admin/records/manager?id={{../_id}}" target="_blank">View</a>
     </td>
+    {{/isEqual}}
   </tr>
   {{/each}}
 </table>

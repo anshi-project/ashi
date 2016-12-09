@@ -19,6 +19,7 @@ span.reg-type {
    text-transform: capitalize;
 }
 
+
 .message-box {
   margin: 1em 0em 0.5em -0.3em;
   border: 5px solid #008000;
@@ -26,7 +27,7 @@ span.reg-type {
 }
 
 
-.form-section{
+.alert{
   display: none;
 }
 
@@ -38,7 +39,7 @@ span.reg-type {
   display:block;
 }
 
- #registration-form{
+ #registration-form, #records-form{
   /*text-align: center;*/
   margin:5em auto;
   margin-top: 3em;
@@ -50,6 +51,9 @@ span.reg-type {
   position: relative;
   text-align: left;
   border: 1px solid #666;
+}
+#records-form{
+  font-size: 1.5em;
 }
 
 .fullwidth {
@@ -82,6 +86,7 @@ span.reg-type {
 
 
 .weight,
+input[name='team[jersey_number]'],
 .jersey-1,
 .jersey-2,
 .jersey-3 {
