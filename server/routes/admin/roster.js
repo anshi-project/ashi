@@ -2,21 +2,22 @@ var Team = require("../../models/team/team");
 var writeFile = require("../../locals/rosterDownload");
 var Player = require("../../models/players/main")
 var _ = require("lodash");
-
+var validateJerseyNumbers = require("../../models/players/methods").validateUniqueJerseyNumbers
 
 
 module.exports=function(app){
 	
   app.get("/admin/roster",function(req,res){
 
-    var select = "firstname contact paid headshot public_data lastname team";  
+    var select = "firstname contact paid headshot public_data lastname team hockey_info createdAt";  
     var query = "key name division archive players goalies coaches managers";
 
     Team.find({}, query)
       .sort({"name":-1})
       .populate({path:"players coaches managers",match:{status:"Active"}, select})
       .exec(function(err,teams){    
-        if(err) throw err;           
+        if(err) throw err; 
+
         res.render("admin/roster/team",{teams,userType:"admin", email:req.user.contact.email, layout:"user"});
       })
 	})

@@ -17,7 +17,7 @@ module.exports=function(app){
     var type=req.params.type
     writeCSV(type, function(err,file){
       if(err) throw err;
-      res.download( file,"Applications.xlsx", err => {if(err) throw err})
+      res.download( file,`${type} Applications.xlsx`, err => {if(err) throw err})
     })
 	})
 

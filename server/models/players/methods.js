@@ -1,6 +1,5 @@
 var Team=require("../team/team")
 var _ = require("lodash");
-var getDivision = require("../../locals/fields/teams").getDivision;
 
 exports.assign=function(id,team,callback){
 	var type=team.position=="Goalie"? "goalies":"players";
@@ -41,5 +40,34 @@ exports.updatePayments = function(reqBody, next){
 	})
 }
 
+function getDuplicateIndexes(players){
+	var nums = players.map(v =>{ return v.team.jersey_number})
+		console.log(nums)
+	for(var i = 0; i< nums.length; i++){
+		if( nums.lastIndexOf(nums[i]) != i){
+			return ([i, nums.lastIndexOf(nums[i])])
+		}
+	}
+}
+
+ exports.validateUniqueJerseyNumbers = function(players){
+	if(!players || players.length == 1) return;
+	var uniqueNumbersArray = _.uniqBy(players, "team.jersey_number");
+
+	while(uniqueNumbersArray.length !== players.length){
+		var dupes = getDuplicateIndexes(players);
+		var A = dupes[0], B = dupes[1];
+		console.log(dupes)
+		if(Date.parse(players[A].createdAt)< Date.parse(players[B].createdAt)){
+			players[A].team.jersey_number == players[A].hockey_info.jersey_number.choice2;
+			players[A].save()
+
+		}else{
+			players[B].team.jersey_number == players[B].hockey_info.jersey_number.choice2;
+			players[B].save()
+		}
+		uniqueNumbersArray = _.uniqBy(players, "team.jersey_number");
+	}
+}//handles when two players have matching numbers but not 3 or more!! TODO come up with better solution
 
 

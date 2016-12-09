@@ -46,10 +46,15 @@ exports.handleUpdate = function(type, id, update,next) {
 
 }
 
-
-
-
-
+function numArray(a,b,c){
+	var arr= [a,b,c];
+	for(var i=0; i<100; i++){
+		if(i!=a && i!=b && i!=c){
+			arr.push(i)
+		}
+	}
+	return arr
+}
 
 exports.render = function(type, id, next) {
 	var _fields = require(`./fields/${type}`);
@@ -60,9 +65,16 @@ exports.render = function(type, id, next) {
 	Model.findById(id).lean().exec(function(err, doc) {
 		if (err) return next(err);
 
+
 		fields.forEach((obj) => {
+			if(obj.name=="team[jersey_number]"){
+				var num = doc.hockey_info.jersey_number
+				obj.list = numArray(num.choice1, num.choice2, num.choice3)
+			}else{
+				obj.list =  obj.radio || obj.dropdown || null;
+			}
 			obj.value = _.result(doc, obj.name);
-			obj.list =  obj.radio || obj.dropdown || null;
+
 		})
 		
 		return next(null, fields, doc);

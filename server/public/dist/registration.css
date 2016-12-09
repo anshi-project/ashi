@@ -19,6 +19,9 @@ span.reg-type {
    text-transform: capitalize;
 }
 
+.navbar-default{
+  font-size: 1.3em;
+}
 
 .message-box {
   margin: 1em 0em 0.5em -0.3em;

@@ -15,7 +15,7 @@
 			{{> records/list}}
 		{{else if this.textarea}}
 			<label for="{{this.name}}">{{this.label}}</label><br>
-			<textarea value="{{this.value}}" name="{{this.name}}">{{this.value}}</textarea>	
+			<textarea value="{{this.value}}" class="form-control" rows="7" name="{{this.name}}">{{this.value}}</textarea>	
 		{{else}}
 		<div>
 			<input type="{{this.type}}" class="{{this.class}}" value="{{this.value}}" name={{this.name}}>

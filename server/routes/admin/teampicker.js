@@ -31,8 +31,8 @@ module.exports = function(app) {
         })
     })
 
+    app
 
- 
     app.get("/admin/assign/coach", function(req, res) {
         var Coaches = require("../../models/registration/_coachReg");
         Coaches.find({}, function(err, coach) {
