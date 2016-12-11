@@ -1,4 +1,4 @@
-<form  method="post" class="form-horizontal" id="records-form" action="/admin/records/{{type}}?id={{id}}&_method=PUT" disabled="true">
+<form  method="post" class="form-horizontal" id="records-form" action="/admin/records/{{type}}?id={{id}}&_method=PUT" >
 	<div class="page-header bg-info">
 		<p class='message-box'>{{title}}</p>
 	</div>
@@ -11,6 +11,8 @@
 	{{/unless}}
 		{{#if this.checkbox}}
 			{{> records/checkbox}}
+		{{else if this.date}}
+			{{> records/date}}	
 		{{else if this.list}}
 			{{> records/list}}
 		{{else if this.textarea}}
@@ -18,7 +20,7 @@
 			<textarea value="{{this.value}}" class="form-control" rows="7" name="{{this.name}}">{{this.value}}</textarea>	
 		{{else}}
 		<div>
-			<input type="{{this.type}}" class="{{this.class}}" value="{{this.value}}" name={{this.name}}>
+			<input class="{{this.class}}" value="{{this.value}}" name={{this.name}} required="{{this.required}}">
 		</div>
 		{{/if}}	
 	</div>

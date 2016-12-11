@@ -51,8 +51,6 @@ module.exports=function(app){
     });
 
 
-
-    
     app.post(/\/register\/(?=\badmin\b|\bmanager\b)/,function(req,res,next){
         var type = req.session.regType;
         var token = req.query.token;
@@ -76,7 +74,7 @@ module.exports=function(app){
         var type = req.params.type;
         if(type != "player" && type !== "coach" ) return next();
         var Registration = models[req.params.type];
-
+        
         Registration.create(req.body,function(err,doc){
             if(err){
                 console.log(err.ValidationError);

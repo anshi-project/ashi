@@ -97,13 +97,14 @@ module.exports = function(app) {
 
     app.put("/admin/archive-player",function(req,res){
         var id = req.query.id;
-        Player.findByIdAndUpdate(id, {status:"archived"}, {upsert:true,new:true},
+        Player.findByIdAndUpdate(id, {status:"archived"}, {upsert:true},
             function(err,doc){
                 if(err) return res.send("Error").status(500)
                     res.send("Player was archived").status(200)
         })
 
-    })
+    })//Returning players from previous seasons that get cut are 'archived' to instead of deleted from the database 
+    //for the purposes of tracking stats
 
     app.delete("/admin/assign", function(req, res) {
         var id = req.query.id;

@@ -71,10 +71,16 @@ module.exports = [
         registration_only:true
     },
     {
-        label:"Birthday",
-        name:"public_data[date_of_birth]",
+        label: "Birthday",
+        name: "public_data[date_of_birth]",
+        date: 'date',
+        month: enums.months,
+        day_input: 'birthday-day',
+        year_input: 'birthday-year',
+        class: 'birthday',
         recordOnly:true
-    },
+    },    
+
     common.passport,
     common.passport_exp,
     common.passport_expiration,

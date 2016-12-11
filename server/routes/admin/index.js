@@ -11,5 +11,4 @@ module.exports=function(app){
 	require("./roster")(app);
 	require("./permissions")(app);
 	require("./records")(app);
-	require("./payments")(app);
 }

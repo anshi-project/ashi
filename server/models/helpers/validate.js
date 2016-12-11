@@ -81,8 +81,9 @@ function passportDateValidator (val) {
   return true;
 }
 
-function jerseyNoValidator (no) {
-  return /^\d{2}$/.test(no);
+function jerseyNoValidator (num) {
+  num = +num;
+  return num>-1 && num <100;
 }
 
 //the following block of validator functions use code from JQuery Validation Plugin

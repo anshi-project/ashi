@@ -13,15 +13,20 @@ module.exports=function(app){
 
     app.post("/register/renew/player",function(req,res){
         var _=req.body;
+        var firstname = new RegExp(_.firstname, "i");
+        var lastname = new RegExp(_.lastname, "i");
+        var email = new RegExp(_.contact.email, "i");
+
         var query={
-            firstname:_.firstname.toLowerCase(),
-            lastname:_.lastname.toLowerCase(),
-            status:"archived",
-            "contact.email":_.contact.email.toLowerCase()
+            firstname,
+            lastname,
+            // status:"archived",
+            "contact.email":email
         }
 
         Player.findOne(query,function(err,player){
             if(err || !player){
+                console.log(String(err))
                 return res.redirect("/register/renew/player?redirect=error")
             }else{
                 player.status="renewing membership";

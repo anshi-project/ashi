@@ -1,8 +1,38 @@
 $(document).ready(function(){
+
+    var getDates = function(){
+        var dateFields ={
+             passport :{
+                month: $("select[name='contact[passport_expiration]'").val(),
+                  day: $("input[name='passport-day']").val(),
+                 year: $("input[name='passport-year']").val()
+            }, 
+            birthday :{
+                month: $("select[name='public_data[date_of_birth]']").val(),
+                day:$("input[name='birthday-day']").val(),
+                year: $("input[name='birthday-year']").val()
+            }
+        }
+
+        var format = function(_obj){ 
+            var obj = dateFields[_obj]
+            return obj.year +"-"+obj.month+"-"+obj.day 
+        }
+        
+        var obj = {"contact[passport_expiration]" : format("passport")}
+
+        if(location.pathname == "/admin/records/player"){
+            obj["public_data[date_of_birth]"] = format("birthday")
+        }
+        return obj;      
+    }
+
     function formatReqBody(form,key){
         var serializedArr = form.serializeArray();
+        
         var key = key ||""
-        return serializedArr.reduce((a,b)=>{
+        
+        var defaultForm = serializedArr.reduce((a,b)=>{
            var prop = key + b.name;
             if(b.name == "division"){
                 a[prop] = a[prop] || [];
@@ -13,6 +43,9 @@ $(document).ready(function(){
             return a
             
             },{});
+        var dates = getDates();
+
+        return Object.assign({},defaultForm,dates)
     }
     
     var initialRecords = formatReqBody($("form")); 
@@ -36,23 +69,20 @@ $(document).ready(function(){
 
         if(initialRecords["team[name]"] != data["team[name]"] || initialRecords.division != data.division){
            url+= "&teamUpdate=" + teamUpdate;
-           console.log(url)
         }
 
-
+    
         $.ajax({
             url,
             type:"PUT",
             data,
-            success: function(){
+            success: function(response){
                 $("form").hide();
-                $(".alert-info p").text("Record has been updated.")
+                $(".alert-info p").text(response)
                 $(".alert-info").fadeIn("slow");
             },
-            failure:function(){
-                $("form").hide();
-                $(".alert-danger p").text("Something went wrong. Please try again.")
-                $(".alert-danger").fadeIn("slow");
+            failure:function(error){
+                toastr.error(error)
             }
         })
     })    

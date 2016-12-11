@@ -45,6 +45,7 @@ $(function() {
         $(this).val(num.replace(/(\d{3})(\d{3})(\d{4})/, "($1) $2-$3"))
       }
   })//format the phone number if valid
+
   
   $('input[type=submit]').click(function(){
     var birthdayMessage = 'Please fill out your birthday.';
@@ -55,6 +56,7 @@ $(function() {
     var birthdayDay = Number(birthdayDaySel.val());
     var birthdayYear = Number(birthdayYearSel.val());
     var birthdayDate = birthdayYear + '-' + birthdayMonth + '-' + birthdayDay;
+    
     $('input[name="public_data[date_of_birth]"]').val(birthdayDate);
 
     if (birthdayDay === 0) notRightFunc(birthdayMessage, birthdayDaySel);

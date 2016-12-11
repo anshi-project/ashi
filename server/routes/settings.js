@@ -14,7 +14,7 @@ module.exports = function(app){
 			if(error) throw error;
 
 			var title = "Update your info"
-	
+
 			res.render("records", {userType:type, layout:"userRecords",fields, title, id,type})
 		})
 	})

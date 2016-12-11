@@ -8,13 +8,14 @@ var validateJerseyNumbers = require("../../models/players/methods").validateUniq
 module.exports=function(app){
 	
   app.get("/admin/roster",function(req,res){
+    var redirectURL = req.originalUrl + req.path
 
     var select = "firstname contact paid headshot public_data lastname team hockey_info createdAt";  
     var query = "key name division archive players goalies coaches managers";
 
     Team.find({}, query)
-      .sort({"name":-1})
-      .populate({path:"players coaches managers",match:{status:"Active"}, select})
+      .sort({"name":-1}) 
+      .populate({path:"players coaches managers",match:{status:"Active"}, select,options:{sort:{"team.jersey_number":1}}})
       .exec(function(err,teams){    
         if(err) throw err; 
 

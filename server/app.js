@@ -35,7 +35,6 @@ app.use(session({resave:false,
 	})
 );
 
-
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
 

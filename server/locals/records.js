@@ -10,6 +10,9 @@ var Models = {player,coach,manager,admin};
 
 var getDivision = require("./fields/teams").getDivision
 
+var errMessage = "Something went wrong while updating this user's records. Please try again.";
+var successMessage = "Successfully updated user's records!"
+
 function getTeamField(type){
 	if(type=="player"|| type=="manager") return type+"s";
 	return "coaches"
@@ -32,8 +35,8 @@ exports.handleTeamChange = function(type, id,prev, update, next){
 				Team.swapDivisions(prev, update, id)
 			}
 		})
-		.then(() => { return next(null, "Successful Update")})
-		.catch(() => { if(err) return next(err) })
+		.then(() => { return next(null, successMessage)})
+		.catch(() => { if(err) return next(errMessage) })
 }
 
 
@@ -41,8 +44,8 @@ exports.handleUpdate = function(type, id, update,next) {
 	var Model = Models[type];
 
 	Model.findByIdAndUpdate(id, update)
-		.then(()=>{ return next(null, "Successful update")})
-		.catch( err => { if(err) return next(err)})
+		.then(()=>{ return next(null, successMessage)})
+		.catch( err => { if(err) return next(errMessage)})
 
 }
 
@@ -55,6 +58,21 @@ function numArray(a,b,c){
 	}
 	return arr
 }
+
+function dateFormat(date){
+	if(!date) return;
+
+	var months = require("./fields/enums").months;
+
+	date=date.split("-")
+
+	var year = date[0];
+	var month = months[date[1]-1]
+	var day = date[2]
+
+	return {year , day, month} 
+}
+
 
 exports.render = function(type, id, next) {
 	var _fields = require(`./fields/${type}`);
@@ -70,13 +88,17 @@ exports.render = function(type, id, next) {
 			if(obj.name=="team[jersey_number]"){
 				var num = doc.hockey_info.jersey_number
 				obj.list = numArray(num.choice1, num.choice2, num.choice3)
+			}else if(obj.date){
+				obj.values = dateFormat(_.result(doc, obj.name))
+				obj.value = _.result(doc, obj.name)
+				console.log(obj.value)
+				
 			}else{
 				obj.list =  obj.radio || obj.dropdown || null;
 			}
 			obj.value = _.result(doc, obj.name);
 
 		})
-		
 		return next(null, fields, doc);
 	})
 }

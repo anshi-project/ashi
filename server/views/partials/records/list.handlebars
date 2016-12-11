@@ -1,6 +1,6 @@
 
 	<select name="{{this.name}}" class="{{this.class}}">
-		<option value="{{this.value}}" selected >{{this.value}}</option>
+		<option value="{{this.value}}" selected required>{{this.value}}</option>
 		{{#each this.list as |val|}}
 			{{#notEqual val ../value}}
 			<option value="{{val}}">{{val}}</option>

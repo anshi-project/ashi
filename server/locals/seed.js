@@ -19,7 +19,7 @@ function valiDATE(){
 
 module.exports = function(name){
     name= name.split(" ");
-    console.log(enums.player.gender)
+
     return{
     firstname:name[0],
     lastname:name[1],
@@ -41,7 +41,7 @@ module.exports = function(name){
         "league_team": "",
         "website": "",
         "jersey_number": {
-            "choice1": _.random(0, 99),
+            "choice1": 2,
             "choice2": _.random(0, 99),
             "choice3": _.random(0, 99)
         }
@@ -50,7 +50,7 @@ module.exports = function(name){
         "passport": "No",
         "email": name[0]+_.random(1,40)+"@gmail.com",
         "alt_email": "",
-        "phone1": _.random(1000000000,9999999999),
+        "phone1": _.random(2000000000,9999999999),
         "private_data": {
             "address": {
                 "street": "123 elm st",
@@ -89,7 +89,7 @@ module.exports = function(name){
         "gender": enums.player.gender[ _.random(0,1)],
         "weight": _.random(100,250),
         "height": enums.heights[_.random(0, enums.heights.length-1)],
-        "date_of_birth": ""
+        "date_of_birth": "1985-02-02"
     }
  }
 }

@@ -7,13 +7,16 @@ $(document).ready(function(){
     var stateTracker;
     var exportTeamHREF = $("#export-team").attr("href");
     var exportDivHREF = $("#export-division").attr("href");
+	
 
 
 	function render(){
 		var title=$("select option:selected").text();
 		
+		window.location.hash = title;
+
 		$.each(tables,function(){
-			if($(this).data("teamname")==title){
+			if($(this).data("teamname") == title){
 			   $(this).addClass("team-table-active")	   
 			}
 		})
@@ -24,6 +27,8 @@ $(document).ready(function(){
 		$("#export-team").attr("href", exportTeamHREF+"?q=" + team);
 		$("#export-division").attr("href", exportDivHREF+"?q="+division);
 	}
+
+
 	
 	function updateView(){
 		if(EditMode){
@@ -134,7 +139,18 @@ $(document).ready(function(){
 
 		stateTracker(id, field);
 	})
+
+	if(window.location.hash){
+		$("select option").each(function(){
+			var option = $(this).text();			
+			if(window.location.hash.substr(1) == option){
+				return $(this).attr("selected",true)
+			}
+		})		
+	}
+	//initialize by inspection hash onload and updating team selected in the dropdown.
 	render();
+	//if none selected - render first team listed in the dropdown
 });
 
 

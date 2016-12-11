@@ -4,6 +4,27 @@ $(function(){
 	var reg = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 	var regexp = new RegExp(reg);
 
+	var tryoutEmails = {};
+
+	(function(){
+		if(location.pathname !== "/admin/assign/player") return;
+
+		$("table tbody tr").each(function(){
+			var team = $(this).data("team");
+			var email = $(this).data("email");
+
+			tryoutEmails[team] = tryoutEmails[team] || [];
+			tryoutEmails[team].push(email)
+
+			if(team.match(/U16|U18|U20/)){
+				tryoutEmails["Junior's"] = tryoutEmails["Junior's"] || [];
+				tryoutEmails["Junior's"].push(email)
+			}
+		})
+	}())
+	//IIFE that formats an object of email addresses for players trying out.
+	//TODO make a more universal function than the one below
+
 	function getRecipients(){
 		var players = [];
 		var _cc = $(".team-table-active .email-cc").text().split(", ")
@@ -17,11 +38,17 @@ $(function(){
 		})
 		recipients.val(players.join(", "))
 		cc.val(_cc.join(", "))
-	}
+	}//this function is used only on the roster page
+	
 
 	function formattedMessage(){
 		var msgBody = $("#message-text").val().split("\n")
 		var formattedString = "";
+
+		if(!msgBody.length || $("#message-text").val().trim().length == ""){
+			$(".msg-error").show();
+			return false;
+		}
 
 		msgBody.forEach(line =>{
 			var newLine = "<p>\t"+ line.trim() +"</p>"
@@ -50,6 +77,18 @@ $(function(){
 
 	$(".email-btn").on("click", getRecipients);
 
+	$("#email-modal").on("show.bs.modal", function(event){
+		if(location.pathname !== "/admin/assign/player") return;
+
+		var href = $(event.relatedTarget)
+		var teamName = href.data("teamname")
+		$("#email-modal .modal-title").text(teamName)
+		recipients.val(tryoutEmails[teamName])
+	})
+
+
+
+
 	$(".send-email-btn").on("click",function(){
 		var url = "/message";
 		var recipients = validate();
@@ -58,38 +97,43 @@ $(function(){
 		
 		var data = {recipients, message, subject}
 
-		if(!recipients) return;
+		if(!recipients || !message ) return;
 
-		$(".modal").modal("toggle");
+
+		$(".modal").modal("hide");
 
 		$.ajax({
 			url,
 			type:"POST",
 			data,
 			success: function(response){
-				alert("Messages successfully delivered")
+				toastr.success("Messages successfully delivered")
 				$("#message-text, #subject").val("")
 			},
 			failure:function(msg){
-				alert("Your emails were not delivered. Please try again")
+				toastr.error("Your emails were not delivered. Please try again")
 			}
-		})// TODO replace alert message with something more seamless
+		})
 	})
 
 	$("button.email-reg-form").on("click",function(){
 		var type = $(this).data("stafftype");
 		var email = $("input[type='email']").val();
+		
 		if(!reg.test(email)) return;
+
+		$("#permission-well").collapse("hide")
 
 		$.ajax({
 			url:"/admin/permissions/"+type,
 			type:"POST",
 			data:{email},
 			success: response=>{
-				$("#permission-well").collapse("hide")
+				toastr.success("An application form was successfully delivered to " + email)
+				$("input[type='email']").val("");
 			},
 			failure: err => {
-				console.log(err)
+				toastr.error(err)
 			}
 		})
 	})

@@ -6,17 +6,16 @@ module.exports=function(app){
 
 	app.get("/admin/api/search",function(req,res){
 		var teams=require("../../locals/fields/teams").names;
-		res.render("api",{layout:"user",teams})
+		res.render("api",{layout:"userRecords",teams})
 	})
 
 
-	app.get("/admin/api/player",function(req,res){
+	app.get("/api/player",function(req,res){
 		var fields = "-contact -apparel -paid -headshot -_id -__v -__t -createdAt -hockey_info.jersey_number -updatedAt"
 		var q = req.query;
-
-		if(q.id && q.registration){
-			query = {_id:q.id}
-			fields = "";
+		console.log(q)
+		if(q.test ){
+			
 		}else{
 			query = {firstname:q.firstname.toLowerCase(),lastname:q.lastname.toLowerCase(), "team.jersey_number":q["team.jersey_number"]}
 		}
@@ -31,14 +30,14 @@ module.exports=function(app){
 		})
 	})
 
-	app.get("/admin/api/team",function(req,res){
+	app.get("/api/team",function(req,res){
 		
 		var query = req.query||{};
 
 
 		Team.findOne(query)
 		.populate({
-			path:"players goalies coaches managers",
+			path:"players coaches managers",
 			select:"fullname firstname lastname team",
 			match:{status:"Active"}
 		})

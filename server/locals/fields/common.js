@@ -54,6 +54,11 @@ module.exports = {
 	passport_expiration:{
 		label:"Passport expiration date",
 		name:"contact[passport_expiration]",
+		date: 'date',
+		month: enums.months,
+		day_input: 'passport-day',
+		year_input: 'passport-year',
+    	hidden: 'contact[passport_expiration]',		
 		recordOnly:true
 	},
 	facebook: {

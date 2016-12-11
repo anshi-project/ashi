@@ -21,11 +21,9 @@ module.exports=function(app){
 
 
     app.get("/",function(req,res){
-        if(req.user){
-            var user = req.user.__t.toLowerCase()
-            return res.redirect(user+"/index")
-        }
+       
         res.render("index",{layout:"main"})
+        
     });
 
     app.get("/seed",function(req,res,next){
@@ -63,7 +61,13 @@ module.exports=function(app){
     require("./manager/index")(app);
     require("./stats/index")(app);
 
-    app.get("/*",function(req,res){
-        res.send();
+    
+
+     app.get("/*", function errorHandler (err, req, res, next) {
+      if (res.headersSent) {
+        return next(err)
+      }
+      res.status(500)
+      res.send("An error has occurred");
     })
 }

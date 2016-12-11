@@ -1,3 +1,12 @@
+
+(function(){
+
+var searchMode = "name";
+toastr.options.closeButton = true;
+toastr.options.closeDuration = 60;
+toastr.options.closeEasing = 'swing';
+toastr.options.showMethod = 'slideDown';
+
 function formatReqBody(serializedArr){
 	return serializedArr.reduce((a,b)=>{
 		a[b.name] = b.value;
@@ -11,6 +20,7 @@ $('#coach-modal, #player-modal').on('show.bs.modal', function (event) {
       var person = button.data('person');
       var url=button.data("url");
 
+
       $(this).find(".btn-primary").data({type:button.data("type")});
       $(this).find(".btn-primary").attr("id",url);
       $(this).find('.modal-title').text(person);
@@ -20,20 +30,26 @@ $(".modal .btn-primary").on("click",function(evt){
 	var formData = $("form").serializeArray();
 	var data = formatReqBody(formData);
 	var id = $(this).attr("id")
+	var person = $(".modal-title").text()
 	var url = $("form").attr("action")+id;
 	var $type = $(this).data().type;
 	var type = ($type=="Default"||$type=="Goalie")? "PUT" : "POST"  
+
+	var breakAt = location.pathname.match("/admin/assign/player") ? "tbody" : ".row"; 
+	var elem = $("button[data-url='"+id+"']").parentsUntil(breakAt)
 	
-	console.log(data, url, type)
 
 	$.ajax({
 		url,
 		data,
 		type,
 		success:function(d){
-			console.log(d);
+			elem.hide();
+			toastr.success(person + " has been successfully added to the "+data.name+" roster." )
 		},
-		failure:(d)=> {console.log(d)}
+		failure:(d)=> {
+			toastr.error("An error occurred while trying to add" + person + " to the "+data.name+" roster.\nPlease try again." )	
+		}
 	})
 })
 
@@ -49,8 +65,8 @@ $(".btn-delete").on("click",function(){
 		$.ajax({
 			url,
 			type:"DELETE",
-			success:(d)=>{
-				alert(d)
+			success:(response)=>{
+				toastr.success(response)
 				elem.hide()
 			}
 		})	
@@ -77,10 +93,10 @@ $(".btn-delete2").on("click",function(){
 
 $("input[name='filter-players']").on("change",function(){
 	$(".search-players").attr("list", $(this).val())
+	searchMode = $(this).val();
 })
 
 $(".search-players").on("input",function(){
-	var mode = $(this).attr("list");
 	var val = $(this).val();
 	var	query = new RegExp(val, "i")
 
@@ -88,10 +104,10 @@ $(".search-players").on("input",function(){
 		$("table tr").show()
 	}else{
 		$(".table tbody tr").each(function(){
-			if(mode=="teams" && $(this).data("team") == val){
+			if(searchMode == "teams" && $(this).data("team") == val){
 				$(this).show()
 			}		
-			else if (mode =="names" && $(this).data("person").match(query)){
+			else if (searchMode =="name" && $(this).data("person").match(query)){
 				$(this).show()
 			}else{
 				$(this).hide()
@@ -100,5 +116,4 @@ $(".search-players").on("input",function(){
 	}
 })
 
-
-
+}())

@@ -104,6 +104,7 @@ var GoalieSeasonStatsSchema = new Schema({
     type: Number,
     required: true,
     enum: [0, 1],
+    default: 0
   },
   loss: {
     type: Number,
@@ -333,16 +334,19 @@ var GoalieStatsSchema = new Schema({
       win: {
         type: Number,
         required: true,
+        default:0,
         enum: [0, 1],
       },
       loss: {
         type: Number,
         required: true,
+        default:0,
         enum: [0, 1],
       },
       tie: {
         type: Number,
         required: true,
+        default:0,
         enum: [0, 1],
       },
     }

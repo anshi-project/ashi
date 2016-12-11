@@ -30,9 +30,9 @@ module.exports = function(app) {
 					res.send(data)
 			})			
 		}else{
-			Record.handleUpdate(type,id,req.body, function(err){
-		 		if(err) return res.send(err).status(500);
-		 		res.send("Successful update.")
+			Record.handleUpdate(type,id,req.body, function(err,message){
+		 		if(err) return res.send(String(err)).status(500);
+		 		res.send(message)
 			})	
 		}
 	})

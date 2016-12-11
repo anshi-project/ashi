@@ -21,9 +21,20 @@ exports.getDivision = function(teamName){
 
 exports.names = teamData.map(t => {return t.name})
 
+
 exports.divisions = teamData.reduce((a, b) => {
 	if (a.indexOf(b.division) == -1) {
 		a.push(b.division);
 	}
 	return a;
 }, [])
+
+
+exports.getTeamsInDivision = (division) =>{
+	return teamData.reduce(function getTeams(a,b){
+		if(b.division == division){
+			a.push(b.name)
+		}
+		return a;
+	},[])
+}

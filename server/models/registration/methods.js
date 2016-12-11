@@ -62,15 +62,14 @@ exports.assignToTeam = function(id, team, type, callback){
     })    
 }
 
-
 exports.findRegisteredPlayers=function(callback){
-    this.find({__t:"player-registration"},"firstname __t fullname lastname hockey_info")
+    this.find({__t:"player-registration"},"firstname __t fullname contact.email lastname hockey_info")
     .exec()
     .then(newPlayers=>{
-        Player.find({status:"renewing membership"},"__t fullname firstname lastname team")
+        Player.find({status:"renewing membership"},"__t fullname firstname contact.email lastname hockey_info team")
         .exec(function(err,oldPlayers){
             var result=oldPlayers.concat(newPlayers)
-                    
+            
             return callback(result);
         })
     }).catch(function(err){
