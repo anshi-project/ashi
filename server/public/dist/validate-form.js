@@ -13,7 +13,8 @@
   var passportMonth = 0;
   var passportDay = 0;
   var passportYear = 0;
-  var usernameURL = 'http://localhost:3000/check-username/'
+  var usernameURL = 'http://localhost:3000/check-username/';
+  var jerseyDuplicate = 'Please select three different jersey numbers.';
 
   $.validator.addMethod("pwcheck", function(value) {
      return /^[A-Za-z0-9\d=!\-@._*]*$/.test(value)
@@ -35,6 +36,37 @@
     });
     return true;
   });
+
+  $.validator.addMethod('jerseyNoCheck', function(value) {
+    var jersey = this.lastActive.className.slice(-1);
+    var jersey2;
+    var jersey3;
+    if (['1', '2', '3'].indexOf(jersey) === -1 || value === '') return true;
+    switch (jersey) {
+      case '1':
+        jersey2 = '2';
+        jersey3 = '3';
+        break;
+      case '2':
+        jersey2 = '1';
+        jersey3 = '3';
+        break;
+      case '3':
+        jersey2 = '1';
+        jersey3 = '2';
+        break;
+    }
+    var jersey2 = $('input[name="hockey_info[jersey_number][choice' + jersey2 + ']"').val();
+    var jersey3 = $('input[name="hockey_info[jersey_number][choice' + jersey3 + ']"').val();
+    if (value === jersey2 || value === jersey3) {
+      return false;
+    } else {
+      $('input[name="hockey_info[jersey_number][choice' + jersey + ']"').closest('.form-group').find('.empty').remove();
+      $('input[name="hockey_info[jersey_number][choice' + jersey + ']"').removeClass('redBorder');
+    }
+    return true;
+  });
+
 
   $.extend($.validator.messages, { required: "You can't leave this empty." });
 
@@ -317,18 +349,21 @@
           number: true,
           min: 0,
           max: 99,
+          jerseyNoCheck: true,
         },
         'hockey_info[jersey_number][choice2]':{
           required: true,
           number: true,
           min: 0,
           max: 99,
+          jerseyNoCheck: true,
         },
         'hockey_info[jersey_number][choice3]':{
           required: true,
           number: true,
           min: 0,
           max: 99,
+          jerseyNoCheck: true,
         },
         "favorite[movie]": {
           maxlength: 50,
@@ -442,16 +477,19 @@
           number: jerseyNumber,
           min: jerseyNumber,
           max: jerseyNumber,
+          jerseyNoCheck: jerseyDuplicate,
         },
         'hockey_info[jersey_number][choice2]':{
           number: jerseyNumber,
           min: jerseyNumber,
           max: jerseyNumber,
+          jerseyNoCheck: jerseyDuplicate,
         },
         'hockey_info[jersey_number][choice3]':{
           number: jerseyNumber,
           min: jerseyNumber,
           max: jerseyNumber,
+          jerseyNoCheck: jerseyDuplicate,
         },
         "password": {
           pwcheck: passwordMessage,
