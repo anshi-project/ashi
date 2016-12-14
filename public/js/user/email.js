@@ -28,7 +28,7 @@ $(function(){
 
 	function getRecipients(){
 		var players = [];
-		var _cc = $(".team-table-active .email-cc").text().trim().split(" ")
+		var _cc = $(".team-table-active .email-cc").text().split(", ");
 		
 		$(".team-table-active tbody tr").each(function(){
 			if($(this).children("td.email-cell").length){

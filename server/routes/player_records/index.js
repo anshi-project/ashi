@@ -6,7 +6,7 @@ module.exports=function(app){
 
 	app.get("/admin/api/search",function(req,res){
 		var teams=require("../../locals/fields/teams").names;
-		res.render("api",{layout:"userRecords",teams})
+		res.render("api",{layout:"userRecords", userType:"admin",teams})
 	})
 
 	app.get("/admin/api/player-application",function(req,res){
