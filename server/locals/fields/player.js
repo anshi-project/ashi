@@ -33,7 +33,7 @@ module.exports = [
     {
         label:"Position",
         name:"team[position]",
-        dropdown:enums.player.positions,
+        checkbox:enums.player.positions,
         recordOnly:true,
     },
     {
@@ -243,34 +243,40 @@ module.exports = [
        label: "Favorite movie",
        name: "favorite[movie]",
        class: 'fullwidth optional',
+       required:false
    },
 
    {
        label: "Favorite tv show",
        name: "favorite[tv_show]",
        class: 'fullwidth optional',
+       required: false
    },
    {
        label: "Favorite sports team",
        name: "favorite[sports_team]",
        class: 'fullwidth optional',
+       required: false
    },
    {
        label: "Favorite athlete",
        name: "favorite[athlete]",
        class: 'fullwidth optional',
+       required: false
    },
 
    {
        label: "Favorite sport (other than hockey)",
        name: "favorite[other_sport]",
        class: 'fullwidth optional',
+       required: false
    },
 
    {
        label: "Favorite food or restaurant",
        name: "favorite[food_or_restaurant]",
        class: 'fullwidth optional',
+       required: false
    },
    common.facebook,
    common.twitter,

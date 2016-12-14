@@ -1,7 +1,6 @@
 "Name","#","Position","Email","Phone","Age","Height","Weight","Hometown","Shooting Hand","Shirt size","Sock size","Jacket size","Hat size","Polo size","Shorts size","Jersey size","Headshot","Paid"
 "Colby Cave",83,"[""Center""]","colby18@gmail.com","(500) 689-5938",31,"4'10""",215,"Lowell, MA","Left","XXL","XL","M","S/M","L","XXL","L",true,false
 "Harry Ford",31,"[""Right Defense""]","harry2@gmail.com","(771) 236-0971",34,"4'11""",247,"Lowell, MA","Right","XXXL","XL","M","S/M","XXL","M","S",false,true
-"Wyatt Frost",46,"[""Left Wing""]","wyatt21@gmail.com","(944) 582-7523",28,"5'4""",216,"Lowell, MA","Left","M","L","XXXL","S/M","XXXL","L","XXXL",true,false
 "Akjk Jk",2,"[""Right Defense""]","akjk31@gmail.com","(232) 335-2233",30,"6'4""",173,"Lowell, MA","Left","XL","M","XXL","S/M","M","XXL","XL",false,false
 "Nick Mason",78,"[""Left Wing""]","nick12@gmail.com","(453) 965-2821",16,"5'9""",151,"Lowell, MA","Left","S","XL","XL","S/M","XXL","XXXL","L",true,true
 "Harry Osbourne",47,"[""Left Defense""]","harry27@gmail.com","(314) 537-6185",24,"5'4""",140,"Lowell, MA","Right","XXL","M","L","S/M","M","XL","XXXL",false,true
@@ -11,4 +10,4 @@
 "Roger Waters",77,"[""Goalie""]","roger20@gmail.com","(884) 219-9504",28,"6'6""",146,"Lowell, MA","Left","L","M","S","L/XL","S","XL","XL",false,false
 "Lily Westland",35,"[""Right Defense""]","lily1@gmail.com","(945) 242-4808",18,"6'3""",235,"Lowell, MA","Right","M","L","XL","L/XL","M","XXXL","S",false,false
 "Ralph Wiggum",26,"[""Left Defense""]","ralph3@gmail.com","(290) 246-9451",39,"6'0""",191,"Lowell, MA","Right","XXXL","L","XXL","S/M","XXXL","S","XXXL",true,false
-"Richard Wright",86,"[""Right Defense""]","richard1@gmail.com","(339) 364-1423",25,"5'7""",176,"Lowell, MA","Right","L","L","S","S/M","XL","XXXL","XXXL",false,false
+"Richard Wright",86,"[""Right Defense""]","richard1@gmail.com","(339) 364-1423",25,"5'7""",176,"Lowell, MA","Right","L","L","S","S/M","XL","XXXL","XXXL",true,false

@@ -17,21 +17,17 @@
 <body>
 	<div class="container-fluid">
 		<img src='../../public/images/ashi-logo.png' alt='ashi logo'>
-{{#if error}}
-<div class="panel bg-danger" style="text-align:center" >
-<h3>There was an error submitting your form. We apologize for the inconvenience</h3></div>
-{{/if}}
+		{{#if error}}
+		<div class="panel bg-danger" style="text-align:center" >
+			<h3>There was an error submitting your form. We apologize for the inconvenience</h3></div>
+		{{/if}}
 		<form id="registration-form" class="form-horizontal" action="/register/{{type}}{{token}}" method="post">
 			{{> reg/header}}
 			{{{body}}}
 			<input type="submit" value="Register" class="btn btn-primary">
 		</form>
-		
-
 	</div>
-	<script src="/public/lib/bootstrap.js"></script>
-	<script src="/public/dist/registration.js"></script>
-	<script src="/public/dist/validate-form.js"></script>
+	<script src="/public/dist/registration.min.js"></script>
 </body>
 
 </html>

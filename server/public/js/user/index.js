@@ -1,5 +1,5 @@
 require("./email")
-require("./payments")
 require("./permission")
 require("./roster")
+require("./seasonUpdate")
 require("./teampicker")

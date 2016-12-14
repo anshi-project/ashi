@@ -22,23 +22,26 @@
       {{else}}
       <tr class="bg-warning text-muted row-{{GM.status}}">
       {{/isEqual}} 
-  	<td>{{GM.fullname}}</td>
+  	
+    <td>{{GM.fullname}}</td>
     <td>{{GM.division}}</td>
   	<td>{{GM.contact.phone1}}</td>
   	<td>{{GM.contact.email}}</td>
   	<td>{{GM.username}}</td>
     {{#isEqual GM.status "pending"}}
-      <td><button class="btn-primary add-to-staff" data-user="{{GM._id}}" >Add to staff</button></td>
-      <td><button class="btn-danger delete-record">Delete</button></td>
+      <td><button class="btn-success add-to-staff" data-user="{{GM._id}}" >Add to staff</button></td>
+      <td>
+      <button class="btn-warning delete-record" style="color:black;font-weight:bolder" 
+      data-url="{{GM._id}}">Delete</button></td>
     {{else}}
     <td>
-      <button type="button" class="btn-success permission-btn" data-status="{{GM.status}}" data-user="{{GM._id}}">
+      
       {{#isEqual GM.status "Active"}}  
-      Revoke Credentials
+      <button type="button" class="btn-danger permission-btn" data-status="{{GM.status}}" data-user="{{GM._id}}">Revoke Credentials</button>
       {{else}}
-      Grant Credentials
+            <button type="button" class="btn-info permission-btn" data-status="{{GM.status}}" data-user="{{GM._id}}">Grant Credentials</button>
       {{/isEqual}}
-      </button>
+     
     </td>
     <td>
       <a href="/admin/records/manager?id={{../_id}}" target="_blank">View</a>

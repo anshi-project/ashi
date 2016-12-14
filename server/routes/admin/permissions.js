@@ -28,7 +28,7 @@ module.exports = function(app){
     })
   })//send a registration form to admin or GM to fill out with token that expires in one week.
 
-  app.put("/admin/permissions/:type",function(req,res){
+  app.put("/admin/permissions",function(req,res){
     var id = req.query.id;
     
     StaffMember.findByIdAndUpdate(id,{"status":req.body.status})  
@@ -36,4 +36,12 @@ module.exports = function(app){
         res.send("Updated user:"+id);
     })
   })//grant or revoke permissions will remove staff from team/divisions and remove login credentials
+
+  app.delete("/admin/permissions",function(req,res){
+    var id = req.query.id;
+
+    StaffMember.findByIdAndRemove(id).exec(err=>{if(err)throw new Error(String(err))})
+      .then(() => {res.send("Successfully deleted user's application")})
+      .catch(err => {res.send("Something went wrong while trying to delete this application")})
+  })
 }

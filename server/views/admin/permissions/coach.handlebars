@@ -20,7 +20,7 @@
   	<td>{{this.contact.email}}</td>
     <td>{{this.team.name}}</td>
     <td>{{this.team.role}}</td>
-    <td> <button type="button" class="permission-btn" data-status="{{this.status}}" data-user="{{this._id}}">Revoke</button></td>
+    <td> <button type="button" class="permission-btn btn-danger" data-status="{{this.status}}" data-user="{{this._id}}">Remove From Roster</button></td>
     <td><a href="/admin/records/coach?id={{this._id}}" target="_blank">View</a></td>
   	</tr>
   {{/each}}

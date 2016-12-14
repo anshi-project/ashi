@@ -36,7 +36,7 @@ thead{
 	background: #fff;
 }
 
-.permission-btn, .add-to-staff, .delete-record{
+.permission-btn, .add-to-staff, .add-admin-to-staff .delete-record{
 	width:100%;
 }
 .manager-pending{

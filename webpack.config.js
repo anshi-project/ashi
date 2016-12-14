@@ -3,13 +3,13 @@
 const webpack = require("webpack");
 
 module.exports = {
-  context: __dirname + "/server/public/dist",
+  context: __dirname + "/server/public/js/registration",
   entry: {
-    main: "./main.new.js",
+    main: "./index.js",
   },
   output: {
     path: __dirname + "/server/public/dist",
-    filename: "[name].js",
+    filename: "registration.min.js",
   },
        module: {
          loaders: [{

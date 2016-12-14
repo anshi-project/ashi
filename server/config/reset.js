@@ -38,7 +38,7 @@ module.exports = function(email,url ,next){
 					return next(null, success)
 				})
 			})
-			.catch(err => {if(err) console.error(String(err))}) 
+			.catch(err => {if(err) return next(err)}) 
 	})
 }
 

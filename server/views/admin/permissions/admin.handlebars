@@ -12,25 +12,46 @@
   			<td>Email</td>
   			<td>Username</td>
   			<td>Update</td>
+
   		</tr>
   	</thead>
     <tbody>
-  	{{#each GM as |user| }}
-    	{{#isEqual GM.status "Active"}}
-      <tr class="bg-success">
+  	{{#each user as |admin| }}
+    	{{#isEqual admin.status "Active"}}
+      <tr class="row-Active">
       {{else}}
-      <tr class="bg-warning text-muted">
+      <tr class="bg-warning text-muted row-{{admin.status}}">
       {{/isEqual}}
 
-    	<td>{{this.fullname}}</td>
-    	<td>{{this.contact.phone1}}<br>
-    	   {{this.contact.phone2}}</td>
-    	<td>{{this.contact.email}}</br>
-    	   {{this.contact.alt_email}}</td>
-    	<td>{{this.username}}</td>
+    	<td>{{admin.fullname}}</td>
+    	<td>{{admin.contact.phone1}}<br>
+    	   {{admin.contact.phone2}}</td>
+    	<td>{{admin.contact.email}}</br>
+    	   {{admin.contact.alt_email}}</td>
+    	<td>{{admin.username}}</td>
+     
+      {{#isEqual admin.status "pending"}}
 
-  	<td><button type="button" class="permission-btn" data-status="{{../status}}" data-user="{{../_id}}">Revoke</button></td>
-  	</tr>
+      <td>
+      <div class="btn-group">
+      <button class="btn-success add-admin-to-staff" data-user="{{admin._id}}" >Add to staff</button>
+      <button class="btn-warning delete-record" style="color:black;font-weight:bolder" 
+      data-url="{{admin._id}}">Delete</button>
+      </div>
+      </td>
+    {{else}}
+    <td>
+      
+      {{#isEqual admin.status "Active"}}  
+      <button type="button" class="btn-danger permission-btn" data-status="{{admin.status}}" data-user="{{admin._id}}">Revoke Credentials</button>
+      {{else}}
+            <button type="button" class="btn-info permission-btn" data-status="{{GM.status}}" data-user="{{admin._id}}">Grant Credentials</button>
+      {{/isEqual}}
+     
+    </td>
+
+    {{/isEqual}}
+  </tr>
   {{/each}}
   </tbody>
 </table>

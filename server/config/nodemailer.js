@@ -1,6 +1,6 @@
 var nodemailer = require('nodemailer');
 
-var flag = process.env.mode == "development";
+
 
 // Create a SMTP transporter object
 var transporter = nodemailer.createTransport({
@@ -10,8 +10,8 @@ var transporter = nodemailer.createTransport({
       user: process.env.google_address,
       pass: process.env.google_password
     },
-    logger: flag, // log to console
-    debug: flag// include SMTP traffic in the logs
+    // logger: flag, // log to console
+    // debug: flag// include SMTP traffic in the logs
 });
 
 module.exports = function(body,next){

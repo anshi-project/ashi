@@ -64,7 +64,7 @@ module.exports=function(app){
 
         StaffMember.update(query, form, {upsert:true})
             .then(() => { 
-                res.render(`/submitted`)
+                res.redirect(`/submitted`)
             })
             .catch(err => {if(err) res.redirect(`/register/${type}?token=${token}&error=${String(err)}`)})
 

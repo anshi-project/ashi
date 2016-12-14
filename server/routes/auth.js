@@ -7,7 +7,7 @@ module.exports = function(app) {
         if (user) {
             if (user.__t == "Admin") {
                 return res.redirect("/admin/index");
-            } else if (user.__t == "manager") {
+            } else if (user.__t == "Manager") {
                 return res.redirect("/gm/index");
             }
         } else {
