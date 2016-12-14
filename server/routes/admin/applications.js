@@ -20,5 +20,5 @@ module.exports=function(app){
       res.download( file,`${type} Applications.xlsx`, err => {if(err) throw err})
     })
 	})
-
+ 
 }

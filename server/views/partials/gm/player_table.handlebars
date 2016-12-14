@@ -19,13 +19,13 @@
       </tr>
     </thead>
     <tbody>
-        {{#each roster}}
+        {{#each players}}
       <tr>  
         <td>{{this.fullname}}</td>
         <td>{{this.team.pos_abrv}}</td>
         <td>{{this.team.jersey_number}}</td>
-        <td>
-          <a href="mailto:{{this.contact.email}}" class="email-cell"> {{this.contact.email}}</a>
+        <td class="email-cell">
+          <a href="mailto:{{this.contact.email}}"> {{this.contact.email}}</a>
         </td>
         <td>{{this.contact.phone1}}</td>
         <td>{{this.public_data.age}}</td>

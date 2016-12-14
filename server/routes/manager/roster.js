@@ -3,6 +3,8 @@ var Players = require("../../models/players/main");
 var writeFile = require("../../locals/rosterDownload");
 var fs = require("fs");
 
+var teamsInDivision = require("../../locals/fields/teams").getTeamsInDivision;
+
 var _ = require("lodash")
 
 module.exports = function(app) {
@@ -15,6 +17,7 @@ module.exports = function(app) {
 			.populate({path, match:{status:"Active"}, options:{sort:{"team.jersey_number":-1}}, select})
 			.exec(function(err, teams) {
 				if(err) throw err;
+	
 				res.render("manager/roster", {teams,layout:"user",userType:"manager"});
 			})
 	})
@@ -26,17 +29,32 @@ module.exports = function(app) {
 		})
 	})
 
-	app.get("/manager/roster/export", function(req, res) {
+	app.get("/manager/roster/:key/export", function(req, res) {
+	    var key = req.params.key;
+	    var val = req.query.q
+	    var filename = val? val+".xlsx" : "ASHI-Players.xlsx"
+	    var query = {status:"Active"};
+	    var teamsInDivion = require("../../locals/fields/teams").getTeamsInDivision;
+	    var teams;
 
-		Players.find({"team": {$in:req.user.division}})
+	    if(key == "name"){
+	      query["team.name"] = val;
+	    }else if(key == "division"){
+	      query["team.name"] = {$in: teamsInDivion(val)}
+	    }else{
+	    	teams = [];
+	    	req.user.division.forEach(division =>{
+	    		teams = teams.concat(teamsInDivion(division))
+	    	})
+	    	query["team.name"] = {$in: teams}
+	    } 
+
+		Players.find(query)
 			.sort({lastname: 1})
-			.lean()
 			.exec(function(err, players) {
 				writeFile(players, function(err, file) {
-					if (err) throw err;
-					res.download(file, req.user.division + ".xlsx", function(err) {
-						if (err) throw err;
-					});
+					if (err) res.send(String(err))
+					res.download(file, filename, (err)=> {res.send(String(err))});
 				})
 			})
 	})

@@ -24,15 +24,11 @@ var staff = {
         maxlength: 50,
         validate: validate.altEmail,
     },
-    passport: {
-        type: String,
-        required: true,
-        enum: ["Yes", "No"],
-    },
+
     passport_expiration:{
-        type: String,
-        default: "",
-        validate: validate.passport,
+        type: Date,
+        required:true,
+        default: Date.now
     }
 }
 

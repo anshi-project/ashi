@@ -4,7 +4,7 @@ var path = require("path");
 
 function getFields(type){
   var fields = require(`./fields/${type}`);
-  return _.reject(fields, "recordOnly")
+  return _.reject(fields, (field)=>{ return field.recordOnly && field.name!="public_data[date_of_birth]" || field.name == "public_data[dob]"})
 }
 
 function getLabels(fields){
@@ -27,7 +27,10 @@ function formatter(type){
   			return str;
   		}else{
   			for(var i = 0; i<fields.length; i++){
-  				str += (_.result(doc,fields[i].name)|| "N|A") +", "
+          var result = _.result(doc,fields[i].name) || "N/A" ;
+          if(typeof result == "string") result = result.replace(/\,/g, " ")
+          //commas within string results are replaces so as to not ruin the CSV file's format 
+  				str += `${result} , ` 
   			}
   			str+="\n";
   		}

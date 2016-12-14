@@ -1,7 +1,7 @@
-<tr data-person="{{this.fullname}}" data-team="{{this.hockey_info.team}}" data-email="{{this.contact.email}}">
+<tr data-person="{{this.fullname}}" class="bg-info" data-team="{{this.hockey_info.team}}" data-email="{{this.contact.email}}">
     <td>{{this.fullname}}</td>
     <td>
-        <a target="_blank" href="/admin/api/player?id={{this._id}}&registration=true">View</a>
+        <a target="_blank" href="/admin/api/player-application?player={{this._id}}&registration={{this.fullname}}">View</a>
     </td>
     <td>{{this.hockey_info.team}}</td>
     <td>{{this.hockey_info.position}}</td>

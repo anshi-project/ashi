@@ -64,9 +64,11 @@ module.exports=function(app){
     
 
      app.get("/*", function errorHandler (err, req, res, next) {
+      console.log(err)
       if (res.headersSent) {
         return next(err)
       }
+
       res.status(500)
       res.send("An error has occurred");
     })

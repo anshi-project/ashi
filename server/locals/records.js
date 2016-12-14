@@ -61,14 +61,15 @@ function numArray(a,b,c){
 
 function dateFormat(date){
 	if(!date) return;
+	date = new Date(date);
+    var Months = require("./fields/enums").months
+	var i = date.getMonth();
 
-	var months = require("./fields/enums").months;
+	var month = Months[i];
+	var year = date.getFullYear();
+	var day = date.getDate();
+	
 
-	date=date.split("-")
-
-	var year = date[0];
-	var month = months[date[1]-1]
-	var day = date[2]
 
 	return {year , day, month} 
 }
@@ -80,7 +81,7 @@ exports.render = function(type, id, next) {
 		
 	var Model = Models[type];
 
-	Model.findById(id).lean().exec(function(err, doc) {
+	Model.findById(id).exec(function(err, doc) {
 		if (err) return next(err);
 
 
@@ -91,8 +92,6 @@ exports.render = function(type, id, next) {
 			}else if(obj.date){
 				obj.values = dateFormat(_.result(doc, obj.name))
 				obj.value = _.result(doc, obj.name)
-				console.log(obj.value)
-				
 			}else{
 				obj.list =  obj.radio || obj.dropdown || null;
 			}

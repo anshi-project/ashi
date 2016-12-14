@@ -57,6 +57,7 @@ $(document).ready(function(){
 
         if(exp.test(url) && formAttr.match("manager") ){
             $("label[for='division']").hide();
+            $(".record-checkbox").html("");
         } 
     }())// Temporary solution for hiding a label that shouldnt be rendering in Handlebars
 

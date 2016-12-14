@@ -9,19 +9,23 @@ module.exports=function(app){
 		res.render("api",{layout:"userRecords",teams})
 	})
 
+	app.get("/admin/api/player-application",function(req,res){
+		var id = req.query.player;
+
+		Player.findById(id)
+			.then(player => { res.send(player).status(200)})
+			.catch(err => { res.send(String(err)) })
+
+	})
 
 	app.get("/api/player",function(req,res){
 		var fields = "-contact -apparel -paid -headshot -_id -__v -__t -createdAt -hockey_info.jersey_number -updatedAt"
-		var q = req.query;
-		console.log(q)
-		if(q.test ){
-			
-		}else{
-			query = {firstname:q.firstname.toLowerCase(),lastname:q.lastname.toLowerCase(), "team.jersey_number":q["team.jersey_number"]}
-		}
+		var q = Object.assign({},req.query , {__proto__:null});
 
+		if(q.firstname) q.firstname = new RegExp(q.firstname, "i"); 
+		if(q.lastname) q.lastname = new RegExp(q.lastname, "i");	
 
-		Player.findOne(query, fields).exec(function(err,player){
+		Player.findOne(q, fields).exec(function(err,player){
 			if(err || !player){
 				return res.send("Player not found.")
 			}else{

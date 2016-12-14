@@ -1,4 +1,4 @@
-<form  method="post" class="form-horizontal" id="records-form" action="/admin/records/{{type}}?id={{id}}&_method=PUT" >
+<form  method="post" class="form-horizontal" id="records-form" action="/{{userType}}/records/{{type}}?id={{id}}&_method=PUT" >
 	<div class="page-header bg-info">
 		<p class='message-box'>{{title}}</p>
 	</div>
@@ -9,6 +9,7 @@
 	{{#unless this.textarea}}	
 	<label for="{{this.name}}">{{this.label}}</label>
 	{{/unless}}
+
 		{{#if this.checkbox}}
 			{{> records/checkbox}}
 		{{else if this.date}}

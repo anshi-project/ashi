@@ -15,7 +15,7 @@ var transporter = nodemailer.createTransport({
 });
 
 module.exports = function(body,next){
-  var recipients = flag? "<adamhs3521@gmail.com>" : body.recipients;
+  var recipients = body.recipients;
 
   transporter.sendMail({
     from: 'American Street Hockey Institute',

@@ -16,5 +16,4 @@ var PlayerReg = Registration.discriminator("player-registration",
     hockey_info: fields.hockey_info
   })
 );
-
 module.exports = PlayerReg;

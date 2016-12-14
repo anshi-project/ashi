@@ -1,7 +1,7 @@
 {{> modal/email}}
 {{> roster/controls}}
 	{{#each teams}}
-		<div class="team-table" data-teamname="{{this.name}}">
+		<div class="team-table" data-division="{{this.division}}" data-teamname="{{this.name}}">
 		{{#each managers}}
 		<p class="hidden email-cc"> {{this.contact.email}} </p>
 		{{/each}}

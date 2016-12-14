@@ -36,25 +36,25 @@ module.exports=function(app){
     var key = req.params.key;
     var val = req.query.q
     var filename = val? val+".xlsx" : "ASHI-Players.xlsx"
-    var query = {};
+    var query = {status:"Active"};
+    var teamsInDivion = require("../../locals/fields/teams").getTeamsInDivision;
 
-    if(key != "all"){
-      query["team."+key] = val; 
-    }
-  
+    if(key == "name"){
+      query["team.name"] = val;
+    }else if(key == "division"){
+      query["team.name"] = {$in: teamsInDivion(val)}
+    } 
 
-    Player.find(query)
-      .sort({lastname:1})
-      .exec(function(err,docs){
-        if(err) throw err;
+    console.log(query);
 
-        if(!docs.length){ 
-          return res.send(query).status(404);
-        }
+    Player.find(query).sort({lastname:1})
+      .then(docs =>{
+
         writeFile(docs,function(err,file){
           if(err) throw err;
           res.download(file, filename, err=>{if(err) throw err;});
         })
       })
+      .catch(err => {if(err) res.json({"Message":"Download Error", error:String(err)})})
   })
 }

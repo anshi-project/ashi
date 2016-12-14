@@ -17,27 +17,16 @@
 <body>
 	<div class="container-fluid">
 		<img src='../../public/images/ashi-logo.png' alt='ashi logo'>
-		{{#if success}}
-		<hr>
-		<div class="container">
-			<div class="alert alert-success">
-				<h3>Your form has been successfully submitted.</h3>
-			</div>
-		</div>
-		{{else if error}}
-		<hr>
-		<div class="container">
-			<div class="alert alert-danger">
-				<h3>An error has occurred while trying to submit your form. Please try again</h3>
-			</div>
-		</div>
-		{{else}}
+{{#if error}}
+<div class="panel bg-danger" style="text-align:center" >
+<h3>There was an error submitting your form. We apologize for the inconvenience</h3></div>
+{{/if}}
 		<form id="registration-form" class="form-horizontal" action="/register/{{type}}{{token}}" method="post">
 			{{> reg/header}}
 			{{{body}}}
-			<input type="submit" class="btn btn-primary">
+			<input type="submit" value="Register" class="btn btn-primary">
 		</form>
-		{{/if}}
+		
 
 	</div>
 	<script src="/public/lib/bootstrap.js"></script>

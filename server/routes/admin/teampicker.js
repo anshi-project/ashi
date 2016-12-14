@@ -8,19 +8,30 @@ var teamsAppliedFor = require("../../locals/fields/enums").teams.applyingFor;
 
 module.exports = function(app) {
 
-    app.all("/admin/assign/*",function(req,res,next){
-        if(req.session.teamSeasons) return next()
+    app.all("/admin/assign/player",function(req,res,next){
+        // if(req.session.teamSeasons) return next()
         
         Team.find({}).select({archive:1,name:1})
             .exec(function(err,docs){
-                req.session.teamSeasons = docs;
+                var update = 0;
+                var restore = 0;
+                
+                docs.forEach(doc => { 
+                    if(doc.archive.canUpdate){
+                        update++;
+                    }else if(doc.archive.canRestore){
+                        restore++;
+                    }
+                })      
+                req.session.teamSeasons = (update + restore > 0)? docs : null;
+               
                 next();
         })
-    })
+    })//check if any teams can update/restore their current season
 
     app.get("/admin/assign/player", function(req, res) {
         Registration.findRegisteredPlayers(function(player) {  
-          // console.log(req.session.teamSeasons)          
+                   
             res.render("admin/teampicker/player", {
                 player,
                 teams: req.session.teamSeasons,
@@ -31,7 +42,7 @@ module.exports = function(app) {
         })
     })
 
-    app
+
 
     app.get("/admin/assign/coach", function(req, res) {
         var Coaches = require("../../models/registration/_coachReg");
@@ -50,7 +61,7 @@ module.exports = function(app) {
         var id = req.query.id;
 
         Player.assignToTeam(id, req.body, function(err, doc) {
-            if (err) throw err;
+            if (err) return res.send(String(err));
             res.send(doc);
         })
     })//handles adding a returning player to a team;
@@ -85,12 +96,14 @@ module.exports = function(app) {
         var name = req.query.name;
 
         if(req.query.restore){
-            Team.restore(name,function(err,docs){
-                res.send(docs)
+            Team.restore(name,function(err,success){
+                if(err) return res.send(err);
+                res.send(success)
             })
         }else{
-            Team.createNewSeason(name,function(err,docs){
-                res.send(docs)            
+            Team.createNewSeason(name,function(err,success){
+                if(err) return res.send(err).status(500);
+                res.send(success)            
             })
         }
     })

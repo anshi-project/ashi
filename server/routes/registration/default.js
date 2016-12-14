@@ -46,8 +46,8 @@ module.exports=function(app){
         var fields = getFields(type);
         var token = req.session.regToken || ""
         var admin = fields.admin? true: false;
-        
-        res.render("form",{fields,layout:"registration",type, admin, token, error:req.query.error, success:req.query.success});
+    
+        res.render("form",{fields,layout:"registration",type, admin, token, error:req.query.error});
     });
 
 
@@ -64,7 +64,7 @@ module.exports=function(app){
 
         StaffMember.update(query, form, {upsert:true})
             .then(() => { 
-                res.redirect(`/register/${type}?token=${token}&success=true`)
+                res.render(`/submitted`)
             })
             .catch(err => {if(err) res.redirect(`/register/${type}?token=${token}&error=${String(err)}`)})
 
@@ -78,9 +78,9 @@ module.exports=function(app){
         Registration.create(req.body,function(err,doc){
             if(err){
                 console.log(err.ValidationError);
-                res.send(console.error(String(err)));
+                res.redirect("/register/${type}?error=${String(err)}`");
             }
-            res.redirect("/register/"+req.params.type+"?success=true")
+            res.redirect("/submitted")
         });
     });
 

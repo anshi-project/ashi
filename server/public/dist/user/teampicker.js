@@ -26,11 +26,11 @@ $('#coach-modal, #player-modal').on('show.bs.modal', function (event) {
       $(this).find('.modal-title').text(person);
 })
 
-$(".modal .btn-primary").on("click",function(evt){
+$("#coach-modal .btn-primary, #player-modal .btn-primary").on("click",function(evt){
 	var formData = $("form").serializeArray();
 	var data = formatReqBody(formData);
 	var id = $(this).attr("id")
-	var person = $(".modal-title").text()
+	var person = $("#player-modal .modal-title, #coach-modal .modal-title").text()
 	var url = $("form").attr("action")+id;
 	var $type = $(this).data().type;
 	var type = ($type=="Default"||$type=="Goalie")? "PUT" : "POST"  
@@ -48,7 +48,7 @@ $(".modal .btn-primary").on("click",function(evt){
 			toastr.success(person + " has been successfully added to the "+data.name+" roster." )
 		},
 		failure:(d)=> {
-			toastr.error("An error occurred while trying to add" + person + " to the "+data.name+" roster.\nPlease try again." )	
+			toastr.error(d)	
 		}
 	})
 })
@@ -104,10 +104,12 @@ $(".search-players").on("input",function(){
 		$("table tr").show()
 	}else{
 		$(".table tbody tr").each(function(){
+
+
 			if(searchMode == "teams" && $(this).data("team") == val){
 				$(this).show()
 			}		
-			else if (searchMode =="name" && $(this).data("person").match(query)){
+			else if (searchMode =="name" && query.test($(this).data("person"))){
 				$(this).show()
 			}else{
 				$(this).hide()

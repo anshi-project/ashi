@@ -28,7 +28,7 @@ var staffSchema = new Schema({
     regTokenExp:Date
 })
 
-staffSchema.plugin(require("../plugins/setFullName"));
+staffSchema.plugin(require("../plugins/virtuals"));
 staffSchema.plugin(require("../plugins/phonenumber"));
 staffSchema.plugin(require("../plugins/encrypt"));
 staffSchema.plugin(require("../plugins/comparePassword"));

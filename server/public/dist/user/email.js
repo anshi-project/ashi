@@ -4,15 +4,16 @@ $(function(){
 	var reg = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 	var regexp = new RegExp(reg);
 
-	var tryoutEmails = {};
+	var tryoutEmails = {All:[]};
 
 	(function(){
 		if(location.pathname !== "/admin/assign/player") return;
 
-		$("table tbody tr").each(function(){
+		$(".teampicker-table tbody tr").each(function(){
 			var team = $(this).data("team");
 			var email = $(this).data("email");
 
+			tryoutEmails.All.push(email);
 			tryoutEmails[team] = tryoutEmails[team] || [];
 			tryoutEmails[team].push(email)
 
@@ -27,7 +28,7 @@ $(function(){
 
 	function getRecipients(){
 		var players = [];
-		var _cc = $(".team-table-active .email-cc").text().split(", ")
+		var _cc = $(".team-table-active .email-cc").text().trim().split(" ")
 		
 		$(".team-table-active tbody tr").each(function(){
 			if($(this).children("td.email-cell").length){
@@ -58,7 +59,8 @@ $(function(){
 	}
 
 	function validate(){
-		var emails = recipients.val()+", "+cc.val();
+
+		var emails = cc.val().length? recipients.val()+", "+cc.val() : recipients.val();
 		var arr = emails.split(",")
 	
 		for(var i = 0; i < arr.length; i++){

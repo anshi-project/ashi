@@ -55,13 +55,17 @@ $(function() {
     var birthdayMonth = Number(birthdayMonthSel.val());
     var birthdayDay = Number(birthdayDaySel.val());
     var birthdayYear = Number(birthdayYearSel.val());
-    var birthdayDate = birthdayYear + '-' + birthdayMonth + '-' + birthdayDay;
+    var birthdayDate = new Date(birthdayYear + '-' + birthdayMonth + '-' + birthdayDay);
     
-    $('input[name="public_data[date_of_birth]"]').val(birthdayDate);
+
+
+    $('input[name="public_data[date_of_birth]"]').val(Date.parse(birthdayDate));
 
     if (birthdayDay === 0) notRightFunc(birthdayMessage, birthdayDaySel);
     if (birthdayMonth === 0) notRightFunc(birthdayMessage, birthdayMonthSel);
     if (birthdayYear === 0) notRightFunc(birthdayMessage, birthdayYearSel);
+
+
 
     if ($('input[name="contact[passport]"]:checked').val() === 'Yes'){
       var passportMessage = "Please fill out your passport expiration date.";
@@ -74,8 +78,8 @@ $(function() {
       if (passportDay === 0 ) notRightFunc(passportMessage, passportDaySel);
       if (passportMonth === 0) notRightFunc(passportMessage, passportMonthSel);
       if (passportYear === 0) notRightFunc(passportMessage, passportYearSel);
-      passportDate = passportYear + '-' + passportMonth + '-' + passportDay;
-      $('input[name="contact[passport_expiration]"]').val(passportDate);
+      passportDate = new Date(passportYear + '-' + passportMonth + '-' + passportDay);
+      $('input[name="contact[passport_expiration]"]').val(Date.parse(passportDate));
     }
   });
 });

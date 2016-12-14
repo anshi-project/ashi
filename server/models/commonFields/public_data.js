@@ -3,7 +3,7 @@ var enums = require("../../locals/fields/enums")
 
 module.exports= {
   date_of_birth:{
-    type: String,
+    type: Date,
     required: true,
     validate: validate.birthday,
   },

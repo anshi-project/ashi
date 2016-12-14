@@ -5,10 +5,10 @@ module.exports=function(app){
     app.get("/register/renew/player",function(req,res){
         var getFields = require("../../locals/registration").renderForm;
         var fields = getFields("returningPlayer");
-        var error = req.query.redirect;
+        var error = req.query.error;
         var success = req.query.success;
 
-        res.render("form",{fields,layout:"registration",type:"renew/player",returningPlayer:true,error,success});
+        res.render("form",{fields,layout:"registration",type:"renew/player",returningPlayer:true,error});
     })
 
     app.post("/register/renew/player",function(req,res){
@@ -20,23 +20,14 @@ module.exports=function(app){
         var query={
             firstname,
             lastname,
-            // status:"archived",
+            status:"archived",
             "contact.email":email
         }
 
-        Player.findOne(query,function(err,player){
-            if(err || !player){
-                console.log(String(err))
-                return res.redirect("/register/renew/player?redirect=error")
-            }else{
-                player.status="renewing membership";
-                player.hockey_info.position = _.position;
-                player.hockey_info.team = _.team;
-                player.save()
-                .then(()=>{ res.redirect("/register/renew/player?success=true") })
-                .catch(err =>{ if(err){ console.error(String(err))} })
-                
-            }
+        Player.renewMembership(query, req.body, (err,success) =>{
+            if(err) return res.redirect("/register/renew/player?error="+String(err))
+             res.redirect("/submitted");   
         })
+        
     }) 
 }

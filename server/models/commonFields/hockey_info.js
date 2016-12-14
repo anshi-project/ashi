@@ -27,11 +27,11 @@ module.exports = {
 		type: String,
 		enum: enums.teams.applyingFor
 	},
-	position: {
+	position:[{
 		type: String,
 		required: true,
 		enum: enums.player.positions,
-	},
+	}],
 	shooting_hand: {
 		type: String,
 		required: true,

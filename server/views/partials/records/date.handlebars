@@ -2,7 +2,7 @@
   <select name="{{this.name}}" class="month">
     <option value="{{this.values.month.num}}" selected>{{this.values.month.text}}</option>
   	{{#each this.month as |month|}}
-      {{#notEqual month.num ../monthVal}}
+      {{#notEqual month.num ../values.month.num}}
     	<option value="{{month.num}}">{{month.text}}</option>
       {{/notEqual}}
   	{{/each}}

@@ -1,6 +1,7 @@
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 var _ = require("lodash");
+var Players = require("../players/main")
 
 var TeamSeasonStatsSchema = new Schema({
             season:{type:Number},
@@ -65,8 +66,9 @@ teamSchema.statics.addToRoster = function(query, id, type){
     var update = {};
     update[type] = id;//ex.{players:id}
 
-   this.update(query, action ,{upsert:true,safe:true,multi:true})  
-
+   this.update(query, {$push:update} ,{upsert:true,safe:true,multi:true}).exec()
+    .then(() => {console.log("Updated player "+id)})  
+    .catch((err) => {console.log(String(err))})
 } 
 
 teamSchema.statics.swap = function(currTeam,newTeam,id,type){
@@ -96,15 +98,26 @@ teamSchema.statics.swapDivisions = function(currDivisions,newDivisions,id){
         .catch(err => {if(err) throw err; })
 }
 
+teamSchema.pre("save", next=>{
+    var archive = this.archive;
+    if(!archive || !archive.isArchived) return next();
+
+    if(!archive.canRestore){
+        this.archive.isArchived = false;
+    }
+    next();
+})//update archived status before each save;
+
 
 teamSchema.virtual("default_players").get(function(){
     var players = this.players
-
+    if(!players.team) return;
     return players.filter(player => {return player.team.position.indexOf("Goalie") == -1} )
 })
 
 teamSchema.virtual("goalies").get(function(){
     var players = this.players;
+    if(!players.team) return
     return players.filter(player => {return player.team.position.indexOf("Goalie") != -1 })
 })
 
@@ -115,7 +128,7 @@ teamSchema.virtual("archive.canRestore").get(function(){
     if(!this.archive.timestamp) return false;
 
     var expiration = new Date(this.archive.timestamp);
-    expiration.setMonth(expiration.getMonth()+1);
+    expiration.setDate(expiration.getDate()+7);
 
     if(Date.parse(expiration)> now && this.archive.isArchived){
         return true
@@ -126,61 +139,43 @@ teamSchema.virtual("archive.canRestore").get(function(){
 teamSchema.virtual("archive.canUpdate").get(function(){
     var now = Date.now()
     var ts = new Date(this.archive.timestamp)
-    ts.setMonth(ts.getMonth() + 6)
-    
-    if( now > Date.parse(ts)){
-        return true;
+    ts.setMonth(ts.getMonth() + 7)
+
+    if( now > Date.parse(ts) && !this.archive.isArchived){
+        return false;
     }
-    return false;
+    return true;
 })//a flag for determining whether or not a new season can be set for a season;
+ //check if the current date is more than 6 months past last update
 
 teamSchema.statics.createNewSeason = function(name,next){
+    var success = "A new season for this team has been created. You may restore the previous settings anytime within the next seven days";
+    var timestamp = Date.now();
+    var query = {"team.name":name,status:"Active"}
     var Players = require("../players/main")
 
-    var timestamp = Date.now();
-    
-    this.findOne({name}).exec(function(err,doc){
-        doc.archive = {isArchived:true,timestamp};
-        doc.markModified("archive");
-        doc.save()
-    }).then(()=>{
-        Players.find({"team.name":name,status:"Active"},function(err,docs){
-            docs.forEach(player =>{
-                player.status = "archived";
-                player.archive = {
-                    timestamp,
-                    paid: player.paid 
-                }
-                player.paid = false;
-                player.markModified("archive")
-                player.save();
-            })
-            return next(null,docs);
-        }).catch(err => { if(err) return next(err)})
-    })
+    this.update({name}, {archive:{isArchived:true,timestamp}},{upsert:true})
+        .then(()=>{ Players.update(query, {status:"archived", archivedAt:timestamp},{upsert:true,multi:true}).exec() })
+        .then(() =>{return next(null, success);})
+        .catch(err => { if(err) return next(String(err))})
 }
 
 teamSchema.statics.restore = function(name, next){
     var timestamp;
+    var Team = this;
     var Players = require("../players/main")
-    
-    this.findOne({name}).exec(function(err,doc){
-        timestamp = doc.archive.timestamp;
-        doc.archive.isArchived = false ;
-        doc.markModified("archive");
-        doc.save()
-    }).then(function(){
-        Players.find({"team.name":name, "archive.timestamp":timestamp},function(err,docs){
-            docs.forEach(player =>{
-                player.status = "Active";
-                player.paid = player.archive.paid;
-                player.archive.isArchived = false;
-                player.markModified("archive")
-                player.save() 
-            })
-            return next(null,docs)
-        })
-        .catch(err => { if(err)return next(err) })
+
+    Team.findOne({name})
+    .then((team)=>{
+        timestamp = team.archive.timestamp;
+        team.archive.isArchived = false ;
+        team.save(err=>{if(err) throw new Error(String(err))})
     })
+    .then(()=> {Players.update({archivedAt:timestamp},{status:"Active"},{multi:true,upsert:true}).exec()})        
+    .then(() => {return next(null, "Successfully restored this team") })
+    .catch(err => {if (err) return next(String(err))})
+        
 }
+
+
 module.exports = mongoose.model("team",teamSchema)

@@ -37,53 +37,25 @@ function dateValidator (val){
   return true;
 }
 
-function birthdayValidator (val) {
-  var d = new Date();
-  var year = Number(val.substr(0, 4));
-  var month = Number(val.substr(5,2));
-  var day = Number(val.substr(8, 2));
-  var pattern = new RegExp(/^(\d{4})-(\d{1,2})-(\d{1,2})$/);
-  if (!pattern.test(val) || val.length !== 10 || ((d.getFullYear - year) < 5) ||
-  (d.getFullYear - year) > 60) {
-    console.log('birthday error')
-    return false;
-  }
-  if ((day > 29 && month === 2) || (([4, 6, 9, 11].indexOf(month) !== -1) && day === 31) ||
-      (month === 2 && day === 29 && isLeapYear(year) === 'false' || month < 1 || month > 12 ||
-      day < 1 || day > 31)) {
-        console.log('birthday error')
-        return false;
-  }
-  return true;
+function birthdayValidator (val){
+  var date = new Date(val).getTime();
+  if(date == NaN) return false;
+
+  var ageDate = new Date(Date.now() - date);
+  var age = Math.abs(ageDate.getUTCFullYear() - 1970);  
+
+  return age > 5 && age < 80;
 }
 
-function passportDateValidator (val) {
-  if(!val) return true;
-  var todaysDate;
-  var d = todaysDate = new Date();
-  var year = Number(val.substr(0, 4));
-  var month = Number((val.match(/-\d{1,2}-/)[0]).slice(1, -1));
-  var day =  Number(val.match(/-\d{1,2}$/)[0].slice(1));
-  var passportDate = new Date(year, (month - 1), day);
-  if (year === 0 || month === 0 || day === 0 || (passportDate < todaysDate)) return false;
-  var pattern = new RegExp(/^(\d{4})-(\d{1,2})-(\d{1,2})$/);
-
-  if (!pattern.test(val) || val.length < 9 || val.length > 10  || ((d.getFullYear - year) < 5)) {
-    console.log('passport date error')
-    return false;
-  }
-  if ((day > 29 && month === 2) || (([4, 6, 9, 11].indexOf(month) !== -1) && day === 31) ||
-      (month === 2 && day === 29 && isLeapYear(year) === 'false' || month < 1 || month > 12 ||
-      day < 1 || day > 31)) {
-        console.log('passport date error')
-        return false;
-  }
-  return true;
+function passportDateValidator(val){
+  var date = new Date(val);
+  return Date.getTime(date)!= NaN;
 }
+
 
 function jerseyNoValidator (num) {
   num = +num;
-  return num>-1 && num <100;
+  return num > -1 && num <100;
 }
 
 //the following block of validator functions use code from JQuery Validation Plugin
@@ -92,8 +64,8 @@ function emailValidator (email){
 }
 
 function altEmailValidator (email){
-  if (email === '') return true;
-  return /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(email)
+  if (!email) return true;
+  return emailValidator(email);
 }
 
 function phoneNoValidator (phoneNo) {
@@ -104,9 +76,7 @@ function phoneNoValidator (phoneNo) {
 
 function altPhoneNoValidator (phoneNo) {
   if (phoneNo === '') return;
-  var pattern = new RegExp(/^(\+?1-?)?(\([2-9]([02-9]\d|1[02-9])\)|[2-9]([02-9]\d|1[02-9]))-?[2-9]([02-9]\d|1[02-9])-?\d{4}$/)
-  phoneNo = phoneNo.replace( /\s+/g, "");
-  return pattern.test(phoneNo);
+  return phoneNoValidator(phoneNo);
 }
 
 

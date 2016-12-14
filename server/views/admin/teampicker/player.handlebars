@@ -1,5 +1,9 @@
 {{> modal/teampicker_player}}
-{{> modal/teamSeasons}}
+
+{{#if teams}}
+    {{> modal/teamSeasons}}
+{{/if}}
+
 {{> modal/email}}
 <div class="container">
     <h1>Player Applications</h1>
@@ -11,7 +15,7 @@
         <h4>There are not any pending player registrations at this time.</h4>
         {{/if}}
     </div>
-    <table class="table table-bordered table-hover" style="text-align:center">
+    <table class="table table-bordered table-hover teampicker-table" style="text-align:center">
         <thead>
             <tr>
                 <td>Name</td>

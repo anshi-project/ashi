@@ -31,6 +31,8 @@ exports.divisions = teamData.reduce((a, b) => {
 
 
 exports.getTeamsInDivision = (division) =>{
+	var len = Array.isArray(division)? division.length : 1;
+
 	return teamData.reduce(function getTeams(a,b){
 		if(b.division == division){
 			a.push(b.name)

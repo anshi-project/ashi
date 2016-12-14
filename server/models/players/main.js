@@ -23,11 +23,10 @@ var playerSchema = new Schema({
 
   hockey_info: fields.hockey_info,
 
-  archive: {
-    paid: Boolean,
-    timestamp: Date,
-    isArchived: Boolean
-  }, //make sure payment status is stored!
+  archivedAt: {
+    type:Date,
+    required:false
+  }, 
   paid: {
     type: Boolean,
     required: true,
@@ -97,13 +96,14 @@ playerSchema.virtual("team.pos_abrv").get(function() {
 })
 
 
-
-playerSchema.plugin(require("../plugins/setFullName"));
+playerSchema.plugin(require("../plugins/virtuals"));
 playerSchema.plugin(require("../plugins/phonenumber"));
 
 playerSchema.statics.updateTeamRecords = methods.updateTeamRecords;
 playerSchema.statics.assignToTeam = methods.assign;
 //Create a new player object from the registration object. Assign to a team.
+playerSchema.statics.renewMembership = methods.renewMembership;
+
 playerSchema.statics.updatePayments = methods.updatePayments;
 
 

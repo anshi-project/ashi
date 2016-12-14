@@ -3,7 +3,6 @@ var json2csv = require("json2csv");
 var path = require("path");
 
 var fields = [
-	{label:"Timestamp",value:"updatedAt"},
 	{label:"Name",value:"fullname"},
 	{label:"#",value:"team.jersey_number"},
 	{label:"Position",value:"team.position"},

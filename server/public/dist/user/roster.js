@@ -69,17 +69,10 @@ $(document).ready(function(){
 		return function(id, col){
 			if(arguments.length == 2){
 				b[id][col] = !b[id][col];
+			}else if(arguments.length == 1){
+				b = {};
 			}else{
-				var keys = Object.keys(b);
-				var modified = {};
-				
-				for(var i=0; i<keys.length; i++){
-					var key = keys[i];				
-					if(b[key]["paid"] != a[key]["paid"] || b[key]["headshot"] != a[key]["headshot"]){
-						modified[key] = b[key];
-					}
-				}
-				return modified;
+				return b;
 			} 
 		} 
 	}
@@ -89,6 +82,7 @@ $(document).ready(function(){
 			var flag = $(this).children("span").hasClass("glyphicon-check")
 			$(this).children("input").prop("checked", flag);
 		})
+		stateTracker("reset");
 		updateView();
 	}
 	
@@ -120,7 +114,7 @@ $(document).ready(function(){
 			type, 
 			data, 
 			success:updateCells,
-			failure:d=>{console.log(d)}
+			failure:d=>{toastr.error(d)}
 		})
 	}
 

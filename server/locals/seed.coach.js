@@ -30,11 +30,11 @@ module.exports = function(name){
     },
 
     "contact": {
-        "passport": "No",
+        "passport_expiration": "2039-3-2",
         "email": name[0]+_.random(1,40)+"@gmail.com",
         "alt_email": "",
         "phone1": _.random(1000000000,9999999999),
-        "passport_expiration": "",
+        
         "phone2": ""
     },
 

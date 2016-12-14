@@ -2,7 +2,7 @@ var _ = require("lodash");
 var enums = require("./fields/enums")	
  
  function randomDate(){
-    return _.random(1,12)+"/"+_.random(1,31)+"/"+_.random(1980,2000);
+    return _.random(1980,2000)+"-"+_.random(1,12)+"-"+_.random(1,31);
 }
 
 function valiDATE(){
@@ -13,7 +13,7 @@ function valiDATE(){
     str = randomDate();
     date = new Date(str);
   }
-  str = str.split("/").reverse().join("-")
+ 
   return str;
 }
 
@@ -47,10 +47,10 @@ module.exports = function(name){
         }
     },
     "contact": {
-        "passport": "No",
+        "passport_expiration": Date.parse("2025-2-3"), 
         "email": name[0]+_.random(1,40)+"@gmail.com",
         "alt_email": "",
-        "phone1": _.random(2000000000,9999999999),
+        "phone1": "2323352233",
         "private_data": {
             "address": {
                 "street": "123 elm st",
@@ -61,7 +61,7 @@ module.exports = function(name){
             "guardian_number": _.random(1000000000,9999999999),
             "guardian_name": `Dave ${_.capitalize(name[1])}`
         },
-        "passport_expiration": "",
+       
         "phone2": ""
     },
     "favorite": {
@@ -89,7 +89,7 @@ module.exports = function(name){
         "gender": enums.player.gender[ _.random(0,1)],
         "weight": _.random(100,250),
         "height": enums.heights[_.random(0, enums.heights.length-1)],
-        "date_of_birth": "1985-02-02"
+        "date_of_birth": valiDATE()
     }
  }
 }
