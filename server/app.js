@@ -14,7 +14,7 @@ var bodyParser=require('body-parser');
 var cookieParser=require("cookie-parser");
 var session = require('express-session');
 var methodOverride=require("method-override");
-var port = process.env.PORT || 3000
+var port = process.env.PORT || 3000;
 
 require("dotenv").config();
 
@@ -45,4 +45,6 @@ require("./config/passport")(app);
 
 require("./routes/index")(app);
 
-app.listen(port);
+app.listen(port,function(){
+	console.log("Server up and running")
+});
