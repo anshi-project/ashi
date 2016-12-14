@@ -5,8 +5,10 @@ var MongoStore = require("connect-mongo")(express);
 var exphbs = require('express-handlebars');
 
 var hbs = exphbs.create({
-	helpers:require("./views/helpers/index"),
-	defaultLayout:"main"
+	helpers:require("./server/views/helpers/index"),
+	defaultLayout:"main",
+	layoutsDir:"./server/views/layouts",
+	partialsDir:"./server/views/partials"
 })
 
 var mongoose=require("mongoose");
@@ -37,13 +39,14 @@ app.use(session({resave:false,
 );
 
 app.engine('handlebars', hbs.engine);
+app.set("views","./server/views")
 app.set('view engine', 'handlebars');
 
 app.use('/public', express.static('public'));
 
-require("./config/passport")(app);
+require("./server/config/passport")(app);
 
-require("./routes/index")(app);
+require("./server/routes/index")(app);
 
 app.listen(port,function(){
 	console.log("Server up and running")
