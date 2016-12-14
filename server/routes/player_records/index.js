@@ -29,7 +29,7 @@ module.exports=function(app){
 			if(err || !player){
 				return res.send("Player not found.")
 			}else{
-				return res.send(player)
+				return res.json(player)
 			}
 		})
 	})
@@ -49,7 +49,7 @@ module.exports=function(app){
 			if(err ){
 				return res.send("Team not found")
 			}else{
-				res.send(team)
+				res.json(team)
 			}
 	})
 
