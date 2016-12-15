@@ -27,7 +27,6 @@ var staff = {
 
     passport_expiration:{
         type: Date,
-        required:true,
         default: Date.now
     }
 }
