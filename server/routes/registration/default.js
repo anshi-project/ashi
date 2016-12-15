@@ -75,14 +75,14 @@ module.exports=function(app){
         if(type != "player" && type !== "coach" ) return next();
         var Registration = models[req.params.type];
         
-        Registration.create(req.body,function(err,doc){
-            if(err){
-                console.log(err.ValidationError);
-                res.redirect("/register/${type}?error=${String(err)}`");
-            }
-            res.redirect("/submitted")
-        });
-    });
+        Registration.create(req.body)
+            .then(() => { res.redirect("/submitted")})
+            .catch(err => { if(err){ res.redirect(`/register/${type}?error=${String(err)}`)}})   
+    
+    })
+           
+    
+    
 
     app.post("/check-username/:username",function(req,res){
         var username = req.params.username;
