@@ -13,6 +13,8 @@ $(document).ready(function(){
 	function render(){
 		var title=$("select option:selected").text();
 		
+
+
 		window.location.hash = title;
 
 		$.each(tables,function(){
@@ -134,7 +136,7 @@ $(document).ready(function(){
 		stateTracker(id, field);
 	})
 
-	if(window.location.hash && location.pathname.match("roster") ){
+	if(window.location.hash ){
 		$("select option").each(function(){
 			var option = $(this).text();			
 			if(window.location.hash.substr(1) == option){
@@ -143,7 +145,7 @@ $(document).ready(function(){
 		})		
 	}
 	//initialize by inspection hash onload and updating team selected in the dropdown.
-	render();
+	if(!location.pathname.match("roster")) render();
 	//if none selected - render first team listed in the dropdown
 });
 
