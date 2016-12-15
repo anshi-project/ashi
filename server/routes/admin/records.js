@@ -26,7 +26,7 @@ module.exports = function(app) {
 
 		if(team_update){
 			Record.handleTeamChange(type, id, team_update, req.body, function(err,data){
-				if(err) return res.send("Error updating team/division of " + id).status(500)
+				if(err) return res.send(err).status(500)
 					res.send(data)
 			})			
 		}else{

@@ -13,7 +13,7 @@
   var passportMonth = 0;
   var passportDay = 0;
   var passportYear = 0;
-  var usernameURL = 'http://localhost:3000/check-username/';
+  var usernameURL = '/check-username/';
   var jerseyDuplicate = 'Please select three different jersey numbers.';
 
   $.validator.addMethod("pwcheck", function(value) {

@@ -36,7 +36,7 @@ exports.handleTeamChange = function(type, id,prev, update, next){
 			}
 		})
 		.then(() => { return next(null, successMessage)})
-		.catch(() => { if(err) return next(errMessage) })
+		.catch((err) => { if(err) return next(String(err)) })
 }
 
 
@@ -45,7 +45,7 @@ exports.handleUpdate = function(type, id, update,next) {
 
 	Model.findByIdAndUpdate(id, update)
 		.then(()=>{ return next(null, successMessage)})
-		.catch( err => { if(err) return next(errMessage)})
+		.catch( err => { if(err) return next(String(err))})
 
 }
 

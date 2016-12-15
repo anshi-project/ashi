@@ -4,7 +4,7 @@ var path = require("path");
 
 function getFields(type){
   var fields = require(`./fields/${type}`);
-  return _.reject(fields, (field)=>{ return field.recordOnly && field.name!="public_data[date_of_birth]" || field.name == "public_data[dob]"})
+  return _.reject(fields, (field)=>{ return field.recordOnly})
 }
 
 function getLabels(fields){

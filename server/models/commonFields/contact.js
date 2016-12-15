@@ -1,6 +1,8 @@
 var validate = require("../helpers/validate")
 var enums = require("../../locals/fields/enums")
 
+var now = Date.now();
+
 var staff = {
  	phone1: {
         type: String,
@@ -27,7 +29,7 @@ var staff = {
 
     passport_expiration:{
         type: Date,
-        default: Date.now()
+        default: now
     }
 }
 

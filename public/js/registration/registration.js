@@ -47,8 +47,8 @@ $(function() {
   })//format the phone number if valid
 
 
-  $('.submit-registration').click(function(){
-
+  $('.submit-registration').on("click",function(e){
+    
     var birthdayMessage = 'Please fill out your birthday.';
     var birthdayMonthSel = $('select[name="public_data[dob]"]');
     var birthdayDaySel = $('input[name="birthday-day"]');
