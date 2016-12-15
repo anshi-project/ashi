@@ -22,6 +22,7 @@ module.exports = function(email,url ,next){
 
 	User.findOne({"contact.email" :email})
 		.exec((err,user) =>{
+			if(!user) return next("There is no record of this email")
 			user.resetPasswordToken = token;
 			user.resetPasswordExpires = Date.now() + (60*60*2000) ; 
 			user.contact.phone1 = user.contact.phone1 || "2837364462"
