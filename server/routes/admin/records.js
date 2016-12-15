@@ -1,7 +1,7 @@
 var Record = require("../../locals/records");
 
 module.exports = function(app) {
-	app.get("/admin/records/:type", function(req, res) {
+	app.get("/admin/records/:type", function(req, res, next) {
 		var type = req.params.type;
 		var id = req.query.id;
 
@@ -9,7 +9,7 @@ module.exports = function(app) {
 			return res.redirect("/admin/index")
 		}
 		Record.render(type,id,function(error,fields, doc){
-			if(error) throw error;
+			if(error) return res.redirect("/error")
 
 			var title = doc.firstname +" "+ doc.lastname
 		

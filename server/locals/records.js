@@ -81,10 +81,8 @@ exports.render = function(type, id, next) {
 		
 	var Model = Models[type];
 
-	Model.findById(id).exec(function(err, doc) {
-		if (err) return next(err);
-
-
+	Model.findById(id).then(doc =>{
+		
 		fields.forEach((obj) => {
 			if(obj.name=="team[jersey_number]"){
 				var num = doc.hockey_info.jersey_number
@@ -100,5 +98,6 @@ exports.render = function(type, id, next) {
 		})
 		return next(null, fields, doc);
 	})
+	.catch(err => {if(err) return next(String(err))})
 }
 	//render a pre-populated form of a persons records for editting a members details 
