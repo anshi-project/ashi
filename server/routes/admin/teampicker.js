@@ -2,7 +2,10 @@ var Registration = require("../../models/registration/main");
 var Player = require("../../models/players/main");
 var Team = require("../../models/team/team")
 
-var teamsAppliedFor = require("../../locals/fields/enums").teams.applyingFor;
+var _teams_ = require("../../locals/fields/enums").teams;
+
+var teamsAppliedFor = _teams_.applyingFor;
+var teamNames = _teams_.names;
 //the teams listed on the registration form are slightly different than how they are labelled in the database.
 //on the registration forms they are more general e.g. 'Womens Masters' can be Womens Team Red or Womens Team Blue
 
@@ -50,7 +53,7 @@ module.exports = function(app) {
             if (err) throw err;
             res.render("admin/teampicker/coach", {
                 coach,
-                teams:req.session.teamSeasons,
+                teams:teamNames,
                 layout: "user",
                 userType:"admin"
             })

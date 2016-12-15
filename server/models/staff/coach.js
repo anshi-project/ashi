@@ -10,7 +10,6 @@ var coachSchema = new mongoose.Schema({
 	//coaches currently do not need to log in 
 	team:{
 		name:{type: String, enum: enums.teams.names},
-		division:{type:String, enum: enums.teams.divisions},
 		role:{type:String,enum: enums.coach.roles}
 	}, 
 	status:{type:String, default:"Active", enum:["Active","inactive"]},

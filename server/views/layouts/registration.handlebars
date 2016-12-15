@@ -24,10 +24,11 @@
 		<form id="registration-form" class="form-horizontal" action="/register/{{type}}{{token}}" method="post">
 			{{> reg/header}}
 			{{{body}}}
-			<input type="submit" value="Register" class="btn btn-primary">
+			<input type="submit" value="Register" class="btn submit-registration center-block btn-primary">
 		</form>
 	</div>
-	<script src="/public/dist/registration.min.js"></script>
+	<script src="/public/js/registration/registration.js"></script>
+	<script src="/public/js/registration/validate-form.js"></script>
 </body>
 
 </html>

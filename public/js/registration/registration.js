@@ -46,8 +46,9 @@ $(function() {
       }
   })//format the phone number if valid
 
-  
-  $('input[type=submit]').click(function(){
+
+  $('.submit-registration').click(function(){
+
     var birthdayMessage = 'Please fill out your birthday.';
     var birthdayMonthSel = $('select[name="public_data[dob]"]');
     var birthdayDaySel = $('input[name="birthday-day"]');
@@ -55,11 +56,11 @@ $(function() {
     var birthdayMonth = Number(birthdayMonthSel.val());
     var birthdayDay = Number(birthdayDaySel.val());
     var birthdayYear = Number(birthdayYearSel.val());
-    var birthdayDate = new Date(birthdayYear + '-' + birthdayMonth + '-' + birthdayDay);
+    var birthdayDate = birthdayYear + '-' + birthdayMonth + '-' + birthdayDay;
     
 
 
-    $('input[name="public_data[date_of_birth]"]').val(Date.parse(birthdayDate));
+    $('input[name="public_data[date_of_birth]"]').val(birthdayDate);
 
     if (birthdayDay === 0) notRightFunc(birthdayMessage, birthdayDaySel);
     if (birthdayMonth === 0) notRightFunc(birthdayMessage, birthdayMonthSel);
@@ -78,8 +79,9 @@ $(function() {
       if (passportDay === 0 ) notRightFunc(passportMessage, passportDaySel);
       if (passportMonth === 0) notRightFunc(passportMessage, passportMonthSel);
       if (passportYear === 0) notRightFunc(passportMessage, passportYearSel);
-      passportDate = new Date(passportYear + '-' + passportMonth + '-' + passportDay);
-      $('input[name="contact[passport_expiration]"]').val(Date.parse(passportDate));
+      
+      var passportDate = (passportYear + '-' + passportMonth + '-' + passportDay);
+      $('input[name="contact[passport_expiration]"]').val(passportDate);
     }
   });
 });

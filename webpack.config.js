@@ -3,12 +3,12 @@
 const webpack = require("webpack");
 
 module.exports = {
-  context: __dirname + "/server/public/js/user",
+  context: __dirname + "/public/js/user",
   entry: {
     main: "./index.js",
   },
   output: {
-    path: __dirname + "/server/public/dist",
+    path: __dirname + "/public/dist",
     filename: "user.js",
   },
        module: {

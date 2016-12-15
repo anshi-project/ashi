@@ -38,6 +38,7 @@ $("#coach-modal .btn-primary, #player-modal .btn-primary").on("click",function(e
 	var breakAt = location.pathname.match("/admin/assign/player") ? "tbody" : ".row"; 
 	var elem = $("button[data-url='"+id+"']").parentsUntil(breakAt)
 	
+	if(!data.name || data.hasOwnProperty("role")&& !data.role) return;
 
 	$.ajax({
 		url,

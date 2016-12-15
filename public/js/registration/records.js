@@ -1,5 +1,7 @@
 $(document).ready(function(){
 
+    if($("#registration-form").length) return;
+
     var getDates = function(){
         var dateFields ={
              passport :{

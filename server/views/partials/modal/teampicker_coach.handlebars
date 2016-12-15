@@ -9,20 +9,20 @@
         <form id="assign-coach" action="/admin/assign/coach?id=" disabled>
           <div class="form-group">
             <label for="role" class="control-label">Role:</label>
-            <input list="role" class="form-control" name="role">
-              <datalist id="role">
-                <option value="Head Coach">
-                <option value="Assistant Head Coach">
-                <option value="Assistant Coach for Defense">
-                <option value="Assistant Coach for Forwards">
-              </datalist>
+              <select name ="role">
+
+                <option value="Head Coach"> Head Coach </option>
+                <option value="Assistant Head Coach"> Assistant Head Coach </option>
+                <option value="Assistant Coach for Defense"> Assistant Coach for Defense</option>
+                <option value="Assistant Coach for Forwards"> Assistant Coach for Forwards</option>
+                <option value="Other"> Other</option>
+              </select>
           </div>
           <div class="form-group">
             <label for="team" class="control-form">Team:</label>
             <select class="form-control" name="name">
-              <option selected disabled></option>
               {{#each teams}}
-              <option value="{{this.name}}">{{this.name}}</option>
+              <option value="{{this}}">{{this}}</option>
               {{/each}}
             </select>
           </div>

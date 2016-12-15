@@ -22,5 +22,10 @@ registrationSchema.statics.assignToTeam = Method.assignToTeam;
 registrationSchema.statics.findRegisteredPlayers = Method.findRegisteredPlayers;
 //fetches player registrations as well as returning players from previous seasons
 
+registrationSchema.pre("save",function(next){
+	console.log(this.contact);
+	next();
+})
+
 
 module.exports = mongoose.model("registration", registrationSchema);

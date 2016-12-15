@@ -2,12 +2,12 @@
     
 	{{#each this.checkbox as |val|}}
 		{{#notEqual val ../value}}
-    		<label for="{{../name}}-{{val}}" class="checkbox">
-        		<input type="checkbox" name="division" value="{{val}}" id="{{../name}}-{{val}}" >{{val}}
+    		<label for="{{../../name}}-{{val}}" class="checkbox">
+        		<input type="checkbox" name="{{../../name}}" value="{{val}}" id="{{../../name}}-{{val}}" >{{val}}
     		</label>
     	{{else}}
-    	<label for="{{../name}}-{{val}}" class="checkbox">
-        	<input type="checkbox" name="division" value="{{val}}" id="{{../name}}-{{val}}" checked="true">{{val}}
+    	<label for="{{../../name}}-{{val}}" class="checkbox">
+        	<input type="checkbox" name="{{../../name}}" value="{{val}}" id="{{../../name}}-{{val}}" checked="true">{{val}}
     	</label>
     	{{/notEqual}}
     {{/each}}
