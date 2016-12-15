@@ -134,7 +134,7 @@ $(document).ready(function(){
 		stateTracker(id, field);
 	})
 
-	if(window.location.hash){
+	if(window.location.hash && location.pathname.match("roster") ){
 		$("select option").each(function(){
 			var option = $(this).text();			
 			if(window.location.hash.substr(1) == option){
