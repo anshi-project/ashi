@@ -7,12 +7,13 @@ module.exports=function(app){
     
     require("./auth")(app);    
     require("./email")(app);
-    require("./settings")(app);
+    require("./settings")(app);  
+    require("./stats/index")(app);
     require("./player_records/index")(app);
     require("./registration")(app);
     require("./admin/index")(app);
     require("./manager/index")(app);
-    require("./stats/index")(app);
+  
 
     app.get("*",function(req, res, next) {
         var err = new Error();

@@ -11,11 +11,13 @@ var hbs = exphbs.create({
 	partialsDir:"./server/views/partials"
 })
 
-var mongoose=require("mongoose");
-var bodyParser=require('body-parser');
-var cookieParser=require("cookie-parser");
+var mongoose = require("mongoose");
+var bodyParser = require('body-parser');
+var cookieParser = require("cookie-parser");
 var session = require('express-session');
-var methodOverride=require("method-override");
+var methodOverride = require("method-override");
+
+
 var port = process.env.PORT || 3000;
 
 require("dotenv").config();

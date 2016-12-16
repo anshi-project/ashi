@@ -44,7 +44,6 @@ var teamSchema = new Schema({
         timestamp:Date,
         isArchived:Boolean       
     }, 
-    key:String,
     managers: [{type: Schema.Types.ObjectId, ref: "Manager"}],
     coaches: [{type: Schema.Types.ObjectId, ref: "Coach"}],
     players: [{type: Schema.Types.ObjectId, ref: "Player"}],
@@ -121,6 +120,11 @@ teamSchema.virtual("goalies").get(function(){
     return players.filter(player => {return player.team.position.indexOf("Goalie") != -1 })
 })
 
+teamSchema.virtual("key").get(function(){
+    var apostrophe = new RegExp("'","g");
+    var str = this.name.replace(apostrophe,"");
+    return str.toLowerCase().split(" ").join("-")
+})
 
 teamSchema.virtual("archive.canRestore").get(function(){
     var now = Date.now();

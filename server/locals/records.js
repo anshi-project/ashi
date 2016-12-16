@@ -81,8 +81,8 @@ exports.render = function(type, id, next) {
 		
 	var Model = Models[type];
 
-	Model.findById(id).then(doc =>{
-		
+	Model.findById(id)
+		.then(doc =>{
 		fields.forEach((obj) => {
 			if(obj.name=="team[jersey_number]"){
 				var num = doc.hockey_info.jersey_number
