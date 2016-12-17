@@ -8,6 +8,8 @@ module.exports = function(app){
     var $regex = new RegExp(type,"i")    
     var query = {username:{$ne:req.user.username},__t:{$regex}, status:{$ne:"registration form delivered"}}
     
+    if(!/\badmin\b|\bmanager\b|\bcoach\b/i.test(type)) return next({status:404})
+
     StaffMember.find(query)
       .sort({"status":1,"lastname":1})
       .exec(function(err,user){
