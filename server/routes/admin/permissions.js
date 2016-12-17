@@ -3,14 +3,19 @@ var divisions = require("../../locals/fields/teams").divisions
 
 module.exports = function(app){
 
-  app.get("/admin/staff/:type",function(req,res){
+  app.get("/admin/staff/:type",function(req,res,next){
     var type = req.params.type;
     var $regex = new RegExp(type,"i")    
     var query = {username:{$ne:req.user.username},__t:{$regex}, status:{$ne:"registration form delivered"}}
 
     StaffMember.find(query)
       .sort({"status":1,"lastname":1})
-      .exec(function(e,user){
+      .exec(function(err,user){
+    
+        if(err) return next({status:503,msg:"There was a database error, please try again shortly."})
+        
+        if(!user.length) return next({status:404})  
+        
         res.render("admin/permissions/"+type,
           {user,staffType:type, userType:"admin",layout:"user",divisions})
     })
@@ -22,9 +27,9 @@ module.exports = function(app){
     var url = req.protocol + '://' + req.get('host');
     var mailRegForm = require("../../config/addStaff");
 
-    mailRegForm(type, email, url, function(err,info){
-      if(err) res.send(err).status(500)
-        res.send(info).status(200)
+    mailRegForm(type, email, url, function(err, info){
+      if(err) return res.status(500).send(err)
+        res.status(200).send(info)
     })
   })//send a registration form to admin or GM to fill out with token that expires in one week.
 
@@ -33,6 +38,7 @@ module.exports = function(app){
     
     StaffMember.findByIdAndUpdate(id,{"status":req.body.status})  
       .exec(function(e,d){
+        if(e) return res.status(500).send("Error Updating the database")
         res.send("Updated user:"+id);
     })
   })//grant or revoke permissions will remove staff from team/divisions and remove login credentials
@@ -40,7 +46,7 @@ module.exports = function(app){
   app.delete("/admin/permissions",function(req,res){
     var id = req.query.id;
 
-    StaffMember.findByIdAndRemove(id).exec(err=>{if(err)throw new Error(String(err))})
+    StaffMember.findByIdAndRemove(id).exec(err=>{if(err)throw new Error("db delete error")})
       .then(() => {res.send("Successfully deleted user's application")})
       .catch(err => {res.send("Something went wrong while trying to delete this application")})
   })

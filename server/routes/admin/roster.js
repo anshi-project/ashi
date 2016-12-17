@@ -17,7 +17,7 @@ module.exports=function(app){
       .sort({"name":-1}) 
       .populate({path:"players coaches managers",match:{status:"Active"}, select,options:{sort:{"team.jersey_number":1}}})
       .exec(function(err,teams){    
-        if(err) return next();
+        if(err) return next({status:503,msg:"Something went wrong while trying to retrieve data, please  refresh the page and try again"});
 
         res.render("admin/roster/team",{teams,userType:"admin", email:req.user.contact.email, layout:"user"});
       })
@@ -45,7 +45,6 @@ module.exports=function(app){
       query["team.name"] = {$in: teamsInDivion(val)}
     } 
 
-    console.log(query);
 
     Player.find(query).sort({lastname:1})
       .then(docs =>{
@@ -55,6 +54,6 @@ module.exports=function(app){
           res.download(file, filename, err=>{if(err) throw err;});
         })
       })
-      .catch(err => {if(err) res.json({"Message":"Download Error", error:String(err)})})
+      .catch(err => {if(err) return next({status:500}) })
   })
 }

@@ -4,12 +4,12 @@ module.exports = function(app){
     	var sendMessage = require("../config/nodemailer");
     	var cc = req.user.contact.email;
 
-    	if(!req.user) return next()
+    	if(!req.user) return res.status(401).send("Forbidden route");
 
     	sendMessage(req.body, function(err,info){
-    		if(err) return res.send("An error occured while sending your emails. Please try again").status(500);
+    		if(err) return res.status(500).send("An error occured while sending your emails. Please try again");
 
-    		res.send(info)
+    		res.send("gfgdfgd")
     	});   
     })
 }

@@ -68,11 +68,12 @@ exports.findRegisteredPlayers = function(callback){
     .then(newPlayers=>{
         Player.find({status:"renewing membership"},"__t  fullname firstname contact.email lastname hockey_info team")
         .exec(function(err,oldPlayers){
+            if(err) throw err;
             var result=oldPlayers.concat(newPlayers)
             
-            return callback(result);
+            return callback(null, result);
         })
-    }).catch(function(err){
-        if(err) throw "Error within the findRegisteredPlayers function";
+    }).catch((err) =>{
+        if(err) return callback(err);
     })
 }

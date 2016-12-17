@@ -32,9 +32,10 @@ module.exports = function(app) {
         })
     })//check if any teams can update/restore their current season
 
-    app.get("/admin/assign/player", function(req, res) {
-        Registration.findRegisteredPlayers(function(player) {  
-                   
+    app.get("/admin/assign/player", function(req, res, next) {
+        Registration.findRegisteredPlayers(function(err, player) {  
+            if(err) return next({status:503})
+
             res.render("admin/teampicker/player", {
                 player,
                 teams: req.session.teamSeasons,

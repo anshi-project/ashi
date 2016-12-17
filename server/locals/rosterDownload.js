@@ -29,7 +29,7 @@ module.exports=function(data,next){
 	var csv = json2csv({data,fields})
 
         fs.writeFile(filename,csv, function(error){
-	    	if(error) return next(error);
+	    	if(error) return next(String(error));
 		    return next(null,filename);
 	    }); 
 }

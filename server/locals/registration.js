@@ -55,12 +55,13 @@ exports.writeCSV = function(type, next){
   var csv = formatter(type);
 
   Registration.find({}).exec((e,docs) =>{
-  	docs.forEach(doc =>{
+  	if(e) return next(String(e));
+    docs.forEach(doc =>{
   		csv(doc);
   	})
 
   	fs.writeFile(filename, csv(), function(err){
-  		if(err) return next(err);
+  		if(err) return next(String(err));
   		return next(null,filename);
   	})
   })
@@ -72,9 +73,13 @@ exports.renderCompletedForm = function(type,id,next){
 	var Registration = require(`../models/registration/_${type}Reg`);
 
 	Registration.findById(id).exec(function(err,doc){
-		if(err) return next(err);
+		if(err) return next("Something went wrong while fetching from the database");
+
+    if(!doc) return next(`Couldn't find a registration matching the id: ${id}`);
+    
     doc.contact.passport_exp = doc.contact.passport_expiration;
-		var fields = _fields.reduce((prev,curr)=>{
+		
+    var fields = _fields.reduce((prev,curr)=>{
 			prev[curr.label] = _.result(doc, curr.name);
 			return prev;
 		},{})

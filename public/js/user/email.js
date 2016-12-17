@@ -88,9 +88,6 @@ $(function(){
 		recipients.val(tryoutEmails[teamName])
 	})
 
-
-
-
 	$(".send-email-btn").on("click",function(){
 		var url = "/message";
 		var recipients = validate();
@@ -108,12 +105,12 @@ $(function(){
 			url,
 			type:"POST",
 			data,
-			success: function(response){
-				toastr.success("Messages successfully delivered")
+			success: function(success){
+				toastr.success(success.responseText)
 				$("#message-text, #subject").val("")
 			},
-			failure:function(msg){
-				toastr.error("Your emails were not delivered. Please try again")
+			error:function(error){
+				toastr.error(error.responseText)
 			}
 		})
 	})
@@ -131,11 +128,11 @@ $(function(){
 			type:"POST",
 			data:{email},
 			success: response=>{
-				toastr.success("An application form was successfully delivered to " + email)
+				toastr.success(response)
 				$("input[type='email']").val("");
 			},
-			failure: err => {
-				toastr.error(err)
+			error: err => {
+				toastr.error(err.responseText)
 			}
 		})
 	})

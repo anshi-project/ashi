@@ -24,7 +24,7 @@ module.exports = function(app) {
     }));
 
     app.get("/auth/success", function(req, res, next) {
-        if (!req.user) return next();
+        if (!req.user) return next(new Error({status:401}));
 
         if (req.user.__t == "Admin") {
             return res.redirect("/admin/index")

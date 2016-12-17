@@ -11,5 +11,4 @@ function getTeamStats(req, res){
         }
     })
 }
-
 module.exports = getTeamStats;
