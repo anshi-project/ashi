@@ -21,7 +21,7 @@ module.exports=function(app){
     });
 
     app.use(function(error,req,res,next){
-        console.log(String(error))
+        
         res.render("error",{title:error.status, message:error.msg})
     })
 }

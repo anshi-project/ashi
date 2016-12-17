@@ -7,14 +7,12 @@ module.exports = function(app){
     var type = req.params.type;
     var $regex = new RegExp(type,"i")    
     var query = {username:{$ne:req.user.username},__t:{$regex}, status:{$ne:"registration form delivered"}}
-
+    
     StaffMember.find(query)
       .sort({"status":1,"lastname":1})
       .exec(function(err,user){
     
         if(err) return next({status:503,msg:"There was a database error, please try again shortly."})
-        
-        if(!user.length) return next({status:404})  
         
         res.render("admin/permissions/"+type,
           {user,staffType:type, userType:"admin",layout:"user",divisions})
