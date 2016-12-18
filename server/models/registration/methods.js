@@ -1,6 +1,3 @@
-var Team=require("../team/team");
-var Player=require("../players/main")
-
 var mongoose = require("mongoose")
 var _=require("lodash");
 
@@ -18,7 +15,7 @@ function formatPerson(doc,team,type){
         var league_team = info.league_team;
         var tournament_team = info.tournament_team;
         var website = info.website;
-        var flag = position.indexOf("Goalie") == -1;//Player is not a goalie
+ 
         var teamName = team.name;
 
         person.model = "Player"
@@ -39,7 +36,8 @@ function formatPerson(doc,team,type){
 
 exports.assignToTeam = function(id, team, type, callback){   
     var Registration =  mongoose.model(`${type}-registration`)
-    
+    var Team = mongoose.model("team")
+
     Registration.findById(id).exec((err,doc) => {
         if(err) return callback(err);
 
