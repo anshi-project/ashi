@@ -1,0 +1,52 @@
+{{> modal/teampicker_manager}}
+
+<h1>A.S.H.I. Managers</h1>
+<label for=".staff-checkbox">Show all?</label>
+<input type="checkbox" class="staff-checkbox">
+{{> permissions/emailForm}}
+<table class="table table-bordered table-condensed" data-staff="manager">
+  	<thead>
+  		<tr>
+  			<td>Name</td>
+  			<td>Division</td>
+        <td>Phone</td>
+  			<td>Email</td>
+  			<td>Username</td>
+        <td>Permissions</td>
+  			<td>Record</td>
+  		</tr>
+  	</thead>
+  	{{#each user as |GM|}}
+      {{#isEqual GM.status "Active"}}
+      <tr class="row-active">
+      {{else}}
+      <tr class="bg-warning text-muted row-{{GM.status}}">
+      {{/isEqual}} 
+  	
+    <td>{{GM.fullname}}</td>
+    <td>{{GM.division}}</td>
+  	<td>{{GM.contact.phone1}}</td>
+  	<td>{{GM.contact.email}}</td>
+  	<td>{{GM.username}}</td>
+    {{#isEqual GM.status "pending"}}
+      <td><button class="btn-success add-to-staff" data-user="{{GM._id}}" >Add to staff</button></td>
+      <td>
+      <button class="btn-warning delete-record" style="color:black;font-weight:bolder" 
+      data-url="{{GM._id}}">Delete</button></td>
+    {{else}}
+    <td>
+      
+      {{#isEqual GM.status "Active"}}  
+      <button type="button" class="btn-danger permission-btn" data-status="{{GM.status}}" data-user="{{GM._id}}">Revoke Credentials</button>
+      {{else}}
+            <button type="button" class="btn-info permission-btn" data-status="{{GM.status}}" data-user="{{GM._id}}">Grant Credentials</button>
+      {{/isEqual}}
+     
+    </td>
+    <td>
+      <a href="/admin/records/manager?id={{../_id}}" target="_blank">View</a>
+    </td>
+    {{/isEqual}}
+  </tr>
+  {{/each}}
+</table>

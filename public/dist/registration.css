@@ -1,0 +1,238 @@
+body{
+    background:#fffeff;
+    color: #333;
+    font-family: "Arial, Helvetica Neue", Helvetica, sans-serif;
+    font-size: 1em;
+}
+
+img {
+    margin: 0.5em 0em 0em 0.5em;
+}
+
+h2 {
+  font-size: 2em;
+  margin-top: 1em;
+  margin-left: 0.08em;
+}
+
+span.reg-type {
+   text-transform: capitalize;
+}
+
+.navbar-default{
+  font-size: 1.3em;
+}
+
+.message-box {
+  margin: 1em 0em 0.5em -0.3em;
+  border: 5px solid #008000;
+  padding-left: 0.2em;
+}
+
+
+.alert{
+  display: none;
+}
+
+.form-group {
+  padding-left: 0.2em;
+  padding-right: 0.3em;
+}
+.current{
+  display:block;
+}
+
+ #registration-form, #records-form{
+  /*text-align: center;*/
+  margin:5em auto;
+  margin-top: 3em;
+  padding:10px;
+  background: #f9f9f9;
+  width:29em;
+  padding-left: 2em;
+  padding-right: 2em;
+  position: relative;
+  text-align: left;
+  border: 1px solid #666;
+}
+#records-form{
+  font-size: 1.5em;
+}
+
+.fullwidth {
+  width: 23em;
+}
+.form-navigation{
+  width:95%;
+  margin:0 auto;
+}
+.btn-nav,.btn-submit{
+  font-size:1.4em;
+}
+.btn-nav{
+  background:#0c0323;
+}
+.btn-primary{
+  background-color: #275d8b;
+  padding: 0 0.3em 0 0.3em;
+}
+
+.btn-primary:hover{
+  background-color: #42a5f5;
+  padding-bottom: 0.2em;
+}
+
+.btn-nav:hover{
+    color: #ffff25;
+    background: #04050c;
+}
+
+
+.weight,
+input[name='team[jersey_number]'],
+.jersey-1,
+.jersey-2,
+.jersey-3 {
+  width: 3.2em;
+}
+
+
+
+input {
+  border: 1px solid #737373;
+  height: 2em;
+}
+
+input[type=text] {
+  text-align: left;
+  padding-left: 0.5em;
+  color: #333;
+}
+
+
+
+.form-control .date {
+  border-radius: 0em;
+  border-color: #737373;
+}
+
+.hidden-date {
+  display: none;
+}
+
+.month,
+.date {
+  display: inline;
+  width: 7em;
+  height: 2em;
+}
+
+select {
+  border: 1px solid #737373;
+  color: #333;
+  display: block;
+}
+
+.error {
+  color: #dd4b39;
+  font-size: 0.9em;
+  font-weight: bold;
+  display: block;
+}
+
+.page-header {
+  margin-bottom: 1em;
+}
+
+.player-height,
+.state {
+  height: 2em;
+}
+
+
+.empty {
+  color: #dd4b39;
+  font-size: 0.9em;
+  font-weight: bold;
+}
+
+.redBorder {
+  border: 1px solid #dd4b39;
+}
+
+input[type="checkbox"] {
+    background-color: #ffffef;
+    height: 15px;
+    width: 15px;
+    vertical-align: middle;
+    margin: -0.1em 0.4em 0em 0em;
+    border: 2px solid #333;
+
+    -webkit-appearance: none;
+    -webkit-transition: box-shadow 200ms;
+    -webkit-border-radius:2px;
+    border-radius:2px;
+}
+
+input[type="checkbox"]:checked:before {
+  background-color: #ffffef;
+  content: '';
+  display: block;
+  width: 4px;
+  height: 8px;
+  border: 2px solid #333;
+  border-width: 0 2px 2px 0;
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+  margin-left: 4px;
+  margin-top: 1px;
+}
+
+@media (max-width:667px){
+    #registration-form{
+        width:98%;
+        margin: 0 auto;
+        padding-left: 0.5em;
+        padding-right: 0.1em;
+    }
+
+    .fullwidth {
+      width: 96%;
+    }
+
+    img {
+      margin-bottom: 1em;
+    }
+
+    label{
+        font-size: 1em;
+    }
+}
+
+input[type='submit']{
+  margin-left: 0.2em;
+}
+
+label.checkbox-inline {
+  margin-right: 1em;
+}
+
+::-webkit-input-placeholder {
+    color:#333;
+    opacity: 0.95;
+}
+
+::-moz-placeholder {
+    color:#333;
+    opacity: 0.95;
+}
+
+::-ms-placeholder {
+    color:#333;
+    opacity: 0.95;
+}
+
+::placeholder {
+    color:#333;
+    opacity: 0.95;
+}

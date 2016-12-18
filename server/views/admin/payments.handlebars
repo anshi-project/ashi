@@ -1,0 +1,42 @@
+<form class="form-horizontal center-block" style="width:40%" disabled>
+	<div class='form-group'>
+		<label class="control-label">Filter by name:</label>
+		<input class="form-control player-payment-search-input">
+	</div>
+	<div class="form-group payment-radio">
+        <label for="radio-all" class="radio-inline">
+            <input type="radio" name="paid-filter" value=".payment-row" id="radio-all" checked="true"> Show All        
+        </label>	
+        <label for="radio-paid"  class="radio-inline">
+            <input type="radio" name="paid-filter" value=".payment-true" id="radio-paid"> Hide unpaid?
+        </label>
+        <label for="radio-unpaid"  class="radio-inline">
+            <input type="radio" value=".payment-false" name="paid-filter" id="radio-unpaid"> Hide paid?
+        </label>        
+	</div>
+</form>	
+
+<table class="table">
+	<thead>
+		<tr>
+			<td>Name</td>
+			<td>Team</td>
+			<td>Email</td>
+			<td>Phone</td>
+			<td>Update</td>
+		</tr>
+	</thead>
+	<tbody>
+		{{#each player}}
+		<tr class='payment-{{this.paid}} payment-row' data-player="{{this.firstname}} {{this.lastname}}">
+			<td style="text-transform:capitalize">{{this.lastname}}, {{this.firstname}}</td>
+			<td>{{this.team.name}}</td>
+			<td>{{this.contact.email}}</td>
+			<td>{{this.contact.phone1}}</td>
+			<td>
+				<button class="payment-btn" data-id="{{this._id}}" data-paid={{this.paid}}>Mark as paid</button>
+			</td>
+		</tr>
+		{{/each}}
+	</tbody>
+</table>

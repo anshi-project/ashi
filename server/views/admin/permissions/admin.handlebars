@@ -1,0 +1,57 @@
+<h1>A.S.H.I. Admins</h1>
+<label for=".staff-checkbox">Show all?</label>
+<input type="checkbox" class="staff-checkbox">
+
+{{> permissions/emailForm}}
+<hr>
+<table class="table table-bordered table-condensed" data-staff="admin">
+  	<thead>
+  		<tr >
+  			<td>Name</td>
+  			<td>Phone</td>
+  			<td>Email</td>
+  			<td>Username</td>
+  			<td>Update</td>
+
+  		</tr>
+  	</thead>
+    <tbody>
+  	{{#each user as |admin| }}
+    	{{#isEqual admin.status "Active"}}
+      <tr class="row-Active">
+      {{else}}
+      <tr class="bg-warning text-muted row-{{admin.status}}">
+      {{/isEqual}}
+
+    	<td>{{admin.fullname}}</td>
+    	<td>{{admin.contact.phone1}}<br>
+    	   {{admin.contact.phone2}}</td>
+    	<td>{{admin.contact.email}}</br>
+    	   {{admin.contact.alt_email}}</td>
+    	<td>{{admin.username}}</td>
+     
+      {{#isEqual admin.status "pending"}}
+
+      <td>
+      <div class="btn-group">
+      <button class="btn-success add-admin-to-staff" data-user="{{admin._id}}" >Add to staff</button>
+      <button class="btn-warning delete-record" style="color:black;font-weight:bolder" 
+      data-url="{{admin._id}}">Delete</button>
+      </div>
+      </td>
+    {{else}}
+    <td>
+      
+      {{#isEqual admin.status "Active"}}  
+      <button type="button" class="btn-danger permission-btn" data-status="{{admin.status}}" data-user="{{admin._id}}">Revoke Credentials</button>
+      {{else}}
+            <button type="button" class="btn-info permission-btn" data-status="{{GM.status}}" data-user="{{admin._id}}">Grant Credentials</button>
+      {{/isEqual}}
+     
+    </td>
+
+    {{/isEqual}}
+  </tr>
+  {{/each}}
+  </tbody>
+</table>

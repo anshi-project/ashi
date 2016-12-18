@@ -1,0 +1,20 @@
+<button class="btn btn-primary pull-right" type="button" data-toggle="collapse" data-target="#permission-well" aria-expanded="false" >
+<span class="glyphicon glyphicon-user"></span>
+  Add a new {{staffType}}
+</button>
+<span class="clearfix"></span>
+<div class="collapse" id="permission-well">
+  <div class="well center-block" style="width:60%">
+    <div class="form-inline">
+    <span class="help-block">Enter the email address of the staff member you wish to add to the database. They will be sent a form to fill out. Once completed, their information will appear in the table below.
+     Their username and password will not become valid until you click the "Grant Access" button next to their name. </span>
+    <div class="form-group">
+      <label for="email">Email: </label>
+      <input type="email" class="form-control" name="email">
+    </div>
+    <button class="btn-sm btn-success email-reg-form" data-staffType="{{staffType}}">
+      <span class="glyphicon glyphicon-envelope"></span>
+    Send Application</button>
+  </div>
+  </div>
+</div>

@@ -1,0 +1,43 @@
+<table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>#</th>  
+        <th>Pos</th>
+        <th>Email</th>
+        <th>Phone</th> 
+        <th>Age</th>
+        <th>Height</th>
+        <th>Shoots</th>
+        <th>Hat</th>
+        <th>Jersey </th>
+        <th>Jacket</th>
+        <th>Polo </th>
+        <th>Shorts</th>
+        <th>Headshot</th>
+        <th>Paid</th>      
+      </tr>
+    </thead>
+    <tbody>
+        {{#each players}}
+      <tr>  
+        <td>{{this.fullname}}</td>
+        <td>{{this.team.pos_abrv}}</td>
+        <td>{{this.team.jersey_number}}</td>
+        <td class="email-cell">
+          <a href="mailto:{{this.contact.email}}"> {{this.contact.email}}</a>
+        </td>
+        <td>{{this.contact.phone1}}</td>
+        <td>{{this.public_data.age}}</td>
+        <td>{{this.public_data.height}}</td>
+        <td>{{this.team.shooting_hand}}</td>
+        <td>{{this.apparel.hat}}</td>
+        <td>{{this.apparel.jersey}}</td>
+        <td>{{this.apparel.jacket}}</td>
+        <td>{{this.apparel.polo}}</td>
+        <td>{{this.apparel.shorts}}</td>        
+        {{> roster/paid}}
+      </tr>
+      {{/each}}
+    </tbody>
+  </table> 

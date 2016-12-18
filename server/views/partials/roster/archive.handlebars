@@ -1,0 +1,12 @@
+{{#if this.archive.isArchived}}
+<div class="center-block">
+	<p>
+	This team has been archived because the current season has ended. What is being displayed is the most recent roster which will be automatically updated once next season's picks are submitted.</p>
+	<p> If this team was not meant to be archived, please press the button below. 
+	</p>	
+	<button class="btn center-block btn-default btn-archive" data-user={{userType}} data-archived=true>Restore Team</button>
+</div>		
+
+{{else}}
+	<button class="btn center-block btn-default btn-archive" data-user="{{userType}}" data-archived={{this.archive.isArchived}}>Archive Team</button>
+{{/if}}	

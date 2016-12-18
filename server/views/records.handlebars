@@ -1,0 +1,34 @@
+<form  method="post" class="form-horizontal" id="records-form" action="/{{userType}}/records/{{type}}?id={{id}}&_method=PUT" >
+	<div class="page-header bg-info">
+		<p class='message-box'>{{title}}</p>
+	</div>
+	<div class="container-fluid">
+	{{#each fields}}
+	<div class="form-group">
+	
+	{{#unless this.textarea}}	
+	<label for="{{this.name}}">{{this.label}}</label>
+	{{/unless}}
+
+		{{#if this.checkbox}}
+			{{> records/checkbox}}
+		{{else if this.date}}
+			{{> records/date}}	
+		{{else if this.list}}
+			{{> records/list}}
+		{{else if this.textarea}}
+			<label for="{{this.name}}">{{this.label}}</label><br>
+			<textarea value="{{this.value}}" class="form-control" rows="7" name="{{this.name}}">{{this.value}}</textarea>	
+		{{else}}
+		<div>
+			<input class="{{this.class}}" value="{{this.value}}" name={{this.name}} required="{{this.required}}">
+		</div>
+		{{/if}}	
+	</div>
+	{{/each}}
+	<input type="submit" class="update-main-records" value="Update Record">
+	</div>
+</form>
+{{> panels}}
+
+

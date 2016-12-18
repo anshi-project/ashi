@@ -1,0 +1,17 @@
+<div class='{{this.class}}'>
+  <select name="{{this.name}}" class="month">
+    <option value="{{this.values.month.num}}" selected>{{this.values.month.text}}</option>
+  	{{#each this.month as |month|}}
+      {{#notEqual month.num ../values.month.num}}
+    	<option value="{{month.num}}">{{month.text}}</option>
+      {{/notEqual}}
+  	{{/each}}
+  </select>
+  <div class="input-group date">
+    <input type="text" class='day' name='{{this.day_input}}' value="{{this.values.day}}" maxlength='2' size='2' placeholder="Day">
+    <input type="text" class='year' name='{{this.year_input}}' value="{{this.values.year}}" maxlength='4' size='4' placeholder="Year">
+  </div>
+  <div class='hidden-date'>
+    <input type="text" name='{{this.value}}'>
+  </div>
+</div>

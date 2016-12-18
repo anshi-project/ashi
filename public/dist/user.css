@@ -1,0 +1,74 @@
+html{
+	min-height: 100%;
+}
+body{
+background: #f5fffe;
+	/*background:#d1d4d4;*/
+}
+.page-header{
+	margin-top:0px;
+}
+ .team-table, .roster-checkbox, .cancel-edit-btn, .alert, .row-inactive{
+ 	display: none;
+ }
+
+ .teampicker-alert, .team-table-active{
+ 	display: block;
+ } 
+ 
+.form-horizontal{
+ 	text-align: center;
+ }
+
+ h1{
+ 	margin-bottom: 5px;
+ 	text-align:center;
+}
+table{
+	border:1px solid black;
+}
+thead{
+	background: #3e4f5f;
+	color:white;
+	font-weight: bold;
+}
+.table, .table-bordered, .panel{
+	background: #fff;
+}
+
+.permission-btn, .add-to-staff, .add-admin-to-staff .delete-record{
+	width:100%;
+}
+.manager-pending{
+	font-style: italic;
+	color:red;
+}
+.td-checkbox{
+	text-align: center;
+	color:green;
+}
+
+.td-checkbox .glyphicon-remove{
+	color:red;
+}
+.roster-controls{
+	display: flex;
+	justify-content: space-around;
+}
+.roster-gm-display{
+	display:flex;
+	align-items: center;
+}
+.roster-gm-display h4{
+	margin-left:10px; 
+}
+
+.btn-add2{
+	color:#fff;
+	background:#10144d;
+}
+.btn:hover{
+	color:#fff5b1;
+}
+
+

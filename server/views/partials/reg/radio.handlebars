@@ -1,0 +1,7 @@
+{{#each this.radio}}
+    <label class="custom-control custom-radio">
+      <input type="radio" name="{{../name}}" value="{{this}}" id="{{../name}}-{{this}}" class="custom-control-input">
+      <span class="custom-control-indicator"></span>
+      <span class="custom-control-description">{{this}}</span>
+    </label>
+{{/each}}

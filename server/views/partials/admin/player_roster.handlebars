@@ -1,0 +1,26 @@
+<table class="table table-bordered">
+    <thead>
+      <tr>
+    {{> admin/player_heading}}
+      </tr>
+    </thead>
+    <tbody>
+        {{#each players}}
+      <tr>  
+        <td>{{this.fullname}}</td>
+        <td>{{this.team.jersey_number}}</td>
+        <td>{{this.team.pos_abrv}}</td>
+        <td class="email-cell">{{this.contact.email}}</td>
+        <td>{{this.contact.phone1}}</td>
+        <td>{{this.public_data.age}}</td>
+        <td>{{this.public_data.height}}</td>
+        <td>{{this.public_data.weight}}</td>
+        <td>{{this.team.shooting_hand}}</td>
+        {{> roster/paid}}
+        <td> 
+            <a target="_blank" href="/admin/records/player?id={{this._id}}">Edit</a>
+        </td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table> 

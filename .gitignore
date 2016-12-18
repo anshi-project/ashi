@@ -1,0 +1,4 @@
+node_modules
+.env
+server/locals/seed.coach.js
+server/locals/seed.js

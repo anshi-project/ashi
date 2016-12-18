@@ -1,0 +1,77 @@
+<div class='ashi-team-name'></div>
+<div class='home-game'></div>
+<img src='../public/images/ashi-logo.png' alt='ashi logo'>
+<div class='container-fluid'>
+	<h1 class='scorecard-title'>ASHI Score card</h1>
+		<div class="row controls">
+			<div class="col-sm-12">
+				<input type="text" id="flatpickr" data-input placeholder="Select game date and time">
+			</div>
+		</div>
+		<div class="row">
+	    	<div class="col-sm-6">
+	       		<div class="form-group controls">
+					<select class="form-control" id="home-dropdown">
+						<option value="">Select Home team</option>
+						{{>scorecard/_teamDropdown}}
+						<option value="blank scorecard">blank scorecard</option>
+					</select>
+				</div>
+				<h2 class='home-team-name'></h2>
+				<div class="home-name-input"></div>
+				<div class="home"></div>
+			</div>
+			<div class="col-sm-6">
+	        	<div class="form-group controls">
+					<select class="form-control" id='road-dropdown'>
+						<option value="">Select Road team</option>
+						{{>scorecard/_teamDropdown}}
+						<option value="blank scorecard">blank scorecard</option>
+					</select>
+				</div>
+				<h2 class='road-team-name'></h2>
+				<div class="road-name-input"></div>
+				<div class="road"></div>
+			</div>
+		</div>
+		<div class='row'>
+			<div class="col-sm-8">
+				<button type='submit' class='btn btn-primary notes' data-toggle="modal" data-target="#notesModal">Notes</button>
+				<button type='submit' class='controls submit-scorecard btn btn-primary'>Send to ASHI server</button>
+				<button type='submit' class='controls save-to-local-disk btn btn-primary'>Save to local drive</button>
+			</div>
+			<div class="col-sm-2"></div>
+			<div class="col-sm-2">
+				<button type='submit' class='lock-unlock-scorecard btn btn-success'>Safe mode</button>
+			</div>
+		</div>
+		<div class='row'>
+			<div class="col-sm-2">
+				<button type='submit' class='controls reset-scorecard btn btn-danger'>Reset scorecard</button>
+			</div>
+			<div class="col-sm-10"></div>
+		</div>
+		<div class='row'>
+			<div class='col-sm-12 saved-games controls'></div>
+		</div>
+		<div class="modal fade" id="notesModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Notes</h4>
+                    </div>
+                    <div class="modal-body">
+                        <textarea rows='20' class="form-control col-xs-12"></textarea>
+                    </div>
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-primary save-notes " data-dismiss="modal">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- <script src="/public/lib/underscore-1.8.3-min.js"></script>
+<script src="/public/lib/localforage.min.js"></script>
+<script src="/public/lib/flatpickr.min.js"></script> -->
+<!-- <script src="/public/dist/main.js"></script> -->

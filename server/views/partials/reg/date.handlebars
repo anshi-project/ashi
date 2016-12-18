@@ -1,0 +1,15 @@
+<div class='{{this.class}}'>
+  <select name="{{this.name}}" class="month">
+    <option value="0" disabled selected>Month</option>
+  	{{#each this.month}}
+    	<option value="{{this.num}}">{{this.text}}</option>
+  	{{/each}}
+  </select>
+  <div class="input-group date">
+    <input type="text" class='day' name='{{this.day_input}}' maxlength='2' size='2' placeholder="Day">
+    <input type="text" class='year' name='{{this.year_input}}' maxlength='4' size='4' placeholder="Year">
+  </div>
+  <div class='hidden-date'>
+    <input type="text" name='{{this.hidden}}'>
+  </div>
+</div>

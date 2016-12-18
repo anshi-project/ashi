@@ -1,0 +1,48 @@
+<div class="modal fade in" id="seasons-modal" tabindex="-1" role="dialog" aria-labelledby="modal-label">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close close-modal" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <div class="alert alert-danger teampicker-alert">
+          <strong>
+            <span class="glyphicon glyphicon-alert"></span>
+            Warning:
+          </strong> 
+          Before adding a player to a team roster, please make sure that the specific team has been configured to the correct season. This will ensure that all stats can be tracked accurately.
+        </div>        
+      </div>
+      <div class="modal-body">  
+        <table class="season-table table-condensed table-hover table">
+          <thead>
+            <tr>
+              <td>Team</td>
+              <td>Update</td>
+            </tr>
+          </thead>
+          <tbody>    
+            {{#each teams}}
+            <tr>
+              <td>{{this.name}}</td>
+              <td>
+                {{#if this.archive.canRestore}}
+                <button class="btn-danger btn-small season-btn"
+                data-restore="true"
+                 data-team="{{this.name}}">Restore Last Season</button>  
+                {{else if this.archive.canUpdate}}
+                <button class="btn-warning btn-small season-btn"  
+                style="color:black" data-team="{{this.name}}">New Season</button>
+                {{else}}
+                <div class="bg-success">
+                  <span class="glyphicon glyphicon-check"></span>  
+                   Up to date
+                </div>
+                {{/if}}             
+              </td>               
+            </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

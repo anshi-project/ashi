@@ -1,0 +1,31 @@
+<div class="roster-controls">
+	<div>
+		<label>Search</label>
+		<input type="text" class="search-players" list="names">
+		<datalist id="teams">
+		{{#each teams2}}
+			<option value="{{this}}">
+		{{/each}}
+		</datalist>
+		<br>
+		<div class="pull-left">
+			By Name
+			<input type="radio" name="filter-players" value="name" checked>
+		</div>
+		<div class="pull-right">
+			By Team
+			<input type="radio"  name="filter-players" value="teams">
+		</div>
+	</div>
+	<div class="btn-group">
+		<button class="btn-sm btn-info ">
+			<span class="glyphicon glyphicon-export"></span>	
+			<a href= "/admin/applications/player" style="color:white">
+				Export Excel Sheet
+			</a>
+		</button>
+	</div>		
+	
+{{> teampicker/emailButton}}
+			
+</div>  

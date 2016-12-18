@@ -1,0 +1,34 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="/public/lib/bootstrap.css">
+	<link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
+	<link rel="stylesheet" type="text/css" href="/public/dist/registration.css">
+	<script src="/public/lib/jquery-2.2.4.js"></script>
+	<script type="text/javascript" src="/public/lib/jquery.validate.js"></script>
+	<script type="text/javascript" src="/public/lib/validate-additional-methods.js"></script>
+	<title>Registration</title>
+</head>
+
+<body>
+	<div class="container-fluid">
+		<img src='../../public/images/ashi-logo.png' alt='ashi logo'>
+		{{#if error}}
+		<div class="panel bg-danger" style="text-align:center" >
+			<h3>There was an error submitting your form. We apologize for the inconvenience</h3></div>
+		{{/if}}
+		<form id="registration-form" class="form-horizontal" action="/register/{{type}}{{token}}" method="post">
+			{{> reg/header}}
+			{{{body}}}
+			<input type="submit" value="Register" class="btn submit-registration center-block btn-primary">
+		</form>
+	</div>
+	<script src="/public/js/registration/registration.js"></script>
+	<script src="/public/js/registration/validate-form.js"></script>
+</body>
+
+</html>

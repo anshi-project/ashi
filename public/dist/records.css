@@ -1,0 +1,17 @@
+h3{
+	text-align: center;
+	text-transform: capitalize;
+	width:50%;
+	padding:20px;
+	margin:0 auto;
+}
+
+.main-records{
+	background:#eee;
+	width:400px;
+	margin:0 auto;
+	padding:20px;
+}
+input[name="checkbox"]{
+	background: white;
+}

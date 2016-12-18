@@ -1,0 +1,39 @@
+{{> modal/teampicker_player}}
+
+{{#if teams}}
+    {{> modal/teamSeasons}}
+{{/if}}
+
+{{> modal/email}}
+<div class="container">
+    <h1>Player Applications</h1>
+    <hr>
+    <div class="page-header">
+        {{#if player}}
+            {{> teampicker/nav}}
+        {{else}}
+        <h4>There are not any pending player registrations at this time.</h4>
+        {{/if}}
+    </div>
+    <table class="table table-bordered table-hover teampicker-table" style="text-align:center">
+        <thead>
+            <tr>
+                <td>Name</td>
+                <td>Application</td>
+                <td>Team trying out for</td>
+                <td>Position</td>
+                <td>Add to team</td>
+                <td>Cut</td>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each player as |player|}}
+                {{#notEqual player.__t "player-registration"}}
+                    {{> teampicker/oldPlayer player}}
+                {{else}}
+                    {{> teampicker/newPlayer player}}
+                {{/notEqual}}
+            {{/each}}
+        <tbody>
+    </table>
+</div>

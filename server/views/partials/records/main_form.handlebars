@@ -1,0 +1,17 @@
+<form  class="form-horizontal" id="registration-form" method="post" action="/admin/records/{{type}}?id={{id}}&_method=PUT">
+	{{#each fields}}
+	<div class="form-group">
+	<label for="{{this.name}}">{{this.label}}</label>
+		{{#if this.checkbox}}
+			{{> records/manager}}
+		{{else if this.list}}
+			{{> records/list}}
+		{{else}}
+		<div>
+			<input type="{{this.type}}" value="{{this.value}}" name={{this.name}}>
+		</div>
+		{{/if}}	
+	</div>
+	{{/each}}
+	<input type="submit" class="update-main-records" value="Update Record">
+</form>

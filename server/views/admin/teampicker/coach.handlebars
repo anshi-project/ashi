@@ -1,0 +1,42 @@
+{{> modal/teampicker_coach}}
+
+<div class="container">
+    <div class="page-header">
+        {{#if coach}}
+        <h4>Below are the pending coach registration forms.</h4>
+        <h6>If you wish to review any of their applications,
+        <a href="/admin/applications/coach"> CLICK HERE</a> to export an excel spreadsheet.</h6>
+        {{else}}
+        <h4>There are not any pending coach registrations at this time.</h4>
+        {{/if}}
+    </div>
+    <div class="row">
+    {{#each coach}}
+    <div class="col-md-4 panel panel-default">
+        <div class="panel-heading">
+            <div class="panel-title">{{this.fullname}}
+<a target="_blank" class="btn-sm btn-info pull-right" href="/admin/applications/coach/view?id={{this._id}}">View</a>
+
+            </div>
+        </div>
+        <div class="panel-body">
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <strong>Position Applying For:</strong>{{this.background.preferred_coaching_position}}
+                </li>
+                <li class="list-group-item">
+                    <strong>Team Applying For: </strong>
+                    {{this.background.team_applying_for}}
+                </li>
+            </ul>
+            <div>
+                <button class="btn-sm btn-success btn" data-toggle="modal" href="#coach-modal" data-url="{{this._id}}" data-person="{{this.fullname}}">Place on team</button>
+                <button class="btn-sm btn-danger btn-delete btn" data-url='{{this._id}}'>Delete</button>
+            </div>
+            <span class="clear-fix"></span>              
+  
+        </div>
+    </div>
+    {{/each}}
+    </div>
+</div>

@@ -1,0 +1,22 @@
+    <table class="table table-bordered">
+        <thead>
+          <tr>
+        {{> admin/coach_heading}}
+          </tr>
+        </thead>
+        <tbody>
+            {{#each coaches}}
+          <tr>  
+            <td>{{this.fullname}}</td>
+            <td>{{this.team.role}}</td>
+            <td class="coach-email-cell">{{this.contact.email}}</td>
+            <td>{{this.contact.phone1}}</td>
+            <td>
+              <a href="/admin/records/coach?id={{this._id}}">
+              Edit
+              </a>
+            </td>         
+          </tr>
+          {{/each}}
+        </tbody>
+      </table> 
