@@ -3,13 +3,13 @@
 const webpack = require("webpack");
 
 module.exports = {
-  context: __dirname + "/public/js/user",
+  context: __dirname + "/public/js",
   entry: {
-    main: "./index.js",
+    main: "./main.new.js",
   },
   output: {
     path: __dirname + "/public/dist",
-    filename: "user.js",
+    filename: "scorecard.main.js",
   },
        module: {
          loaders: [{

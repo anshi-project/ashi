@@ -13,6 +13,13 @@ var teamData = [
 ]
 //main config of teams that the rest of the application must reference
 
+function getKey(_name){
+	var name = _name.replace(/\'/g,"");
+	name = name.toLowerCase();
+	return name.split(" ").join("-")
+}
+
+
 exports.getDivision = function(teamName){
  	var obj = _.find( teamData, {name: teamName});
  	if(!obj) return "Junior's"
@@ -21,6 +28,12 @@ exports.getDivision = function(teamName){
 
 exports.names = teamData.map(t => {return t.name})
 
+exports.namesAndKeys = teamData.map(t => {
+	return {
+		name:t.name,
+		key:getKey(t.name)
+	}
+})
 
 exports.divisions = teamData.reduce((a, b) => {
 	if (a.indexOf(b.division) == -1) {

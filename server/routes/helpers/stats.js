@@ -1,7 +1,7 @@
 var Team = require("../../models/team/team");
 var GameStats = require("../../models/team/game_stats");
-var Player = require("../../models/players/_default");
-var Goalie = require("../../models/players/_goalie");
+var Player = require("../../models/players/main");
+
 var callback = function (err) {if (err) {console.log('error: ', err)}};
 var win;
 var loss;
@@ -46,7 +46,7 @@ function storeGameStats(stats, response){
 
 function storePlayerGameStats(s){
   var query = {'team.name': s.team_name, 'team.jersey_number': s.jersey_number};
-  var update = {$push: {game_stats: {season: s.season, team_name: s.team_name,
+  var update = {$push: {"stats.player.game_stats": {season: s.season, team_name: s.team_name,
                    opponent: s.opponent, date: s.date, home_game: Boolean(s.home_game),
                    result: s.result, G: s.G, A: s.A, P: s.P, PM: s.PM,
                    PIM: s.PIM, GWG: s.GWG, PPG: s.PPG, SHG: s.SHG, OTG: s.OTG}}};
@@ -59,8 +59,8 @@ function updatePlayerSeasonStats(s){
   if (s.result === 'win') win = 1;
   if (s.result === 'tie') tie = 1;
   if (s.result === 'loss') loss = 1;
-  console.log('updatePlayerSeasonStats ', s, ' ', s.team_name);
-  var query = {'season_stats.season': s.season, 'team.name': s.team_name,
+  
+  var query = {'stats.player.season_stats.season': s.season, 'team.name': s.team_name,
                'team.jersey_number': s.jersey_number};
 
   Player.find(query, function(err, res){
@@ -70,21 +70,21 @@ function updatePlayerSeasonStats(s){
       }
       if (res.length === 0){
           query = {'team.name': s.team_name, 'team.jersey_number': s.jersey_number};
-          update = {$push: {season_stats: {season: s.season, team_name: s.team_name,
+          update = {$push: {"stats.player.season_stats": {season: s.season, team_name: s.team_name,
                     games_played: 1, G: s.G, A: s.A, P: s.P, PM: s.PM, PIM: s.PIM, GWG: s.GWG,
                     PPG: s.PPG, SHG: s.SHG, OTG: s.OTG, win: win, tie: tie, loss: loss}}}
           options = {setDefaultsOnInsert: true};
           Player.update(query, update, options, callback);
       } else {
-          query = {'season_stats.season': s.season, 'team.name': s.team_name,
+          query = {'stats.player.season_stats.season': s.season, 'team.name': s.team_name,
                    'team.jersey_number': s.jersey_number};
-          update = {$inc: {'season_stats.$.G': s.G, 'season_stats.$.A': s.A,
-                           'season_stats.$.P': s.P, 'season_stats.$.PM': s.PM,
-                           'season_stats.$.PIM': s.PIM, 'season_stats.$.GWG': s.GWG,
-                           'season_stats.$.PPG': s.PPG, 'season_stats.$.OTG': s.OTG,
-                           'season_stats.$.SHG': s.SHG, 'season_stats.$.win': win,
-                           'season_stats.$.tie': tie, 'season_stats.$.loss': loss,
-                           'season_stats.$.games_played': 1}};
+          update = {$inc: {'stats.player.season_stats.$.G': s.G, 'stats.player.season_stats.$.A': s.A,
+                           'stats.player.season_stats.$.P': s.P, 'stats.player.season_stats.$.PM': s.PM,
+                           'stats.player.season_stats.$.PIM': s.PIM, 'stats.player.season_stats.$.GWG': s.GWG,
+                           'stats.player.season_stats.$.PPG': s.PPG, 'stats.player.season_stats.$.OTG': s.OTG,
+                           'stats.player.season_stats.$.SHG': s.SHG, 'stats.player.season_stats.$.win': win,
+                           'stats.player.season_stats.$.tie': tie, 'stats.player.season_stats.$.loss': loss,
+                           'stats.player.season_stats.$.games_played': 1}};
           Player.update(query, update, callback);
       }
   });
@@ -96,13 +96,13 @@ function updatePlayerCareerStats(s){
   if (s.result === 'tie') tie = 1;
   if (s.result === 'loss') loss = 1;
   var query = {'team.name': s.team_name, 'team.jersey_number': s.jersey_number};
-  var update = {$inc: {'career_stats.G': s.G, 'career_stats.A': s.A,
-                       'career_stats.P': s.P, 'career_stats.PM': s.PM,
-                       'career_stats.PIM': s.PIM, 'career_stats.OTG': s.OTG,
-                       'career_stats.GWG': s.GWG, 'career_stats.PPG': s.PPG,
-                       'career_stats.games_played': 1, 'career_stats.SHG': s.SHG,
-                       'career_stats.win': win, 'career_stats.tie': tie,
-                       'career_stats.loss': loss}};
+  var update = {$inc: {'stats.player.career_stats.G': s.G, 'stats.player.career_stats.A': s.A,
+                       'stats.player.career_stats.P': s.P, 'stats.player.career_stats.PM': s.PM,
+                       'stats.player.career_stats.PIM': s.PIM, 'stats.player.career_stats.OTG': s.OTG,
+                       'stats.player.career_stats.GWG': s.GWG, 'stats.player.career_stats.PPG': s.PPG,
+                       'stats.player.career_stats.games_played': 1, 'stats.player.career_stats.SHG': s.SHG,
+                       'stats.player.career_stats.win': win, 'stats.player.career_stats.tie': tie,
+                       'stats.player.career_stats.loss': loss}};
   Player.update(query, update, callback);
 }
 
@@ -110,11 +110,11 @@ function storeGoalieGameStats(s){
   var gaa = (s.GA / s.MIN) * 45;
   var svPercent = s.SV / s.SA;
   var query = {'team.name': s.team_name, 'team.jersey_number': s.jersey_number};
-  var update = {$push: {game_stats: {season: s.season, team_name: s.team_name,
+  var update = {$push: {"stats.goalie.game_stats": {season: s.season, team_name: s.team_name,
                    opponent: s.opponent, date: s.date, home_game: Boolean(s.home_game),
                    result: s.result, MIN: s.MIN, SA: s.SA, SV: s.SV, GA: s.GA,
                    SVP: svPercent, GAA: gaa, SO: s.SO}}};
-  Goalie.update(query, update, callback);
+  Player.update(query, update, callback);
 }
 
 function updateGoalieSeasonStats(s){
@@ -124,30 +124,30 @@ function updateGoalieSeasonStats(s){
   if (s.result === 'tie') tie = 1;
   if (s.result === 'loss') loss = 1;
   console.log('updatePlayerSeasonStats ', s, ' ', s.team_name);
-  var query = {'season_stats.season': s.season, 'team.name': s.team_name,
+  var query = {'stats.goalie.season_stats.season': s.season, 'team.name': s.team_name,
                'team.jersey_number': s.jersey_number};
 
-  Goalie.find(query, function(err, res){
+  Player.find(query, function(err, res){
     if (err){
         console.log(err);
         return;
     }
     if (res.length === 0){
         query = {'team.name': s.team_name, 'team.jersey_number': s.jersey_number};
-        update = {$push: {season_stats: {season: s.season, team_name: s.team_name,
+        update = {$push: {"stats.goalie.season_stats": {season: s.season, team_name: s.team_name,
                   games_played: 1, MIN: s.MIN, SA: s.SA, SV: s.SV, GA: s.GA, SO: s.SO,
                   win: win, tie: tie, loss: loss}}}
         options = {setDefaultsOnInsert: true};
-        Goalie.update(query, update, options, callback);
+        Player.update(query, update, options, callback);
     } else {
-        query = {'season_stats.season': s.season, 'team.name': s.team_name,
+        query = {'stats.goalie.season_stats.season': s.season, 'team.name': s.team_name,
                  'team.jersey_number': s.jersey_number};
-        update = {$inc: {'season_stats.$.MIN': s.MIN, 'season_stats.$.SA': s.SA,
-                        'season_stats.$.SV': s.SV, 'season_stats.$.GA': s.GA,
-                        'season_stats.$.SO': s.SO, 'season_stats.$.win': win,
-                        'season_stats.$.tie': tie, 'season_stats.$.loss': loss,
-                        'season_stats.$.games_played': 1}};
-        Goalie.update(query, update, callback);
+        update = {$inc: {'stats.goalie.season_stats.$.MIN': s.MIN, 'stats.goalie.season_stats.$.SA': s.SA,
+                        'stats.goalie.season_stats.$.SV': s.SV, 'stats.goalie.season_stats.$.GA': s.GA,
+                        'stats.goalie.season_stats.$.SO': s.SO, 'stats.goalie.season_stats.$.win': win,
+                        'stats.goalie.season_stats.$.tie': tie, 'stats.goalie.season_stats.$.loss': loss,
+                        'stats.goalie.season_stats.$.games_played': 1}};
+        Player.update(query, update, callback);
     }
   });
 }
@@ -159,13 +159,13 @@ function updateGoalieCareerStats(s){
   if (s.result === 'loss') loss = 1;
   console.log('updateCareerStats ', s, ' ', s.team_name);
   var query = {'team.name': s.team_name, 'team.jersey_number': s.jersey_number};
-  var update = {$inc: {'career_stats.MIN': s.MIN, 'career_stats.SA': s.SA,
-                       'career_stats.SV': s.SV, 'career_stats.GA': s.GA,
-                       'career_stats.SO': s.SO,
-                       'career_stats.games_played': 1,
-                       'career_stats.win': win, 'career_stats.tie': tie,
-                       'career_stats.loss': loss}};
-  Goalie.update(query, update, callback);
+  var update = {$inc: {'stats.goalie.career_stats.MIN': s.MIN, 'stats.goalie.career_stats.SA': s.SA,
+                       'stats.goalie.career_stats.SV': s.SV, 'stats.goalie.career_stats.GA': s.GA,
+                       'stats.goalie.career_stats.SO': s.SO,
+                       'stats.goalie.career_stats.games_played': 1,
+                       'stats.goalie.career_stats.win': win, 'stats.goalie.career_stats.tie': tie,
+                       'stats.goalie.career_stats.loss': loss}};
+  Player.update(query, update, callback);
 }
 
 function storeTeamGameStats(s){

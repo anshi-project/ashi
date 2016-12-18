@@ -1,6 +1,7 @@
 var Team=require("../team/team");
 var Player=require("../players/main")
 
+var mongoose = require("mongoose")
 var _=require("lodash");
 
 
@@ -19,8 +20,8 @@ function formatPerson(doc,team,type){
         var website = info.website;
         var flag = position.indexOf("Goalie") == -1;//Player is not a goalie
         var teamName = team.name;
-        person.discriminator = flag? "_default":"_goalie"; 
-        person.model = "../players/" + person.discriminator;
+
+        person.model = "Player"
         person.type = "players"
 
         team = Object.assign({},{name:teamName, jersey_number, shooting_hand, position, league_team, tournament_team, website})
@@ -28,7 +29,7 @@ function formatPerson(doc,team,type){
         //move the relevant hockey_info data into the 'team' field for more convenient API 
     }else{
         person.type = "coaches";
-        person.model = "../staff/coach";
+        person.model = "Coach";
         //type === coach
     }
 
@@ -37,14 +38,14 @@ function formatPerson(doc,team,type){
 }
 
 exports.assignToTeam = function(id, team, type, callback){   
-    var Registration = require(`./_${type}Reg`); 
+    var Registration =  mongoose.model(`${type}-registration`)
     
     Registration.findById(id).exec((err,doc) => {
         if(err) return callback(err);
 
         var userData = formatPerson(doc.toObject(), team, type);
         
-        var User = require(userData.model)
+        var User = mongoose.model(userData.model)
      
         var user = new User(userData);
 
@@ -63,6 +64,8 @@ exports.assignToTeam = function(id, team, type, callback){
 }
 
 exports.findRegisteredPlayers = function(callback){
+    var Player = mongoose.model("Player");
+    var Team = mongoose.model("Team");
     this.find({__t:"player-registration"},"firstname __t fullname contact.email lastname hockey_info")
     .exec()
     .then(newPlayers=>{

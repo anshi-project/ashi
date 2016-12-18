@@ -5,6 +5,6 @@ export function getTeamData (err, teamData){
   $('.ashi-team-name').text(team.name);
   $('.' + location + '-team-name').html(location + ' team: ' + team.name );
   var playersArr = team.players
-  var goaliesArr = team.goalies;
-  displayAshiTeam(location, team, playersArr, goaliesArr);
+  
+  displayAshiTeam(location, team, playersArr);
 };

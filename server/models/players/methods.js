@@ -1,8 +1,8 @@
-var Team=require("../team/team")
 var _ = require("lodash");
+var mongoose = require("mongoose");
 
 exports.assign=function(id,team,callback){
-	
+	var Team = mongoose.model("team")	
 
 	this.findById(id,function(err,doc){
 		doc.team.name = team.name;
@@ -18,6 +18,7 @@ exports.assign=function(id,team,callback){
 }
 
 exports.renewMembership = function(query, body, callback){
+    var Team = mongoose.model("team")
     var teamName;
     var id;
     this.findOne(query)

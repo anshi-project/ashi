@@ -6,7 +6,7 @@ export function submitScorecard (){
     if (gameStats === 'error') {
       return;
     }
-    $.post('http://127.0.0.1:3000/scorecard', {stats: gameStats}, function(result){
+    $.post('/scorecard', {stats: gameStats}, function(result){
       if (result === 'Game not stored') toasts.notStoredInDb();
       if (result === 'Game stored') toasts.storedInDb();
     });

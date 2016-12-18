@@ -36,7 +36,7 @@ $(document).ready(function(){
         
         var defaultForm = serializedArr.reduce((a,b)=>{
            var prop = key + b.name;
-            if(b.name == "division"){
+            if(b.name == "division"||b.name == "team[position]"){
                 a[prop] = a[prop] || [];
                 a[prop].push(b.value)
             }else{
@@ -84,7 +84,7 @@ $(document).ready(function(){
                 $(".alert-info p").text(response)
                 $(".alert-info").fadeIn("slow");
             },
-            failure:function(error){
+            error:function(error){
                 toastr.error(error)
             }
         })

@@ -75,8 +75,8 @@ export function teamSelect (loc, teamName, edit, stats, blank){
     $('.' + location + '-team-name').html(location + ' team: ' + team.name );
     $('.ashi-team-name').text(team.name);
    var playersArr = team.players
-   var goaliesArr = team.goalies;
-   displayAshiTeam(location, team, playersArr, goaliesArr);
+   
+   displayAshiTeam(location, team, playersArr);
    if (edit) {
      fillOutScorecard('.' + ashiLoc + '-playersTable', stats.ashi_players);
      fillOutScorecard('.' + ashiLoc + '-goaliesTable', stats.ashi_goalies);
