@@ -28,12 +28,12 @@ $(function(){
 			type:"PUT",
 			url:"/admin/new/season?name="+teamName+q,
 		
-			success:data=>{
+			success:function(data){
 				swap()
 				toastr.success(data);
 			},
-			failure:data=>{
-				toastr.error(data)
+			error:function(data){
+				toastr.error(data.responseText)
 			}
 		})
 	})

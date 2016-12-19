@@ -127,11 +127,11 @@ $(function(){
 			url:"/admin/permissions/"+type,
 			type:"POST",
 			data:{email},
-			success: response=>{
+			success: function(response){
 				toastr.success(response)
 				$("input[type='email']").val("");
 			},
-			error: err => {
+			error:function(err){
 				toastr.error(err.responseText)
 			}
 		})

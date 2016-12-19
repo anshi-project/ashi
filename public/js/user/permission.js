@@ -54,7 +54,7 @@ $(function() {
                 row.fadeOut("slow")
                 toastr.success("User has been added to the staff")
             },
-            failure:function(){
+            error:function(){
                 row.hide()
                 toastr.error("Something went wrong");
             }
@@ -76,8 +76,8 @@ $(function() {
                 toastr.success(response)
                 row.hide()
             },
-            failure:function(err){
-                toastr.error(err);
+            error:function(err){
+                toastr.error(err.responseText);
             }
         })  
     }   
@@ -100,7 +100,7 @@ $(function() {
                 swap(currStatus,status);
                
             },
-            failure: function(){
+            error: function(){
                 toastr.error("Something went wrong")
             }
         })

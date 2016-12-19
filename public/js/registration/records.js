@@ -86,11 +86,7 @@ $(document).ready(function(){
                 $(".alert-info p").text(response)
                 $(".alert-info").fadeIn("slow");
             },
-<<<<<<< HEAD
-            failure:function(error){
-=======
             error:function(error){
->>>>>>> a46eaba833691a9b2e366223d738d5cdbdb01d77
                 toastr.error(error)
             }
         })

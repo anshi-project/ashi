@@ -48,8 +48,8 @@ $("#coach-modal .btn-primary, #player-modal .btn-primary").on("click",function(e
 			elem.hide();
 			toastr.success(person + " has been successfully added to the "+data.name+" roster." )
 		},
-		failure:(d)=> {
-			toastr.error(d)	
+		error:function(d){
+			toastr.error(d.responseText)	
 		}
 	})
 })
@@ -69,6 +69,9 @@ $(".btn-delete").on("click",function(){
 			success:(response)=>{
 				toastr.success(response)
 				elem.hide()
+			},
+			error:function(d){
+				toastr.error(d.responseText)	
 			}
 		})	
 	}	
@@ -84,8 +87,8 @@ $(".btn-delete2").on("click",function(){
 		$.ajax({
 			url,
 			type:"PUT",
-			success:(d)=>{
-				alert(d)
+			success:function(d){
+				toastr.success(d);
 				row.hide();
 			}
 		})	

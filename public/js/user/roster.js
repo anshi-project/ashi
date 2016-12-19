@@ -116,7 +116,7 @@ $(document).ready(function(){
 			type, 
 			data, 
 			success:updateCells,
-			failure:d=>{toastr.error(d)}
+			error:function(d){toastr.error(d.responseText)}
 		})
 	}
 
