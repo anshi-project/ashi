@@ -1,7 +1,7 @@
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
-var parse = require("saymyname")
+
 var Method = require("./methods");
 
 var nameSchema = require("../commonFields/name");

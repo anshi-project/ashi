@@ -68,12 +68,10 @@ exports.assignToTeam = function(id, team, type, callback){
 exports.findRegisteredPlayers = function(callback){
 
     var Player = mongoose.model("Player");
-    var Team = mongoose.model("Team");
-
-    this.find({__t:"player-registration"},"firstname __t fullname contact.email lastname hockey_info")
-    .exec()
+    
+    this.find({__t:"player-registration"},"firstname fullname contact.email lastname hockey_info")
     .then(newPlayers=>{
-        Player.find({status:"renewing membership"},"__t  fullname firstname contact.email lastname hockey_info team")
+        Player.find({status:"renewing membership"},"fullname firstname contact.email lastname hockey_info team")
         .exec(function(err,oldPlayers){
             if(err) throw err;
             var result=oldPlayers.concat(newPlayers)

@@ -60,17 +60,18 @@ function numArray(a,b,c){
 }
 
 function dateFormat(date){
-	if(!date) return;
+	var Months = require("./fields/enums").months
+	var DEFAULT = {year:1999, month:Months[2],day:13}
+	
+	if(!date || Date.parse(date) == NaN) return DEFAULT;
+	
 	date = new Date(date);
-    var Months = require("./fields/enums").months
+    
 	var i = date.getMonth();
-
 	var month = Months[i];
 	var year = date.getFullYear();
 	var day = date.getDate();
 	
-
-
 	return {year , day, month} 
 }
 

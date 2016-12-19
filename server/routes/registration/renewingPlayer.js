@@ -20,7 +20,7 @@ module.exports=function(app){
         var query={
             firstname,
             lastname,
-            status:"archived",
+            // status:"archived",
             "contact.email":email
         }
 

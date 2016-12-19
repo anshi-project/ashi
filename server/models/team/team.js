@@ -61,6 +61,7 @@ var teamSchema = new Schema({
 });
 
 
+
 teamSchema.statics.addToRoster = function(query, id, type){
     var update = {};
     update[type] = id;//ex.{players:id}

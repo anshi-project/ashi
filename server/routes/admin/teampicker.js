@@ -27,14 +27,15 @@ module.exports = function(app) {
                     }
                 })      
                 req.session.teamSeasons = (update + restore > 0)? docs : null;
-               
+                
                 next();
         })
     })//check if any teams can update/restore their current season
 
     app.get("/admin/assign/player", function(req, res, next) {
+    
         Registration.findRegisteredPlayers(function(err, player) {  
-            if(err) return next({status:503})
+            if(err) return next({status:503,msg:"Something went wrong within the database"})
 
             res.render("admin/teampicker/player", {
                 player,
@@ -43,6 +44,7 @@ module.exports = function(app) {
                 layout: "user",
                 userType:"admin"
             });
+
         })
     })
 

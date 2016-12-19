@@ -33,7 +33,7 @@ $("#coach-modal .btn-primary, #player-modal .btn-primary").on("click",function(e
 	var person = $("#player-modal .modal-title, #coach-modal .modal-title").text()
 	var url = $("form").attr("action")+id;
 	var $type = $(this).data().type;
-	var type = ($type=="Default"||$type=="Goalie")? "PUT" : "POST"  
+	var type = ($type== "returning player")? "PUT" : "POST"  
 
 	var breakAt = location.pathname.match("/admin/assign/player") ? "tbody" : ".row"; 
 	var elem = $("button[data-url='"+id+"']").parentsUntil(breakAt)
