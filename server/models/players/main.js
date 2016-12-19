@@ -71,13 +71,10 @@ var playerSchema = new Schema({
     type: String,
     default: "Active",
     enum: ["archived", "Active", "renewing membership"]
-<<<<<<< HEAD
-=======
   },
   stats:{
     player:playerStats,
     goalie:goalieStats
->>>>>>> a46eaba833691a9b2e366223d738d5cdbdb01d77
   }
 }, {
   timestamps: true
