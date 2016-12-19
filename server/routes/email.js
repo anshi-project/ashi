@@ -9,7 +9,7 @@ module.exports = function(app){
     	sendMessage(req.body, function(err,info){
     		if(err) return res.status(500).send("An error occured while sending your emails. Please try again");
 
-    		res.send("gfgdfgd")
+    		res.send("Your email was delivered")
     	});   
     })
 }

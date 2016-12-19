@@ -1,14 +1,7 @@
 var cors = require("cors");
-var whitelisted = process.env.origins.split(" ")
-var options;
+var whitelisted = process.env.origins.split(" ");
+var options = {origin: whitelisted};
 
-if(process.env.NODE_ENV !== "development"){
-	 options = {
-		origin:["http://codepen.io", "http://localhost:3000"]
-	}
-}else{
-	options = {origin: whitelisted}
-}
 
 
 

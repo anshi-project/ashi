@@ -1,7 +1,7 @@
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 var _ = require("lodash");
-var Players = require("../players/main")
+
 
 var TeamSeasonStatsSchema = new Schema({
             season:{type:Number},
@@ -156,7 +156,8 @@ teamSchema.statics.createNewSeason = function(name,next){
     var success = "A new season for this team has been created. You may restore the previous settings anytime within the next seven days";
     var timestamp = Date.now();
     var query = {"team.name":name,status:"Active"}
-    var Players = require("../players/main")
+    var Players = mongoose.model("Player")
+
 
     this.update({name}, {archive:{isArchived:true,timestamp}},{upsert:true})
         .then(()=>{ Players.update(query, {status:"archived", archivedAt:timestamp},{upsert:true,multi:true}).exec() })
@@ -167,7 +168,8 @@ teamSchema.statics.createNewSeason = function(name,next){
 teamSchema.statics.restore = function(name, next){
     var timestamp;
     var Team = this;
-    var Players = require("../players/main")
+    var Players = mongoose.model("Player")
+
 
     Team.findOne({name})
     .then((team)=>{

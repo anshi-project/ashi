@@ -1,3 +1,4 @@
+
 var teams = require("./teams")
 
 
@@ -51,3 +52,4 @@ var coach = {
 var gameResult = ['win', 'loss', 'tie'];
 
 module.exports = {teams, player, gameResult, coach, apparelSizes, states, heights, months}
+

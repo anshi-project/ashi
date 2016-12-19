@@ -4,7 +4,12 @@ var Schema = mongoose.Schema;
 var methods = require("./methods");
 
 var fields = require("../commonFields/index");
-var enums = require("../../locals/fields/enums")
+
+var enums = require("../../locals/fields/enums");
+
+var playerStats = require("./playerStatSchema");
+var goalieStats = require("./goalieStatSchema");
+
 
 var playerSchema = new Schema({
   firstname: fields.name,
@@ -66,6 +71,13 @@ var playerSchema = new Schema({
     type: String,
     default: "Active",
     enum: ["archived", "Active", "renewing membership"]
+<<<<<<< HEAD
+=======
+  },
+  stats:{
+    player:playerStats,
+    goalie:goalieStats
+>>>>>>> a46eaba833691a9b2e366223d738d5cdbdb01d77
   }
 }, {
   timestamps: true
