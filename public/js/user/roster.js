@@ -145,7 +145,7 @@ $(document).ready(function(){
 		})		
 	}
 	//initialize by inspection hash onload and updating team selected in the dropdown.
-	if(location.pathname.match("roster")) {
+	if(location.pathname.match("roster")|| location.pathname.match("gm/index")) {
 		render();
 	}
 	//if none selected - render first team listed in the dropdown
