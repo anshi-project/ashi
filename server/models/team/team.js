@@ -63,8 +63,7 @@ var teamSchema = new Schema({
 
 
 teamSchema.statics.addToRoster = function(query, id, type){
-    var update = {};
-    update[type] = id;//ex.{players:id}
+    var update = {[type]:id};
 
    this.update(query, {$push:update} ,{upsert:true,safe:true,multi:true}).exec()
     .then(() => {console.log("Updated player "+id)})  
@@ -74,8 +73,8 @@ teamSchema.statics.addToRoster = function(query, id, type){
 teamSchema.statics.swap = function(currTeam,newTeam,id,type){
     var Team = this;
     var options = {upsert:true,safe:true,multi:true}
-    var update = {};
-    update[type] = id;
+    var update = {[type]: id};
+    // update[type] = id;
     
     Promise.all([
         Team.update({name:currTeam}, {"$pull": update }, options).exec(),
