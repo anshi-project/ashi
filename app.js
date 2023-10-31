@@ -37,7 +37,7 @@ app.use(session({resave:false,
 				saveUninitialized:true,
 				secret:process.env.cookie_secret,
 				store:new MongoStore({mongooseConnection:mongoose.connection})
-	})
+	});
 );
 
 app.engine('handlebars', hbs.engine);
